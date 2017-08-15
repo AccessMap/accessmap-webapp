@@ -1,0 +1,38 @@
+@import '~react-md/src/scss/react-md';
+@include react-md-toolbars;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.map-container {
+  @media #{$md-mobile-media} {
+    top: $md-toolbar-mobile-portrait-height;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    top: $md-toolbar-mobile-landscape-height;
+  }
+
+  @media #{$md-tablet-media} {
+    top: $md-toolbar-tablet-height;
+  }
+  bottom: 0;
+  width: 100%;
+  z-index: 0;
+  touch-action: none;
+  position: absolute;
+}
+
+.md-title {
+  display: flex;
+  align-items: center;
+}
+
+.accessmap-icon {
+  margin: 0 auto;
+  display: block;
+}

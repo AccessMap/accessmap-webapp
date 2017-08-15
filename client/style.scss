@@ -1,0 +1,16 @@
+@import '~react-md/src/scss/react-md';
+
+$md-primary-color: $md-indigo-600;
+$md-secondary-color: $md-lime-a-700;
+
+@include react-md-everything;
+
+.md-btn--floating {
+  color: white;
+  background-color: $md-primary-color;
+};
+
+.md-btn--floating:hover {
+  color: $md-primary-color;
+  background-color: white;
+}
