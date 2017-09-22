@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 
 import thunkMiddleware from 'redux-thunk';
+import analytics from 'analytics';
 
 import rootReducer from 'reducers';
 
@@ -11,6 +12,7 @@ middlewares.push(thunkMiddleware);
 if (process.env.NODE_ENV === 'development') {
   const { logger } = require('redux-logger');
   middlewares.push(logger);
+  middlewares.push(analytics);
 }
 /* eslint-enable global-require */
 
