@@ -15,7 +15,11 @@ const analytics = store => next => action => {
   if (action.type in eventsMap) {
     const eventFunction = eventsMap[action.type];
     const meta = eventFunction(action);
-    rakam.logEvent(meta.eventAction, meta.payload);
+    if (meta.payload !== undefined) {
+      rakam.logEvent(meta.eventAction, meta.payload);
+    } else {
+      rakam.logEvent(meta.eventAction);
+    }
     next(action);
   }
 };

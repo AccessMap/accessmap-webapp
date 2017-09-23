@@ -21,6 +21,7 @@ export const REQUEST_GEOLOCATION = 'REQUEST_GEOLOCATION';
 export const RECEIVE_GEOLOCATION = 'RECEIVE_GEOLOCATION';
 export const NO_GEOLOCATION = 'NO_GEOLOCATION';
 
+// TODO: simplify by having reducer check SET_VIEW?
 export const SET_CENTER = 'SET_CENTER';
 export const SET_ZOOM = 'SET_ZOOM';
 export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
@@ -270,6 +271,7 @@ export function mapMove(center, zoom, bounds) {
   };
 }
 
+// TODO: include centerpoint? Gotta know where to show popups!
 export function mapClick(features) {
   return {
     type: MAP_CLICK,
