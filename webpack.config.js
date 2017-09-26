@@ -112,7 +112,10 @@ module.exports = function (env) {
       modules: [
         path.resolve(__dirname, 'node_modules'),
         sourcePath
-      ]
+      ],
+      alias: {
+        'rakam-js$': 'rakam-js/rakam.js',
+      }
     },
 
     plugins,

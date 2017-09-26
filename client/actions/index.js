@@ -267,6 +267,16 @@ export function mapMove(center, zoom, bounds) {
       center,
       zoom,
       bounds
+    },
+    meta: {
+      analytics: {
+        type: 'map-move',
+        payload: {
+          center,
+          zoom,
+          bounds
+        }
+      }
     }
   };
 }
