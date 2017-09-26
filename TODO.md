@@ -43,3 +43,11 @@ use any backend).
 ## interrupted by a re-render
 
 ## Make route outline thicker / perfectly outline sidewalks. Make it blue?
+
+## Analytics simplification
+
+- Remove frequent 'log_bounds' actions, replace with initial bounds and only
+send action when window is resized (?)
+
+- Convert 'toggle'-style actions to direct message, e.g. instead of curb ramps
+toggle, explicitly state outcome: avoid-curb-ramps with payload true or false.

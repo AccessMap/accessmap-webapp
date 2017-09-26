@@ -33,14 +33,24 @@ export const MAP_CLICK = 'MAP_CLICK';
 export function tripPlanningOn(poi) {
   return {
     type: TRIP_PLANNING_ON,
-    payload: poi
+    payload: poi,
+    meta: {
+      analytics: {
+        type: 'trip-planning-on',
+      }
+    }
   };
 }
 
 export function tripPlanningOff(destination) {
   return {
     type: TRIP_PLANNING_OFF,
-    payload: destination
+    payload: destination,
+    meta: {
+      analytics: {
+        type: 'trip-planning-off',
+      }
+    }
   };
 }
 
@@ -51,6 +61,16 @@ export function requestRoute(origin, destination, params) {
       origin,
       destination,
       params
+    },
+    meta: {
+      analytics: {
+        type: 'request-route',
+        payload: {
+          origin,
+          destination,
+          params
+        }
+      }
     }
   };
 }
@@ -58,7 +78,15 @@ export function requestRoute(origin, destination, params) {
 export function receiveRoute(routeResult) {
   return {
     type: RECEIVE_ROUTE,
-    payload: routeResult
+    payload: routeResult,
+    meta: {
+      analytics: {
+        type: 'receive-route',
+        payload: {
+          routeResult
+        }
+      }
+    }
   };
 }
 
@@ -69,6 +97,16 @@ export function failedRoute(origin, destination, error) {
       origin,
       destination,
       error
+    },
+    meta: {
+      analytics: {
+        type: 'failed-route',
+        payload: {
+          origin,
+          destination,
+          error
+        }
+      }
     }
   };
 }
@@ -140,7 +178,12 @@ function routeIfValid(dispatch, getState) {
 export function toggleCurbRamps() {
   return (dispatch, getState) => {
     dispatch({
-      type: TOGGLE_CURBRAMPS
+      type: TOGGLE_CURBRAMPS,
+      meta: {
+        analytics: {
+          type: 'set-incline-max',
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -150,7 +193,15 @@ export function setInclineMax(value) {
   return (dispatch, getState) => {
     dispatch({
       type: SET_INCLINE_MAX,
-      payload: value
+      payload: value,
+      meta: {
+        analytics: {
+          type: 'set-incline-max',
+          payload: {
+            value
+          }
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -160,7 +211,15 @@ export function setInclineMin(value) {
   return (dispatch, getState) => {
     dispatch({
       type: SET_INCLINE_MIN,
-      payload: value
+      payload: value,
+      meta: {
+        analytics: {
+          type: 'set-incline-min',
+          payload: {
+            value
+          }
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -170,7 +229,15 @@ export function setInclineIdeal(value) {
   return (dispatch, getState) => {
     dispatch({
       type: SET_INCLINE_IDEAL,
-      payload: value
+      payload: value,
+      meta: {
+        analytics: {
+          type: 'set-incline-ideal',
+          payload: {
+            value
+          }
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -180,7 +247,15 @@ export function setOrigin(origin) {
   return (dispatch, getState) => {
     dispatch({
       type: SET_ORIGIN,
-      payload: origin
+      payload: origin,
+      meta: {
+        analytics: {
+          type: 'set-origin',
+          payload: {
+            origin
+          }
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -190,7 +265,15 @@ export function setDestination(destination) {
   return (dispatch, getState) => {
     dispatch({
       type: SET_DESTINATION,
-      payload: destination
+      payload: destination,
+      meta: {
+        analytics: {
+          type: 'set-destination',
+          payload: {
+            destination
+          }
+        }
+      }
     });
     routeIfValid(dispatch, getState);
   };
@@ -199,14 +282,30 @@ export function setDestination(destination) {
 export function setPOI(poi) {
   return {
     type: SET_POI,
-    payload: poi
+    payload: poi,
+    meta: {
+      analytics: {
+        type: 'set-poi',
+        payload: {
+          poi
+        }
+      }
+    }
   };
 }
 
 export function logBounds(bounds) {
   return {
     type: LOG_BOUNDS,
-    payload: bounds
+    payload: bounds,
+    meta: {
+      analytics: {
+        type: 'log-bounds',
+        payload: {
+          bounds
+        }
+      }
+    }
   };
 }
 
@@ -227,6 +326,15 @@ export function swapWaypoints(origin, destination) {
       payload: {
         origin,
         destination
+      },
+      meta: {
+        analytics: {
+          type: 'swap-waypoints',
+          payload: {
+            origin,
+            destination
+          }
+        }
       }
     });
     routeIfValid(dispatch, getState);
