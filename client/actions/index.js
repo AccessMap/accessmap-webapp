@@ -29,6 +29,8 @@ export const MAP_MOVE = 'MAP_MOVE';
 
 export const MAP_CLICK = 'MAP_CLICK';
 
+export const SET_TRACKING = 'SET_TRACKING';
+
 // Action creators
 export function tripPlanningOn(poi) {
   return {
@@ -424,6 +426,21 @@ export function toggleGeolocation() {
     } else {
       // Fail
       dispatch({ type: 'NO_GEOLOCATION' });
+    }
+  };
+}
+
+export function setTracking(value) {
+  return {
+    type: SET_TRACKING,
+    payload: value,
+    meta: {
+      analytics: {
+        type: 'set-tracking',
+        payload: {
+          value
+        }
+      }
     }
   };
 }

@@ -24,7 +24,9 @@ if (process.env.NODE_ENV === 'development') {
   });
 
   const analyticsMiddleware = analytics(({ type, payload }, state) => {
-    rakam.logEvent(type, { ...state.analytics, ...payload });
+    if (state.userSettings.track || process.env.NODE_ENV === 'development') {
+      rakam.logEvent(type, { ...state.analytics, ...payload });
+    }
   });
 
   middlewares.push(logger);
