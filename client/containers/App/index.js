@@ -536,12 +536,13 @@ class App extends Component {
             }}
             onStyleLoad={(m) => {
               const bounds = m.getBounds().toArray();
-              actions.logBounds([
+              const bbox = [
                 bounds[0][0],
                 bounds[0][1],
                 bounds[1][0],
                 bounds[1][1]
-              ]);
+              ];
+              actions.logBounds(bbox);
             }}
           />
           <div

@@ -1,2 +1,6 @@
 export MAPBOX_TOKEN=
 export MAPZEN_TOKEN=
+export TILESERVER=
+export APISERVER=
+export ANALYTICSSERVER=
+export ANALYTICS_KEY=

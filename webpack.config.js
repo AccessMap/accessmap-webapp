@@ -20,6 +20,8 @@ module.exports = function (env) {
       MAPZEN_TOKEN: 'MAPZEN_TOKEN',
       TILESERVER: 'TILESERVER',
       APISERVER: 'APISERVER',
+      ANALYTICS_KEY: 'ANALYTICS_KEY',
+      ANALYTICS_SERVER: 'ANALYTICS_SERVER'
     }),
     new webpack.NamedModulesPlugin(),
   ];
@@ -110,7 +112,10 @@ module.exports = function (env) {
       modules: [
         path.resolve(__dirname, 'node_modules'),
         sourcePath
-      ]
+      ],
+      alias: {
+        'rakam-js$': 'rakam-js/rakam.js',
+      }
     },
 
     plugins,
@@ -161,6 +166,12 @@ module.exports = function (env) {
           changeOrigin: true,
           pathRewrite: { '^/tiles': '' }
         },
+        '/analytics': {
+          target: process.env.ANALYTICSSERVER,
+          seucre: false,
+          changeOrigin: true,
+          pathReWrite: { '^/analytics': '' }
+        }
       }
     }
   };
