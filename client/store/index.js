@@ -16,7 +16,8 @@ if (process.env.NODE_ENV === 'development') {
   // Rakam analytics support - using npm package appears to be uncommon, but
   // is nice for consistency and bundling
   rakam.init(`${process.env.ANALYTICS_KEY}`, null, {
-    apiEndpoint:`${process.env.ANALYTICS_SERVER}`,
+    // Root URL + /analytics
+    apiEndpoint: window.location.protocol + '://' + window.location.host + '/analytics',
     includeUtm: true,
     trackClicks: true,
     trackForms: true,
