@@ -183,7 +183,7 @@ export function toggleCurbRamps() {
       type: TOGGLE_CURBRAMPS,
       meta: {
         analytics: {
-          type: 'set-incline-max',
+          type: 'toggle-curbramps',
         }
       }
     });

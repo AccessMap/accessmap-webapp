@@ -13,7 +13,6 @@ import {
   SET_INCLINE_MIN,
   TOGGLE_CURBRAMPS
 } from 'actions';
-
 import { defaultTripPlanning as defaults } from './defaults';
 
 const handlePlanningTrip = (state = defaults.planningTrip, action) => {
@@ -71,7 +70,7 @@ const handleInclineMin = (state = defaults.inclineMin, action) => {
 const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
   switch (action.type) {
     case TOGGLE_CURBRAMPS:
-      return !state.requireCurbRamps;
+      return !state;
     default:
       return state;
   }
