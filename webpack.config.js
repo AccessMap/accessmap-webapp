@@ -169,11 +169,11 @@ module.exports = function (env) {
           pathRewrite: { '^/tiles': '' }
         },
         '/analytics': {
-          target: process.env.ANALYTICSSERVER,
-          seucre: false,
+          target: process.env.ANALYTICS_SERVER,
+          secure: false,
           changeOrigin: true,
-          pathReWrite: { '^/analytics': '' }
-        }
+          pathRewrite: { '^/analytics': '' }
+        },
       }
     }
   };

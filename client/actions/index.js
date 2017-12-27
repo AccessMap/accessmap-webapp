@@ -396,13 +396,26 @@ export function mapMove(center, zoom, bounds) {
 export function mapClick(features) {
   return {
     type: MAP_CLICK,
-    payload: features
+    payload: features,
+    meta: {
+      analytics: {
+        type: 'map-click',
+        payload: {
+          features
+        }
+      }
+    }
   };
 }
 
 export function clearSelectedFeatures() {
   return {
-    type: CLEAR_SELECTED_FEATURES
+    type: CLEAR_SELECTED_FEATURES,
+    meta: {
+      analytics: {
+        type: 'clear-selected-features'
+      }
+    }
   };
 }
 
