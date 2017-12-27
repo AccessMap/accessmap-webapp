@@ -1,37 +1,41 @@
 import { combineReducers } from 'redux';
 
 import {
-  MAP_CLICK
+  MAP_CLICK,
+  CLEAR_SELECTED_FEATURES,
 } from 'actions';
 
 import { defaultMap } from './defaults';
 
-function handleMapClick(state = defaultMap, action) {
+function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
   switch (action.type) {
     case MAP_CLICK: {
       const feature = action.payload[0];
       switch (feature && feature.layer.id) {
         case 'sidewalk':
           return {
-            layer: 'Sidewalk',
-            info: {
+            layer: 'sidewalk',
+            properties: {
               grade: {
-                description: 'Steepness',
-                value: `${Math.abs(feature.properties.grade) * 100} %`
+                name: 'Steepness',
+                value: `${(Math.abs(feature.properties.grade) * 100).toFixed(1)} %`
               }
-            }
+            },
           };
         case 'crossing-ramps':
           return {
-            layer: 'Street crossing with curb ramps',
+            layer: 'crossing-ramps',
           };
         case 'crossing-noramps':
           return {
-            layer: 'Street crossing without curb ramps',
+            layer: 'crossing-noramps',
           };
         default:
           return null;
       }
+    }
+    case CLEAR_SELECTED_FEATURES: {
+      return null
     }
     default:
       return state;
@@ -39,5 +43,5 @@ function handleMapClick(state = defaultMap, action) {
 }
 
 export default combineReducers({
-  popup: handleMapClick
+  selectedFeature: handleSelectedFeature
 });

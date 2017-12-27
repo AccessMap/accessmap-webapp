@@ -21,7 +21,7 @@ export const defaultView = {
 };
 
 export const defaultMap = {
-  popup: null
+  selectedFeature: null
 };
 
 export const defaultGeolocation = {

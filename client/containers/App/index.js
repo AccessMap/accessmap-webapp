@@ -22,9 +22,13 @@ import AccessMapIcon from 'components/AccessMapIcon';
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
 import PreferenceCard from 'components/PreferenceCard';
+import FeatureCard from 'components/FeatureCard';
 
 import * as AppActions from 'actions';
 import './style.scss';
+
+
+const CLICKABLE_LAYERS = ['sidewalk', 'crossing-ramps', 'crossing-noramps'];
 
 
 class App extends Component {
@@ -142,7 +146,8 @@ class App extends Component {
       inclineMin,
       inclineIdeal,
       requireCurbRamps,
-      center
+      center,
+      selectedFeature,
     } = this.props;
 
     let rightNav;
@@ -260,6 +265,37 @@ class App extends Component {
         >
           {preferences}
         </PreferenceCard>
+      );
+    }
+
+    let selectedFeatureCard;
+    if (selectedFeature) {
+      let featureTitle;
+      let featureProperties;
+
+      if (selectedFeature.layer === 'sidewalk') {
+        featureTitle = 'Sidewalk';
+        featureProperties = [selectedFeature.properties.grade];
+      } else if (selectedFeature.layer === 'crossing-ramps') {
+        featureTitle = 'Street Crossing';
+        featureProperties=[{
+            name: 'Curb ramps',
+            value: 'Yes'
+        }];
+      } else if (selectedFeature.layer === 'crossing-noramps') {
+        featureTitle = 'Street Crossing';
+        featureProperties=[{
+            name: 'Curb ramps',
+            value: 'No'
+        }];
+      }
+
+      selectedFeatureCard = (
+        <FeatureCard
+          title={featureTitle}
+          featureProperties={featureProperties}
+          onClickClose={() => actions.clearSelectedFeatures()}
+        />
       );
     }
 
@@ -528,9 +564,15 @@ class App extends Component {
                 contextCenter: [lng, lat]
               });
             }}
+            onMouseMove={(m, e) => {
+              const features = m.queryRenderedFeatures(e.point, {
+                layers: CLICKABLE_LAYERS
+              });
+              m.getCanvas().style.cursor = features.length ? 'pointer': '';
+            }}
             onClick={(m, e) => {
               const features = m.queryRenderedFeatures(e.point, {
-                layers: ['sidewalk', 'crossing-ramps', 'crossing-noramps']
+                layers: CLICKABLE_LAYERS
               });
               actions.mapClick(features);
             }}
@@ -574,6 +616,7 @@ class App extends Component {
           </div>
         </div>
         {preferenceCard}
+        {selectedFeatureCard}
       </div>
     );
   }
@@ -611,7 +654,14 @@ App.propTypes = {
   inclineMin: PropTypes.number.isRequired,
   inclineIdeal: PropTypes.number.isRequired,
   requireCurbRamps: PropTypes.bool.isRequired,
-  center: PropTypes.arrayOf(PropTypes.number)
+  center: PropTypes.arrayOf(PropTypes.number),
+  selectedFeature: PropTypes.shape({
+    type: PropTypes.string,
+    info: PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.string
+    }),
+  })
 };
 
 App.defaultProps = {
@@ -622,11 +672,13 @@ App.defaultProps = {
   inclineMin: -0.0833,
   inclineIdeal: -0.01,
   requireCurbRamps: true,
-  center: [-122.333592, 47.605628]
+  center: [-122.333592, 47.605628],
+  selectedFeature: null,
 };
 
 function mapStateToProps(state) {
   const {
+    map,
     tripplanning,
     waypoints,
     view
@@ -641,7 +693,8 @@ function mapStateToProps(state) {
     inclineMin: tripplanning.inclineMin,
     inclineIdeal: tripplanning.inclineIdeal,
     requireCurbRamps: tripplanning.requireCurbRamps,
-    center: view.center
+    center: view.center,
+    selectedFeature: map.selectedFeature,
   };
 }
 

@@ -423,7 +423,7 @@ AccessMap.propTypes = {
   }),
   routeResult: routeProp,
   center: PropTypes.arrayOf(PropTypes.number),
-  zoom: PropTypes.number
+  zoom: PropTypes.number,
 };
 
 AccessMap.defaultProps = {
@@ -439,7 +439,7 @@ AccessMap.defaultProps = {
   geolocation: { coordinates: null, accuracy: null, status: 'none' },
   routeResult: null,
   center: [-122.333592, 47.605628],
-  zoom: 15
+  zoom: 15,
 };
 
 function mapStateToProps(state) {
@@ -462,7 +462,7 @@ function mapStateToProps(state) {
     poi: waypoints.poi,
     geolocation,
     center: view.center,
-    zoom: view.zoom
+    zoom: view.zoom,
   };
 }
 

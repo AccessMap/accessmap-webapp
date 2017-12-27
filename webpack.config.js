@@ -107,11 +107,13 @@ module.exports = function (env) {
         }
       ],
     },
+
     resolve: {
       extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
       modules: [
+        sourcePath,
+        'node_modules',
         path.resolve(__dirname, 'node_modules'),
-        sourcePath
       ],
       alias: {
         'rakam-js$': 'rakam-js/rakam.js',

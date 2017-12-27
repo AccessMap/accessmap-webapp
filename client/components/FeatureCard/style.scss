@@ -1,0 +1,34 @@
+@import '~react-md/src/scss/react-md';
+
+.feature-card-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.slideup-enter > *,
+.slideup-appear > * {
+  transform: translateY(100%);
+}
+
+.slideup-enter.slideup-enter-active > *,
+.slideup-appear.slideup-appear-active > * {
+  transition-duration: $md-drawer-transition-time;
+  transition-property: transform;
+  transform: translateY(0);
+}
+
+.slideup-exit > * {
+  transition-duration: $md-drawer-transition-time;
+  transition-property: transform;
+  transform: translateY(0);
+}
+
+.slideup-exit.slideup-exit-active > * {
+  transition-duration: $md-drawer-transition-time;
+  transition-property: transform;
+  transform: translateY(100%);
+}

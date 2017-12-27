@@ -28,6 +28,7 @@ export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
 export const MAP_MOVE = 'MAP_MOVE';
 
 export const MAP_CLICK = 'MAP_CLICK';
+export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
 
 export const SET_TRACKING = 'SET_TRACKING';
 
@@ -396,6 +397,12 @@ export function mapClick(features) {
   return {
     type: MAP_CLICK,
     payload: features
+  };
+}
+
+export function clearSelectedFeatures() {
+  return {
+    type: CLEAR_SELECTED_FEATURES
   };
 }
 
