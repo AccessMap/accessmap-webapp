@@ -568,7 +568,10 @@ class App extends Component {
               const features = m.queryRenderedFeatures(e.point, {
                 layers: CLICKABLE_LAYERS
               });
-              m.getCanvas().style.cursor = features.length ? 'pointer': '';
+              m.getCanvas().style.cursor = features.length ? 'pointer': 'default';
+            }}
+            onDrag={(m, e) => {
+              m.getCanvas().style.cursor = 'grabbing';
             }}
             onClick={(m, e) => {
               const features = m.queryRenderedFeatures(e.point, {
