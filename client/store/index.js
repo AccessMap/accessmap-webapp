@@ -12,10 +12,19 @@ middlewares.push(thunkMiddleware);
 /* eslint-disable global-require */
 if (process.env.NODE_ENV === 'development') {
   const { logger } = require('redux-logger');
+  middlewares.push(logger);
+}
 
-  // Rakam analytics support - using npm package appears to be uncommon, but
-  // is nice for consistency and bundling
-  // Root URL + /analytics
+//
+// Rakam analytics support - using npm package appears to be uncommon, but
+// is nice for consistency and bundling
+//
+// TODO: get user settings to set this on production server. Override is just
+// for doing one-off user testing studies (NOT main site).
+
+// Root URL + /analytics
+const useAnalytics = process.env.FORCE_ANALYTICS === 'yes' ? true : false;
+if (useAnalytics) {
   const analyticsURL = '//' + window.location.host + '/analytics';
   const analyticsWriteKey = process.env.ANALYTICS_KEY;
   rakam.init(analyticsWriteKey, null, {
@@ -27,16 +36,12 @@ if (process.env.NODE_ENV === 'development') {
   });
 
   const analyticsMiddleware = analytics(({ type, payload }, state) => {
-    if (state.userSettings.track || process.env.NODE_ENV === 'development') {
-      rakam.logEvent(type, { ...state.analytics, ...payload });
-    }
+    rakam.logEvent(type, { ...state.analytics, ...payload });
   });
 
-  middlewares.push(logger);
   middlewares.push(analyticsMiddleware);
-}
-/* eslint-enable global-require */
 
+}
 
 const store = createStore(
   rootReducer,

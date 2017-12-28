@@ -21,7 +21,8 @@ module.exports = function (env) {
       TILESERVER: 'TILESERVER',
       APISERVER: 'APISERVER',
       ANALYTICS_KEY: 'ANALYTICS_KEY',
-      ANALYTICS_SERVER: 'ANALYTICS_SERVER'
+      ANALYTICS_SERVER: 'ANALYTICS_SERVER',
+      FORCE_ANALYTICS: 'FORCE_ANALYTICS',
     }),
     new webpack.NamedModulesPlugin(),
   ];
@@ -34,6 +35,7 @@ module.exports = function (env) {
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
+          drop_console: true,
           warnings: false,
           screw_ie8: true,
           conditionals: true,

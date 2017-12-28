@@ -27,7 +27,3 @@ export const defaultMap = {
 export const defaultGeolocation = {
   geolocation: null,
 };
-
-export const defaultUserSettings = {
-  track: false
-};
