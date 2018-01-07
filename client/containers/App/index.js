@@ -275,7 +275,7 @@ class App extends Component {
 
       if (selectedFeature.layer === 'sidewalk') {
         featureTitle = 'Sidewalk';
-        featureProperties = [selectedFeature.properties.grade];
+        featureProperties = [selectedFeature.properties.incline];
       } else if (selectedFeature.layer === 'crossing-ramps') {
         featureTitle = 'Street Crossing';
         featureProperties=[{

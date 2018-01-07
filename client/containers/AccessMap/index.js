@@ -258,7 +258,7 @@ class AccessMap extends Component {
           type='line'
           sourceId='pedestrian'
           sourceLayer='crossings'
-          filter={['!', ['boolean', ['get', 'curbramps']]]}
+          filter={['!', ['to-boolean', ['get', 'curbramps']]]}
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
@@ -277,7 +277,7 @@ class AccessMap extends Component {
           type='line'
           sourceId='pedestrian'
           sourceLayer='crossings'
-          filter={['boolean', ['get', 'curbramps']]}
+          filter={['to-boolean', ['get', 'curbramps']]}
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
@@ -322,7 +322,7 @@ class AccessMap extends Component {
             'line-color': [
               'interpolate',
               ['linear'],
-              ['number', ['get', 'grade']],
+              ['to-number', ['get', 'incline']],
               ...inclineStops
             ],
             'line-width': {

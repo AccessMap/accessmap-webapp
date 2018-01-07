@@ -16,9 +16,9 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
           return {
             layer: 'sidewalk',
             properties: {
-              grade: {
-                name: 'Steepness',
-                value: `${(Math.abs(feature.properties.grade) * 100).toFixed(1)} %`
+              incline: {
+                name: 'Incline',
+                value: `${(Math.abs(feature.properties.incline) * 100).toFixed(1)} %`
               }
             },
           };
