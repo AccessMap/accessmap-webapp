@@ -28,7 +28,9 @@ const PEDESTRIAN_SOURCE = {
 };
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.MAPBOX_TOKEN
+  accessToken: process.env.MAPBOX_TOKEN,
+  dragRotate: false,
+  touchZoomRotate: false,
 });
 
 class AccessMap extends Component {
