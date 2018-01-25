@@ -21,7 +21,8 @@ module.exports = function (env) {
       TILESERVER: 'TILESERVER',
       APISERVER: 'APISERVER',
       ANALYTICS_KEY: 'ANALYTICS_KEY',
-      ANALYTICS_SERVER: 'ANALYTICS_SERVER'
+      ANALYTICS_SERVER: 'ANALYTICS_SERVER',
+      FORCE_ANALYTICS: 'FORCE_ANALYTICS',
     }),
     new webpack.NamedModulesPlugin(),
   ];
@@ -34,6 +35,7 @@ module.exports = function (env) {
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
+          drop_console: true,
           warnings: false,
           screw_ie8: true,
           conditionals: true,
@@ -107,11 +109,13 @@ module.exports = function (env) {
         }
       ],
     },
+
     resolve: {
       extensions: ['.webpack-loader.js', '.web-loader.js', '.loader.js', '.js', '.jsx'],
       modules: [
+        sourcePath,
+        'node_modules',
         path.resolve(__dirname, 'node_modules'),
-        sourcePath
       ],
       alias: {
         'rakam-js$': 'rakam-js/rakam.js',
@@ -167,11 +171,11 @@ module.exports = function (env) {
           pathRewrite: { '^/tiles': '' }
         },
         '/analytics': {
-          target: process.env.ANALYTICSSERVER,
-          seucre: false,
+          target: process.env.ANALYTICS_SERVER,
+          secure: false,
           changeOrigin: true,
-          pathReWrite: { '^/analytics': '' }
-        }
+          pathRewrite: { '^/analytics': '' }
+        },
       }
     }
   };

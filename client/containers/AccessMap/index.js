@@ -28,7 +28,9 @@ const PEDESTRIAN_SOURCE = {
 };
 
 const Map = ReactMapboxGl({
-  accessToken: process.env.MAPBOX_TOKEN
+  accessToken: process.env.MAPBOX_TOKEN,
+  dragRotate: false,
+  touchZoomRotate: false,
 });
 
 class AccessMap extends Component {
@@ -89,11 +91,11 @@ class AccessMap extends Component {
       const b = inclineIdeal - (m * midUp);
 
       inclineStops = [
-        [-maxUp, colorScale(1).hex()],
-        [-midUp, colorScale(midColor).hex()],
-        [0, colorScale(b).hex()],
-        [midUp, colorScale(midColor).hex()],
-        [maxUp, colorScale(1).hex()]
+        -maxUp, colorScale(1).hex(),
+        -midUp, colorScale(midColor).hex(),
+        0, colorScale(b).hex(),
+        midUp, colorScale(midColor).hex(),
+        maxUp, colorScale(1).hex()
       ];
     } else if (mode === 'downhill') {
       // Find the incline=0 intercept (find cost at that point). Linear func.
@@ -102,13 +104,13 @@ class AccessMap extends Component {
       const b = inclineIdeal - (m * midDown);
 
       inclineStops = [
-        [maxDown, colorScale(1).hex()],
-        [midDown, colorScale(midColor).hex()],
-        [inclineIdeal, colorScale(0).hex()],
-        [0, colorScale(b).hex()],
-        [-inclineIdeal, colorScale(0).hex()],
-        [-midDown, colorScale(midColor).hex()],
-        [-maxDown, colorScale(1).hex()]
+        maxDown, colorScale(1).hex(),
+        midDown, colorScale(midColor).hex(),
+        inclineIdeal, colorScale(0).hex(),
+        0, colorScale(b).hex(),
+        -inclineIdeal, colorScale(0).hex(),
+        -midDown, colorScale(midColor).hex(),
+        -maxDown, colorScale(1).hex()
       ];
     }
 
@@ -251,16 +253,14 @@ class AccessMap extends Component {
         {...props}
       >
 
-        <Source id={'pedestrian'} tileJsonSource={PEDESTRIAN_SOURCE} />
+        <Source id='pedestrian' tileJsonSource={PEDESTRIAN_SOURCE} />
 
         <Layer
-          id={'crossing-noramps'}
-          type={'line'}
-          sourceId={'pedestrian'}
-          layerOptions={{
-            'source-layer': 'crossings',
-            filter: ['!=', 'curbramps', true]
-          }}
+          id='crossing-noramps'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='crossings'
+          filter={['!', ['to-boolean', ['get', 'curbramps']]]}
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
@@ -271,17 +271,15 @@ class AccessMap extends Component {
               stops: crossingOpacity
             }
           }}
-          before={'bridge-path-bg'}
+          before='bridge-path-bg'
         />
 
         <Layer
-          id={'crossing-ramps'}
-          type={'line'}
-          sourceId={'pedestrian'}
-          layerOptions={{
-            'source-layer': 'crossings',
-            filter: ['==', 'curbramps', true]
-          }}
+          id='crossing-ramps'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='crossings'
+          filter={['to-boolean', ['get', 'curbramps']]}
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
@@ -292,14 +290,14 @@ class AccessMap extends Component {
               stops: [[13, 0.0], [15, 0.4], [22, 0.5]]
             }
           }}
-          before={'bridge-path-bg'}
+          before='bridge-path-bg'
         />
 
         <Layer
-          id={'sidewalk-outline'}
-          type={'line'}
-          sourceId={'pedestrian'}
-          layerOptions={{ 'source-layer': 'sidewalks' }}
+          id='sidewalk-outline'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='sidewalks'
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
@@ -313,21 +311,22 @@ class AccessMap extends Component {
               stops: [[12, 0.5], [16, 3], [22, 30]]
             }
           }}
-          before={'bridge-path-bg'}
+          before='bridge-path-bg'
         />
 
         <Layer
-          id={'sidewalk'}
-          type={'line'}
-          sourceId={'pedestrian'}
-          layerOptions={{ 'source-layer': 'sidewalks' }}
+          id='sidewalk'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='sidewalks'
           layout={{ 'line-cap': 'round' }}
           paint={{
-            'line-color': {
-              colorSpace: 'lab',
-              property: 'grade',
-              stops: inclineStops
-            },
+            'line-color': [
+              'interpolate',
+              ['linear'],
+              ['to-number', ['get', 'incline']],
+              ...inclineStops
+            ],
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
@@ -335,7 +334,7 @@ class AccessMap extends Component {
               stops: [[8, 0.0], [15, 0.7], [22, 0.6]]
             }
           }}
-          before={'bridge-path-bg'}
+          before='bridge-path-bg'
         />
         {routeJogsLine}
         {routeLine}
@@ -423,7 +422,7 @@ AccessMap.propTypes = {
   }),
   routeResult: routeProp,
   center: PropTypes.arrayOf(PropTypes.number),
-  zoom: PropTypes.number
+  zoom: PropTypes.number,
 };
 
 AccessMap.defaultProps = {
@@ -439,7 +438,7 @@ AccessMap.defaultProps = {
   geolocation: { coordinates: null, accuracy: null, status: 'none' },
   routeResult: null,
   center: [-122.333592, 47.605628],
-  zoom: 15
+  zoom: 15,
 };
 
 function mapStateToProps(state) {
@@ -462,7 +461,7 @@ function mapStateToProps(state) {
     poi: waypoints.poi,
     geolocation,
     center: view.center,
-    zoom: view.zoom
+    zoom: view.zoom,
   };
 }
 
