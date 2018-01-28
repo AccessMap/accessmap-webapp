@@ -18,7 +18,7 @@ import {
 
 import AccessMap from 'containers/AccessMap';
 
-import AccessMapIcon from 'components/AccessMapIcon';
+import AccessMapBrand from 'components/AccessMapBrand';
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
 import PreferenceCard from 'components/PreferenceCard';
@@ -299,9 +299,9 @@ class App extends Component {
       );
     }
 
-    const accessMapIcon = (
+    const brand = (
       <div className='accessmap-title md-btn--text'>
-        <AccessMapIcon
+        <AccessMapBrand
           secondary='#448aff'
           width={mobile ? 32 : 150}
           primary='#0d47a1'
@@ -430,7 +430,7 @@ class App extends Component {
       <div style={{ height: '100%' }}>
         <Toolbar
           style={{ width: '100%', zIndex: 2, boxShadow: 'none' }}
-          title={!planningTrip && accessMapIcon}
+          title={!planningTrip && brand}
           themed
           actions={topToolbarActions}
           fixed
@@ -463,7 +463,7 @@ class App extends Component {
             <Toolbar
               title={
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <AccessMapIcon
+                  <AccessMapBrand
                     style={{ margin: '0 auto', display: 'block' }}
                     width={150}
                     backgroundTransparent
