@@ -129,6 +129,8 @@ class AccessMap extends Component {
     // (e.g. space needle -> closest pedestrian path)
     let routeJogsLine;
     let routeLine;
+    let routeLineCasing;
+
     if (planningTrip && routeResult) {
       const routeJogs = {
         type: 'FeatureCollection',
@@ -180,7 +182,7 @@ class AccessMap extends Component {
             'line-color': 'black',
             'line-opacity': 0.6,
             'line-width': {
-              stops: [[12, 0.4], [16, 6], [22, 60]]
+              stops: [[12, 0.2], [16, 3], [22, 30]]
             },
             'line-dasharray': {
               stops: [
@@ -203,18 +205,35 @@ class AccessMap extends Component {
             'line-join': 'round'
           }}
           linePaint={{
-            'line-color': 'black',
-            'line-opacity': 0.7,
-            'line-gap-width': {
-              stops: [[12, 0.4], [16, 6], [22, 60]]
-            },
+            'line-color': '#4bf',
             'line-width': {
-              stops: [[12, 2], [16, 3], [22, 30]]
+              stops: [[12, 4.7], [16, 9.7], [22, 92]]
             }
           }}
-          before={'bridge-path-bg'}
+          before={'crossing-noramps'}
         />
       );
+
+      routeLineCasing = (
+        <GeoJSONLayer
+          data={routePath}
+          lineLayout={{
+            'line-cap': 'round',
+            'line-join': 'round'
+          }}
+          linePaint={{
+            'line-color': 'black',
+            'line-gap-width': {
+              stops: [[12, 4.7], [16, 9.7], [22, 92]]
+            },
+            'line-width': {
+              stops: [[12, 0.5], [16, 1], [22, 1]]
+            }
+          }}
+          before={'crossing-noramps'}
+        />
+      );
+
     }
 
     const geolocationFc = {
@@ -306,10 +325,10 @@ class AccessMap extends Component {
           paint={{
             'line-color': '#000000',
             'line-width': {
-              stops: [[12, 0.2], [15, 0.7], [22, 1.75]]
+              stops: [[12, 0.1], [15, 0.35], [22, 1]]
             },
             'line-opacity': {
-              stops: [[10, 0.0], [15, 0.4], [22, 0.5]]
+              stops: [[10, 0.0], [15, 0.9], [22, 1]]
             },
             'line-gap-width': {
               stops: [[12, 0.5], [16, 3], [22, 30]]
@@ -335,13 +354,14 @@ class AccessMap extends Component {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
             'line-opacity': {
-              stops: [[8, 0.0], [15, 0.7], [22, 0.6]]
+              stops: [[8, 0.0], [15, 0.8], [22, 1]]
             }
           }}
           before='bridge-path-bg'
         />
         {routeJogsLine}
         {routeLine}
+        {routeLineCasing}
         {markers}
 
         <GeoJSONLayer
