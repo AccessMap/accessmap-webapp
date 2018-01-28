@@ -303,7 +303,7 @@ class App extends Component {
       <div className='accessmap-title md-btn--text'>
         <AccessMapBrand
           secondary='#448aff'
-          width={mobile ? 32 : 150}
+          height={32}
           primary='#0d47a1'
           backgroundTransparent
           mini={mobile}
@@ -464,7 +464,6 @@ class App extends Component {
               title={
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                   <AccessMapBrand
-                    style={{ margin: '0 auto', display: 'block' }}
                     width={150}
                     backgroundTransparent
                   />
