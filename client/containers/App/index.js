@@ -302,9 +302,9 @@ class App extends Component {
     const accessMapIcon = (
       <div className='accessmap-title md-btn--text'>
         <AccessMapIcon
-          secondary='#aeea00'
+          secondary='#448aff'
           width={mobile ? 32 : 150}
-          primary='#fff'
+          primary='#0d47a1'
           backgroundTransparent
           mini={mobile}
           className='accessmap-toolbar-icon'
@@ -431,7 +431,7 @@ class App extends Component {
         <Toolbar
           style={{ width: '100%', zIndex: 2, boxShadow: 'none' }}
           title={!planningTrip && accessMapIcon}
-          colored
+          themed
           actions={topToolbarActions}
           fixed
         >
@@ -447,7 +447,7 @@ class App extends Component {
             marginTop: mobile ? 48 : 64
           }}
           className='md-paper--2'
-          colored
+          themed
           actions={bottomToolbarActions}
           zDepth={0}
         >
