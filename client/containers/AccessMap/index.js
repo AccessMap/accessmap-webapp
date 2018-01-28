@@ -30,7 +30,9 @@ const PEDESTRIAN_SOURCE = {
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
   dragRotate: false,
-  touchZoomRotate: false,
+  touchZoomRotate: true,
+  bearing: [0],
+  pitch: [0]
 });
 
 class AccessMap extends Component {
@@ -247,6 +249,8 @@ class AccessMap extends Component {
       <Map
         center={center}
         zoom={[zoom]}
+        bearing={[0]}
+        pitch={[0]}
         /* eslint-disable react/style-prop-object */
         style='mapbox://styles/mapbox/streets-v8'
         /* eslint-enable react/style-prop-object */
