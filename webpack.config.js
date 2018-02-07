@@ -54,7 +54,11 @@ module.exports = function (env) {
     );
   } else {
     plugins.push(
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        minimize: false,
+        debug: true
+      })
     );
   }
 

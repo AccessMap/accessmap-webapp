@@ -30,14 +30,14 @@ export default function AccessMapIcon(props) {
     >
       <path
         key='accessmapicon-background'
-        class='accessmapicon-background'
+        className='accessmapicon-background'
         fill={background}
         fillOpacity={backgroundTransparent ? 0 : 1}
         d='m33.71 10.934c-13.958 0-25.271 11.313-25.271 25.271v52.59c0 13.957 11.313 25.271 25.271 25.271h52.59c13.957 0 25.271-11.315 25.271-25.271v-52.59c0-13.958-11.315-25.271-25.271-25.271h-52.59'
     />
     <g
       key='accessmapicon-primary'
-      class='accessmapicon-primary'
+      className='accessmapicon-primary'
       fill={primary}
     >
       <path

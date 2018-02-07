@@ -21,14 +21,31 @@ export const REQUEST_GEOLOCATION = 'REQUEST_GEOLOCATION';
 export const RECEIVE_GEOLOCATION = 'RECEIVE_GEOLOCATION';
 export const NO_GEOLOCATION = 'NO_GEOLOCATION';
 
+// User geocoding actions (typing into search bars)
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+export const SET_ORIGIN_TEXT = 'SET_ORIGIN_TEXT';
+export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
+
 // TODO: simplify by having reducer check SET_VIEW?
 export const SET_CENTER = 'SET_CENTER';
 export const SET_ZOOM = 'SET_ZOOM';
 export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
 export const MAP_MOVE = 'MAP_MOVE';
+export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
 export const MAP_CLICK = 'MAP_CLICK';
 export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
+
+export const MAP_CONTEXT_CLICK = 'MAP_CONTEXT_CLICK';
+export const CANCEL_CONTEXT = 'CANCEL_CONTEXT';
+
+export const MOUSE_OVER_DOWNHILL = 'MOUSE_OVER_DOWNHILL';
+export const MOUSE_OUT_DOWNHILL = 'MOUSE_OUT_DOWNHILL';
+export const OPEN_PREFERENCES = 'OPEN_PREFERENCES';
+export const CLOSE_PREFERENCES = 'CLOSE_PREFERENCES';
+export const OPEN_UPHILL_PREFERENCES = 'OPEN_UPHILL_PREFERENCES';
+export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
+export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
 
 // Action creators
@@ -245,78 +262,103 @@ export function setInclineIdeal(value) {
   };
 }
 
-export function setOrigin(origin) {
+export function setOrigin(lng, lat, name) {
   return (dispatch, getState) => {
+    const { log } = getState();
+
     dispatch({
       type: SET_ORIGIN,
-      payload: origin,
+      payload: { lng, lat, name, bounds: log.bounds },
       meta: {
         analytics: {
           type: 'set-origin',
-          payload: {
-            origin
-          }
+          payload: { lng, lat, name, bounds: log.bounds },
         }
       }
     });
+
     routeIfValid(dispatch, getState);
   };
 }
 
-export function setDestination(destination) {
+export function setDestination(lng, lat, name) {
   return (dispatch, getState) => {
+    const { log } = getState();
+
     dispatch({
       type: SET_DESTINATION,
-      payload: destination,
+      payload: { lng, lat, name, bounds: log.bounds },
       meta: {
         analytics: {
           type: 'set-destination',
-          payload: {
-            destination
-          }
+          payload: { lng, lat, name, bounds: log.bounds },
         }
       }
     });
+
     routeIfValid(dispatch, getState);
   };
 }
 
-export function setPOI(poi) {
-  return {
-    type: SET_POI,
-    payload: poi,
-    meta: {
-      analytics: {
-        type: 'set-poi',
-        payload: {
-          poi
+export function setPOI(lng, lat, name) {
+  return (dispatch, getState) => {
+    const { log } = getState();
+
+    dispatch({
+      type: SET_POI,
+      payload: { lng, lat, name, bounds: log.bounds },
+      meta: {
+        analytics: {
+          type: 'set-poi',
+          payload: { lng, lat, name },
         }
       }
-    }
-  };
+    });
+  }
 }
 
 export function logBounds(bounds) {
-  return {
-    type: LOG_BOUNDS,
-    payload: bounds,
-    meta: {
-      analytics: {
-        type: 'log-bounds',
-        payload: {
-          bounds
+  return (dispatch, getState) => {
+    // Ignore when the map hasn't really moved - this event fires
+    // a ton at random times, even without map changes.
+    // (Since JavaScript == doesn't really work for arrays, gotta
+    // iterate)
+    const stateBounds = getState().log.bounds;
+    if (stateBounds) {
+      let bboxEqual = true;
+      for (let i = 0; i < bounds.length; i++) {
+        if (bounds[i] != stateBounds[i]) {
+          bboxEqual = false;
         }
       }
+      if (bboxEqual) return;
     }
-  };
+
+    dispatch({
+      type: LOG_BOUNDS,
+      payload: bounds,
+      meta: {
+        analytics: {
+          type: 'log-bounds',
+          payload: {
+            bounds
+          }
+        }
+      }
+    });
+  }
 }
 
-export function setOriginDestination(origin, destination) {
+export function setOriginDestination(originLat, originLon, originName, destLat, destLon, destName) {
   return {
     type: SET_ORIGIN_DESTINATION,
     payload: {
-      origin,
-      destination
+      originLat,
+      originLon,
+      originName,
+      destLat,
+      destLon,
+      destName,
     }
   };
 }
@@ -391,6 +433,17 @@ export function mapMove(center, zoom, bounds) {
   };
 }
 
+export function resizeWindow() {
+  return {
+    type: RESIZE_WINDOW,
+    meta: {
+      analytics: {
+        type: 'resize-window',
+      }
+    }
+  };
+}
+
 // TODO: include centerpoint? Gotta know where to show popups!
 export function mapClick(features) {
   return {
@@ -416,6 +469,36 @@ export function clearSelectedFeatures() {
       }
     }
   };
+}
+
+export function mapContextClick(lng, lat) {
+  return {
+    type: MAP_CONTEXT_CLICK,
+    payload: {
+      lng,
+      lat
+    },
+    meta: {
+      analytics: {
+        type: 'map-context-click',
+        payload: {
+          lng,
+          lat
+        }
+      }
+    }
+  };
+}
+
+export function cancelContext() {
+  return {
+    type: CANCEL_CONTEXT,
+    meta: {
+      analytics: {
+        type: 'cancel-context',
+      }
+    }
+  }
 }
 
 export function toggleGeolocation() {
@@ -445,6 +528,104 @@ export function toggleGeolocation() {
     } else {
       // Fail
       dispatch({ type: 'NO_GEOLOCATION' });
+    }
+  };
+}
+
+export function setSearchText(text) {
+  return {
+    type: SET_SEARCH_TEXT,
+    payload: text
+  }
+}
+
+export function setOriginText(text) {
+  return {
+    type: SET_ORIGIN_TEXT,
+    payload: text
+  }
+}
+
+export function setDestinationText(text) {
+  return {
+    type: SET_DESTINATION_TEXT,
+    payload: text
+  }
+}
+
+export function mouseOverDownhill() {
+  return {
+    type: MOUSE_OVER_DOWNHILL,
+    meta: {
+      analytics: {
+        type: 'mouse-over-downhill'
+      }
+    }
+  }
+}
+
+export function mouseOutDownhill() {
+  return {
+    type: MOUSE_OUT_DOWNHILL,
+    meta: {
+      analytics: {
+        type: 'mouse-out-downhill'
+      }
+    }
+  }
+}
+
+export function openPreferences() {
+  return {
+    type: OPEN_PREFERENCES,
+    meta: {
+      analytics: {
+        type: 'open-preferences'
+      }
+    }
+  };
+}
+
+export function closePreferences() {
+  return {
+    type: CLOSE_PREFERENCES,
+    meta: {
+      analytics: {
+        type: 'close-preferences'
+      }
+    }
+  };
+}
+
+export function openUphillPreferences() {
+  return {
+    type: OPEN_UPHILL_PREFERENCES,
+    meta: {
+      analytics: {
+        type: 'open-uphill-preferences'
+      }
+    }
+  };
+}
+
+export function openDownhillPreferences() {
+  return {
+    type: OPEN_DOWNHILL_PREFERENCES,
+    meta: {
+      analytics: {
+        type: 'open-downhill-preferences'
+      }
+    }
+  };
+}
+
+export function openOtherPreferences() {
+  return {
+    type: OPEN_OTHER_PREFERENCES,
+    meta: {
+      analytics: {
+        type: 'open-other-preferences'
+      }
     }
   };
 }

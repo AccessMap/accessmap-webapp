@@ -9,7 +9,7 @@ import ReactMapboxGl, { GeoJSONLayer, Layer, Source } from 'react-mapbox-gl';
 import chroma from 'chroma-js';
 
 import MapMarker from 'components/MapMarker';
-import { routeResult as routeProp } from 'prop-schema';
+import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
 
@@ -117,7 +117,14 @@ class AccessMap extends Component {
     }
 
     // Handle markers
-    const waypoints = planningTrip ? [origin, destination] : [poi];
+    // - If origin and destination are set, render those. Otherwise, render
+    // POI if available
+    let waypoints;
+    if (origin || destination) {
+      waypoints = [origin, destination];
+    } else {
+      waypoints = [poi];
+    }
     const markers = waypoints.filter(d => d).map(d =>
       <MapMarker
         coordinates={d.geometry.coordinates}
@@ -208,7 +215,7 @@ class AccessMap extends Component {
             'line-color': '#4bf',
             'line-width': {
               stops: [[12, 4.7], [16, 9.7], [22, 92]]
-            }
+            },
           }}
           before={'crossing-noramps'}
         />
@@ -354,7 +361,7 @@ class AccessMap extends Component {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
             'line-opacity': {
-              stops: [[8, 0.0], [15, 0.8], [22, 1]]
+              stops: [[8, 0.0], [12, 0.8], [15, 1], [22, 1]]
             }
           }}
           before='bridge-path-bg'
@@ -444,7 +451,7 @@ AccessMap.propTypes = {
     accuracy: PropTypes.number,
     status: PropTypes.oneOf(['Ok', 'none', 'unavailable'])
   }),
-  routeResult: routeProp,
+  routeResult: routeResultProps,
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,
 };
@@ -484,7 +491,7 @@ function mapStateToProps(state) {
     destination: waypoints.destination,
     poi: waypoints.poi,
     geolocation,
-    center: view.center,
+    center: [view.lng, view.lat],
     zoom: view.zoom,
   };
 }

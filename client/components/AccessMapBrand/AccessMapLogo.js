@@ -30,14 +30,14 @@ export default function AccessMapLogo(props) {
     >
       <path
         key='accessmaplogo-background'
-        class='accessmaplogo-background'
+        className='accessmaplogo-background'
         fill={background}
         fillOpacity={backgroundTransparent ? 0 : 1}
         d='m33.71 10.934c-13.958 0-25.271 11.313-25.271 25.271v52.59c0 13.957 11.313 25.271 25.271 25.271h52.59c13.957 0 25.271-11.315 25.271-25.271v-52.59c0-13.958-11.315-25.271-25.271-25.271h-52.59'
       />,
       <g
         key='accessmaplogo-primary'
-        class='accessmaplogo-primary'
+        className='accessmaplogo-primary'
         fill={primary}
       >
         <path
@@ -83,7 +83,7 @@ export default function AccessMapLogo(props) {
       </g>,
       <g
         key='accessmaplogo-secondary'
-        class='accessmaplogo-secondary'
+        className='accessmaplogo-secondary'
         fill={secondary}
       >
         <path

@@ -1,5 +1,14 @@
 @import '~react-md/src/scss/react-md';
 
+.feature-card {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
 .feature-card-container {
   position: absolute;
   left: 0;

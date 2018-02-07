@@ -8,7 +8,7 @@ import TICK from 'react-md/lib/constants/CSSTransitionGroupTick';
 
 import FeatureCard from './FeatureCard';
 
-const TRANSITION_TIME = 150;
+const TRANSITION_TIME = 100;
 
 
 const SlideUp = ({ children, ...props }) => (

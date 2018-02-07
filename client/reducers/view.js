@@ -2,9 +2,10 @@ import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
 import inside from '@turf/inside';
 
+import PointFeature from 'utils/geojson';
+
 // Action types
 import {
-  LOG_BOUNDS,
   RECEIVE_ROUTE,
   SET_ORIGIN,
   SET_DESTINATION,
@@ -19,57 +20,48 @@ import {
 // Default actions
 import { defaultView as defaults } from './defaults';
 
-const makeWaypoint = (coordinates, name) => ({
-  type: 'Feature',
-  geometry: {
-    type: 'Point',
-    coordinates
-  },
-  properties: {
-    name: name === undefined ? '' : name
-  }
-});
-
 export default function handleView(state = defaults, action) {
   switch (action.type) {
     case SET_ORIGIN:
     case SET_DESTINATION:
     case SET_POI: {
-      const waypoint = makeWaypoint(action.payload.location,
-                                    action.payload.name);
-      const inView = inside(waypoint, bboxPolygon(state.bounds));
+      const waypoint = PointFeature(action.payload.lng,
+                                    action.payload.lat,
+                                    { name: action.payload.name });
+      const inView = inside(waypoint, bboxPolygon(action.payload.bounds));
       if (!inView) {
         return {
           ...state,
-          center: action.payload.location,
-          zoom: 17
+          lng: action.payload.lng,
+          lat: action.payload.lat,
+          zoom: 16
         };
       }
       return state;
     }
     case SET_CENTER:
-      return { ...state, center: action.payload };
+      return { ...state, lng: action.payload[0], lat: action.payload[1] };
     case SET_ZOOM:
       return { ...state, zoom: action.payload };
     case SET_CENTER_AND_ZOOM:
       return {
         ...state,
-        center: action.payload.center,
+        lng: action.payload.center[0],
+        lat: action.payload.center[1],
         zoom: action.payload.zoom
       };
     case MAP_MOVE:
       return {
         ...state,
-        center: action.payload.center,
+        lng: action.payload.center[0],
+        lat: action.payload.center[1],
         zoom: action.payload.zoom,
-        bounds: action.payload.bounds
       };
-    case LOG_BOUNDS:
-      return { ...state, bounds: action.payload };
     case RECEIVE_GEOLOCATION:
       return {
         ...state,
-        center: action.payload.coordinates,
+        lng: action.payload.coordinates[0],
+        lat: action.payload.coordinates[1],
         zoom: 16
       };
     case RECEIVE_ROUTE: {
@@ -84,7 +76,7 @@ export default function handleView(state = defaults, action) {
           (bounds[2] + bounds[0]) / 2,
           (bounds[3] + bounds[1]) / 2
         ];
-        const padding = 0.3;
+        const padding = 0.6;
         const latDiff = (1 + padding) * (bounds[3] - bounds[1]);
         const lonDiff = (1 + padding) * (bounds[2] - bounds[0]);
         const maxDiff = Math.max(latDiff, lonDiff);
@@ -97,7 +89,8 @@ export default function handleView(state = defaults, action) {
         }
         return {
           ...state,
-          center,
+          lng: center[0],
+          lat: center[1],
           zoom
         };
       }

@@ -11,7 +11,11 @@ import {
   SET_INCLINE_IDEAL,
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
-  TOGGLE_CURBRAMPS
+  TOGGLE_CURBRAMPS,
+  SET_SEARCH_TEXT,
+  SET_ORIGIN_TEXT,
+  SET_DESTINATION_TEXT,
+  SWAP_WAYPOINTS,
 } from 'actions';
 import { defaultTripPlanning as defaults } from './defaults';
 
@@ -88,6 +92,34 @@ const handleRoute = (state = defaults.routeResult, action) => {
   }
 };
 
+const handleGeocoderText = (state = defaults.geocoderText, action) => {
+  switch (action.type) {
+    case SET_SEARCH_TEXT:
+      return {
+        ...state,
+        searchText: action.payload,
+      }
+    case SET_ORIGIN_TEXT:
+      return {
+        ...state,
+        originText: action.payload,
+      }
+    case SET_DESTINATION_TEXT:
+      return {
+        ...state,
+        destinationText: action.payload,
+      }
+    case SWAP_WAYPOINTS:
+      return {
+        ...state,
+        originText: state.destinationText,
+        destinationText: state.originText,
+      }
+    default:
+      return state;
+  }
+}
+
 export default combineReducers({
   planningTrip: handlePlanningTrip,
   isFetching: handleIsFetching,
@@ -96,4 +128,5 @@ export default combineReducers({
   inclineMin: handleInclineMin,
   requireCurbRamps: handleCurbRamps,
   routeResult: handleRoute,
+  geocoderText: handleGeocoderText,
 });

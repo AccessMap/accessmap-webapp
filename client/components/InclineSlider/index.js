@@ -13,7 +13,9 @@ export default function InclineSlider(props) {
     max,
     step,
     valuePrecision,
-    onChange
+    onChange,
+    onMouseEnter,
+    onMouseLeave,
   } = props;
 
   return (
@@ -27,6 +29,8 @@ export default function InclineSlider(props) {
       step={step}
       valuePrecision={valuePrecision}
       onChange={onChange}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     />
   );
 }
@@ -40,6 +44,8 @@ InclineSlider.propTypes = {
   step: PropTypes.number,
   valuePrecision: PropTypes.number,
   onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
 };
 
 InclineSlider.defaultProps = {
@@ -49,5 +55,7 @@ InclineSlider.defaultProps = {
   max: 10,
   step: 0.5,
   valuePrecision: 1,
-  onChange: null
+  onChange: null,
+  onMouseEnter: null,
+  onMouseLeave: null,
 };

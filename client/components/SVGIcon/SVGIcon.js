@@ -42,7 +42,6 @@ SVGIcon.propTypes = {
   fill: PropTypes.string,
   height: PropTypes.number,
   width: PropTypes.number,
-  viewBox: PropTypes.string.isRequired,
   children: PropTypes.node,
   /* eslint-disable react/forbid-prop-types */
   style: PropTypes.object

@@ -13,25 +13,13 @@ import './style.scss';
 
 const FeatureCard = (props) =>
   <Card
-    className='md-cell md-cell--4'
+    className='feature-card md-cell md-cell--4'
     style={{
       display: 'block',
       margin: '0 auto'
     }}
   >
-    <Toolbar
-      colored
-      title={props.title}
-      actions={[
-        <Button
-          icon
-          onClick={props.onClickClose}
-        >
-          close
-        </Button>
-      ]}
-    >
-    </Toolbar>
+    <CardTitle title={props.title} />
     <List>
       {props.featureProperties.map((d) =>
         <li className='md-list-item' key={d.name}>
@@ -55,12 +43,10 @@ FeatureCard.propTypes = {
       value: PropTypes.string
     })
   ),
-  onClick: PropTypes.func,
 };
 
 FeatureCard.defaultProps = {
   featureProperties: [],
-  onClick: null,
 };
 
 export default FeatureCard;
