@@ -53,8 +53,6 @@ class App extends Component {
     const tablet = mediaType == 'TABLET';
     const desktop = mediaType == 'DESKTOP';
 
-    const topToolbarHeight = mobile ? 56 : 64;
-
     return (
       <React.Fragment>
         <div className='map-container'>
@@ -127,9 +125,9 @@ class App extends Component {
               actions.logBounds(bbox);
             }}
           />
+          <OmniCard />
+          <FloatingButtons />
         </div>
-        <FloatingButtons />
-        <OmniCard />
         { selectedFeature &&
           <FeatureCard
             title={selectedFeature.layerName}

@@ -3,38 +3,46 @@
 // Overall layout
 .omnicard {
   position: absolute;
-  margin: 8px;
+  top: 0;
   left: 0;
+  margin: 8px;
 
   @media #{$md-mobile-media} {
-    top: $md-toolbar-mobile-portrait-height;
-    width: auto;
+    right: 0;
   }
 
   @media #{$md-mobile-landscape-media} {
-    top: $md-toolbar-mobile-landscape-height;
     width: 256px;
   }
 
   @media #{$md-tablet-media} {
-    top: $md-toolbar-tablet-height;
     width: 384px;
   }
 
   @media #{$md-desktop-media} {
-    top: $md-toolbar-desktop-height;
     width: 384px;
   }
-}
 
-// Autocompletes (geocoders)
+  // Autocompletes (geocoders)
 
-#origin-geocoder-menu-list,
-#destination-geocoder-menu-list,
-#address_search-menu-list {
-  width: 512px;
-}
+  #origin-geocoder-menu-list,
+  #destination-geocoder-menu-list,
+  #address_search-menu-list {
+    @media #{$md-mobile-media} {
+      width: 256px;
+    }
+    @media #{$md-mobile-landscape-media} {
+      width: 512px;
+    }
+    @media #{$md-tablet-media} {
+      width: 512px;
+    }
+    @media #{$md-desktop-media} {
+      width: 512px;
+    }
+  }
 
-.md-autocomplete-list .md-list-item .md-list-tile {
-  padding-left: 16px;
+  .md-autocomplete-list .md-list-item .md-list-tile {
+    padding-left: 16px;
+  }
 }

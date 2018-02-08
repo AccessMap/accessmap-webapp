@@ -2,12 +2,12 @@
 
 // Overall layout
 .floating-buttons {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   right: 0;
   padding: 0;
-  margin-bottom: 24px;
-  margin-right: 24px;
+  margin-bottom: 32px;
+  margin-right: 16px;
 }
 
 // Button layout within div
