@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-md/lib/Sliders';
 
+import './style.scss';
 
-// TODO: inherit from Slider so that state can be accessed, add defaultProps
+
 export default function InclineSlider(props) {
   const {
     id,

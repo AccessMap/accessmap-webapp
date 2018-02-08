@@ -133,6 +133,7 @@ const OmniCard = (props) => {
           <Button
             className='md-btn--toolbar'
             key='omnicard-tripplanning--toggle'
+            secondary
             icon
             onClick={() => actions.toggleTripPlanning(planningTrip)}
           >
