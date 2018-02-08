@@ -1,6 +1,5 @@
 // Action types
-export const TRIP_PLANNING_ON = 'TRIP_PLANNING_ON';
-export const TRIP_PLANNING_OFF = 'TRIP_PLANNING_OFF';
+export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
 export const TOGGLE_CURBRAMPS = 'TOGGLE_CURBRAMPS';
 export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
@@ -47,27 +46,17 @@ export const OPEN_UPHILL_PREFERENCES = 'OPEN_UPHILL_PREFERENCES';
 export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
 export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
+export const LOAD_APP = 'LOAD_APP';
+
 
 // Action creators
-export function tripPlanningOn(poi) {
+export function toggleTripPlanning(currentValue) {
   return {
-    type: TRIP_PLANNING_ON,
-    payload: poi,
+    type: TOGGLE_TRIP_PLANNING,
+    payload: currentValue,
     meta: {
       analytics: {
-        type: 'trip-planning-on',
-      }
-    }
-  };
-}
-
-export function tripPlanningOff(destination) {
-  return {
-    type: TRIP_PLANNING_OFF,
-    payload: destination,
-    meta: {
-      analytics: {
-        type: 'trip-planning-off',
+        type: 'toggle-trip-planning',
       }
     }
   };
@@ -315,6 +304,12 @@ export function setPOI(lng, lat, name) {
       }
     });
   }
+}
+
+export function loadApp() {
+  return {
+    type: LOAD_APP,
+  };
 }
 
 export function logBounds(bounds) {

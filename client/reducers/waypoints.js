@@ -9,8 +9,7 @@ import {
   SET_POI,
   SET_ORIGIN_DESTINATION,
   SWAP_WAYPOINTS,
-  TRIP_PLANNING_ON,
-  TRIP_PLANNING_OFF
+  TOGGLE_TRIP_PLANNING,
 } from 'actions';
 
 // Default actions
@@ -29,8 +28,8 @@ const handleOrigin = (state = defaults.origin, action) => {
                           { name: action.payload.name });
     case SWAP_WAYPOINTS:
       return action.payload.destination;
-    case TRIP_PLANNING_OFF:
-      return null;
+    case TOGGLE_TRIP_PLANNING:
+      return action.payload ? null : state;
     default:
       return state;
   }
@@ -48,10 +47,8 @@ const handleDestination = (state = defaults.destination, action) => {
                           { name: action.payload.name });
     case SWAP_WAYPOINTS:
       return action.payload.origin;
-    case TRIP_PLANNING_ON:
-      return action.payload ? action.payload : null;
-    case TRIP_PLANNING_OFF:
-      return null;
+    case TOGGLE_TRIP_PLANNING:
+      return action.payload ? null : state;
     default:
       return state;
   }

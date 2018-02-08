@@ -6,8 +6,7 @@ import {
   RECEIVE_ROUTE,
   SET_ORIGIN,
   SET_DESTINATION,
-  TRIP_PLANNING_ON,
-  TRIP_PLANNING_OFF,
+  TOGGLE_TRIP_PLANNING,
   SET_INCLINE_IDEAL,
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
@@ -21,12 +20,11 @@ import { defaultTripPlanning as defaults } from './defaults';
 
 const handlePlanningTrip = (state = defaults.planningTrip, action) => {
   switch (action.type) {
-    case TRIP_PLANNING_ON:
+    case TOGGLE_TRIP_PLANNING:
+      return !action.payload;
     case SET_ORIGIN:
     case SET_DESTINATION:
       return true;
-    case TRIP_PLANNING_OFF:
-      return false;
     default:
       return state;
   }
@@ -82,11 +80,10 @@ const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
 
 const handleRoute = (state = defaults.routeResult, action) => {
   switch (action.type) {
-    case TRIP_PLANNING_OFF:
-      return null;
+    case TOGGLE_TRIP_PLANNING:
+      return action.payload ? null : state;
     case RECEIVE_ROUTE:
-      if (action.payload.routes.length > 0) return action.payload;
-      return state;
+      return action.payload.routes.length > 0 ? action.payload : state;
     default:
       return state;
   }
