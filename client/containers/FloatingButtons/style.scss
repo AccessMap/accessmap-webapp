@@ -1,0 +1,17 @@
+@import '~react-md/src/scss/react-md';
+
+// Overall layout
+.floating-buttons {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 0;
+  margin-bottom: 24px;
+  margin-right: 24px;
+}
+
+// Button layout within div
+.floating-buttons .md-btn {
+  display: block;
+  margin-top: 8px;
+}

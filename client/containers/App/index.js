@@ -11,6 +11,7 @@ import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import AccessMap from 'containers/AccessMap';
+import FloatingButtons from 'containers/FloatingButtons';
 import OmniCard from 'containers/OmniCard';
 
 import AccessMapBrand from 'components/AccessMapBrand';
@@ -55,7 +56,7 @@ class App extends Component {
     const topToolbarHeight = mobile ? 56 : 64;
 
     return (
-      <div style={{ height: '100%' }}>
+      <React.Fragment>
         <div className='map-container'>
           <ContextMenu
             visible={contextClick === null ? false : true}
@@ -126,41 +127,9 @@ class App extends Component {
               actions.logBounds(bbox);
             }}
           />
-          <div
-            style={{
-              position: 'fixed',
-              bottom: 0,
-              right: 0,
-              padding: 10,
-              margin: 10
-            }}
-          >
-            <Button
-              style={{ display: 'block', margin: 15 }}
-              floating
-              secondary
-              onClick={actions.toggleGeolocation}
-            >
-              gps_fixed
-            </Button>
-            <Button
-              style={{ display: 'block', margin: 15 }}
-              floating
-              secondary
-              onClick={d => { actions.toggleTripPlanning(planningTrip) }}
-            >
-              directions
-            </Button>
-          </div>
         </div>
-        <OmniCard
-          style={{
-            position: 'absolute',
-            margin: '8px',
-            left: 0,
-            top: `${topToolbarHeight}px`,
-          }}
-        />
+        <FloatingButtons />
+        <OmniCard />
         { selectedFeature &&
           <FeatureCard
             title={selectedFeature.layerName}
@@ -194,7 +163,7 @@ class App extends Component {
           fixed
           zDepth={0}
         />
-      </div>
+      </React.Fragment>
     );
   }
 }

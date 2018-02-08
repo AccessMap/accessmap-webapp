@@ -1,3 +1,26 @@
+@import '~react-md/src/scss/react-md';
+
+// Overall layout
+.omnicard {
+  position: absolute;
+  margin: 8px;
+  left: 0;
+
+  @media #{$md-mobile-media} {
+    top: $md-toolbar-mobile-portrait-height;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    top: $md-toolbar-mobile-landscape-height;
+  }
+
+  @media #{$md-tablet-media} {
+    top: $md-toolbar-tablet-height;
+  }
+}
+
+// Autocompletes (geocoders)
+
 #origin-geocoder-menu-list,
 #destination-geocoder-menu-list,
 #address_search-menu-list {

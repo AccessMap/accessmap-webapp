@@ -148,7 +148,7 @@ const OmniCard = (props) => {
   // 1. Adjust routes / view so that OmniCard will never overlap it.
 
   return (
-    <Card style={style}>
+    <Card className='omnicard'>
       { topBar }
       <div className="dividers__border-example">
         <div className="md-divider-border md-divider-border--top" />
