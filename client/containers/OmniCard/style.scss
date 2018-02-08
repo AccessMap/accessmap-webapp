@@ -8,14 +8,22 @@
 
   @media #{$md-mobile-media} {
     top: $md-toolbar-mobile-portrait-height;
+    width: auto;
   }
 
   @media #{$md-mobile-landscape-media} {
     top: $md-toolbar-mobile-landscape-height;
+    width: 256px;
   }
 
   @media #{$md-tablet-media} {
     top: $md-toolbar-tablet-height;
+    width: 384px;
+  }
+
+  @media #{$md-desktop-media} {
+    top: $md-toolbar-desktop-height;
+    width: 384px;
   }
 }
 

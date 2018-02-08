@@ -39,7 +39,6 @@ const OmniCard = (props) => {
     planningTrip,
     proximity,
     searchText,
-    style,
   } = props;
 
   let topBar;
