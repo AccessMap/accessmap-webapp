@@ -18,6 +18,8 @@ import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
 import SimpleListItem from 'components/SimpleListItem';
 
+import './style.scss';
+
 const OmniCard = (props) => {
   const {
     actions,
@@ -113,8 +115,6 @@ const OmniCard = (props) => {
             key='address_search'
             placeholder='Search address'
             block
-            className='md-title--toolbar'
-            inputClassName='md-text-field--toolbar'
             onAutocomplete={(label, index, data) => {
               const poi = data[index];
               actions.setPOI(poi.location[0], poi.location[1], poi.name);
@@ -130,6 +130,14 @@ const OmniCard = (props) => {
           >
             search
           </FontIcon>
+          <Button
+            className='md-btn--toolbar'
+            key='omnicard-tripplanning--toggle'
+            icon
+            onClick={() => actions.toggleTripPlanning(planningTrip)}
+          >
+            directions
+          </Button>
         </SimpleListItem>
       </List>
     );
