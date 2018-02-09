@@ -5,6 +5,8 @@ export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
 export const SET_INCLINE_IDEAL = 'SET_INCLINE_IDEAL';
 
+export const SET_PROFILE = 'SET_PROFILE';
+
 export const REQUEST_ROUTE = 'REQUEST_ROUTE';
 export const RECEIVE_ROUTE = 'RECEIVE_ROUTE';
 export const FAILED_ROUTE = 'FAILED_ROUTE';
@@ -244,6 +246,24 @@ export function setInclineIdeal(value) {
           payload: {
             value
           }
+        }
+      }
+    });
+    routeIfValid(dispatch, getState);
+  };
+}
+
+export function setProfile(profile) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: SET_PROFILE,
+      payload: profile,
+      meta: {
+        analytics: {
+          type: 'set-profile',
+          payload: {
+            profile
+          },
         }
       }
     });

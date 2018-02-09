@@ -20,6 +20,7 @@ export const defaultRoutingProfile = {
   inclineMin: -0.1,
   inclineIdeal: -0.01,
   requireCurbRamps: true,
+  profileName: 'wheelchair',
 }
 
 export const defaultView = {

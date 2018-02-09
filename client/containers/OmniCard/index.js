@@ -162,24 +162,28 @@ const OmniCard = (props) => {
         <Button
           className='md-btn--toolbar'
           icon
+          onClick={() => actions.setProfile('wheelchair')}
         >
           <WheelchairIcon size={24} />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
+          onClick={() => actions.setProfile('powered')}
         >
           <PoweredWheelchairIcon size={24} />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
+          onClick={() => actions.setProfile('cane')}
         >
           <CaneUserIcon size={24} />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
+          onClick={() => actions.setProfile('custom')}
         >
           settings
         </Button>
@@ -189,21 +193,23 @@ const OmniCard = (props) => {
           id='uphill_discrete'
           label='Maximum uphill incline'
           incline={inclineMax}
-          max={10}
+          max={12}
           step={0.5}
           valuePrecision={1}
           onChange={d => actions.setInclineMax(d / 100)}
+          controlled
         />
         <InclineSlider
           id='downhill_discrete'
           label='Maximum downhill incline'
           incline={-inclineMin}
-          max={10}
+          max={12}
           step={0.5}
           valuePrecision={1}
           onChange={d => actions.setInclineMin(-d / 100)}
           onMouseEnter={actions.mouseOverDownhill}
           onMouseLeave={actions.mouseOutDownhill}
+          controlled
         />
         <SelectionControl
           type='switch'

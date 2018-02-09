@@ -17,14 +17,17 @@ export default function InclineSlider(props) {
     onChange,
     onMouseEnter,
     onMouseLeave,
+    controlled
   } = props;
+
+  const inclineValue = +(incline * 100).toFixed(1);
 
   return (
     <Slider
       discrete
       id={id}
-      label={`${label}: ${(incline * 100).toFixed(1)}%`}
-      defaultValue={+(incline * 100).toFixed(1)}
+      label={`${label}: ${inclineValue}%`}
+      defaultValue={inclineValue}
       min={min}
       max={max}
       step={step}
@@ -32,6 +35,7 @@ export default function InclineSlider(props) {
       onChange={onChange}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
+      value={controlled ? inclineValue : undefined}
     />
   );
 }
@@ -47,6 +51,7 @@ InclineSlider.propTypes = {
   onChange: PropTypes.func,
   onMouseEnter: PropTypes.func,
   onMouseLeave: PropTypes.func,
+  controlled: PropTypes.bool,
 };
 
 InclineSlider.defaultProps = {
@@ -59,4 +64,5 @@ InclineSlider.defaultProps = {
   onChange: null,
   onMouseEnter: null,
   onMouseLeave: null,
+  controlled: false,
 };
