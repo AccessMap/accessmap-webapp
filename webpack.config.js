@@ -110,7 +110,7 @@ module.exports = function (env) {
         {
           test: /\.(woff|woff2|eot|ttf|svg)$/,
           loader: 'file-loader?name=client/fonts/roboto/[name].[ext]'
-        }
+        },
       ],
     },
 

@@ -13,10 +13,15 @@ import Card, { CardText, CardTitle } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
 import List from 'react-md/lib/Lists';
 import SelectionControl from 'react-md/lib/SelectionControls';
+import SVGIcon from 'react-md/lib/SVGIcons';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
 import SimpleListItem from 'components/SimpleListItem';
+
+import CaneUserIcon from 'components/Icons/CaneUserIcon';
+import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
+import WheelchairIcon from 'components/Icons/WheelchairIcon';
 
 import './style.scss';
 
@@ -28,7 +33,7 @@ const OmniCard = (props) => {
     destinationText,
     inclineMin,
     inclineMax,
-    requireCurbRamps,
+    mediaType,
     onUphillChange,
     onDownhillChange,
     onCurbRampsChange,
@@ -38,6 +43,7 @@ const OmniCard = (props) => {
     originText,
     planningTrip,
     proximity,
+    requireCurbRamps,
     searchText,
   } = props;
 
@@ -153,6 +159,32 @@ const OmniCard = (props) => {
         <div className="md-divider-border md-divider-border--top" />
       </div>
       <CardText>
+        <Button
+          className='md-btn--toolbar'
+          icon
+        >
+          <WheelchairIcon size={24} />
+        </Button>
+        <Button
+          className='md-btn--toolbar'
+          icon
+        >
+          <PoweredWheelchairIcon size={24} />
+        </Button>
+        <Button
+          className='md-btn--toolbar'
+          icon
+        >
+          <CaneUserIcon size={24} />
+        </Button>
+        <Button
+          className='md-btn--toolbar'
+          icon
+        >
+          settings
+        </Button>
+      </CardText>
+      <CardText>
         <InclineSlider
           id='uphill_discrete'
           label='Maximum uphill incline'
@@ -193,6 +225,7 @@ OmniCard.defaultProps = {
 
 function mapStateToProps(state) {
   const {
+    browser,
     tripplanning,
     view,
     waypoints,
@@ -209,7 +242,8 @@ function mapStateToProps(state) {
     destination: waypoints.destination,
     planningTrip: tripplanning.planningTrip,
     requireCurbRamps: tripplanning.requireCurbRamps,
-    center: [view.lng, view.lat]
+    center: [view.lng, view.lat],
+    mediaType: browser.mediaType,
   };
 }
 
