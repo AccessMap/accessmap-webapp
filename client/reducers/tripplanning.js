@@ -7,10 +7,6 @@ import {
   SET_ORIGIN,
   SET_DESTINATION,
   TOGGLE_TRIP_PLANNING,
-  SET_INCLINE_IDEAL,
-  SET_INCLINE_MAX,
-  SET_INCLINE_MIN,
-  TOGGLE_CURBRAMPS,
   SET_SEARCH_TEXT,
   SET_ORIGIN_TEXT,
   SET_DESTINATION_TEXT,
@@ -37,42 +33,6 @@ const handleIsFetching = (state = defaults.isFetching, action) => {
     case RECEIVE_ROUTE:
     case FAILED_ROUTE:
       return false;
-    default:
-      return state;
-  }
-};
-
-const handleInclineIdeal = (state = defaults.inclineIdeal, action) => {
-  switch (action.type) {
-    case SET_INCLINE_IDEAL:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const handleInclineMax = (state = defaults.inclineMax, action) => {
-  switch (action.type) {
-    case SET_INCLINE_MAX:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const handleInclineMin = (state = defaults.inclineMin, action) => {
-  switch (action.type) {
-    case SET_INCLINE_MIN:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
-  switch (action.type) {
-    case TOGGLE_CURBRAMPS:
-      return !state;
     default:
       return state;
   }
@@ -120,10 +80,6 @@ const handleGeocoderText = (state = defaults.geocoderText, action) => {
 export default combineReducers({
   planningTrip: handlePlanningTrip,
   isFetching: handleIsFetching,
-  inclineIdeal: handleInclineIdeal,
-  inclineMax: handleInclineMax,
-  inclineMin: handleInclineMin,
-  requireCurbRamps: handleCurbRamps,
   routeResult: handleRoute,
   geocoderText: handleGeocoderText,
 });

@@ -5,6 +5,7 @@ import geolocation from './geolocation';
 import log from './log';
 import map from './map';
 import mode from './mode';
+import routingprofile from './routing-profile';
 import tripplanning from './tripplanning';
 import view from './view';
 import waypoints from './waypoints';
@@ -18,6 +19,7 @@ export default combineReducers({
   log,
   map,
   mode,
+  routingprofile,
   tripplanning,
   view,
   waypoints,

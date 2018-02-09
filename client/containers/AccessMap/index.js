@@ -477,6 +477,7 @@ AccessMap.defaultProps = {
 function mapStateToProps(state) {
   const {
     geolocation,
+    routingprofile,
     tripplanning,
     waypoints,
     view
@@ -484,10 +485,10 @@ function mapStateToProps(state) {
 
   return {
     routeResult: tripplanning.routeResult,
-    inclineMax: tripplanning.inclineMax,
-    inclineMin: tripplanning.inclineMin,
-    inclineIdeal: tripplanning.inclineIdeal,
-    requireCurbRamps: tripplanning.requireCurbRamps,
+    inclineMax: routingprofile.inclineMax,
+    inclineMin: routingprofile.inclineMin,
+    inclineIdeal: routingprofile.inclineIdeal,
+    requireCurbRamps: routingprofile.requireCurbRamps,
     planningTrip: tripplanning.planningTrip,
     origin: waypoints.origin,
     destination: waypoints.destination,

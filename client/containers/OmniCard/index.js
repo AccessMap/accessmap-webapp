@@ -226,6 +226,7 @@ OmniCard.defaultProps = {
 function mapStateToProps(state) {
   const {
     browser,
+    routingprofile,
     tripplanning,
     view,
     waypoints,
@@ -235,13 +236,13 @@ function mapStateToProps(state) {
     searchText: tripplanning.geocoderText.searchText,
     originText: tripplanning.geocoderText.originText,
     destinationText: tripplanning.geocoderText.destinationText,
-    inclineMax: tripplanning.inclineMax,
-    inclineMin: tripplanning.inclineMin,
-    inclineIdeal: tripplanning.inclineIdeal,
+    inclineMax: routingprofile.inclineMax,
+    inclineMin: routingprofile.inclineMin,
+    inclineIdeal: routingprofile.inclineIdeal,
+    requireCurbRamps: routingprofile.requireCurbRamps,
     origin: waypoints.origin,
     destination: waypoints.destination,
     planningTrip: tripplanning.planningTrip,
-    requireCurbRamps: tripplanning.requireCurbRamps,
     center: [view.lng, view.lat],
     mediaType: browser.mediaType,
   };

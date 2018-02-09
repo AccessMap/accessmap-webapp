@@ -6,11 +6,7 @@ export const defaultWaypoints = {
 
 export const defaultTripPlanning = {
   isFetching: false,
-  inclineMax: 0.08,
-  inclineMin: -0.1,
-  inclineIdeal: -0.01,
   planningTrip: false,
-  requireCurbRamps: true,
   routeResult: null,
   geocoderText: {
     searchText: '',
@@ -18,6 +14,13 @@ export const defaultTripPlanning = {
     destinationText: '',
   },
 };
+
+export const defaultRoutingProfile = {
+  inclineMax: 0.08,
+  inclineMin: -0.1,
+  inclineIdeal: -0.01,
+  requireCurbRamps: true,
+}
 
 export const defaultView = {
   lng: -122.333592,
