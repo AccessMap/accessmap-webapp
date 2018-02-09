@@ -13,7 +13,10 @@ export default function MapMarker(props) {
   return (
     <Marker
       {...props}
-      style={{ pointerEvents: 'none' }}
+      style={{
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}
       coordinates={coordinates}
       anchor='bottom'
     >
