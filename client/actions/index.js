@@ -163,18 +163,22 @@ export function fetchRoute(origin, destination, params) {
 }
 
 function routeIfValid(dispatch, getState) {
+  const state = getState();
   const {
     origin,
     destination
-  } = getState().waypoints;
+  } = state.waypoints;
 
   const {
     planningTrip,
+  } = state.tripplanning;
+
+  const {
     inclineMax,
     inclineMin,
     inclineIdeal,
     requireCurbRamps
-  } = getState().tripplanning;
+  } = state.routingprofile;
 
   if (planningTrip && origin !== null && destination !== null) {
     dispatch(fetchRoute(
