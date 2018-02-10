@@ -1,45 +1,17 @@
 // Action types
+
+// Direct activity changes
 export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
-export const TOGGLE_CURBRAMPS = 'TOGGLE_CURBRAMPS';
+export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
+
+// Routing profile settings
 export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
 export const SET_INCLINE_IDEAL = 'SET_INCLINE_IDEAL';
-
 export const SET_PROFILE = 'SET_PROFILE';
+export const TOGGLE_CURBRAMPS = 'TOGGLE_CURBRAMPS';
 
-export const REQUEST_ROUTE = 'REQUEST_ROUTE';
-export const RECEIVE_ROUTE = 'RECEIVE_ROUTE';
-export const FAILED_ROUTE = 'FAILED_ROUTE';
-
-export const SET_ORIGIN = 'SET_ORIGIN';
-export const SET_DESTINATION = 'SET_DESTINATION';
-export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
-export const SET_POI = 'SET_POI';
-export const LOG_BOUNDS = 'LOG_BOUNDS';
-export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
-export const CLEAR_GEOLOCATION = 'CLEAR_GEOLOCATION';
-export const REQUEST_GEOLOCATION = 'REQUEST_GEOLOCATION';
-export const RECEIVE_GEOLOCATION = 'RECEIVE_GEOLOCATION';
-export const NO_GEOLOCATION = 'NO_GEOLOCATION';
-
-// User geocoding actions (typing into search bars)
-export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
-export const SET_ORIGIN_TEXT = 'SET_ORIGIN_TEXT';
-export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
-
-// TODO: simplify by having reducer check SET_VIEW?
-export const SET_CENTER = 'SET_CENTER';
-export const SET_ZOOM = 'SET_ZOOM';
-export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
-export const MAP_MOVE = 'MAP_MOVE';
-export const RESIZE_WINDOW = 'RESIZE_WINDOW';
-
-export const MAP_CLICK = 'MAP_CLICK';
-export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
-
-export const MAP_CONTEXT_CLICK = 'MAP_CONTEXT_CLICK';
-export const CANCEL_CONTEXT = 'CANCEL_CONTEXT';
-
+// Settings modes - mostly used for mouseover view changes
 export const MOUSE_OVER_DOWNHILL = 'MOUSE_OVER_DOWNHILL';
 export const MOUSE_OUT_DOWNHILL = 'MOUSE_OUT_DOWNHILL';
 export const OPEN_PREFERENCES = 'OPEN_PREFERENCES';
@@ -48,17 +20,69 @@ export const OPEN_UPHILL_PREFERENCES = 'OPEN_UPHILL_PREFERENCES';
 export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
 export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
+// User geocoding actions (typing into search bars)
+export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
+export const SET_ORIGIN_TEXT = 'SET_ORIGIN_TEXT';
+export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
+
+// Map POIs
+export const SET_DESTINATION = 'SET_DESTINATION';
+export const SET_ORIGIN = 'SET_ORIGIN';
+export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
+export const SET_POI = 'SET_POI';
+export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
+
+// Map view settings
+export const SET_CENTER = 'SET_CENTER';
+export const SET_ZOOM = 'SET_ZOOM';
+export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
+export const MAP_MOVE = 'MAP_MOVE';
+export const RESIZE_WINDOW = 'RESIZE_WINDOW';
+
+// Map interactions
+export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
+export const MAP_CLICK = 'MAP_CLICK';
+export const MAP_CONTEXT_CLICK = 'MAP_CONTEXT_CLICK';
+export const CANCEL_CONTEXT = 'CANCEL_CONTEXT';
+
+// Geolocation
+export const CLEAR_GEOLOCATION = 'CLEAR_GEOLOCATION';
+export const NO_GEOLOCATION = 'NO_GEOLOCATION';
+export const RECEIVE_GEOLOCATION = 'RECEIVE_GEOLOCATION';
+export const REQUEST_GEOLOCATION = 'REQUEST_GEOLOCATION';
+
+// Routing statuses
+export const FAILED_ROUTE = 'FAILED_ROUTE';
+export const RECEIVE_ROUTE = 'RECEIVE_ROUTE';
+export const REQUEST_ROUTE = 'REQUEST_ROUTE';
+
+// Browser / load events
 export const LOAD_APP = 'LOAD_APP';
+
+// Logging - track data, doesn't impact rendering
+export const LOG_BOUNDS = 'LOG_BOUNDS';
 
 
 // Action creators
-export function toggleTripPlanning(currentValue) {
+export function toggleTripPlanning(displayed) {
   return {
     type: TOGGLE_TRIP_PLANNING,
-    payload: currentValue,
+    payload: displayed,
     meta: {
       analytics: {
         type: 'toggle-trip-planning',
+      }
+    }
+  };
+}
+
+export function toggleSettingProfile(displayed) {
+  return {
+    type: TOGGLE_SETTING_PROFILE,
+    payload: displayed,
+    meta: {
+      analytics: {
+        type: 'toggle-setting-profile',
       }
     }
   };
@@ -171,7 +195,7 @@ function routeIfValid(dispatch, getState) {
 
   const {
     planningTrip,
-  } = state.tripplanning;
+  } = state.activities;
 
   const {
     inclineMax,

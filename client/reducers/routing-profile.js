@@ -11,6 +11,20 @@ import {
 
 import { defaultRoutingProfile as defaults } from './defaults';
 
+const handleProfileName = (state = defaults.profileName, action) => {
+  switch (action.type) {
+    case SET_PROFILE:
+      return action.payload;
+    case SET_INCLINE_IDEAL:
+    case SET_INCLINE_MAX:
+    case SET_INCLINE_MIN:
+    case TOGGLE_CURBRAMPS:
+      return 'custom';
+    default:
+      return state;
+  }
+};
+
 const handleInclineIdeal = (state = defaults.inclineIdeal, action) => {
   switch (action.type) {
     case SET_PROFILE:
@@ -93,5 +107,6 @@ export default combineReducers({
   inclineIdeal: handleInclineIdeal,
   inclineMax: handleInclineMax,
   inclineMin: handleInclineMin,
+  profileName: handleProfileName,
   requireCurbRamps: handleCurbRamps,
 });

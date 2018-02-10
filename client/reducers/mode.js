@@ -10,8 +10,8 @@ import {
 
 const modes = {
   DOWNHILL: 'DOWNHILL',
-  UPHILL: 'DOWNHILL',
-  OTHER: 'DOWNHILL',
+  UPHILL: 'UPHILL',
+  OTHER: 'OTHER',
   NONE: null,
 }
 

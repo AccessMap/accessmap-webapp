@@ -4,9 +4,13 @@ export const defaultWaypoints = {
   poi: null
 };
 
-export const defaultTripPlanning = {
-  isFetching: false,
+export const defaultActivities = {
+  fetchingTrip: false,
   planningTrip: false,
+  settingProfile: false,
+};
+
+export const defaultTripPlanning = {
   routeResult: null,
   geocoderText: {
     searchText: '',
@@ -42,7 +46,7 @@ export const defaultGeolocation = {
   geolocation: null,
 };
 
-export const defaultMode = null;
+export const defaultMode = 'UPHILL';
 
 export const defaultBrowser = {
   mediaType: null,

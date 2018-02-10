@@ -88,20 +88,7 @@ class AccessMap extends Component {
 
     const midDown = (maxDown + inclineIdeal) / 2;
     const midUp = (maxUp + inclineIdeal) / 2;
-    if (mode === 'uphill') {
-      // Find the incline=0 intercept (find cost at that point). Linear func.
-      const dx = midUp - inclineIdeal;
-      const m = midColor / dx;
-      const b = inclineIdeal - (m * midUp);
-
-      inclineStops = [
-        -maxUp, colorScale(1).hex(),
-        -midUp, colorScale(midColor).hex(),
-        0, colorScale(b).hex(),
-        midUp, colorScale(midColor).hex(),
-        maxUp, colorScale(1).hex()
-      ];
-    } else if (mode === 'downhill') {
+    if (mode === 'DOWNHILL') {
       // Find the incline=0 intercept (find cost at that point). Linear func.
       const dx = midDown - inclineIdeal;
       const m = midColor / dx;
@@ -115,6 +102,19 @@ class AccessMap extends Component {
         -inclineIdeal, colorScale(0).hex(),
         -midDown, colorScale(midColor).hex(),
         -maxDown, colorScale(1).hex()
+      ];
+    } else {
+      // Find the incline=0 intercept (find cost at that point). Linear func.
+      const dx = midUp - inclineIdeal;
+      const m = midColor / dx;
+      const b = inclineIdeal - (m * midUp);
+
+      inclineStops = [
+        -maxUp, colorScale(1).hex(),
+        -midUp, colorScale(midColor).hex(),
+        0, colorScale(b).hex(),
+        midUp, colorScale(midColor).hex(),
+        maxUp, colorScale(1).hex()
       ];
     }
 
@@ -416,7 +416,7 @@ AccessMap.propTypes = {
   inclineMin: PropTypes.number,
   inclineIdeal: PropTypes.number,
   requireCurbRamps: PropTypes.bool,
-  mode: PropTypes.oneOf(['uphill', 'downhill']),
+  mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
   origin: PropTypes.shape({
     type: PropTypes.oneOf(['Feature']).isRequired,
     geometry: PropTypes.shape({
@@ -476,25 +476,28 @@ AccessMap.defaultProps = {
 
 function mapStateToProps(state) {
   const {
+    activities,
     geolocation,
+    mode,
     routingprofile,
     tripplanning,
+    view,
     waypoints,
-    view
   } = state;
 
   return {
-    routeResult: tripplanning.routeResult,
+    destination: waypoints.destination,
+    center: [view.lng, view.lat],
+    geolocation,
     inclineMax: routingprofile.inclineMax,
     inclineMin: routingprofile.inclineMin,
     inclineIdeal: routingprofile.inclineIdeal,
-    requireCurbRamps: routingprofile.requireCurbRamps,
-    planningTrip: tripplanning.planningTrip,
+    mode: mode,
     origin: waypoints.origin,
-    destination: waypoints.destination,
+    planningTrip: activities.planningTrip,
     poi: waypoints.poi,
-    geolocation,
-    center: [view.lng, view.lat],
+    requireCurbRamps: routingprofile.requireCurbRamps,
+    routeResult: tripplanning.routeResult,
     zoom: view.zoom,
   };
 }

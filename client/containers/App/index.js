@@ -44,7 +44,6 @@ class App extends Component {
       actions,
       contextClick,
       mediaType,
-      mode,
       planningTrip,
       selectedFeature,
     } = this.props;
@@ -75,7 +74,6 @@ class App extends Component {
               width: '100%',
               height: '100%',
             }}
-            mode={mode === 'DOWNHILL' ? 'downhill' : 'uphill'}
             onMoveEnd={(m, e) => {
               const newBounds = m.getBounds().toArray();
               const bbox = [
@@ -172,7 +170,6 @@ App.propTypes = {
   actions: PropTypes.object.isRequired,
   /* eslint-enable react/forbid-prop-types */
   /* eslint-enable react/require-default-props */
-  mode: PropTypes.string,
   planningTrip: PropTypes.bool,
   selectedFeature: PropTypes.shape({
     type: PropTypes.string,
@@ -185,20 +182,17 @@ App.propTypes = {
 
 App.defaultProps = {
   selectedFeature: null,
-  mode: null,
   planningTrip: false,
 };
 
 function mapStateToProps(state) {
   const {
     map,
-    mode,
     tripplanning,
   } = state;
 
   return {
     contextClick: map.contextClick,
-    mode: mode,
     planningTrip: tripplanning.planningTrip,
     selectedFeature: map.selectedFeature,
   };

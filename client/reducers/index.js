@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 
+import activities from './activities';
 import browser from './browser';
 import geolocation from './geolocation';
 import log from './log';
@@ -14,6 +15,7 @@ import waypoints from './waypoints';
  * Routing to be implemented
  */
 export default combineReducers({
+  activities,
   browser,
   geolocation,
   log,
