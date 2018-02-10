@@ -31,6 +31,8 @@ export const defaultView = {
   lng: -122.333592,
   lat: 47.605628,
   zoom: 15,
+  mapWidth: null,
+  mapHeight: null,
 };
 
 export const defaultLog = {

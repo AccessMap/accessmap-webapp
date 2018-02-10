@@ -349,11 +349,19 @@ const OmniCard = (props) => {
 
   return (
     <Card className='omnicard'>
-       {topBar}
-       {(mediaType !== 'MOBILE' | settingProfile === true)
-        ? settings
-        : profiles
-       }
+      {topBar}
+      {(mediaType !== 'MOBILE' | settingProfile === false)
+        ?
+        profiles
+        :
+        undefined
+      }
+      {(mediaType !== 'MOBILE' | settingProfile === true)
+        ?
+        settings
+        :
+        undefined
+      }
     </Card>
   );
 }

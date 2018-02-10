@@ -40,7 +40,33 @@ const Map = ReactMapboxGl({
 class AccessMap extends Component {
   constructor(props) {
     super(props);
-    this.state = { zoom: [15] };
+    this.state = {
+      zoom: [15],
+      width: 0,
+      height: 0,
+    };
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    const width = this.mapEl.container.clientWidth;
+    const height = this.mapEl.container.clientHeight;
+    if (this.state.width != width | this.state.height != height) {
+      this.setState({
+        width,
+        height,
+      });
+      this.props.actions.resizeMap(width, height);
+    }
   }
 
   render() {
@@ -275,6 +301,7 @@ class AccessMap extends Component {
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
       <Map
+        ref={(el) => { this.mapEl = el; }}
         center={center}
         zoom={[zoom]}
         bearing={[0]}

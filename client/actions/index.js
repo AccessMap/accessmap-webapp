@@ -37,7 +37,6 @@ export const SET_CENTER = 'SET_CENTER';
 export const SET_ZOOM = 'SET_ZOOM';
 export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
 export const MAP_MOVE = 'MAP_MOVE';
-export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
 // Map interactions
 export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
@@ -58,6 +57,9 @@ export const REQUEST_ROUTE = 'REQUEST_ROUTE';
 
 // Browser / load events
 export const LOAD_APP = 'LOAD_APP';
+export const LOAD_MAP = 'LOAD_MAP';
+export const RESIZE_MAP = 'RESIZE_MAP';
+export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
 // Logging - track data, doesn't impact rendering
 export const LOG_BOUNDS = 'LOG_BOUNDS';
@@ -109,15 +111,19 @@ export function requestRoute(origin, destination, params) {
   };
 }
 
-export function receiveRoute(routeResult) {
+export function receiveRoute(routeResult, mediaType) {
   return {
     type: RECEIVE_ROUTE,
-    payload: routeResult,
+    payload: {
+      routeResult,
+      mediaType,
+    },
     meta: {
       analytics: {
         type: 'receive-route',
         payload: {
-          routeResult
+          routeResult,
+          mediaType,
         }
       }
     }
@@ -145,7 +151,7 @@ export function failedRoute(origin, destination, error) {
   };
 }
 
-export function fetchRoute(origin, destination, params) {
+export function fetchRoute(origin, destination, params, mediaType) {
   return (dispatch) => {
     dispatch(requestRoute(origin, destination, params));
 
@@ -182,7 +188,7 @@ export function fetchRoute(origin, destination, params) {
         response => response.json(),
         error => dispatch(failedRoute, origin, destination, error)
       )
-      .then(json => dispatch(receiveRoute(json)));
+      .then(json => dispatch(receiveRoute(json), mediaType));
   };
 }
 
@@ -204,11 +210,16 @@ function routeIfValid(dispatch, getState) {
     requireCurbRamps
   } = state.routingprofile;
 
+  const {
+    mediaType,
+  } = state.browser;
+
   if (planningTrip && origin !== null && destination !== null) {
     dispatch(fetchRoute(
       origin,
       destination,
-      { inclineMax, inclineMin, inclineIdeal, requireCurbRamps }
+      { inclineMax, inclineMin, inclineIdeal, requireCurbRamps },
+      mediaType,
     ));
   }
 }
@@ -357,6 +368,23 @@ export function setPOI(lng, lat, name) {
 export function loadApp() {
   return {
     type: LOAD_APP,
+  };
+}
+
+export function loadMap(width, height) {
+  return {
+    type: LOAD_MAP,
+    payload: {
+      width,
+      height,
+    }
+  };
+}
+
+export function resizeMap(width, height) {
+  return {
+    type: RESIZE_MAP,
+    payload: { width, height },
   };
 }
 
