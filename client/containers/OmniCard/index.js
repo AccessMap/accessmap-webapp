@@ -44,6 +44,7 @@ const OmniCard = (props) => {
     origin,
     originText,
     planningTrip,
+    profileName,
     proximity,
     requireCurbRamps,
     searchText,
@@ -213,25 +214,35 @@ const OmniCard = (props) => {
           icon
           onClick={() => actions.setProfile('wheelchair')}
         >
-          <WheelchairIcon size={24} />
+          <WheelchairIcon
+            secondary={profileName === 'wheelchair'}
+            size={20}
+          />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
           onClick={() => actions.setProfile('powered')}
         >
-          <PoweredWheelchairIcon size={24} />
+          <PoweredWheelchairIcon
+            secondary={profileName === 'powered'}
+            size={20}
+          />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
           onClick={() => actions.setProfile('cane')}
         >
-          <CaneUserIcon size={24} />
+          <CaneUserIcon
+            secondary={profileName === 'cane'}
+            size={20}
+          />
         </Button>
         <Button
           className='md-btn--toolbar'
           icon
+          secondary={profileName === 'custom'}
           onClick={() => actions.setProfile('custom')}
         >
           settings
@@ -395,6 +406,7 @@ function mapStateToProps(state) {
     mediaType: browser.mediaType,
     mode: mode,
     planningTrip: activities.planningTrip,
+    profileName: routingprofile.profileName,
     settingProfile: activities.settingProfile,
     requireCurbRamps: routingprofile.requireCurbRamps,
     searchText: tripplanning.geocoderText.searchText,

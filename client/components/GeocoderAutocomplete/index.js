@@ -75,6 +75,7 @@ export default class GeocoderAutocomplete extends Component {
     return (
       <Autocomplete
         {...props}
+        className={className}
         data={places}
         dataLabel='name'
         deleteKeys={['location']}
