@@ -22,9 +22,6 @@ import * as AppActions from 'actions';
 import './style.scss';
 
 
-const CLICKABLE_LAYERS = ['sidewalk', 'crossing-ramps', 'crossing-noramps'];
-
-
 class App extends Component {
   constructor(props) {
     super(props);
@@ -85,54 +82,6 @@ class App extends Component {
             containerStyle={{
               width: '100%',
               height: '100%',
-            }}
-            onMoveEnd={(m, e) => {
-              const newBounds = m.getBounds().toArray();
-              const bbox = [
-                newBounds[0][0],
-                newBounds[0][1],
-                newBounds[1][0],
-                newBounds[1][1]
-              ];
-
-              if (e.originalEvent) {
-                const { lng, lat } = m.getCenter();
-                actions.mapMove([lng, lat], m.getZoom(), bbox);
-              } else {
-                actions.logBounds(bbox);
-              }
-            }}
-            onContextMenu={(m, e) => {
-              const { lng, lat } = e.lngLat;
-              actions.mapContextClick(lng, lat);
-            }}
-            onMouseMove={(m, e) => {
-              const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
-              const features = m.queryRenderedFeatures(e.point, {
-                layers: layers,
-              });
-              m.getCanvas().style.cursor = features.length ? 'pointer': 'default';
-            }}
-            onDrag={(m, e) => {
-              m.getCanvas().style.cursor = 'grabbing';
-            }}
-            onClick={(m, e) => {
-              const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
-              const features = m.queryRenderedFeatures(e.point, {
-                layers: CLICKABLE_LAYERS
-              });
-              actions.mapClick(features);
-            }}
-            onStyleLoad={(m) => {
-              // TODO: run this earlier - right after mapbox style load
-              const newBounds = m.getBounds().toArray();
-              const bbox = [
-                newBounds[0][0],
-                newBounds[0][1],
-                newBounds[1][0],
-                newBounds[1][1]
-              ];
-              actions.logBounds(bbox);
             }}
           />
           <ContextMenu

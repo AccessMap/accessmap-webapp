@@ -13,6 +13,8 @@ import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
 
+const CLICKABLE_LAYERS = ['sidewalk', 'crossing-ramps', 'crossing-noramps'];
+
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
 const colorScale = chroma.scale(colors).mode('lab');
@@ -29,8 +31,6 @@ const PEDESTRIAN_SOURCE = {
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
-  dragRotate: false,
-  touchZoomRotate: true,
   bearing: [0],
   pitch: [0]
 });
@@ -307,6 +307,79 @@ class AccessMap extends Component {
         /* eslint-disable react/style-prop-object */
         style='mapbox://styles/mapbox/streets-v8'
         /* eslint-enable react/style-prop-object */
+        onMoveEnd={(m, e) => {
+          const newBounds = m.getBounds().toArray();
+          const bbox = [
+            newBounds[0][0],
+            newBounds[0][1],
+            newBounds[1][0],
+            newBounds[1][1]
+          ];
+
+          if (e.originalEvent) {
+            const { lng, lat } = m.getCenter();
+            actions.mapMove([lng, lat], m.getZoom(), bbox);
+          } else {
+            actions.logBounds(bbox);
+          }
+        }}
+        onMouseDown={(m, e) => {
+          // NOTE: We can't use the 'contextmenu' event, because of
+          // inconsistent behavior between devices and browsers. Specifically,
+          // iOS safari doesn't create 'contextmenu' events, so to prevent
+          // double-firing on all other browsers, we just check for 'right
+          // click' on desktop and manually manage a long press using touch
+          // events.
+          if (e.originalEvent.button === 2) {
+            // Right click!
+            const { lng, lat } = e.lngLat;
+            actions.mapContextClick(lng, lat);
+          }
+        }}
+        onContextMenu={(m, e) => {
+          // Ignore the context menu event
+          e.preventDefault();
+        }}
+        onTouchStart={(m, e) => {
+          const { lng, lat } = e.lngLat;
+          clearTimeout(this.longPressTrigger);
+          this.longPressTrigger = setTimeout(() => {
+            actions.mapContextClick(lng, lat);
+          }, 500);
+        }}
+        onTouchMove={() => clearTimeout(this.longPressTrigger)}
+        onTouchEnd={(m, e) => {
+          clearTimeout(this.longPressTrigger);
+        }}
+        onMouseMove={(m, e) => {
+          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
+          const features = m.queryRenderedFeatures(e.point, {
+            layers: layers,
+          });
+          m.getCanvas().style.cursor = features.length ? 'pointer': 'default';
+        }}
+        onDrag={(m, e) => {
+          m.getCanvas().style.cursor = 'grabbing';
+        }}
+        onClick={(m, e) => {
+          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
+          const features = m.queryRenderedFeatures(e.point, {
+            layers: CLICKABLE_LAYERS
+          });
+          actions.mapClick(features);
+        }}
+        onStyleLoad={(m) => {
+          // TODO: run this earlier - right after mapbox style load
+          const newBounds = m.getBounds().toArray();
+          const bbox = [
+            newBounds[0][0],
+            newBounds[0][1],
+            newBounds[1][0],
+            newBounds[1][1]
+          ];
+          actions.logBounds(bbox);
+        }}
+
         {...props}
       >
 

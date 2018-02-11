@@ -80,7 +80,7 @@ export default function handleView(state = defaults, action) {
 
       if (routeResult.routes.length > 0) {
         // Give a little space so that pins can be seen, etc.
-        const MARGIN_FACTOR = 0.1;
+        const MARGIN_FACTOR = 0.0;
 
         // Calculate left/top padding so that route isn't hidden behind widgets
         let fracX;
