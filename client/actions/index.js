@@ -194,7 +194,7 @@ export function fetchRoute(origin, destination, params, mediaType) {
         response => response.json(),
         error => dispatch(failedRoute, origin, destination, error)
       )
-      .then(json => dispatch(receiveRoute(json), mediaType));
+      .then(json => dispatch(receiveRoute(json, mediaType)));
   };
 }
 
