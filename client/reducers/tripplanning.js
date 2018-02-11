@@ -14,7 +14,7 @@ import { defaultTripPlanning as defaults } from './defaults';
 const handleRoute = (state = defaults.routeResult, action) => {
   switch (action.type) {
     case TOGGLE_TRIP_PLANNING:
-      return action.payload ? null : state;
+      return action.payload.planningTrip ? null : state;
     case RECEIVE_ROUTE:
       if (action.payload.routeResult.routes.length > 0) {
         return action.payload.routeResult;
@@ -47,6 +47,19 @@ const handleGeocoderText = (state = defaults.geocoderText, action) => {
         ...state,
         originText: state.destinationText,
         destinationText: state.originText,
+      }
+    case TOGGLE_TRIP_PLANNING:
+      if (action.payload.planningTrip) {
+        // User was planning a trip and has exited that mode
+        // TODO: restore and/or never modify original POI search (should be
+        // same as hitting 'back' button)
+        return state;
+      } else {
+        // User has entered trip planning mode - copy search text to geocoder
+        return {
+          ...state,
+          originText: state.searchText,
+        }
       }
     default:
       return state;

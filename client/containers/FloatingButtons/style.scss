@@ -2,7 +2,7 @@
 
 // Overall layout
 .floating-buttons {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   padding: 0;
@@ -13,5 +13,5 @@
 // Button layout within div
 .floating-buttons .md-btn {
   display: block;
-  margin-top: 8px;
+  margin: 8px;
 }

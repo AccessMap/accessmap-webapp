@@ -27,7 +27,7 @@ const handleSettingProfile = (state = defaults.settingProfile, action) => {
 const handlePlanningTrip = (state = defaults.planningTrip, action) => {
   switch (action.type) {
     case TOGGLE_TRIP_PLANNING:
-      return !action.payload;
+      return !action.payload.planningTrip;
     case SET_ORIGIN:
     case SET_DESTINATION:
       return true;

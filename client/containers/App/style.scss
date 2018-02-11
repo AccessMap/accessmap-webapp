@@ -24,3 +24,9 @@ body {
   touch-action: none;
   position: absolute;
 }
+
+.omnicard,
+.floating-buttons,
+.feature-card {
+  z-index: 4;
+}

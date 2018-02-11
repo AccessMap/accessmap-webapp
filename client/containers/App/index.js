@@ -54,21 +54,33 @@ class App extends Component {
 
     return (
       <React.Fragment>
+        <Toolbar
+          className={'md-paper--1'}
+          title={
+            <div
+              className='accessmap-title'
+              key='accessmap-brand'
+            >
+              <AccessMapBrand
+                secondary='#448aff'
+                height={mobile ? 32 : 24}
+                primary='#0d47a1'
+                backgroundTransparent
+                mini={mobile}
+                className='accessmap-toolbar-icon'
+              />
+            </div>
+          }
+          themed
+          actions={
+            <AccessibleFakeButton>
+              <Avatar className={cn('md-toolbar--action-right')}>U</Avatar>
+            </AccessibleFakeButton>
+          }
+          fixed
+          zDepth={0}
+        />
         <div className='map-container'>
-          <ContextMenu
-            visible={contextClick === null ? false : true}
-            onClickCancel={actions.cancelContext}
-            onClickOrigin={() => {
-              actions.setOrigin(contextClick.lng,
-                                contextClick.lat,
-                                'Custom origin');
-            }}
-            onClickDestination={() => {
-              actions.setDestination(contextClick.lng,
-                                     contextClick.lat,
-                                     'Custom destination');
-            }}
-          />
           <AccessMap
             containerStyle={{
               width: '100%',
@@ -123,42 +135,31 @@ class App extends Component {
               actions.logBounds(bbox);
             }}
           />
+          <ContextMenu
+            visible={contextClick === null ? false : true}
+            onClickCancel={actions.cancelContext}
+            onClickOrigin={() => {
+              actions.setOrigin(contextClick.lng,
+                                contextClick.lat,
+                                'Custom origin');
+            }}
+            onClickDestination={() => {
+              actions.setDestination(contextClick.lng,
+                                     contextClick.lat,
+                                     'Custom destination');
+            }}
+          />
+          { selectedFeature &&
+            <FeatureCard
+              className='feature-card'
+              title={selectedFeature.layerName}
+              featureProperties={Object.values(selectedFeature.properties)}
+              onClickClose={() => actions.clearSelectedFeatures()}
+            />
+          }
           <OmniCard />
           <FloatingButtons />
         </div>
-        { selectedFeature &&
-          <FeatureCard
-            title={selectedFeature.layerName}
-            featureProperties={Object.values(selectedFeature.properties)}
-            onClickClose={() => actions.clearSelectedFeatures()}
-          />
-        }
-        <Toolbar
-          className={'md-paper--1'}
-          title={
-            <div
-              className='accessmap-title'
-              key='accessmap-brand'
-            >
-              <AccessMapBrand
-                secondary='#448aff'
-                height={mobile ? 32 : 24}
-                primary='#0d47a1'
-                backgroundTransparent
-                mini={mobile}
-                className='accessmap-toolbar-icon'
-              />
-            </div>
-          }
-          themed
-          actions={
-            <AccessibleFakeButton>
-              <Avatar className={cn('md-toolbar--action-right')}>U</Avatar>
-            </AccessibleFakeButton>
-          }
-          fixed
-          zDepth={0}
-        />
       </React.Fragment>
     );
   }

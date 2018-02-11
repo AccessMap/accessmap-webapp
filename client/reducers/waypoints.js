@@ -29,7 +29,13 @@ const handleOrigin = (state = defaults.origin, action) => {
     case SWAP_WAYPOINTS:
       return action.payload.destination;
     case TOGGLE_TRIP_PLANNING:
-      return action.payload ? null : state;
+      if (action.payload.planningTrip) {
+        // Was in trip planning mode, reset
+        return null;
+      } else {
+        // Entering trip planning mode - copy from POI if it exists
+        return action.payload.poi;
+      }
     default:
       return state;
   }
@@ -48,7 +54,7 @@ const handleDestination = (state = defaults.destination, action) => {
     case SWAP_WAYPOINTS:
       return action.payload.origin;
     case TOGGLE_TRIP_PLANNING:
-      return action.payload ? null : state;
+      return action.payload.planningTrip ? null : state;
     default:
       return state;
   }

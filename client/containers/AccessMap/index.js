@@ -13,8 +13,6 @@ import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
 
-import './style.scss';
-
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
 const colorScale = chroma.scale(colors).mode('lab');

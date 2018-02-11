@@ -175,7 +175,7 @@ const OmniCard = (props) => {
               onAutocomplete={(label, index, data) => {
                 const poi = data[index];
                 actions.setPOI(poi.location[0], poi.location[1], poi.name);
-                actions.setSearchText(label);
+                actions.setSearchText(poi.name);
               }}
               proximity={center}
               onChange={(v) => { actions.setSearchText(v); }}

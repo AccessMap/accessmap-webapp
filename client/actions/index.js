@@ -66,15 +66,21 @@ export const LOG_BOUNDS = 'LOG_BOUNDS';
 
 
 // Action creators
-export function toggleTripPlanning(displayed) {
-  return {
-    type: TOGGLE_TRIP_PLANNING,
-    payload: displayed,
-    meta: {
-      analytics: {
-        type: 'toggle-trip-planning',
+export function toggleTripPlanning(planningTrip) {
+  return (dispatch, getState) => {
+    const {waypoints} = getState();
+    dispatch({
+      type: TOGGLE_TRIP_PLANNING,
+      payload: {
+        planningTrip,
+        poi: waypoints.poi,
+      },
+      meta: {
+        analytics: {
+          type: 'toggle-trip-planning',
+        }
       }
-    }
+    });
   };
 }
 

@@ -4031,14 +4031,14 @@ react-event-listener@^0.5.1:
     prop-types "^15.6.0"
     warning "^3.0.0"
 
-react-mapbox-gl@^3.4.1:
-  version "3.4.1"
-  resolved "https://registry.yarnpkg.com/react-mapbox-gl/-/react-mapbox-gl-3.4.1.tgz#40159a71a9ab1715d614fd5e70ede8418b822e75"
+react-mapbox-gl@^3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/react-mapbox-gl/-/react-mapbox-gl-3.5.1.tgz#db84e6a5ca3fe92354689bf947bfed65682f104b"
   dependencies:
     "@turf/bbox" "4.7.3"
     "@turf/helpers" "4.7.3"
     deep-equal "1.0.1"
-    supercluster "3.0.1"
+    supercluster "3.0.2"
 
 react-md@^1.2.11:
   version "1.2.11"
@@ -4805,9 +4805,9 @@ style-loader@0.13.2:
   dependencies:
     loader-utils "^1.0.2"
 
-supercluster@3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-3.0.1.tgz#e32c043659d442c150f674ebbaac5f5bdcf394e0"
+supercluster@3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/supercluster/-/supercluster-3.0.2.tgz#370d6b4fcc9381f034f60f950593d7e4de3235ef"
   dependencies:
     kdbush "^1.0.1"
 
