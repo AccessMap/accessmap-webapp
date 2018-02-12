@@ -176,8 +176,8 @@ export function fetchRoute(origin, destination, params, mediaType) {
                      .slice()
                      .reverse()
                      .join(','),
-      maxup: inclineMax,
-      maxdown: inclineMin,
+      incline_max: inclineMax,
+      incline_min: inclineMin,
       ideal: inclineIdeal,
     };
     if (requireCurbRamps) routeParams.avoid = 'curbs';
