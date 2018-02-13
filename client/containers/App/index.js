@@ -10,6 +10,8 @@ import Avatar from 'react-md/lib/Avatars';
 import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
+import NavUserButton from '../../components/OpenIDAuth/navUserButton';
+
 import AccessMap from 'containers/AccessMap';
 import FloatingButtons from 'containers/FloatingButtons';
 import OmniCard from 'containers/OmniCard';
@@ -70,9 +72,7 @@ class App extends Component {
           }
           themed
           actions={
-            <AccessibleFakeButton>
-              <Avatar className={cn('md-toolbar--action-right')}>U</Avatar>
-            </AccessibleFakeButton>
+            <NavUserButton />
           }
           fixed
           zDepth={0}
