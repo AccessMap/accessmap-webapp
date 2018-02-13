@@ -1,22 +1,14 @@
 import store from "../store";
 
-export function loadChannels() {
+export function loadUserInfo() {
   const url =
-    "https://www.googleapis.com/youtube/v3/subscriptions?part=snippet&mine=true";
+    "https://accounts.open-to-all.com/auth/realms/OpenToAll/protocol/openid-connect/userinfo";
 
   return apiRequest(url).then(result => {
-    const channels = [];
-
-    for (const channel of result.data.items) {
-      channels.push({
-        id: channel.snippet.resourceId.channelId,
-        title: channel.snippet.title,
-        description: channel.snippet.description,
-        thumbnail: channel.snippet.thumbnails.default.url
-      });
-    }
-
-    return channels;
+    const note = "Note: If the auth token expires, then you won't be able to " +
+      "see the correct user info below. This could be caused by automatic renew " +
+      "not working properly in this browser.\n\n";
+    alert(note + JSON.stringify(result.data, null, 2));
   });
 }
 

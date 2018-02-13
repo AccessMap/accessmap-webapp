@@ -10,17 +10,25 @@ import { FontIcon } from 'react-md/lib/FontIcons'
 import { DropdownMenu } from 'react-md/lib/Menus'
 import PropTypes from 'prop-types';
 
+import { loadUserInfo } from '../../utils/api';
+
 class User extends React.Component {
   render() {
     const { user } = this.props;
 
     const DropdownItems = [
       {
-        primaryText: "[DEBUG] Show User Info",
+        primaryText: "[DEBUG] Show Token Info",
         onClick: () => {
           // TODO: delete debug prompt
-          alert(JSON.stringify(this.props.user, null, 2));
+          alert(
+            JSON.stringify(this.props.user, null, 2)
+          );
         }
+      },
+      {
+        primaryText: "[DEBUG] Get User Info with Token",
+        onClick: () => loadUserInfo()
       },
       {
         primaryText: "Manage Routing Profiles",
