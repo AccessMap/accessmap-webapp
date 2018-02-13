@@ -1,9 +1,10 @@
 import React from "react";
 import userManager from "../../utils/userManager";
-import { AccessibleFakeButton } from 'react-md/lib/Helpers';
 import Avatar from 'react-md/lib/Avatars';
-
-import cn from 'classnames';
+import {
+  AccessibleFakeButton,
+  IconSeparator,
+} from 'react-md/lib/Helpers';
 
 class Login extends React.Component {
   onLoginButtonClick(event) {
@@ -13,8 +14,14 @@ class Login extends React.Component {
 
   render() {
     return (
-      <AccessibleFakeButton onClick={this.onLoginButtonClick}>
-        <Avatar className={cn('md-toolbar--action-right')}>U</Avatar>
+      <AccessibleFakeButton
+        className={"md-btn--toolbar"}
+        component={IconSeparator}
+        iconBefore
+        label="Sign In"
+        onClick={this.onLoginButtonClick}
+      >
+        <Avatar suffix="grey">U</Avatar>
       </AccessibleFakeButton>
     );
   }
