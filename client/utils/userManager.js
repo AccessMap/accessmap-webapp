@@ -1,4 +1,5 @@
 import { createUserManager } from 'redux-oidc';
+import { WebStorageStateStore } from 'oidc-client'
 
 const userManagerConfig = {
   client_id: 'accessmap-webapp-dev',
@@ -10,6 +11,7 @@ const userManagerConfig = {
   automaticSilentRenew: true,
   filterProtocolClaims: true,
   loadUserInfo: true,
+  userStore: new WebStorageStateStore({ store: window.localStorage })
 };
 
 const userManager = createUserManager(userManagerConfig);
