@@ -257,6 +257,7 @@ const OmniCard = (props) => {
       controlled
       label='Maximum uphill incline'
       incline={inclineMax}
+      min={0}
       max={12}
       step={0.5}
       valuePrecision={1}
@@ -270,6 +271,7 @@ const OmniCard = (props) => {
       controlled
       label='Maximum downhill incline'
       incline={-inclineMin}
+      min={1.5}
       max={12}
       step={0.5}
       valuePrecision={1}
@@ -357,6 +359,7 @@ const OmniCard = (props) => {
 
   // TODO:
   // 1. Adjust routes / view so that OmniCard will never overlap it.
+  console.log(inclineMin);
 
   return (
     <Card className='omnicard'>

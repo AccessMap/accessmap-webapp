@@ -16,7 +16,7 @@ export default {
   cane: {
     profileName: 'cane',
     inclineIdeal: -0.01,
-    inclineMax: 0.12,
+    inclineMax: 0.11,
     inclineMin: -0.12,
     requireCurbRamps: false,
   },

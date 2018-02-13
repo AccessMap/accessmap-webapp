@@ -68,11 +68,11 @@ const handleInclineMin = (state = defaults.inclineMin, action) => {
     case SET_PROFILE:
       switch (action.payload) {
         case 'wheelchair':
-          profiles.wheelchair.inclineMin;
+          return profiles.wheelchair.inclineMin;
         case 'powered':
-          profiles.powered.inclineMin;
+          return profiles.powered.inclineMin;
         case 'cane':
-          profiles.cane.inclineMin;
+          return profiles.cane.inclineMin;
         case 'custom':
           return state;
     }
