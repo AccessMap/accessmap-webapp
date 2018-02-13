@@ -4,30 +4,52 @@ export const defaultWaypoints = {
   poi: null
 };
 
+export const defaultActivities = {
+  fetchingTrip: false,
+  planningTrip: false,
+  settingProfile: false,
+};
+
 export const defaultTripPlanning = {
-  isFetching: false,
+  routeResult: null,
+  geocoderText: {
+    searchText: '',
+    originText: '',
+    destinationText: '',
+  },
+};
+
+export const defaultRoutingProfile = {
   inclineMax: 0.08,
   inclineMin: -0.1,
   inclineIdeal: -0.01,
-  planningTrip: false,
   requireCurbRamps: true,
-  routeResult: null
-};
+  profileName: 'wheelchair',
+}
 
 export const defaultView = {
+  lng: -122.333592,
+  lat: 47.605628,
+  zoom: 15,
+  mapWidth: null,
+  mapHeight: null,
+};
+
+export const defaultLog = {
   bounds: null,
-  center: [-122.333592, 47.605628],
-  zoom: 15
 };
 
 export const defaultMap = {
-  selectedFeature: null
+  selectedFeature: null,
+  contextClick: null,
 };
 
 export const defaultGeolocation = {
   geolocation: null,
 };
 
-export const defaultUserSettings = {
-  track: false
+export const defaultMode = 'UPHILL';
+
+export const defaultBrowser = {
+  mediaType: null,
 };

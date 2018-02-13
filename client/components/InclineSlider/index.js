@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-md/lib/Sliders';
 
+import './style.scss';
 
-// TODO: inherit from Slider so that state can be accessed, add defaultProps
+
 export default function InclineSlider(props) {
   const {
     id,
@@ -13,20 +14,28 @@ export default function InclineSlider(props) {
     max,
     step,
     valuePrecision,
-    onChange
+    onChange,
+    onMouseEnter,
+    onMouseLeave,
+    controlled
   } = props;
+
+  const inclineValue = +(incline * 100).toFixed(1);
 
   return (
     <Slider
       discrete
       id={id}
-      label={`${label}: ${(incline * 100).toFixed(1)}%`}
-      defaultValue={+(incline * 100).toFixed(1)}
+      label={`${label}: ${inclineValue}%`}
+      defaultValue={inclineValue}
       min={min}
       max={max}
       step={step}
       valuePrecision={valuePrecision}
       onChange={onChange}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      value={controlled ? inclineValue : undefined}
     />
   );
 }
@@ -40,6 +49,9 @@ InclineSlider.propTypes = {
   step: PropTypes.number,
   valuePrecision: PropTypes.number,
   onChange: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  controlled: PropTypes.bool,
 };
 
 InclineSlider.defaultProps = {
@@ -49,5 +61,8 @@ InclineSlider.defaultProps = {
   max: 10,
   step: 0.5,
   valuePrecision: 1,
-  onChange: null
+  onChange: null,
+  onMouseEnter: null,
+  onMouseLeave: null,
+  controlled: false,
 };

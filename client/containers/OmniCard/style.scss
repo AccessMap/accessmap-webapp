@@ -1,0 +1,48 @@
+@import '~react-md/src/scss/react-md';
+
+// Overall layout
+.omnicard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 8px;
+
+  @media #{$md-mobile-media} {
+    right: 0;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    width: 256px;
+  }
+
+  @media #{$md-tablet-media} {
+    width: 384px;
+  }
+
+  @media #{$md-desktop-media} {
+    width: 384px;
+  }
+
+  // Autocompletes (geocoders)
+
+  #origin-geocoder-menu-list,
+  #destination-geocoder-menu-list,
+  #address_search-menu-list {
+    @media #{$md-mobile-media} {
+      width: 256px;
+    }
+    @media #{$md-mobile-landscape-media} {
+      width: 512px;
+    }
+    @media #{$md-tablet-media} {
+      width: 512px;
+    }
+    @media #{$md-desktop-media} {
+      width: 512px;
+    }
+  }
+
+  .md-autocomplete-list .md-list-item .md-list-tile {
+    padding-left: 16px;
+  }
+}

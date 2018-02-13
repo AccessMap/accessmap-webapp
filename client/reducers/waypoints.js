@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import PointFeature from 'utils/geojson';
+
 // Action types
 import {
   SET_ORIGIN,
@@ -7,36 +9,33 @@ import {
   SET_POI,
   SET_ORIGIN_DESTINATION,
   SWAP_WAYPOINTS,
-  TRIP_PLANNING_ON,
-  TRIP_PLANNING_OFF
+  TOGGLE_TRIP_PLANNING,
 } from 'actions';
 
 // Default actions
 import { defaultWaypoints as defaults } from './defaults';
 
-const makeWaypoint = (coordinates, name) => ({
-  type: 'Feature',
-  geometry: {
-    type: 'Point',
-    coordinates
-  },
-  properties: {
-    name: name === undefined ? '' : name
-  }
-});
-
 // Reducers
 const handleOrigin = (state = defaults.origin, action) => {
   switch (action.type) {
     case SET_ORIGIN:
-      return makeWaypoint(action.payload.location, action.payload.name);
+      return PointFeature(action.payload.lng,
+                          action.payload.lat,
+                          { name: action.payload.name });
     case SET_ORIGIN_DESTINATION:
-      return makeWaypoint(action.payload.origin.location,
-                          action.payload.origin.name);
+      return PointFeature(action.payload.originLng,
+                          action.payload.originLat,
+                          { name: action.payload.name });
     case SWAP_WAYPOINTS:
       return action.payload.destination;
-    case TRIP_PLANNING_OFF:
-      return null;
+    case TOGGLE_TRIP_PLANNING:
+      if (action.payload.planningTrip) {
+        // Was in trip planning mode, reset
+        return null;
+      } else {
+        // Entering trip planning mode - copy from POI if it exists
+        return action.payload.poi;
+      }
     default:
       return state;
   }
@@ -45,16 +44,17 @@ const handleOrigin = (state = defaults.origin, action) => {
 const handleDestination = (state = defaults.destination, action) => {
   switch (action.type) {
     case SET_DESTINATION:
-      return makeWaypoint(action.payload.location, action.payload.name);
+      return PointFeature(action.payload.lng,
+                          action.payload.lat,
+                          { name: action.payload.name });
     case SET_ORIGIN_DESTINATION:
-      return makeWaypoint(action.payload.destination.location,
-                          action.payload.destination.name);
+      return PointFeature(action.payload.destLng,
+                          action.payload.destLat,
+                          { name: action.payload.name });
     case SWAP_WAYPOINTS:
       return action.payload.origin;
-    case TRIP_PLANNING_ON:
-      return action.payload;
-    case TRIP_PLANNING_OFF:
-      return null;
+    case TOGGLE_TRIP_PLANNING:
+      return action.payload.planningTrip ? null : state;
     default:
       return state;
   }
@@ -62,15 +62,10 @@ const handleDestination = (state = defaults.destination, action) => {
 
 const handlePOI = (state = defaults.poi, action) => {
   switch (action.type) {
-    case SET_ORIGIN:
-    case SET_DESTINATION:
-      return null;
     case SET_POI:
-      return makeWaypoint(action.payload.location, action.payload.name);
-    case TRIP_PLANNING_ON:
-      return null;
-    case TRIP_PLANNING_OFF:
-      return action.payload;
+      return PointFeature(action.payload.lng,
+                          action.payload.lat,
+                          { name: action.payload.name });
     default:
       return state;
   }
