@@ -54,7 +54,11 @@ module.exports = function (env) {
     );
   } else {
     plugins.push(
-      new webpack.HotModuleReplacementPlugin()
+      new webpack.HotModuleReplacementPlugin(),
+      new webpack.LoaderOptionsPlugin({
+        minimize: false,
+        debug: true
+      })
     );
   }
 
@@ -106,7 +110,7 @@ module.exports = function (env) {
         {
           test: /\.(woff|woff2|eot|ttf|svg)$/,
           loader: 'file-loader?name=client/fonts/roboto/[name].[ext]'
-        }
+        },
       ],
     },
 

@@ -13,14 +13,20 @@ export default function MapMarker(props) {
   return (
     <Marker
       {...props}
-      style={{ pointerEvents: 'none' }}
+      style={{
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}
       coordinates={coordinates}
       anchor='bottom'
     >
       <SVGIcon
         height={48}
         width={48}
-        viewBox={'0 0 480 480'}
+        svgMinX={0}
+        svgMinY={0}
+        svgWidth={480}
+        svgHeight={480}
         key='poi-icon'
       >
         <path

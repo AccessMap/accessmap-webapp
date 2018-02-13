@@ -1,5 +1,4 @@
 @import '~react-md/src/scss/react-md';
-@include react-md-toolbars;
 
 html,
 body {
@@ -22,17 +21,19 @@ body {
   }
   bottom: 0;
   width: 100%;
-  z-index: 0;
   touch-action: none;
   position: absolute;
+
+  // Disable accidental selection of this container - no magnifying glass on
+  // the map for iOS, etc.
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-.md-title {
-  display: flex;
-  align-items: center;
-}
-
-.accessmap-icon {
-  margin: 0 auto;
-  display: block;
+.omnicard,
+.floating-buttons,
+.feature-card {
+  z-index: 4;
 }

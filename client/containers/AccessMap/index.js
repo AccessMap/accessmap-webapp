@@ -9,9 +9,11 @@ import ReactMapboxGl, { GeoJSONLayer, Layer, Source } from 'react-mapbox-gl';
 import chroma from 'chroma-js';
 
 import MapMarker from 'components/MapMarker';
-import { routeResult as routeProp } from 'prop-schema';
+import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
+
+const CLICKABLE_LAYERS = ['sidewalk', 'crossing-ramps', 'crossing-noramps'];
 
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
@@ -29,14 +31,40 @@ const PEDESTRIAN_SOURCE = {
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
-  dragRotate: false,
-  touchZoomRotate: false,
+  bearing: [0],
+  pitch: [0]
 });
 
 class AccessMap extends Component {
   constructor(props) {
     super(props);
-    this.state = { zoom: [15] };
+    this.state = {
+      zoom: [15],
+      width: 0,
+      height: 0,
+    };
+    this.updateDimensions = this.updateDimensions.bind(this);
+  }
+
+  componentDidMount() {
+    this.updateDimensions();
+    window.addEventListener('resize', this.updateDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimensions);
+  }
+
+  updateDimensions() {
+    const width = this.mapEl.container.clientWidth;
+    const height = this.mapEl.container.clientHeight;
+    if (this.state.width != width | this.state.height != height) {
+      this.setState({
+        width,
+        height,
+      });
+      this.props.actions.resizeMap(width, height);
+    }
   }
 
   render() {
@@ -84,20 +112,7 @@ class AccessMap extends Component {
 
     const midDown = (maxDown + inclineIdeal) / 2;
     const midUp = (maxUp + inclineIdeal) / 2;
-    if (mode === 'uphill') {
-      // Find the incline=0 intercept (find cost at that point). Linear func.
-      const dx = midUp - inclineIdeal;
-      const m = midColor / dx;
-      const b = inclineIdeal - (m * midUp);
-
-      inclineStops = [
-        -maxUp, colorScale(1).hex(),
-        -midUp, colorScale(midColor).hex(),
-        0, colorScale(b).hex(),
-        midUp, colorScale(midColor).hex(),
-        maxUp, colorScale(1).hex()
-      ];
-    } else if (mode === 'downhill') {
+    if (mode === 'DOWNHILL') {
       // Find the incline=0 intercept (find cost at that point). Linear func.
       const dx = midDown - inclineIdeal;
       const m = midColor / dx;
@@ -112,10 +127,30 @@ class AccessMap extends Component {
         -midDown, colorScale(midColor).hex(),
         -maxDown, colorScale(1).hex()
       ];
+    } else {
+      // Find the incline=0 intercept (find cost at that point). Linear func.
+      const dx = midUp - inclineIdeal;
+      const m = midColor / dx;
+      const b = inclineIdeal - (m * midUp);
+
+      inclineStops = [
+        -maxUp, colorScale(1).hex(),
+        -midUp, colorScale(midColor).hex(),
+        0, colorScale(b).hex(),
+        midUp, colorScale(midColor).hex(),
+        maxUp, colorScale(1).hex()
+      ];
     }
 
     // Handle markers
-    const waypoints = planningTrip ? [origin, destination] : [poi];
+    // - If origin and destination are set, render those. Otherwise, render
+    // POI if available
+    let waypoints;
+    if (origin || destination) {
+      waypoints = [origin, destination];
+    } else {
+      waypoints = [poi];
+    }
     const markers = waypoints.filter(d => d).map(d =>
       <MapMarker
         coordinates={d.geometry.coordinates}
@@ -127,6 +162,8 @@ class AccessMap extends Component {
     // (e.g. space needle -> closest pedestrian path)
     let routeJogsLine;
     let routeLine;
+    let routeLineCasing;
+
     if (planningTrip && routeResult) {
       const routeJogs = {
         type: 'FeatureCollection',
@@ -178,7 +215,7 @@ class AccessMap extends Component {
             'line-color': 'black',
             'line-opacity': 0.6,
             'line-width': {
-              stops: [[12, 0.4], [16, 6], [22, 60]]
+              stops: [[12, 0.2], [16, 3], [22, 30]]
             },
             'line-dasharray': {
               stops: [
@@ -201,18 +238,35 @@ class AccessMap extends Component {
             'line-join': 'round'
           }}
           linePaint={{
-            'line-color': 'black',
-            'line-opacity': 0.7,
-            'line-gap-width': {
-              stops: [[12, 0.4], [16, 6], [22, 60]]
-            },
+            'line-color': '#4bf',
             'line-width': {
-              stops: [[12, 2], [16, 3], [22, 30]]
-            }
+              stops: [[12, 4.7], [16, 9.7], [22, 92]]
+            },
           }}
-          before={'bridge-path-bg'}
+          before={'crossing-noramps'}
         />
       );
+
+      routeLineCasing = (
+        <GeoJSONLayer
+          data={routePath}
+          lineLayout={{
+            'line-cap': 'round',
+            'line-join': 'round'
+          }}
+          linePaint={{
+            'line-color': 'black',
+            'line-gap-width': {
+              stops: [[12, 4.7], [16, 9.7], [22, 92]]
+            },
+            'line-width': {
+              stops: [[12, 0.5], [16, 1], [22, 1]]
+            }
+          }}
+          before={'crossing-noramps'}
+        />
+      );
+
     }
 
     const geolocationFc = {
@@ -245,11 +299,87 @@ class AccessMap extends Component {
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
       <Map
+        ref={(el) => { this.mapEl = el; }}
         center={center}
         zoom={[zoom]}
+        bearing={[0]}
+        pitch={[0]}
         /* eslint-disable react/style-prop-object */
         style='mapbox://styles/mapbox/streets-v8'
         /* eslint-enable react/style-prop-object */
+        onMoveEnd={(m, e) => {
+          const newBounds = m.getBounds().toArray();
+          const bbox = [
+            newBounds[0][0],
+            newBounds[0][1],
+            newBounds[1][0],
+            newBounds[1][1]
+          ];
+
+          if (e.originalEvent) {
+            const { lng, lat } = m.getCenter();
+            actions.mapMove([lng, lat], m.getZoom(), bbox);
+          } else {
+            actions.logBounds(bbox);
+          }
+        }}
+        onMouseDown={(m, e) => {
+          // NOTE: We can't use the 'contextmenu' event, because of
+          // inconsistent behavior between devices and browsers. Specifically,
+          // iOS safari doesn't create 'contextmenu' events, so to prevent
+          // double-firing on all other browsers, we just check for 'right
+          // click' on desktop and manually manage a long press using touch
+          // events.
+          if (e.originalEvent.button === 2) {
+            // Right click!
+            const { lng, lat } = e.lngLat;
+            actions.mapContextClick(lng, lat);
+          }
+        }}
+        onContextMenu={(m, e) => {
+          // Ignore the context menu event
+          e.preventDefault();
+        }}
+        onTouchStart={(m, e) => {
+          const { lng, lat } = e.lngLat;
+          clearTimeout(this.longPressTrigger);
+          this.longPressTrigger = setTimeout(() => {
+            actions.mapContextClick(lng, lat);
+          }, 500);
+        }}
+        onTouchMove={() => clearTimeout(this.longPressTrigger)}
+        onTouchEnd={(m, e) => {
+          clearTimeout(this.longPressTrigger);
+        }}
+        onMouseMove={(m, e) => {
+          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
+          const features = m.queryRenderedFeatures(e.point, {
+            layers: layers,
+          });
+          m.getCanvas().style.cursor = features.length ? 'pointer': 'default';
+        }}
+        onDrag={(m, e) => {
+          m.getCanvas().style.cursor = 'grabbing';
+        }}
+        onClick={(m, e) => {
+          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
+          const features = m.queryRenderedFeatures(e.point, {
+            layers: CLICKABLE_LAYERS
+          });
+          actions.mapClick(features);
+        }}
+        onStyleLoad={(m) => {
+          // TODO: run this earlier - right after mapbox style load
+          const newBounds = m.getBounds().toArray();
+          const bbox = [
+            newBounds[0][0],
+            newBounds[0][1],
+            newBounds[1][0],
+            newBounds[1][1]
+          ];
+          actions.logBounds(bbox);
+        }}
+
         {...props}
       >
 
@@ -302,10 +432,10 @@ class AccessMap extends Component {
           paint={{
             'line-color': '#000000',
             'line-width': {
-              stops: [[12, 0.2], [15, 0.7], [22, 1.75]]
+              stops: [[12, 0.1], [15, 0.35], [22, 1]]
             },
             'line-opacity': {
-              stops: [[10, 0.0], [15, 0.4], [22, 0.5]]
+              stops: [[10, 0.0], [15, 0.9], [22, 1]]
             },
             'line-gap-width': {
               stops: [[12, 0.5], [16, 3], [22, 30]]
@@ -331,13 +461,14 @@ class AccessMap extends Component {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
             'line-opacity': {
-              stops: [[8, 0.0], [15, 0.7], [22, 0.6]]
+              stops: [[8, 0.0], [12, 0.8], [15, 1], [22, 1]]
             }
           }}
           before='bridge-path-bg'
         />
         {routeJogsLine}
         {routeLine}
+        {routeLineCasing}
         {markers}
 
         <GeoJSONLayer
@@ -383,7 +514,7 @@ AccessMap.propTypes = {
   inclineMin: PropTypes.number,
   inclineIdeal: PropTypes.number,
   requireCurbRamps: PropTypes.bool,
-  mode: PropTypes.oneOf(['uphill', 'downhill']),
+  mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
   origin: PropTypes.shape({
     type: PropTypes.oneOf(['Feature']).isRequired,
     geometry: PropTypes.shape({
@@ -420,7 +551,7 @@ AccessMap.propTypes = {
     accuracy: PropTypes.number,
     status: PropTypes.oneOf(['Ok', 'none', 'unavailable'])
   }),
-  routeResult: routeProp,
+  routeResult: routeResultProps,
   center: PropTypes.arrayOf(PropTypes.number),
   zoom: PropTypes.number,
 };
@@ -443,24 +574,28 @@ AccessMap.defaultProps = {
 
 function mapStateToProps(state) {
   const {
+    activities,
     geolocation,
+    mode,
+    routingprofile,
     tripplanning,
+    view,
     waypoints,
-    view
   } = state;
 
   return {
-    routeResult: tripplanning.routeResult,
-    inclineMax: tripplanning.inclineMax,
-    inclineMin: tripplanning.inclineMin,
-    inclineIdeal: tripplanning.inclineIdeal,
-    requireCurbRamps: tripplanning.requireCurbRamps,
-    planningTrip: tripplanning.planningTrip,
-    origin: waypoints.origin,
     destination: waypoints.destination,
-    poi: waypoints.poi,
+    center: [view.lng, view.lat],
     geolocation,
-    center: view.center,
+    inclineMax: routingprofile.inclineMax,
+    inclineMin: routingprofile.inclineMin,
+    inclineIdeal: routingprofile.inclineIdeal,
+    mode: mode,
+    origin: waypoints.origin,
+    planningTrip: activities.planningTrip,
+    poi: waypoints.poi,
+    requireCurbRamps: routingprofile.requireCurbRamps,
+    routeResult: tripplanning.routeResult,
     zoom: view.zoom,
   };
 }

@@ -1,16 +1,21 @@
 @import '~react-md/src/scss/react-md';
 
-$md-primary-color: $md-indigo-600;
-$md-secondary-color: $md-lime-a-700;
+$md-primary-color: $md-blue-900;
+$md-secondary-color: $md-blue-a-200;
 
 @include react-md-everything;
 
-.md-btn--floating {
-  color: white;
-  background-color: $md-primary-color;
-};
+// App bar / title bar color when using 'light theme' should be white
+.md-toolbar--themed {
+  background-color: $md-white-base;
+}
 
+// Floating round buttons - use light theme.
+.md-btn--floating {
+  color: $md-secondary-color;
+  background-color: $md-white-base;
+}
 .md-btn--floating:hover {
-  color: $md-primary-color;
-  background-color: white;
+  color: $md-white-base;
+  background-color: $md-secondary-color;
 }

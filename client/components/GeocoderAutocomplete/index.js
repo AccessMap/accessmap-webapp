@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Autocomplete from 'components/CustomAutocomplete';
+import cn from 'classnames';
+
+import Autocomplete from 'react-md/lib/Autocompletes';
 
 import MapboxClient from 'mapbox/lib/services/geocoding';
 
@@ -60,21 +62,27 @@ export default class GeocoderAutocomplete extends Component {
 
   render() {
     const {
-      places
-    } = this.state;
-
-    const {
+      className,
       ...props
     } = this.props;
+
+    const {
+      places,
+    } = this.state;
+
     delete props.proximity;
 
     return (
       <Autocomplete
         {...props}
+        className={className}
         data={places}
         dataLabel='name'
         deleteKeys={['location']}
         onChange={this.handleOnChange}
+        listStyle={{
+          paddingLeft: '16px',
+        }}
       />
     );
   }
