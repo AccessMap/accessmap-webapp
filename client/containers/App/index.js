@@ -23,6 +23,7 @@ import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
 import PreferenceCard from 'components/PreferenceCard';
 import FeatureCard from 'components/FeatureCard';
+import NavUserButton from 'components/OpenIDAuth/navUserButton'
 
 import * as AppActions from 'actions';
 import './style.scss';
@@ -162,6 +163,7 @@ class App extends Component {
       );
     } else {
       rightNav = [
+        <NavUserButton />,
         <Button
           key='nav-experiment'
           flat

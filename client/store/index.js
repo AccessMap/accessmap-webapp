@@ -1,4 +1,8 @@
 import { createStore, applyMiddleware } from 'redux';
+import { loadUser } from "redux-oidc";
+import userManager from "../utils/userManager";
+import { browserHistory } from "react-router";
+import { routerMiddleware } from "react-router-redux";
 
 import thunkMiddleware from 'redux-thunk';
 import analytics from 'redux-analytics';
@@ -61,9 +65,12 @@ if (useAnalytics) {
 
 }
 
+middlewares.push(routerMiddleware(browserHistory));
+
 const store = createStore(
   rootReducer,
   applyMiddleware(...middlewares)
 );
+loadUser(store, userManager);
 
 export default store;
