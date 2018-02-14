@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware } from 'redux';
 import { loadUser } from "redux-oidc";
-import userManager from "../utils/userManager";
+import userManager from "../utils/UserManager";
 import { browserHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
 

@@ -5,10 +5,10 @@ export function loadUserInfo() {
     "https://accounts.open-to-all.com/auth/realms/OpenToAll/protocol/openid-connect/userinfo";
 
   return apiRequest(url).then(result => {
-    const note = "Note: If the auth token expires, then you won't be able to " +
-      "see the correct user info below. This could be caused by automatic renew " +
-      "not working properly in this browser.\n\n";
-    alert(note + JSON.stringify(result.data, null, 2));
+    const note = "\n\nNote: If the auth token expires, then you won't be able to " +
+      "see the any user info above. This could be caused by automatic renew " +
+      "not working properly in this browser.";
+    alert(JSON.stringify(result.data, null, 2) + note);
   });
 }
 

@@ -1,5 +1,5 @@
 import React from "react";
-import userManager from "../../utils/userManager";
+import userManager from "../../utils/UserManager";
 import Avatar from 'react-md/lib/Avatars';
 import {
   AccessibleFakeButton,

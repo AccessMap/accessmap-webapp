@@ -1,10 +1,10 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import store from '../store';
 import { syncHistoryWithStore } from 'react-router-redux';
 import App from '../containers/App';
-import CallbackPage from '../components/OpenIDAuth/callback';
-import SilentRenewPage from '../components/OpenIDAuth/silent_renew/callback';
+import AuthProviderCallbackPage from '../components/OpenIDAuth/AuthProviderCallback';
+import SilentRenewPage from '../components/OpenIDAuth/SilentRenew';
 
 const history = syncHistoryWithStore(browserHistory, store);
 
@@ -12,7 +12,7 @@ export default function Routes(props) {
   return (
     <Router history={history}>
       <Route path="/" component={App}/>
-      <Route path="/callback" component={CallbackPage} />
+      <Route path="/callback" component={AuthProviderCallbackPage} />
       <Route path="/silent_renew" component={SilentRenewPage} />
     </Router>
   );

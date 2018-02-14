@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import Login from "./login";
-import User from "./user";
+import Login from "./Login";
+import User from "./User";
 
-function NavUserButton(props) {
+function UserMenu(props) {
   const { user } = props;
 
   return !user || user.expired ? <Login /> : <User />;
@@ -21,4 +21,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavUserButton);
+export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);

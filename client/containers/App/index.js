@@ -10,7 +10,7 @@ import Avatar from 'react-md/lib/Avatars';
 import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
-import NavUserButton from '../../components/OpenIDAuth/navUserButton';
+import UserMenu from '../../components/OpenIDAuth/';
 
 import AccessMap from 'containers/AccessMap';
 import FloatingButtons from 'containers/FloatingButtons';
@@ -72,7 +72,7 @@ class App extends Component {
           }
           themed
           actions={
-            <NavUserButton />
+            <UserMenu />
           }
           fixed
           zDepth={0}

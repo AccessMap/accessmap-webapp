@@ -2,7 +2,7 @@ import { createUserManager } from 'redux-oidc';
 import { WebStorageStateStore } from 'oidc-client'
 
 const userManagerConfig = {
-  client_id: 'accessmap-webapp-dev',
+  client_id: 'test-dev',
   redirect_uri: `${window.location.protocol}//${window.location.hostname}${window.location.port ? `:${window.location.port}` : ''}/callback`,
   response_type: 'token id_token',
   scope: 'openid profile offline_access',

@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import userManager from "../../utils/userManager";
+import userManager from "../../utils/UserManager";
 import {
   AccessibleFakeButton,
   IconSeparator,

@@ -7,7 +7,7 @@ import './fonts/index.css';
 import './index.html';
 
 import { OidcProvider } from 'redux-oidc';
-import userManager from './utils/userManager';
+import userManager from './utils/UserManager';
 import Routes from './routes'
 
 // Note: order matters here (at least with webpack as of 2017-05-22).
