@@ -69,11 +69,6 @@ class App extends Component {
             </div>
           }
           themed
-          actions={
-            <AccessibleFakeButton>
-              <Avatar className={cn('md-toolbar--action-right')}>U</Avatar>
-            </AccessibleFakeButton>
-          }
           fixed
           zDepth={0}
         />
