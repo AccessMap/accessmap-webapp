@@ -5,6 +5,7 @@ export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
 export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
 
 // Routing profile settings
+export const SET_SPEED = 'SET_SPEED';
 export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
 export const SET_PROFILE = 'SET_PROFILE';
@@ -163,7 +164,8 @@ export function fetchRoute(origin, destination, params, mediaType) {
     const {
       inclineMax,
       inclineMin,
-      requireCurbRamps
+      requireCurbRamps,
+      speed,
     } = params;
 
     const routeParams = {
@@ -176,6 +178,7 @@ export function fetchRoute(origin, destination, params, mediaType) {
                      .join(','),
       incline_max: inclineMax,
       incline_min: inclineMin,
+      speed: speed,
     };
     if (requireCurbRamps) routeParams.avoid = 'curbs';
 
@@ -209,7 +212,8 @@ function routeIfValid(dispatch, getState) {
   const {
     inclineMax,
     inclineMin,
-    requireCurbRamps
+    requireCurbRamps,
+    speed,
   } = state.routingprofile;
 
   const {
@@ -220,7 +224,7 @@ function routeIfValid(dispatch, getState) {
     dispatch(fetchRoute(
       origin,
       destination,
-      { inclineMax, inclineMin, requireCurbRamps },
+      { inclineMax, inclineMin, requireCurbRamps, speed },
       mediaType,
     ));
   }

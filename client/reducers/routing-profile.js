@@ -4,8 +4,9 @@ import profiles from 'profiles';
 import {
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
-  TOGGLE_CURBRAMPS,
   SET_PROFILE,
+  SET_SPEED,
+  TOGGLE_CURBRAMPS,
 } from 'actions';
 
 import { defaultRoutingProfile as defaults } from './defaults';
@@ -22,6 +23,28 @@ const handleProfileName = (state = defaults.profileName, action) => {
       return state;
   }
 };
+
+const handleSpeed = (state = defaults.speed, action) => {
+  switch (action.type) {
+    case SET_PROFILE:
+      switch (action.payload) {
+        case 'wheelchair':
+          return profiles.wheelchair.speed;
+        case 'powered':
+          return profiles.powered.speed;
+        case 'cane':
+          return profiles.cane.speed;
+        case 'custom':
+          return state;
+        default:
+    }
+    case SET_SPEED:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 
 const handleInclineMax = (state = defaults.inclineMax, action) => {
   switch (action.type) {
@@ -85,6 +108,7 @@ const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
 };
 
 export default combineReducers({
+  speed: handleSpeed,
   inclineMax: handleInclineMax,
   inclineMin: handleInclineMin,
   profileName: handleProfileName,
