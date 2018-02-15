@@ -42,6 +42,15 @@ export default class GeocoderAutocomplete extends Component {
       };
     }
 
+    // Seattle bounding box - should derive a little more systematically,
+    // eventually
+    geocoderOptions.bbox = [
+      -122.43791813067659,
+      47.471620665946823,
+      -122.22065507703849,
+      47.75814927864544
+    ];
+
     mapboxClient.geocodeForward(value, geocoderOptions)
       .then((results) => {
         this.setState({
