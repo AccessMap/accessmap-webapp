@@ -54,4 +54,13 @@
   .md-autocomplete-list .md-list-item .md-list-tile {
     padding-left: 16px;
   }
+
+  .md-slider-track-fill,
+  .md-slider-thumb--on {
+    background: $md-secondary-color;
+  }
+
+  .md-slider-thumb--discrete-on::after {
+    border-top-color: $md-secondary-color;
+  }
 }

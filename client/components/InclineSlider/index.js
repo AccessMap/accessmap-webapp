@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Slider from 'react-md/lib/Sliders';
 
-import './style.scss';
-
 
 export default function InclineSlider(props) {
   const {

@@ -1,4 +1,4 @@
-@import '~react-md/src/scss/react-md';
+@import '../../style';
 
 // Overall layout
 .floating-buttons {
@@ -12,6 +12,13 @@
 
 // Button layout within div
 .floating-buttons .md-btn {
+  color: $md-secondary-color;
+  background-color: $md-white-base;
   display: block;
   margin: 8px;
+}
+
+.md-btn--floating:hover {
+  color: $md-white-base;
+  background-color: $md-secondary-color;
 }

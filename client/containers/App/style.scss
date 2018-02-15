@@ -1,10 +1,14 @@
-@import '~react-md/src/scss/react-md';
+@import '../../style';
 
 html,
 body {
   height: 100%;
   margin: 0;
   padding: 0;
+}
+
+.md-toolbar--themed {
+  background-color: $md-white-base;
 }
 
 .map-container {
