@@ -13,7 +13,7 @@ import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
 
-const CLICKABLE_LAYERS = ['sidewalk', 'crossing-ramps', 'crossing-noramps'];
+const CLICKABLE_LAYERS = ['sidewalk', 'crossing'];
 
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
@@ -225,7 +225,7 @@ class AccessMap extends Component {
               ]
             }
           }}
-          before={'bridge-path-bg'}
+          before={'bridge-street'}
         />
       );
 
@@ -240,10 +240,10 @@ class AccessMap extends Component {
           linePaint={{
             'line-color': '#4bf',
             'line-width': {
-              stops: [[12, 4.7], [16, 9.7], [22, 92]]
+              stops: [[12, 5], [16, 12], [22, 92]]
             },
           }}
-          before={'crossing-noramps'}
+          before={'crossing-outline'}
         />
       );
 
@@ -263,7 +263,7 @@ class AccessMap extends Component {
               stops: [[12, 0.5], [16, 1], [22, 1]]
             }
           }}
-          before={'crossing-noramps'}
+          before={'crossing-outline'}
         />
       );
 
@@ -295,6 +295,12 @@ class AccessMap extends Component {
       );
     }
 
+    // Set bounds for when elevations become 'too steep' on display.
+    const boundMax = mode === 'DOWNHILL' ? -inclineMin : inclineMax;
+    const boundMin = mode === 'DOWNHILL' ? inclineMin : -inclineMax;
+
+    const defaultCurbRampOpacity = requireCurbRamps ? 0 : 0.5;
+
     // NOTE: Do not create actions that modify the `view` substate via
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
@@ -305,7 +311,7 @@ class AccessMap extends Component {
         bearing={[0]}
         pitch={[0]}
         /* eslint-disable react/style-prop-object */
-        style='mapbox://styles/mapbox/streets-v8'
+        style='mapbox://styles/accessmap/cjdl9ee8d03es2rqod4413t1w'
         /* eslint-enable react/style-prop-object */
         onMoveEnd={(m, e) => {
           const newBounds = m.getBounds().toArray();
@@ -338,7 +344,6 @@ class AccessMap extends Component {
         }}
         onContextMenu={(m, e) => {
           // Ignore the context menu event
-          e.preventDefault();
         }}
         onTouchStart={(m, e) => {
           const { lng, lat } = e.lngLat;
@@ -386,41 +391,46 @@ class AccessMap extends Component {
         <Source id='pedestrian' tileJsonSource={PEDESTRIAN_SOURCE} />
 
         <Layer
-          id='crossing-noramps'
+          id='crossing-outline'
           type='line'
           sourceId='pedestrian'
           sourceLayer='crossings'
-          filter={['!', ['to-boolean', ['get', 'curbramps']]]}
           layout={{ 'line-cap': 'round' }}
           paint={{
-            'line-color': '#000000',
+            'line-color': '#555555',
             'line-width': {
-              stops: [[12, 0.5], [16, 2], [22, 20]]
+              stops: [[12, 0.1], [15, 0.35], [22, 1]]
             },
+            'line-gap-width': { stops: [[12, 0.5], [16, 2], [22, 20]] },
             'line-opacity': {
-              stops: crossingOpacity
-            }
+              stops: [[15.5, 0.0], [16, 1], [22, 1]]
+            },
           }}
-          before='bridge-path-bg'
+          before='bridge-street'
         />
 
         <Layer
-          id='crossing-ramps'
+          id='crossing'
           type='line'
           sourceId='pedestrian'
           sourceLayer='crossings'
-          filter={['to-boolean', ['get', 'curbramps']]}
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': '#000000',
             'line-width': {
               stops: [[12, 0.5], [16, 2], [22, 20]]
             },
-            'line-opacity': {
-              stops: [[13, 0.0], [15, 0.4], [22, 0.5]]
-            }
+            'line-opacity': ['interpolate', ['linear'], ['zoom'],
+               13.5, 0.0,
+               14, [
+                 'case',
+                 ['to-boolean', ['get', 'curbramps']],
+                 0.5,
+                 defaultCurbRampOpacity
+               ]
+            ]
           }}
-          before='bridge-path-bg'
+          before='bridge-street'
         />
 
         <Layer
@@ -430,18 +440,18 @@ class AccessMap extends Component {
           sourceLayer='sidewalks'
           layout={{ 'line-cap': 'round' }}
           paint={{
-            'line-color': '#000000',
+            'line-color': '#555555',
             'line-width': {
-              stops: [[12, 0.1], [15, 0.35], [22, 1]]
+              stops: [[14, 0.01], [22, 1]]
             },
             'line-opacity': {
-              stops: [[10, 0.0], [15, 0.9], [22, 1]]
+              stops: [[13.5, 0.0], [14, 1]]
             },
             'line-gap-width': {
               stops: [[12, 0.5], [16, 3], [22, 30]]
             }
           }}
-          before='bridge-path-bg'
+          before='bridge-street'
         />
 
         <Layer
@@ -452,19 +462,43 @@ class AccessMap extends Component {
           layout={{ 'line-cap': 'round' }}
           paint={{
             'line-color': [
-              'interpolate',
-              ['linear'],
-              ['to-number', ['get', 'incline']],
-              ...inclineStops
+              'case',
+               ['>',
+                ['to-number', ['get', 'incline']],
+                boundMax,
+               ],
+               '#ffffff',
+               ['<',
+                ['to-number', ['get', 'incline']],
+                boundMin,
+               ],
+               '#ffffff',
+               [
+                 'interpolate',
+                 ['linear'],
+                 ['to-number', ['get', 'incline']],
+                 ...inclineStops,
+               ],
             ],
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
-            'line-opacity': {
-              stops: [[8, 0.0], [12, 0.8], [15, 1], [22, 1]]
-            }
+            'line-opacity': [
+              'case',
+              ['>',
+               ['to-number', ['get', 'incline']],
+               boundMax,
+              ],
+              0,
+              ['<',
+               ['to-number', ['get', 'incline']],
+               boundMin,
+              ],
+              0,
+              1,
+            ],
           }}
-          before='bridge-path-bg'
+          before='bridge-street'
         />
         {routeJogsLine}
         {routeLine}

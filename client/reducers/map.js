@@ -28,25 +28,14 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
               }
             },
           };
-        case 'crossing-ramps':
+        case 'crossing':
           return {
-            layer: 'crossing-ramps',
+            layer: 'crossing',
             layerName: 'Street Crossing',
             properties: {
               curbramps: {
                 name: 'Curb Ramps',
-                value: 'Yes',
-              }
-            }
-          };
-        case 'crossing-noramps':
-          return {
-            layer: 'crossing-noramps',
-            layerName: 'Street Crossing',
-            properties: {
-              curbramps: {
-                name: 'Curb Ramps',
-                value: 'No',
+                value: feature.properties.curbramps ? 'Yes' : 'No',
               }
             }
           };
