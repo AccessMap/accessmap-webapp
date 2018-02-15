@@ -1,4 +1,4 @@
-@import '~react-md/src/scss/react-md';
+@import '../../style';
 
 // Overall layout
 .omnicard {
@@ -40,6 +40,15 @@
     @media #{$md-desktop-media} {
       width: 512px;
     }
+  }
+
+  // Profile options
+  .profiles-container > * {
+    margin-left: 8px;
+  }
+
+  .profiles-container > .md-btn {
+    border: 1px solid $md-secondary-color;
   }
 
   .md-autocomplete-list .md-list-item .md-list-tile {

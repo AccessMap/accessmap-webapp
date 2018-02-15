@@ -208,7 +208,7 @@ const OmniCard = (props) => {
       <div className="dividers__border-example">
         <div className="md-divider-border md-divider-border--top" />
       </div>
-      <List>
+      <List className='profiles-container'>
         <Button
           className='md-btn--toolbar'
           icon
@@ -216,7 +216,7 @@ const OmniCard = (props) => {
         >
           <WheelchairIcon
             secondary={profileName === 'wheelchair'}
-            size={20}
+            size={mediaType === 'DESKTOP' ? 20 : 24}
           />
         </Button>
         <Button
@@ -226,7 +226,7 @@ const OmniCard = (props) => {
         >
           <PoweredWheelchairIcon
             secondary={profileName === 'powered'}
-            size={20}
+            size={mediaType === 'DESKTOP' ? 20 : 24}
           />
         </Button>
         <Button
@@ -236,7 +236,7 @@ const OmniCard = (props) => {
         >
           <CaneUserIcon
             secondary={profileName === 'cane'}
-            size={20}
+            size={mediaType === 'DESKTOP' ? 20 : 24}
           />
         </Button>
         <Button
