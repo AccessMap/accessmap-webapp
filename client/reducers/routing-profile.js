@@ -2,7 +2,6 @@ import { combineReducers } from 'redux';
 import profiles from 'profiles';
 
 import {
-  SET_INCLINE_IDEAL,
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
   TOGGLE_CURBRAMPS,
@@ -15,28 +14,10 @@ const handleProfileName = (state = defaults.profileName, action) => {
   switch (action.type) {
     case SET_PROFILE:
       return action.payload;
-    case SET_INCLINE_IDEAL:
     case SET_INCLINE_MAX:
     case SET_INCLINE_MIN:
     case TOGGLE_CURBRAMPS:
       return 'custom';
-    default:
-      return state;
-  }
-};
-
-const handleInclineIdeal = (state = defaults.inclineIdeal, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      switch (action.payload) {
-        case 'wheelchair':
-        case 'powered':
-        case 'cane':
-        case 'custom':
-          return -0.01
-    }
-    case SET_INCLINE_IDEAL:
-      return action.payload;
     default:
       return state;
   }
@@ -104,7 +85,6 @@ const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
 };
 
 export default combineReducers({
-  inclineIdeal: handleInclineIdeal,
   inclineMax: handleInclineMax,
   inclineMin: handleInclineMin,
   profileName: handleProfileName,

@@ -13,6 +13,7 @@ import { routeResult as routeResultProps } from 'prop-schema';
 
 import * as AppActions from 'actions';
 
+const INCLINE_IDEAL = -0.0087
 const CLICKABLE_LAYERS = ['sidewalk', 'crossing'];
 
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
@@ -72,7 +73,6 @@ class AccessMap extends Component {
       actions,
       inclineMax,
       inclineMin,
-      inclineIdeal,
       requireCurbRamps,
       routeResult,
       origin,
@@ -101,8 +101,8 @@ class AccessMap extends Component {
     // will assume that ideal is always negative, so this becomes:
     // max up > (abs(ideal) * 2)
     // max down < ideal
-    const maxUp = Math.max(inclineMax, Math.abs(inclineIdeal) * 2);
-    const maxDown = Math.min(inclineMin, inclineIdeal);
+    const maxUp = Math.max(inclineMax, Math.abs(INCLINE_IDEAL) * 2);
+    const maxDown = Math.min(inclineMin, INCLINE_IDEAL);
 
     let inclineStops;
 
@@ -110,28 +110,28 @@ class AccessMap extends Component {
     // and the color signifying 'medium difficulty' on our scale
     const midColor = 0.5;
 
-    const midDown = (maxDown + inclineIdeal) / 2;
-    const midUp = (maxUp + inclineIdeal) / 2;
+    const midDown = (maxDown + INCLINE_IDEAL) / 2;
+    const midUp = (maxUp + INCLINE_IDEAL) / 2;
     if (mode === 'DOWNHILL') {
       // Find the incline=0 intercept (find cost at that point). Linear func.
-      const dx = midDown - inclineIdeal;
+      const dx = midDown - INCLINE_IDEAL;
       const m = midColor / dx;
-      const b = inclineIdeal - (m * midDown);
+      const b = INCLINE_IDEAL - (m * midDown);
 
       inclineStops = [
         maxDown, colorScale(1).hex(),
         midDown, colorScale(midColor).hex(),
-        inclineIdeal, colorScale(0).hex(),
+        INCLINE_IDEAL, colorScale(0).hex(),
         0, colorScale(b).hex(),
-        -inclineIdeal, colorScale(0).hex(),
+        -INCLINE_IDEAL, colorScale(0).hex(),
         -midDown, colorScale(midColor).hex(),
         -maxDown, colorScale(1).hex()
       ];
     } else {
       // Find the incline=0 intercept (find cost at that point). Linear func.
-      const dx = midUp - inclineIdeal;
+      const dx = midUp - INCLINE_IDEAL;
       const m = midColor / dx;
-      const b = inclineIdeal - (m * midUp);
+      const b = INCLINE_IDEAL - (m * midUp);
 
       inclineStops = [
         -maxUp, colorScale(1).hex(),
@@ -546,7 +546,6 @@ AccessMap.propTypes = {
   /* eslint-enable react/require-default-props */
   inclineMax: PropTypes.number,
   inclineMin: PropTypes.number,
-  inclineIdeal: PropTypes.number,
   requireCurbRamps: PropTypes.bool,
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
   origin: PropTypes.shape({
@@ -593,7 +592,6 @@ AccessMap.propTypes = {
 AccessMap.defaultProps = {
   inclineMax: 0.1,
   inclineMin: -0.08,
-  inclineIdeal: -0.01,
   requireCurbRamps: true,
   mode: 'uphill',
   origin: null,
@@ -623,7 +621,6 @@ function mapStateToProps(state) {
     geolocation,
     inclineMax: routingprofile.inclineMax,
     inclineMin: routingprofile.inclineMin,
-    inclineIdeal: routingprofile.inclineIdeal,
     mode: mode,
     origin: waypoints.origin,
     planningTrip: activities.planningTrip,

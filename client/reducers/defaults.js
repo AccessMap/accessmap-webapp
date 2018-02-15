@@ -20,9 +20,9 @@ export const defaultTripPlanning = {
 };
 
 export const defaultRoutingProfile = {
+  speed: 0.6,
   inclineMax: 0.08,
   inclineMin: -0.1,
-  inclineIdeal: -0.01,
   requireCurbRamps: true,
   profileName: 'wheelchair',
 }

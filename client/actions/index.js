@@ -7,7 +7,6 @@ export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
 // Routing profile settings
 export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
-export const SET_INCLINE_IDEAL = 'SET_INCLINE_IDEAL';
 export const SET_PROFILE = 'SET_PROFILE';
 export const TOGGLE_CURBRAMPS = 'TOGGLE_CURBRAMPS';
 
@@ -164,7 +163,6 @@ export function fetchRoute(origin, destination, params, mediaType) {
     const {
       inclineMax,
       inclineMin,
-      inclineIdeal,
       requireCurbRamps
     } = params;
 
@@ -178,7 +176,6 @@ export function fetchRoute(origin, destination, params, mediaType) {
                      .join(','),
       incline_max: inclineMax,
       incline_min: inclineMin,
-      ideal: inclineIdeal,
     };
     if (requireCurbRamps) routeParams.avoid = 'curbs';
 
@@ -212,7 +209,6 @@ function routeIfValid(dispatch, getState) {
   const {
     inclineMax,
     inclineMin,
-    inclineIdeal,
     requireCurbRamps
   } = state.routingprofile;
 
@@ -224,7 +220,7 @@ function routeIfValid(dispatch, getState) {
     dispatch(fetchRoute(
       origin,
       destination,
-      { inclineMax, inclineMin, inclineIdeal, requireCurbRamps },
+      { inclineMax, inclineMin, requireCurbRamps },
       mediaType,
     ));
   }
@@ -270,24 +266,6 @@ export function setInclineMin(value) {
       meta: {
         analytics: {
           type: 'set-incline-min',
-          payload: {
-            value
-          }
-        }
-      }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setInclineIdeal(value) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_INCLINE_IDEAL,
-      payload: value,
-      meta: {
-        analytics: {
-          type: 'set-incline-ideal',
           payload: {
             value
           }
