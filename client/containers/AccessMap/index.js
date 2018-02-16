@@ -119,13 +119,13 @@ class AccessMap extends Component {
       const b = INCLINE_IDEAL - (m * midDown);
 
       inclineStops = [
-        maxDown, colorScale(1).hex(),
-        midDown, colorScale(midColor).hex(),
-        INCLINE_IDEAL, colorScale(0).hex(),
+        1000 * maxDown, colorScale(1).hex(),
+        1000 * midDown, colorScale(midColor).hex(),
+        1000 * INCLINE_IDEAL, colorScale(0).hex(),
         0, colorScale(b).hex(),
-        -INCLINE_IDEAL, colorScale(0).hex(),
-        -midDown, colorScale(midColor).hex(),
-        -maxDown, colorScale(1).hex()
+        1000 * -INCLINE_IDEAL, colorScale(0).hex(),
+        1000 * -midDown, colorScale(midColor).hex(),
+        1000 * -maxDown, colorScale(1).hex()
       ];
     } else {
       // Find the incline=0 intercept (find cost at that point). Linear func.
@@ -134,11 +134,11 @@ class AccessMap extends Component {
       const b = INCLINE_IDEAL - (m * midUp);
 
       inclineStops = [
-        -maxUp, colorScale(1).hex(),
-        -midUp, colorScale(midColor).hex(),
+        1000 * -maxUp, colorScale(1).hex(),
+        1000 * -midUp, colorScale(midColor).hex(),
         0, colorScale(b).hex(),
-        midUp, colorScale(midColor).hex(),
-        maxUp, colorScale(1).hex()
+        1000 * midUp, colorScale(midColor).hex(),
+        1000 * maxUp, colorScale(1).hex()
       ];
     }
 
@@ -296,8 +296,8 @@ class AccessMap extends Component {
     }
 
     // Set bounds for when elevations become 'too steep' on display.
-    const boundMax = mode === 'DOWNHILL' ? -inclineMin : inclineMax;
-    const boundMin = mode === 'DOWNHILL' ? inclineMin : -inclineMax;
+    const boundMax = mode === 'DOWNHILL' ? 1000 * -inclineMin : 1000 * inclineMax;
+    const boundMin = mode === 'DOWNHILL' ? 1000 * inclineMin : 1000 * -inclineMax;
 
     const defaultCurbRampOpacity = requireCurbRamps ? 0 : 0.5;
 

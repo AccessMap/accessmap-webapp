@@ -1,3 +1,5 @@
+import profiles from 'profiles';
+
 export const defaultAnalytics = null;
 
 export const defaultWaypoints = {
@@ -21,13 +23,7 @@ export const defaultTripPlanning = {
   },
 };
 
-export const defaultRoutingProfile = {
-  speed: 0.6,
-  inclineMax: 0.08,
-  inclineMin: -0.1,
-  requireCurbRamps: true,
-  profileName: 'wheelchair',
-}
+export const defaultRoutingProfile = profiles.wheelchair;
 
 export const defaultView = {
   lng: -122.333592,

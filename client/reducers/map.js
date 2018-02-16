@@ -24,7 +24,7 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
             properties: {
               incline: {
                 name: 'Incline',
-                value: `${(Math.abs(feature.properties.incline) * 100).toFixed(1)} %`
+                value: `${(Math.abs(feature.properties.incline) / 10).toFixed(1)} %`
               }
             },
           };

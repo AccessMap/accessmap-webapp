@@ -2,7 +2,7 @@ export default {
   wheelchair: {
     profileName: 'wheelchair',
     speed: 0.6,
-    inclineMax: 0.07,
+    inclineMax: 0.08,
     inclineMin: -0.1,
     requireCurbRamps: true,
   },
