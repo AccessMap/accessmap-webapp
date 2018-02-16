@@ -13,6 +13,8 @@ import waypoints from './waypoints';
 
 import { routerReducer } from 'react-router-redux';
 import { reducer as oidcReducer } from 'redux-oidc';
+import userPreference from './user-preference';
+import viewVisibility from './view-visibility';
 
 /**
  * Routing to be implemented
@@ -30,4 +32,6 @@ export default combineReducers({
   waypoints,
   routing: routerReducer,
   oidc: oidcReducer,
+  userpreference: userPreference,
+  viewVisibility: viewVisibility,
 });

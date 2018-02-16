@@ -11,6 +11,8 @@ import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import UserMenu from '../../components/OpenIDAuth/';
+import UserPreferences from '../../components/Preferences'
+import RoutingProfileManager from '../../components/RoutingProfileManager'
 
 import AccessMap from 'containers/AccessMap';
 import FloatingButtons from 'containers/FloatingButtons';
@@ -109,6 +111,8 @@ class App extends Component {
           <OmniCard />
           <FloatingButtons />
         </div>
+        <UserPreferences/>
+        <RoutingProfileManager/>
       </React.Fragment>
     );
   }

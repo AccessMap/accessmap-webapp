@@ -53,3 +53,14 @@ export const defaultMode = 'UPHILL';
 export const defaultBrowser = {
   mediaType: null,
 };
+
+export const defaultUserPreferences = {
+  showUserSettingsPane: false,
+  enableTracking: true,
+  routingProfiles:[],
+};
+
+export const defaultViewVisbility = {
+  showUserSettingsPane: false,
+  showRoutingProfileManager: false,
+};

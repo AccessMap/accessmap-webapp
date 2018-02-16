@@ -64,8 +64,69 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 // Logging - track data, doesn't impact rendering
 export const LOG_BOUNDS = 'LOG_BOUNDS';
 
+// User Settings
+export const TOGGLE_TRACKING = 'TOGGLE_TRACKING';
+export const OPEN_USER_SETTINGS_PANE = 'OPEN_USER_SETTINGS_PANE';
+export const CLOSE_USER_SETTINGS_PANE = 'CLOSE_USER_SETTINGS_PANE';
+export const OPEN_PROFILE_MANAGER_PANE = 'OPEN_PROFILE_MANAGER_PANE';
+export const CLOSE_PROFILE_MANAGER_PANE = 'CLOSE_PROFILE_MANAGER_PANE';
 
 // Action creators
+export function openRoutingProfileManager() {
+  return {
+    type: OPEN_PROFILE_MANAGER_PANE,
+    meta: {
+      analytics: {
+        type: 'open-routing-profile-manager',
+      }
+    }
+  };
+}
+
+export function closeRoutingProfileManager() {
+  return {
+    type: CLOSE_PROFILE_MANAGER_PANE,
+    meta: {
+      analytics: {
+        type: 'close-routing-profile-manager',
+      }
+    }
+  };
+}
+
+export function openUserPreferences() {
+  return {
+    type: OPEN_USER_SETTINGS_PANE,
+    meta: {
+      analytics: {
+        type: 'open-user-setting',
+      }
+    }
+  };
+}
+
+export function closeUserPreferences() {
+  return {
+    type: CLOSE_USER_SETTINGS_PANE,
+    meta: {
+      analytics: {
+        type: 'close-user-setting',
+      }
+    }
+  };
+}
+
+export function toggleTracking() {
+  return {
+    type: TOGGLE_TRACKING,
+    meta: {
+      analytics: {
+        type: 'toggle-tracking',
+      }
+    }
+  };
+}
+
 export function toggleTripPlanning(planningTrip) {
   return (dispatch, getState) => {
     const {waypoints} = getState();

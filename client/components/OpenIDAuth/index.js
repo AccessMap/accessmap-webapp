@@ -10,9 +10,14 @@ import {
   IconSeparator,
 } from 'react-md/lib/Helpers';
 import { FontIcon } from 'react-md/lib/FontIcons';
+import * as AppActions from '../../actions';
+import { bindActionCreators } from 'redux';
 
 function UserMenu (props) {
-  const {user} = props;
+  const {
+    actions,
+    user
+  } = props;
 
   const DropdownItems = [];
   if (user && (!user.expired)) {
@@ -31,12 +36,12 @@ function UserMenu (props) {
       },
       {
         primaryText: 'Manage Routing Profiles',
-        onClick: () => alert('Not Yet Available'),
+        onClick: actions.openRoutingProfileManager,
       });
   }
   DropdownItems.push({
       primaryText: 'Preferences',
-      onClick: () => alert('Not Yet Available'),
+      onClick: actions.openUserPreferences,
     },
     {divider: true});
   if (!user || user.expired) {
@@ -110,9 +115,15 @@ function mapStateToProps (state) {
   };
 }
 
+// function mapDispatchToProps (dispatch) {
+//   return {
+//     dispatch,
+//   };
+// }
+
 function mapDispatchToProps (dispatch) {
   return {
-    dispatch,
+    actions: bindActionCreators(AppActions, dispatch)
   };
 }
 
