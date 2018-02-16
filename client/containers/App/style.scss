@@ -28,17 +28,7 @@ body {
 }
 
 .map-container {
-  @media #{$md-mobile-media} {
-    top: $md-toolbar-mobile-portrait-height;
-  }
-
-  @media #{$md-mobile-landscape-media} {
-    top: $md-toolbar-mobile-landscape-height;
-  }
-
-  @media #{$md-tablet-media} {
-    top: $md-toolbar-tablet-height;
-  }
+  top: 0;
   bottom: 0;
   width: 100%;
   touch-action: none;
@@ -52,6 +42,7 @@ body {
   user-select: none;
 }
 
+.topbar,
 .omnicard,
 .floating-buttons,
 .feature-card {

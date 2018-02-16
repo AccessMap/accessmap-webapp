@@ -5,22 +5,27 @@
   position: absolute;
   top: 0;
   left: 0;
-  margin: 8px;
+  margin-left: 8px;
+  margin-right: 8px;
 
   @media #{$md-mobile-media} {
     right: 0;
+    margin-top: 8px + $md-toolbar-mobile-portrait-height;
   }
 
   @media #{$md-mobile-landscape-media} {
     width: 256px;
+    margin-top: 8px + $md-toolbar-mobile-landscape-height;
   }
 
   @media #{$md-tablet-media} {
     width: 384px;
+    margin-top: 8px + $md-toolbar-tablet-height;
   }
 
   @media #{$md-desktop-media} {
     width: 384px;
+    margin-top: calc(8px + $md-toolbar-height);
   }
 
   // Autocompletes (geocoders)
@@ -63,4 +68,8 @@
   .md-slider-thumb--discrete-on::after {
     border-top-color: $md-secondary-color;
   }
+}
+
+.omnicard.notoolbar {
+  margin-top: 8px;
 }

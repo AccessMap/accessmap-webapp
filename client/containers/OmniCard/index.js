@@ -357,11 +357,12 @@ const OmniCard = (props) => {
     );
   }
 
-  // TODO:
-  // 1. Adjust routes / view so that OmniCard will never overlap it.
-
   return (
-    <Card className='omnicard'>
+    <Card
+      className={cn('omnicard', {
+        notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE'
+      })}
+    >
       {topBar}
       {(mediaType !== 'MOBILE' | settingProfile === false)
         ?
@@ -378,7 +379,7 @@ const OmniCard = (props) => {
     </Card>
   );
 }
-// TODO: make card a little smaller, make menu width same size as card
+// TODO: make menu width same size as card
 
 OmniCard.defaultProps = {
   onDownhillMouseEnter: null,

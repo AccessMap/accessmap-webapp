@@ -46,6 +46,7 @@ class App extends Component {
       mediaType,
       planningTrip,
       selectedFeature,
+      settingProfile,
     } = this.props;
 
     const mobile = mediaType == 'MOBILE';
@@ -60,42 +61,47 @@ class App extends Component {
       action: actions.clickContactLink,
     }];
 
+    const hideToolbar = (planningTrip || settingProfile) && mobile;
+    const toolbar = hideToolbar ? null : (
+      <Toolbar
+        className={'topbar md-paper--1'}
+        title={
+          <div
+            className='accessmap-title'
+            key='accessmap-brand'
+          >
+            <AccessMapBrand
+              secondary='#448aff'
+              height={32}
+              primary='#0d47a1'
+              backgroundTransparent
+              mini={mobile}
+              className='accessmap-toolbar-icon'
+            />
+          </div>
+        }
+        actions={
+          links.map(d => {
+            return (
+              <Button
+                flat
+                primary
+                onClick={d.action}
+              >
+                {d.label}
+              </Button>
+            );
+          })
+        }
+        themed
+        fixed
+        zDepth={0}
+      />
+    );
+
     return (
       <React.Fragment>
-        <Toolbar
-          className={'topbar md-paper--1'}
-          title={
-            <div
-              className='accessmap-title'
-              key='accessmap-brand'
-            >
-              <AccessMapBrand
-                secondary='#448aff'
-                height={32}
-                primary='#0d47a1'
-                backgroundTransparent
-                mini={mobile}
-                className='accessmap-toolbar-icon'
-              />
-            </div>
-          }
-          actions={
-            links.map(d => {
-              return (
-                <Button
-                  flat
-                  primary
-                  onClick={d.action}
-                >
-                  {d.label}
-                </Button>
-              );
-            })
-          }
-          themed
-          fixed
-          zDepth={0}
-        />
+        {toolbar}
         <div className='map-container'>
           <AccessMap
             containerStyle={{
@@ -143,6 +149,7 @@ App.propTypes = {
   /* eslint-enable react/forbid-prop-types */
   /* eslint-enable react/require-default-props */
   planningTrip: PropTypes.bool,
+  mediaType: PropTypes.string,
   selectedFeature: PropTypes.shape({
     type: PropTypes.string,
     info: PropTypes.shape({
@@ -159,15 +166,16 @@ App.defaultProps = {
 
 function mapStateToProps(state) {
   const {
+    activities,
     browser,
     map,
-    tripplanning,
   } = state;
 
   return {
     contextClick: map.contextClick,
     mediaType: browser.mediaType,
-    planningTrip: tripplanning.planningTrip,
+    planningTrip: activities.planningTrip,
+    settingProfile: activities.settingProfile,
     selectedFeature: map.selectedFeature,
   };
 }
