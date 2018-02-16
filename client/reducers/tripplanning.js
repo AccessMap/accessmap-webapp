@@ -16,10 +16,7 @@ const handleRoute = (state = defaults.routeResult, action) => {
     case TOGGLE_TRIP_PLANNING:
       return action.payload.planningTrip ? null : state;
     case RECEIVE_ROUTE:
-      if (action.payload.routeResult.routes.length > 0) {
-        return action.payload.routeResult;
-      }
-      return state;
+      return action.payload.routeResult;
     default:
       return state;
   }

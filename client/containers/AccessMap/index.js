@@ -164,7 +164,7 @@ class AccessMap extends Component {
     let routeLine;
     let routeLineCasing;
 
-    if (planningTrip && routeResult) {
+    if (planningTrip && routeResult && routeResult.code === 'Ok') {
       const routeJogs = {
         type: 'FeatureCollection',
         features: [
@@ -582,7 +582,11 @@ AccessMap.propTypes = {
   geolocation: PropTypes.shape({
     coordinates: PropTypes.arrayOf(PropTypes.number),
     accuracy: PropTypes.number,
-    status: PropTypes.oneOf(['Ok', 'none', 'unavailable'])
+    status: PropTypes.oneOf([
+      'Ok',
+      'none',
+      'unavailable',
+    ])
   }),
   routeResult: routeResultProps,
   center: PropTypes.arrayOf(PropTypes.number),

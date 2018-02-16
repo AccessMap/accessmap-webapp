@@ -15,6 +15,7 @@ import AnalyticsDialog from 'containers/AnalyticsDialog';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
 import OmniCard from 'containers/OmniCard';
+import Toast from 'containers/Toast';
 
 import AccessMapBrand from 'components/AccessMapBrand';
 import ContextMenu from 'components/ContextMenu';
@@ -129,6 +130,7 @@ class App extends Component {
         </div>
         <LinkOverlay />
         <AnalyticsDialog />
+        <Toast />
       </React.Fragment>
     );
   }

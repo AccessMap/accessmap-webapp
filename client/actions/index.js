@@ -4,6 +4,10 @@
 export const ENABLE_ANALYTICS = 'ENABLE_ANALYTICS';
 export const DISABLE_ANALYTICS = 'DISABLE_ANALYTICS';
 
+// Toasts - small temporary messages for the user on the bottom of the screen
+export const ADD_TOAST = 'ADD_TOAST';
+export const POP_TOAST = 'POP_TOAST';
+
 // Link clicks
 export const CLICK_ABOUT_LINK = 'CLICK_ABOUT_LINK';
 export const CLICK_CONTACT_LINK = 'CLICK_CONTACT_LINK';
@@ -91,6 +95,30 @@ export function disableAnalytics() {
     meta: {
       analytics: {
         type: 'disable-analytics',
+      }
+    }
+  };
+}
+
+export function addToast(text) {
+  return {
+    type: ADD_TOAST,
+    payload: text,
+    meta: {
+      analytics: {
+        type: 'add-toast',
+        payload: text,
+      }
+    }
+  };
+}
+
+export function popToast() {
+  return {
+    type: POP_TOAST,
+    meta: {
+      analytics: {
+        type: 'pop-toast',
       }
     }
   };

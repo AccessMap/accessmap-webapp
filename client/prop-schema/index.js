@@ -24,7 +24,15 @@ export const accessMapSegment = PropTypes.shape({
 });
 
 export const routeResult = PropTypes.shape({
-  code: PropTypes.oneOf(['Ok', 'Error']),
+  code: PropTypes.oneOf([
+    'Ok',
+    'Error',
+    'NoRoute',
+    'OriginFarAway',
+    'DestinationFarAway',
+    'GraphNotReady',
+    'SpatialIndexNotReady',
+  ]),
   origin: pointFeatureNoProps,
   destination: pointFeatureNoProps,
   routes: PropTypes.arrayOf(

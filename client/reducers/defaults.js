@@ -57,3 +57,5 @@ export const defaultBrowser = {
 };
 
 export const defaultLinkOverlay = null;
+
+export const defaultToasts = [];
