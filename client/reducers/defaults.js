@@ -53,3 +53,5 @@ export const defaultMode = 'UPHILL';
 export const defaultBrowser = {
   mediaType: null,
 };
+
+export const defaultLinkOverlay = null;

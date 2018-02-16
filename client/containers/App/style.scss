@@ -7,8 +7,24 @@ body {
   padding: 0;
 }
 
-.md-toolbar--themed {
+.topbar {
   background-color: $md-white-base;
+
+  .accessmap-title > * {
+    margin-top: 16px;
+    @media #{$md-mobile-media} {
+      margin-top: 12px;
+    }
+    @media #{$md-mobile-landscape-media} {
+      margin-top: 8px;
+    }
+    @media #{$md-tablet-media} {
+      margin-top: 16px;
+    }
+    @media #{$md-desktop-media} {
+      margin-top: 16px;
+    }
+  }
 }
 
 .map-container {

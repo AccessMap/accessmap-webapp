@@ -111,6 +111,13 @@ module.exports = function (env) {
           test: /\.(woff|woff2|eot|ttf|svg)$/,
           loader: 'file-loader?name=client/fonts/roboto/[name].[ext]'
         },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: {
+            loader: 'url-loader',
+            options: { limit: 8192 },
+          }
+        },
       ],
     },
 

@@ -12,6 +12,7 @@ import Toolbar from 'react-md/lib/Toolbars';
 
 import AccessMap from 'containers/AccessMap';
 import FloatingButtons from 'containers/FloatingButtons';
+import LinkOverlay from 'containers/LinkOverlay';
 import OmniCard from 'containers/OmniCard';
 
 import AccessMapBrand from 'components/AccessMapBrand';
@@ -49,10 +50,18 @@ class App extends Component {
     const tablet = mediaType == 'TABLET';
     const desktop = mediaType == 'DESKTOP';
 
+    const links = [{
+      label: 'About',
+      action: actions.clickAboutLink,
+    }, {
+      label: 'Contact',
+      action: actions.clickContactLink,
+    }];
+
     return (
       <React.Fragment>
         <Toolbar
-          className={'md-paper--1'}
+          className={'topbar md-paper--1'}
           title={
             <div
               className='accessmap-title'
@@ -60,13 +69,26 @@ class App extends Component {
             >
               <AccessMapBrand
                 secondary='#448aff'
-                height={mobile ? 32 : 24}
+                height={32}
                 primary='#0d47a1'
                 backgroundTransparent
                 mini={mobile}
                 className='accessmap-toolbar-icon'
               />
             </div>
+          }
+          actions={
+            links.map(d => {
+              return (
+                <Button
+                  flat
+                  primary
+                  onClick={d.action}
+                >
+                  {d.label}
+                </Button>
+              );
+            })
           }
           themed
           fixed
@@ -104,6 +126,7 @@ class App extends Component {
           <OmniCard />
           <FloatingButtons />
         </div>
+        <LinkOverlay />
       </React.Fragment>
     );
   }
@@ -132,12 +155,14 @@ App.defaultProps = {
 
 function mapStateToProps(state) {
   const {
+    browser,
     map,
     tripplanning,
   } = state;
 
   return {
     contextClick: map.contextClick,
+    mediaType: browser.mediaType,
     planningTrip: tripplanning.planningTrip,
     selectedFeature: map.selectedFeature,
   };

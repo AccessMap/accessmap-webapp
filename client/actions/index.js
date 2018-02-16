@@ -1,5 +1,10 @@
 // Action types
 
+// Link clicks
+export const CLICK_ABOUT_LINK = 'CLICK_ABOUT_LINK';
+export const CLICK_CONTACT_LINK = 'CLICK_CONTACT_LINK';
+export const CLOSE_LINK_OVERLAY = 'CLOSE_LINK_OVERLAY';
+
 // Direct activity changes
 export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
 export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
@@ -64,8 +69,40 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 // Logging - track data, doesn't impact rendering
 export const LOG_BOUNDS = 'LOG_BOUNDS';
 
-
 // Action creators
+export function clickAboutLink() {
+  return {
+    type: CLICK_ABOUT_LINK,
+    meta: {
+      analytics: {
+        type: 'click-about-link',
+      }
+    }
+  };
+}
+
+export function clickContactLink() {
+  return {
+    type: CLICK_CONTACT_LINK,
+    meta: {
+      analytics: {
+        type: 'click-contact-link',
+      }
+    }
+  };
+}
+
+export function closeLinkOverlay() {
+  return {
+    type: CLOSE_LINK_OVERLAY,
+    meta: {
+      analytics: {
+        type: 'close-link-overlay',
+      }
+    }
+  };
+}
+
 export function toggleTripPlanning(planningTrip) {
   return (dispatch, getState) => {
     const {waypoints} = getState();
