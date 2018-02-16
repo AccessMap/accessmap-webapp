@@ -1,5 +1,9 @@
 // Action types
 
+// Analytics settings
+export const ENABLE_ANALYTICS = 'ENABLE_ANALYTICS';
+export const DISABLE_ANALYTICS = 'DISABLE_ANALYTICS';
+
 // Link clicks
 export const CLICK_ABOUT_LINK = 'CLICK_ABOUT_LINK';
 export const CLICK_CONTACT_LINK = 'CLICK_CONTACT_LINK';
@@ -70,6 +74,28 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 export const LOG_BOUNDS = 'LOG_BOUNDS';
 
 // Action creators
+export function enableAnalytics() {
+  return {
+    type: ENABLE_ANALYTICS,
+    meta: {
+      analytics: {
+        type: 'enable-analytics',
+      }
+    }
+  };
+}
+
+export function disableAnalytics() {
+  return {
+    type: DISABLE_ANALYTICS,
+    meta: {
+      analytics: {
+        type: 'disable-analytics',
+      }
+    }
+  };
+}
+
 export function clickAboutLink() {
   return {
     type: CLICK_ABOUT_LINK,

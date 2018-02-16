@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
 import activities from './activities';
+import analytics from './analytics';
 import browser from './browser';
 import geolocation from './geolocation';
 import linkoverlay from './link-overlay';
@@ -17,6 +18,7 @@ import waypoints from './waypoints';
  */
 export default combineReducers({
   activities,
+  analytics,
   browser,
   geolocation,
   linkoverlay,

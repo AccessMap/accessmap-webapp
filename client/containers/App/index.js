@@ -11,6 +11,7 @@ import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import AccessMap from 'containers/AccessMap';
+import AnalyticsDialog from 'containers/AnalyticsDialog';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
 import OmniCard from 'containers/OmniCard';
@@ -127,6 +128,7 @@ class App extends Component {
           <FloatingButtons />
         </div>
         <LinkOverlay />
+        <AnalyticsDialog />
       </React.Fragment>
     );
   }

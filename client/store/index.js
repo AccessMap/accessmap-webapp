@@ -1,13 +1,24 @@
 import { createStore, applyMiddleware } from 'redux';
 
 import thunkMiddleware from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import analytics from 'redux-analytics';
 import rakam from 'rakam-js';
 
 import rootReducer from 'reducers';
 
 const middlewares = [];
+// Thunk - manage side effects + async + access more state
 middlewares.push(thunkMiddleware);
+
+// Client-side analytics - remember user preferences.
+const persistConfig = {
+  key: 'root',
+  storage,
+  whitelist: ['analytics'],
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 /* eslint-disable global-require */
 if (process.env.NODE_ENV === 'development') {
@@ -36,16 +47,17 @@ if (useAnalytics) {
   });
 
   const analyticsMiddleware = analytics(({ type, payload }, state) => {
-    rakam.logEvent(type, { ...state.analytics, ...payload });
+    if (state.analytics || state.analytics == null) {
+      rakam.logEvent(type, { ...payload });
+    }
   });
 
   middlewares.push(analyticsMiddleware);
 
 }
 
-const store = createStore(
-  rootReducer,
+export const store = createStore(
+  persistedReducer,
   applyMiddleware(...middlewares)
 );
-
-export default store;
+export const persistor = persistStore(store);

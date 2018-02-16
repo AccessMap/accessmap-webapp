@@ -1,3 +1,5 @@
+export const defaultAnalytics = null;
+
 export const defaultWaypoints = {
   destination: null,
   origin: null,
