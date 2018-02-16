@@ -39,14 +39,16 @@ const ContentRow = (props) => {
         adjusted={false}
         style={{
           paddingLeft: 0,
-          paddingTop: '16px',
+          paddingBottom: '8px',
+          paddingTop: '8px',
         }}
       >
         {props.buttons}
       </TableColumn>
       <TableColumn
         style={{
-          paddingTop: '16px',
+          paddingBottom: '8px',
+          paddingTop: '8px',
         }}
       >
         {props.label}
