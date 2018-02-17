@@ -58,6 +58,8 @@ export const defaultUserPreferences = {
   showUserSettingsPane: false,
   enableTracking: true,
   routingProfiles:[],
+  currentlySelectedProfileIndex: -1,
+  fetchingUserRoutingProfiles: false,
 };
 
 export const defaultViewVisbility = {

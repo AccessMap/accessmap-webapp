@@ -111,11 +111,11 @@ export default class ProfileEntry extends PureComponent {
     const curbrampToggle = (
       <SelectionControl
         type='switch'
-        checked={!this.state.tempAvoidCurbs}
+        checked={this.state.tempAvoidCurbs}
         id='profile_require_curbramps'
         label='Require curbramps'
         name='profile_require_curbramps_toggle'
-        onChange={d => this.setState({tempAvoidCurbs: !d})}
+        onChange={d => this.setState({tempAvoidCurbs: d})}
       />
     );
     return (

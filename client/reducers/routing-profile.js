@@ -34,6 +34,8 @@ const handleInclineIdeal = (state = defaults.inclineIdeal, action) => {
         case 'cane':
         case 'custom':
           return -0.01
+        default:
+          return action.payload.inclineIdeal;
     }
     case SET_INCLINE_IDEAL:
       return action.payload;
@@ -55,6 +57,7 @@ const handleInclineMax = (state = defaults.inclineMax, action) => {
         case 'custom':
           return state;
         default:
+          return action.payload.inclineMax;
     }
     case SET_INCLINE_MAX:
       return action.payload;
@@ -75,6 +78,8 @@ const handleInclineMin = (state = defaults.inclineMin, action) => {
           profiles.cane.inclineMin;
         case 'custom':
           return state;
+        default:
+          return action.payload.inclineMin;
     }
     case SET_INCLINE_MIN:
       return action.payload;
@@ -95,6 +100,8 @@ const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
           return false
         case 'custom':
           return state;
+        default:
+          return action.payload.requireCurbRamps;
     }
     case TOGGLE_CURBRAMPS:
       return !state;

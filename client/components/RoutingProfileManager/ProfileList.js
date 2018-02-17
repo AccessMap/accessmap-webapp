@@ -10,6 +10,7 @@ import { Collapse } from 'react-md/lib/Helpers';
 import { CircularProgress } from 'react-md/lib/Progress';
 import { loadUserProfiles } from '../../utils/api';
 import ProfileEntry from './ProfileEntry';
+import PropTypes from 'prop-types';
 
 const ACCESSIBILITY_PROPS = {
   'aria-busy': true,
@@ -17,15 +18,27 @@ const ACCESSIBILITY_PROPS = {
 };
 
 export default class ProfileList extends PureComponent {
-  static propTypes = {};
+  static propTypes = {
+    refreshProfileHandler: PropTypes.func.isRequired,
+    refreshStatusIndicator: PropTypes.bool.isRequired,
+    profileArray: PropTypes.array.isRequired,
+  };
 
   constructor (props) {
     super();
 
     this.state = {
       notRefreshing: true,
-      contents: [],
+      contents: props.profileArray,
+      refreshProfileHandler: props.refreshProfileHandler,
+      refreshStatusIndicator: props.refreshStatusIndicator,
     };
+  }
+
+  componentWillReceiveProps (newProps) {
+    if (newProps.profileArray !== this.props.profileArray) {
+      this.setState({contents: newProps.profileArray});
+    }
   }
 
   componentWillMount () {
@@ -33,17 +46,18 @@ export default class ProfileList extends PureComponent {
   }
 
   refreshContent = () => {
-    this.setState({notRefreshing: false});
-
-    loadUserProfiles().then(result => {
-      if (result.error != null) {
-        this.setState({contents: null, notRefreshing: true});
-        return;
-      }
-      const profiles = result.data;
-      this.setState({contents: [], notRefreshing: true});
-      this.setState({contents: profiles, notRefreshing: true});
-    });
+    // this.setState({notRefreshing: false});
+    //
+    // loadUserProfiles().then(result => {
+    //   if (result.error != null) {
+    //     this.setState({contents: null, notRefreshing: true});
+    //     return;
+    //   }
+    //   const profiles = result.data;
+    //   this.setState({contents: [], notRefreshing: true});
+    //   this.setState({contents: profiles, notRefreshing: true});
+    // });
+    this.state.refreshProfileHandler();
   };
 
   render () {
@@ -82,26 +96,26 @@ export default class ProfileList extends PureComponent {
                               avoidCurbs,
                               avoidConstruction,
                             }) => (
-          <ProfileEntry
-            key={String(profileID)}
-            profileID={String(profileID)}
-            profileName={String(profileName)}
-            inclineMin={parseFloat(inclineMin)}
-            inclineMax={parseFloat(inclineMax)}
-            inclineIdeal={parseFloat(inclineIdeal)}
-            avoidCurbs={avoidCurbs}
-            avoidConstruction={avoidConstruction}
-            refreshList={this.refreshContent}
-          />
-        ));
+        <ProfileEntry
+          key={String(profileID)}
+          profileID={String(profileID)}
+          profileName={String(profileName)}
+          inclineMin={parseFloat(inclineMin)}
+          inclineMax={parseFloat(inclineMax)}
+          inclineIdeal={parseFloat(inclineIdeal)}
+          avoidCurbs={avoidCurbs}
+          avoidConstruction={avoidConstruction}
+          refreshList={this.refreshContent}
+        />
+      ));
     }
 
     const refresh = <Button flat onClick={this.refreshContent}
-                            disabled={!notRefreshing}>Refresh</Button>;
+                            disabled={this.state.refreshStatusIndicator}>Refresh</Button>;
     return (
       <div>
         {refresh}
-        <Collapse collapsed={notRefreshing}>
+        <Collapse collapsed={!this.state.refreshStatusIndicator}>
           <div className="progress__fake-feed__progress">
             <CircularProgress id={ACCESSIBILITY_PROPS['aria-describedby']}/>
           </div>

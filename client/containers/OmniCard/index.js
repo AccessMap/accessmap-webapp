@@ -24,6 +24,8 @@ import CaneUserIcon from 'components/Icons/CaneUserIcon';
 import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
 import WheelchairIcon from 'components/Icons/WheelchairIcon';
 
+import RoutingProfileSelector from 'components/RoutingProfileSelector';
+
 import './style.scss';
 
 const OmniCard = (props) => {
@@ -247,6 +249,7 @@ const OmniCard = (props) => {
         >
           settings
         </Button>
+        <RoutingProfileSelector/>
       </List>
     </React.Fragment>
   );

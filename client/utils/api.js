@@ -30,6 +30,13 @@ export function updateUserProfile(profileID, newProfile) {
   const url =
     `http://localhost:4040/api/profile?profileID=${profileID}`;
 
+  return apiRequest(url, "PUT", newProfile);
+}
+
+export function createUserProfile(newProfile) {
+  const url =
+    `http://localhost:4040/api/profile`;
+
   return apiRequest(url, "POST", newProfile);
 }
 

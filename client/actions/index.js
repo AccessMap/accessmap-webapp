@@ -70,8 +70,75 @@ export const OPEN_USER_SETTINGS_PANE = 'OPEN_USER_SETTINGS_PANE';
 export const CLOSE_USER_SETTINGS_PANE = 'CLOSE_USER_SETTINGS_PANE';
 export const OPEN_PROFILE_MANAGER_PANE = 'OPEN_PROFILE_MANAGER_PANE';
 export const CLOSE_PROFILE_MANAGER_PANE = 'CLOSE_PROFILE_MANAGER_PANE';
+export const FETCHING_USER_ROUTING_PROFILE = 'FETCHING_USER_ROUTING_PROFILE';
+export const FINISHED_FETCHING_USER_ROUTING_PROFILE = 'FINISHED_FETCHING_USER_ROUTING_PROFILE';
+export const UPDATE_USER_ROUTING_PROFILE = 'UPDATE_USER_ROUTING_PROFILE';
+export const CHANGE_USER_ROUTING_PROFILE_SELECTION = 'CHANGE_USER_ROUTING_PROFILE_SELECTION';
 
 // Action creators
+export function changeUserRoutingProfileSelection (selectedIndex) {
+  return {
+    type: CHANGE_USER_ROUTING_PROFILE_SELECTION,
+    payload: selectedIndex,
+    meta: {
+      analytics: {
+        type: 'change-user-routing-profile-selection',
+      }
+    }
+  };
+}
+
+export function refreshUserRoutingProfiles() {
+  return (dispatch) => {
+    dispatch(isFetchingUserRoutingProfiles(true));
+    const loadUserProfiles = require('../utils/api').loadUserProfiles;
+    loadUserProfiles().then(result => {
+      if (result.error != null) {
+        dispatch(updateUserRoutingProfiles(null));
+        dispatch(isFetchingUserRoutingProfiles(false));
+        return;
+      }
+      const profiles = result.data;
+      dispatch(updateUserRoutingProfiles([]));
+      dispatch(updateUserRoutingProfiles(profiles));
+      dispatch(isFetchingUserRoutingProfiles(false));
+    });
+  };
+}
+
+export function isFetchingUserRoutingProfiles(isFetching) {
+  if (isFetching) {
+    return {
+      type: FETCHING_USER_ROUTING_PROFILE,
+      meta: {
+        analytics: {
+          type: 'fetching-user-routing-profile',
+        }
+      }
+    };
+  }
+  return {
+    type: FINISHED_FETCHING_USER_ROUTING_PROFILE,
+    meta: {
+      analytics: {
+        type: 'finished-fetching-user-routing-profile',
+      }
+    }
+  };
+}
+
+export function updateUserRoutingProfiles(profiles) {
+  return {
+    type: UPDATE_USER_ROUTING_PROFILE,
+    payload: profiles,
+    meta: {
+      analytics: {
+        type: 'update-user-routing-profile',
+      }
+    }
+  };
+}
+
 export function openRoutingProfileManager() {
   return {
     type: OPEN_PROFILE_MANAGER_PANE,
