@@ -452,7 +452,7 @@ class AccessMap extends Component {
           paint={{
             'line-color': '#ff0000',
             'line-dasharray': {
-              stops: [[10, [0.2, 6]], [12, [0.2, 4]], [15, [0.2, 3]], [18, [0.2, 2]]],
+              stops: [[10, [0.0001, 4]], [15, [0.0001, 3]], [20, [0.0001, 2]]],
             },
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
@@ -552,7 +552,7 @@ class AccessMap extends Component {
           paint={{
             'line-color': '#ff0000',
             'line-dasharray': {
-              stops: [[10, [0.2, 6]], [12, [0.2, 4]], [15, [0.2, 3]], [18, [0.2, 2]]],
+              stops: [[10, [0.0001, 4]], [15, [0.0001, 3]], [20, [0.0001, 2]]],
             },
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
