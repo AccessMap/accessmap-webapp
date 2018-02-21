@@ -14,7 +14,12 @@ import { routeResult as routeResultProps } from 'prop-schema';
 import * as AppActions from 'actions';
 
 const INCLINE_IDEAL = -0.0087
-const CLICKABLE_LAYERS = ['sidewalk', 'crossing', 'sidewalk-inaccessible'];
+const CLICKABLE_LAYERS = [
+  'sidewalk',
+  'crossing',
+  'sidewalk-inaccessible',
+  'crossing-inaccessible'
+];
 
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
@@ -415,6 +420,10 @@ class AccessMap extends Component {
           sourceId='pedestrian'
           sourceLayer='crossings'
           layout={{ 'line-cap': 'round' }}
+          filter={[
+            'to-boolean',
+            ['get', 'curbramps']
+          ]}
           paint={{
             'line-color': '#000000',
             'line-width': {
@@ -422,13 +431,32 @@ class AccessMap extends Component {
             },
             'line-opacity': ['interpolate', ['linear'], ['zoom'],
                13.5, 0.0,
-               14, [
-                 'case',
-                 ['to-boolean', ['get', 'curbramps']],
-                 0.5,
-                 defaultCurbRampOpacity
-               ]
+               14, 0.5
             ]
+          }}
+          before='bridge-street'
+        />
+
+        <Layer
+          id='crossing-inaccessible'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='crossings'
+          layout={{ 'line-cap': 'round' }}
+          filter={[
+            '!', [
+              'to-boolean',
+              ['get', 'curbramps']
+            ]
+          ]}
+          paint={{
+            'line-color': '#ff0000',
+            'line-dasharray': {
+              stops: [[10, [0.2, 6]], [12, [0.2, 4]], [15, [0.2, 3]], [18, [0.2, 2]]],
+            },
+            'line-width': {
+              stops: [[12, 0.2], [16, 3], [22, 30]]
+            },
           }}
           before='bridge-street'
         />
@@ -500,6 +528,7 @@ class AccessMap extends Component {
           }}
           before='bridge-street'
         />
+
         <Layer
           id='sidewalk-inaccessible'
           type='line'
@@ -522,7 +551,9 @@ class AccessMap extends Component {
           ]}
           paint={{
             'line-color': '#ff0000',
-            'line-dasharray': [1, 3],
+            'line-dasharray': {
+              stops: [[10, [0.2, 6]], [12, [0.2, 4]], [15, [0.2, 3]], [18, [0.2, 2]]],
+            },
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
