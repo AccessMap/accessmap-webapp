@@ -14,7 +14,7 @@ import { routeResult as routeResultProps } from 'prop-schema';
 import * as AppActions from 'actions';
 
 const INCLINE_IDEAL = -0.0087
-const CLICKABLE_LAYERS = ['sidewalk', 'crossing'];
+const CLICKABLE_LAYERS = ['sidewalk', 'crossing', 'sidewalk-inaccessible'];
 
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
@@ -460,6 +460,20 @@ class AccessMap extends Component {
           sourceId='pedestrian'
           sourceLayer='sidewalks'
           layout={{ 'line-cap': 'round' }}
+          filter={[
+            'case',
+             ['>',
+              ['to-number', ['get', 'incline']],
+              boundMax,
+             ],
+             false,
+             ['<',
+              ['to-number', ['get', 'incline']],
+              boundMin,
+             ],
+             false,
+             true
+          ]}
           paint={{
             'line-color': [
               'case',
@@ -467,12 +481,12 @@ class AccessMap extends Component {
                 ['to-number', ['get', 'incline']],
                 boundMax,
                ],
-               '#ffffff',
+               '#ff0000',
                ['<',
                 ['to-number', ['get', 'incline']],
                 boundMin,
                ],
-               '#ffffff',
+               '#ff0000',
                [
                  'interpolate',
                  ['linear'],
@@ -483,23 +497,39 @@ class AccessMap extends Component {
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
-            'line-opacity': [
-              'case',
-              ['>',
-               ['to-number', ['get', 'incline']],
-               boundMax,
-              ],
-              0,
-              ['<',
-               ['to-number', ['get', 'incline']],
-               boundMin,
-              ],
-              0,
-              1,
-            ],
           }}
           before='bridge-street'
         />
+        <Layer
+          id='sidewalk-inaccessible'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='sidewalks'
+          layout={{ 'line-cap': 'round' }}
+          filter={[
+            'case',
+             ['>',
+              ['to-number', ['get', 'incline']],
+              boundMax,
+             ],
+             true,
+             ['<',
+              ['to-number', ['get', 'incline']],
+              boundMin,
+             ],
+             true,
+             false
+          ]}
+          paint={{
+            'line-color': '#ff0000',
+            'line-dasharray': [1, 3],
+            'line-width': {
+              stops: [[12, 0.2], [16, 3], [22, 30]]
+            },
+          }}
+          before='bridge-street'
+        />
+
         {routeJogsLine}
         {routeLine}
         {routeLineCasing}

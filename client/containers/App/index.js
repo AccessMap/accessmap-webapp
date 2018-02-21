@@ -102,6 +102,11 @@ class App extends Component {
     return (
       <React.Fragment>
         {toolbar}
+        <OmniCard />
+        <FloatingButtons />
+        <LinkOverlay />
+        <AnalyticsDialog />
+        <Toast />
         <div className='map-container'>
           <AccessMap
             containerStyle={{
@@ -131,12 +136,7 @@ class App extends Component {
               onClickClose={() => actions.clearSelectedFeatures()}
             />
           }
-          <OmniCard />
-          <FloatingButtons />
         </div>
-        <LinkOverlay />
-        <AnalyticsDialog />
-        <Toast />
       </React.Fragment>
     );
   }

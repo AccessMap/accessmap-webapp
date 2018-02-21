@@ -16,8 +16,8 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
   switch (action.type) {
     case MAP_CLICK: {
       const feature = action.payload[0];
-      switch (feature && feature.layer.id) {
-        case 'sidewalk':
+      switch (feature && feature.layer['source-layer']) {
+        case 'sidewalks':
           return {
             layer: 'sidewalk',
             layerName: 'Sidewalk',
@@ -28,7 +28,7 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
               }
             },
           };
-        case 'crossing':
+        case 'crossings':
           return {
             layer: 'crossing',
             layerName: 'Street Crossing',
