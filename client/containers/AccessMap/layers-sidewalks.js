@@ -71,6 +71,19 @@ const Sidewalks = (props) => {
   return (
     <React.Fragment>
       <Layer
+        id='sidewalk-click'
+        type='line'
+        sourceId='pedestrian'
+        sourceLayer='sidewalks'
+        paint={{
+          'line-width': {
+            stops: [[12, 0.2], [16, 3], [22, 30]]
+          },
+          'line-opacity': 0,
+        }}
+        before='bridge-street'
+      />
+      <Layer
         id='sidewalk-outline'
         type='line'
         sourceId='pedestrian'
@@ -90,7 +103,6 @@ const Sidewalks = (props) => {
            false,
            true
         ]}
-
         paint={{
           'line-color': '#555555',
           'line-width': {

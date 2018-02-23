@@ -19,6 +19,20 @@ const Crossings = (props) => {
   return (
     <React.Fragment>
       <Layer
+        id='crossing-click'
+        type='line'
+        sourceId='pedestrian'
+        sourceLayer='crossings'
+        paint={{
+          'line-width': {
+            stops: [[12, 0.5], [16, 2], [22, 20]]
+          },
+          'line-opacity': 0
+        }}
+
+        before='bridge-street'
+      />
+      <Layer
         id='crossing-inaccessible'
         type='line'
         sourceId='pedestrian'

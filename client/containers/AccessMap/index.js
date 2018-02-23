@@ -17,10 +17,8 @@ import Waypoints from './layers-waypoints';
 
 
 const CLICKABLE_LAYERS = [
-  'sidewalk',
-  'crossing',
-  'sidewalk-inaccessible',
-  'crossing-inaccessible'
+  'crossing-click',
+  'sidewalk-click',
 ];
 
 const Map = ReactMapboxGl({
