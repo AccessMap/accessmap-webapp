@@ -8,8 +8,8 @@ import { Layer } from 'react-mapbox-gl';
 const CROSSINGS_VISIBLE = 15;
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [
-  2,
-  1.5,
+  WIDTH_INACCESSIBLE * 2,
+  WIDTH_INACCESSIBLE * 1.5,
 ];
 
 
@@ -50,9 +50,9 @@ const Crossings = (props) => {
           'line-color': '#ff0000',
           'line-dasharray': {
             stops: [
-              [10, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 2)],
-              [15, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 1.5)],
-              [20, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d)],
+              [12, [DASH_INACCESSIBLE[0] * 2, DASH_INACCESSIBLE[1] * 4]],
+              [14, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 2]],
+              [16, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 1.5]],
             ],
           },
           'line-width': {

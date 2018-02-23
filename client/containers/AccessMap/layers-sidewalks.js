@@ -8,9 +8,10 @@ import chroma from 'chroma-js';
 
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [
-  2,
-  1.5,
+  WIDTH_INACCESSIBLE * 2,
+  WIDTH_INACCESSIBLE * 1.5,
 ];
+
 const INCLINE_IDEAL = -0.0087
 const COLORS = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
@@ -140,9 +141,9 @@ const Sidewalks = (props) => {
           'line-color': '#ff0000',
           'line-dasharray': {
             stops: [
-              [10, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 2)],
-              [15, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 1.5)],
-              [20, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d)],
+              [12, [DASH_INACCESSIBLE[0] * 2, DASH_INACCESSIBLE[1] * 4]],
+              [14, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 2]],
+              [16, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 1.5]],
             ],
           },
           'line-width': {
