@@ -21,6 +21,13 @@ const CLICKABLE_LAYERS = [
   'crossing-inaccessible'
 ];
 
+const CROSSINGS_VISIBLE = 15;
+const WIDTH_INACCESSIBLE = 1;
+const DASH_INACCESSIBLE = [
+  2,
+  1.5,
+];
+
 const colors = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
 const colorScale = chroma.scale(colors).mode('lab');
@@ -304,10 +311,9 @@ class AccessMap extends Component {
     const boundMax = mode === 'DOWNHILL' ? 1000 * -inclineMin : 1000 * inclineMax;
     const boundMin = mode === 'DOWNHILL' ? 1000 * inclineMin : 1000 * -inclineMax;
 
-    const defaultCurbRampOpacity = requireCurbRamps ? 0 : 0.5;
-
     // NOTE: Do not create actions that modify the `view` substate via
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
+    console.log(requireCurbRamps);
     return (
       <Map
         ref={(el) => { this.mapEl = el; }}
@@ -401,15 +407,20 @@ class AccessMap extends Component {
           sourceId='pedestrian'
           sourceLayer='crossings'
           layout={{ 'line-cap': 'round' }}
+          filter={[
+            'to-boolean',
+            ['get', 'curbramps']
+          ]}
           paint={{
             'line-color': '#555555',
             'line-width': {
               stops: [[12, 0.1], [15, 0.35], [22, 1]]
             },
             'line-gap-width': { stops: [[12, 0.5], [16, 2], [22, 20]] },
-            'line-opacity': {
-              stops: [[15.5, 0.0], [16, 1], [22, 1]]
-            },
+            'line-opacity': ['interpolate', ['linear'], ['zoom'],
+               CROSSINGS_VISIBLE - 0.5, 0.0,
+               CROSSINGS_VISIBLE, 0.5
+            ],
           }}
           before='bridge-street'
         />
@@ -421,8 +432,11 @@ class AccessMap extends Component {
           sourceLayer='crossings'
           layout={{ 'line-cap': 'round' }}
           filter={[
-            'to-boolean',
-            ['get', 'curbramps']
+            'any',
+            !requireCurbRamps,
+            ['to-boolean',
+              ['get', 'curbramps']
+            ]
           ]}
           paint={{
             'line-color': '#000000',
@@ -430,8 +444,8 @@ class AccessMap extends Component {
               stops: [[12, 0.5], [16, 2], [22, 20]]
             },
             'line-opacity': ['interpolate', ['linear'], ['zoom'],
-               13.5, 0.0,
-               14, 0.5
+               CROSSINGS_VISIBLE - 0.5, 0.0,
+               CROSSINGS_VISIBLE, 0.5
             ]
           }}
           before='bridge-street'
@@ -442,21 +456,35 @@ class AccessMap extends Component {
           type='line'
           sourceId='pedestrian'
           sourceLayer='crossings'
-          layout={{ 'line-cap': 'round' }}
           filter={[
-            '!', [
-              'to-boolean',
-              ['get', 'curbramps']
+            'all',
+            requireCurbRamps,
+            ['!',
+              ['to-boolean',
+                ['get', 'curbramps']
+              ]
             ]
           ]}
           paint={{
             'line-color': '#ff0000',
             'line-dasharray': {
-              stops: [[10, [0.0001, 4]], [15, [0.0001, 3]], [20, [0.0001, 2]]],
+              stops: [
+                [10, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 2)],
+                [15, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 1.5)],
+                [20, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d)],
+              ],
             },
             'line-width': {
-              stops: [[12, 0.2], [16, 3], [22, 30]]
+              stops: [
+                [12, WIDTH_INACCESSIBLE / 4],
+                [16, WIDTH_INACCESSIBLE],
+                [20, WIDTH_INACCESSIBLE * 4]
+              ]
             },
+            'line-opacity': ['interpolate', ['linear'], ['zoom'],
+               CROSSINGS_VISIBLE - 0.5, 0.0,
+               CROSSINGS_VISIBLE, 1
+            ],
           }}
           before='bridge-street'
         />
@@ -467,6 +495,21 @@ class AccessMap extends Component {
           sourceId='pedestrian'
           sourceLayer='sidewalks'
           layout={{ 'line-cap': 'round' }}
+          filter={[
+            'case',
+             ['>',
+              ['to-number', ['get', 'incline']],
+              boundMax,
+             ],
+             false,
+             ['<',
+              ['to-number', ['get', 'incline']],
+              boundMin,
+             ],
+             false,
+             true
+          ]}
+
           paint={{
             'line-color': '#555555',
             'line-width': {
@@ -481,6 +524,46 @@ class AccessMap extends Component {
           }}
           before='bridge-street'
         />
+
+        <Layer
+          id='sidewalk-inaccessible'
+          type='line'
+          sourceId='pedestrian'
+          sourceLayer='sidewalks'
+          filter={[
+            'case',
+             ['>',
+              ['to-number', ['get', 'incline']],
+              boundMax,
+             ],
+             true,
+             ['<',
+              ['to-number', ['get', 'incline']],
+              boundMin,
+             ],
+             true,
+             false
+          ]}
+          paint={{
+            'line-color': '#ff0000',
+            'line-dasharray': {
+              stops: [
+                [10, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 2)],
+                [15, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d * 1.5)],
+                [20, DASH_INACCESSIBLE.map(d => WIDTH_INACCESSIBLE * d)],
+              ],
+            },
+            'line-width': {
+              stops: [
+                [12, WIDTH_INACCESSIBLE / 4],
+                [16, WIDTH_INACCESSIBLE],
+                [20, WIDTH_INACCESSIBLE * 4]
+              ]
+            },
+          }}
+          before='bridge-street'
+        />
+
 
         <Layer
           id='sidewalk'
@@ -522,38 +605,6 @@ class AccessMap extends Component {
                  ...inclineStops,
                ],
             ],
-            'line-width': {
-              stops: [[12, 0.2], [16, 3], [22, 30]]
-            },
-          }}
-          before='bridge-street'
-        />
-
-        <Layer
-          id='sidewalk-inaccessible'
-          type='line'
-          sourceId='pedestrian'
-          sourceLayer='sidewalks'
-          layout={{ 'line-cap': 'round' }}
-          filter={[
-            'case',
-             ['>',
-              ['to-number', ['get', 'incline']],
-              boundMax,
-             ],
-             true,
-             ['<',
-              ['to-number', ['get', 'incline']],
-              boundMin,
-             ],
-             true,
-             false
-          ]}
-          paint={{
-            'line-color': '#ff0000',
-            'line-dasharray': {
-              stops: [[10, [0.0001, 4]], [15, [0.0001, 3]], [20, [0.0001, 2]]],
-            },
             'line-width': {
               stops: [[12, 0.2], [16, 3], [22, 30]]
             },
