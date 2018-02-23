@@ -27,7 +27,6 @@ const AnalyticsDialog = (props) => {
       style={{
         position: 'absolute',
         bottom: 0,
-        zIndex: 40,
         width: '100%',
       }}
     >

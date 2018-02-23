@@ -40,11 +40,11 @@ const FloatingButtons = (props) => {
 
 function mapStateToProps(state) {
   const {
-    tripplanning,
+    activities,
   } = state;
 
   return {
-    planningTrip: tripplanning.planningTrip,
+    planningTrip: activities.planningTrip,
   };
 }
 

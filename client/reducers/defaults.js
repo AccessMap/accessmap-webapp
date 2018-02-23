@@ -42,9 +42,7 @@ export const defaultMap = {
   contextClick: null,
 };
 
-export const defaultGeolocation = {
-  geolocation: null,
-};
+export const defaultGeolocation = null;
 
 export const defaultMode = 'UPHILL';
 

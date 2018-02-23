@@ -23,6 +23,14 @@ export const accessMapSegment = PropTypes.shape({
   })
 });
 
+export const lineFeatureCollection = PropTypes.shape({
+  geometry: lineGeometry,
+  segments: PropTypes.shape({
+    type: PropTypes.oneOf(['FeatureCollection']),
+    features: PropTypes.arrayOf(accessMapSegment)
+  })
+});
+
 export const routeResult = PropTypes.shape({
   code: PropTypes.oneOf([
     'Ok',
@@ -35,14 +43,6 @@ export const routeResult = PropTypes.shape({
   ]),
   origin: pointFeatureNoProps,
   destination: pointFeatureNoProps,
-  routes: PropTypes.arrayOf(
-    PropTypes.shape({
-      geometry: lineGeometry,
-      segments: PropTypes.shape({
-        type: PropTypes.oneOf(['FeatureCollection']),
-        features: PropTypes.arrayOf(accessMapSegment)
-      })
-    })
-  ),
+  routes: PropTypes.arrayOf(lineFeatureCollection),
   waypoints: PropTypes.arrayOf(pointFeatureNoProps)
 });

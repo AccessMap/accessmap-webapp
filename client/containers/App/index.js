@@ -102,10 +102,10 @@ class App extends Component {
     return (
       <React.Fragment>
         {toolbar}
+        <AnalyticsDialog />
         <OmniCard />
         <FloatingButtons />
         <LinkOverlay />
-        <AnalyticsDialog />
         <Toast />
         <div className='map-container'>
           <AccessMap

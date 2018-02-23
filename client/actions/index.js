@@ -653,32 +653,45 @@ export function cancelContext() {
 
 export function toggleGeolocation() {
   return (dispatch, getState) => {
-    const { geolocation } = getState().geolocation;
+    const { geolocation } = getState();
     if (geolocation && geolocation.status === 'Ok') {
-      dispatch({ type: 'CLEAR_GEOLOCATION' });
+      dispatch({ type: CLEAR_GEOLOCATION });
       return;
     }
 
-    if ('geolocation' in navigator) {
-      // Try to get the geolocation
-      dispatch({ type: 'REQUEST_GEOLOCATION' });
-      navigator.geolocation.getCurrentPosition((position) => {
-        const coordinates = [
-          position.coords.longitude,
-          position.coords.latitude
-        ];
-        dispatch({
-          type: 'RECEIVE_GEOLOCATION',
-          payload: {
-            coordinates,
-            accuracy: position.coords.accuracy
-          }
-        });
-      });
-    } else {
-      // Fail
-      dispatch({ type: 'NO_GEOLOCATION' });
-    }
+    const permissions = navigator.permissions.query({ name: 'geolocation' });
+    permissions.then(p => {
+      switch (p.state) {
+        case 'granted':
+        case 'prompt':
+          dispatch({ type: REQUEST_GEOLOCATION });
+
+          const success = (position) => {
+            const coordinates = [
+              position.coords.longitude,
+              position.coords.latitude
+            ];
+            dispatch({
+              type: RECEIVE_GEOLOCATION,
+              payload: {
+                coordinates,
+                accuracy: position.coords.accuracy
+              }
+            });
+          };
+
+          const error = (positionError) => {
+            // Failed - browser failed to get location
+            dispatch({ type: NO_GEOLOCATION });
+          };
+
+          navigator.geolocation.getCurrentPosition(success, error);
+          break;
+        case 'denied':
+        default:
+          dispatch({ type: NO_GEOLOCATION });
+      }
+    });
   };
 }
 
