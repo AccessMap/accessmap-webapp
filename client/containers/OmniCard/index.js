@@ -294,6 +294,7 @@ const OmniCard = (props) => {
 
   let settingsComponent;
   switch (mode) {
+    case 'OTHER':
     case 'UPHILL':
       settingsComponent = uphillSlider;
       break;
