@@ -2,43 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 
-import ConstrainedSVGIcon from 'components/SVGIcon/ConstrainedSVGIcon';
+import SVGIcon from 'react-md/lib/SVGIcons';
 
 
-export default function AccessMapLogo(props) {
+export default (props) => {
   const {
-    className,
-    width,
-    height,
-    primary,
-    secondary,
-    background,
-    backgroundTransparent,
-    style
+    style,
   } = props;
 
   return (
-    <ConstrainedSVGIcon
-      className={cn(className)}
-      svgMinX={0}
-      svgMinY={0}
-      svgWidth={650}
-      svgHeight={125}
-      width={width}
-      height={height}
+    <SVGIcon
+      viewBox={'0 0 650 125'}
+      className='accessmaplogo'
       style={style}
     >
       <path
         key='accessmaplogo-background'
         className='accessmaplogo-background'
-        fill={background}
-        fillOpacity={backgroundTransparent ? 0 : 1}
+        fillOpacity={0}
         d='m33.71 10.934c-13.958 0-25.271 11.313-25.271 25.271v52.59c0 13.957 11.313 25.271 25.271 25.271h52.59c13.957 0 25.271-11.315 25.271-25.271v-52.59c0-13.958-11.315-25.271-25.271-25.271h-52.59'
       />,
       <g
         key='accessmaplogo-primary'
         className='accessmaplogo-primary'
-        fill={primary}
       >
         <path
           key='accessmaplogo-head'
@@ -84,7 +70,6 @@ export default function AccessMapLogo(props) {
       <g
         key='accessmaplogo-secondary'
         className='accessmaplogo-secondary'
-        fill={secondary}
       >
         <path
           key='accessmaplogo-m'
@@ -99,31 +84,6 @@ export default function AccessMapLogo(props) {
           d='m615.31 41.259c-11.99 0-19.06 9.088-19.06 21.082s7.07 21.21 19.06 21.21c12 0 19.07-9.216 19.07-21.21s-7.07-21.082-19.07-21.082m2.28 52.645c-9.47 0-16.42-4.04-20.71-10.732l-0.12-0.126v32.954h-12.12v-83.453h11.61v9.468h0.25c5.31-7.069 12.5-10.604 21.34-10.604 17.67 0 28.91 13.256 28.91 31.058 0 17.8-11.36 31.435-29.16 31.435'
         />
       </g>
-    </ConstrainedSVGIcon>
+    </SVGIcon>
   );
-}
-
-AccessMapLogo.propTypes = {
-  className: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  primary: PropTypes.string,
-  secondary: PropTypes.string,
-  background: PropTypes.string,
-  backgroundTransparent: PropTypes.bool,
-  /* eslint-disable react/forbid-prop-types */
-  style: PropTypes.object
-  /* eslint-enable react/forbid-prop-types */
-};
-
-AccessMapLogo.defaultProps = {
-  className: 'accessmap-logo',
-  width: 650,
-  height: 125,
-  primary: '#1b4274',
-  secondary: '#85ba41',
-  background: '#fff',
-  backgroundTransparent: false,
-  mini: false,
-  style: {}
 };

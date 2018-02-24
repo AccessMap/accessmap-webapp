@@ -17,7 +17,8 @@ import LinkOverlay from 'containers/LinkOverlay';
 import OmniCard from 'containers/OmniCard';
 import Toast from 'containers/Toast';
 
-import AccessMapBrand from 'components/AccessMapBrand';
+import AccessMapIcon from 'components/Icons/AccessMapIcon';
+import AccessMapLogo from 'components/Icons/AccessMapLogo';
 import ContextMenu from 'components/ContextMenu';
 import FeatureCard from 'components/FeatureCard';
 
@@ -70,14 +71,23 @@ class App extends Component {
             className='accessmap-title'
             key='accessmap-brand'
           >
-            <AccessMapBrand
-              secondary='#448aff'
-              height={32}
-              primary='#0d47a1'
-              backgroundTransparent
-              mini={mobile}
-              className='accessmap-toolbar-icon'
-            />
+            { mobile
+              ?
+              <AccessMapIcon
+                style={{
+                  height: '32px',
+                  width: '32px',
+                }}
+              />
+              :
+              <AccessMapLogo
+                style={{
+                  height: '40px',
+                  width: '160px',
+                }}
+              />
+
+            }
           </div>
         }
         actions={

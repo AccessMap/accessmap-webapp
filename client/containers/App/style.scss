@@ -19,10 +19,10 @@ body {
       margin-top: 8px;
     }
     @media #{$md-tablet-media} {
-      margin-top: 16px;
+      margin-top: 12px;
     }
     @media #{$md-desktop-media} {
-      margin-top: 16px;
+      margin-top: 12px;
     }
   }
 }
@@ -48,4 +48,14 @@ body {
 .feature-card,
 .analytics-dialog-container {
   z-index: 4;
+}
+
+.accessmapicon-primary,
+.accessmaplogo-primary, {
+  fill: #0d47a1;
+}
+
+.accessmapicon-secondary,
+.accessmaplogo-secondary {
+  fill: #448aff;
 }
