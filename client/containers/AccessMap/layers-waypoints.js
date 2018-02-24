@@ -10,6 +10,7 @@ const Waypoints = (props) => {
   const {
     destination,
     origin,
+    planningTrip,
     poi,
   } = props;
 
@@ -32,7 +33,7 @@ const Waypoints = (props) => {
   }
 
   let poiComponent = null;
-  if (poi) {
+  if (!planningTrip && poi) {
     poiComponent = (
       <MapMarker
         coordinates={poi.geometry.coordinates}
@@ -58,12 +59,14 @@ Waypoints.propTypes = {
 
 function mapStateToProps(state) {
   const {
+    activities,
     waypoints,
   } = state;
 
   return {
     destination: waypoints.destination,
     origin: waypoints.origin,
+    planningTrip: activities.planningTrip,
     poi: waypoints.poi,
   };
 }
