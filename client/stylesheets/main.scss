@@ -1,0 +1,46 @@
+@charset 'UTF-8';
+
+// 1. Configuration and helpers
+// NOTE: react-md equivalent are used instead of these most of the time
+@import
+  'abstracts/variables',
+  'abstracts/functions',
+  'abstracts/mixins';
+
+// 2. Vendors
+// NOTE: current strategy is to use node modules rather than including
+//       as assets in version control. Pros/cons?
+@import
+  '~normalize.css/normalize',
+  '~react-md/src/scss/react-md';
+
+// 3. Base stuff
+@import
+  'base/base',
+  'base/fonts',
+  'base/typography',
+  'base/helpers';
+
+// 4. Layout-related sections
+@import
+  'layout/header',
+  'layout/footer';
+
+// 5. Components
+@import
+  'components/featurecard';
+
+// 6. Containers
+@import
+  'containers/app',
+  'containers/floatingbuttons',
+  'containers/linkoverlay',
+  'containers/omnicard';
+
+// 7. Page-specific styles
+@import
+  'pages/home';
+
+// 8. Themes
+@import
+  'themes/default';

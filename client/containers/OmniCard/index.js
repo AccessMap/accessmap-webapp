@@ -25,7 +25,6 @@ import CaneUserIcon from 'components/Icons/CaneUserIcon';
 import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
 import WheelchairIcon from 'components/Icons/WheelchairIcon';
 
-import './style.scss';
 
 const OmniCard = (props) => {
   const {

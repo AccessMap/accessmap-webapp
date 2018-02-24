@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import './style.scss';
+import './stylesheets/main.scss';
+// import './style.scss';
 import './fonts/index.css';
 import './index.html';
 

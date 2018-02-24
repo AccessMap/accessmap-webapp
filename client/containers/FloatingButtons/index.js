@@ -10,7 +10,6 @@ import * as AppActions from 'actions';
 
 import Button from 'react-md/lib/Buttons';
 
-import './style.scss';
 
 const FloatingButtons = (props) => {
   const {

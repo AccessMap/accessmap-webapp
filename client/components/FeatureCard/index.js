@@ -9,8 +9,6 @@ import Card, { CardTitle } from 'react-md/lib/Cards';
 import List, { ListItem } from 'react-md/lib/Lists';
 import ListItemText from 'react-md/lib/Lists/ListItemText';
 
-import './style.scss';
-
 const FeatureCard = (props) =>
   <Card
     className='feature-card md-cell md-cell--4'

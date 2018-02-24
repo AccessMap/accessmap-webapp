@@ -23,7 +23,6 @@ import ContextMenu from 'components/ContextMenu';
 import FeatureCard from 'components/FeatureCard';
 
 import * as AppActions from 'actions';
-import './style.scss';
 
 
 class App extends Component {

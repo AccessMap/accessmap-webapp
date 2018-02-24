@@ -22,8 +22,6 @@ import TwitterIcon from 'components/Icons/TwitterIcon';
 import uwesciencelogo from '../../images/uwescience.jpg';
 import wsdotlogo from '../../images/wsdot.png';
 
-import './style.scss';
-
 
 const ContentRow = (props) => {
   return (
