@@ -108,10 +108,9 @@ const OmniCard = (props) => {
             <GeocoderAutocomplete
               id='origin-geocoder'
               key='origin-geocoder'
-              placeholder='Start address'
+              label='Start address'
               block
               className='md-title--toolbar'
-              inputClassName='md-text-field--toolbar'
               proximity={center}
               onAutocomplete={(label, index, data) => {
                 actions.setOriginText(label);
@@ -134,10 +133,9 @@ const OmniCard = (props) => {
             <GeocoderAutocomplete
               id='destination-geocoder'
               key='destination-geocoder'
-              placeholder='End address'
+              label='End address'
               block
               className='md-title--toolbar'
-              inputClassName='md-text-field--toolbar'
               proximity={center}
               onAutocomplete={(label, index, data) => {
                 actions.setDestinationText(label);
@@ -171,7 +169,7 @@ const OmniCard = (props) => {
             <GeocoderAutocomplete
               id='address_search'
               key='address_search'
-              placeholder='Search address'
+              label='Search address'
               block
               onAutocomplete={(label, index, data) => {
                 const poi = data[index];
