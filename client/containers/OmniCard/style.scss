@@ -29,21 +29,29 @@
   }
 
   // Autocompletes (geocoders)
+  #address-search-menu,
+  #destination-geocoder-menu,
+  #origin-geocoder-menu {
+    width: calc(100% - 128px);
+    .md-tile-text--primary {
+      font-weight: $md-font-regular;
+    }
+  }
 
   #origin-geocoder-menu-list,
   #destination-geocoder-menu-list,
-  #address_search-menu-list {
+  #address-search-menu-list {
     @media #{$md-mobile-media} {
       width: 256px;
     }
     @media #{$md-mobile-landscape-media} {
-      width: 512px;
+      width: 352px;
     }
     @media #{$md-tablet-media} {
-      width: 512px;
+      width: 352px;
     }
     @media #{$md-desktop-media} {
-      width: 512px;
+      width: 352px;
     }
   }
 

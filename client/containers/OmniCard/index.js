@@ -13,8 +13,9 @@ import Card, { CardText, CardTitle } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
 import List from 'react-md/lib/Lists';
 import SelectionControl from 'react-md/lib/SelectionControls';
-import { TabsContainer, Tabs, Tab } from 'react-md/lib/Tabs';
 import SVGIcon from 'react-md/lib/SVGIcons';
+import { TabsContainer, Tabs, Tab } from 'react-md/lib/Tabs';
+import Toolbar from 'react-md/lib/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
@@ -103,74 +104,85 @@ const OmniCard = (props) => {
   } else {
     if (planningTrip) {
       topBar = (
-        <List>
-          <SimpleListItem>
-            <GeocoderAutocomplete
-              id='origin-geocoder'
-              key='origin-geocoder'
-              label='Start address'
-              block
-              className='md-title--toolbar'
-              proximity={center}
-              onAutocomplete={(label, index, data) => {
-                actions.setOriginText(label);
-                const origin = data[index];
-                actions.setOrigin(origin.location[0], origin.location[1],
-                                  origin.name);
-              }}
-              onChange={(v) => { actions.setOriginText(v); }}
-              value={originText}
-           />
-            <Button
-              onClick={() => actions.toggleTripPlanning(planningTrip) }
-              key='tripplanning--close'
-              icon
-            >
-              close
-            </Button>
-          </SimpleListItem>
-          <SimpleListItem>
-            <GeocoderAutocomplete
-              id='destination-geocoder'
-              key='destination-geocoder'
-              label='End address'
-              block
-              className='md-title--toolbar'
-              proximity={center}
-              onAutocomplete={(label, index, data) => {
-                actions.setDestinationText(label);
-                const destination = data[index];
-                actions.setDestination(
-                  destination.location[0],
-                  destination.location[1],
-                  destination.name
-                );
-              }}
-              onChange={(v) => { actions.setDestinationText(v); }}
-              value={destinationText}
-            />
-            <Button
-              className='md-btn--toolbar'
-              key='tripplanning--swap-waypoints'
-              icon
-              onClick={() => {
-                actions.swapWaypoints(origin, destination);
-              }}
-            >
-              swap_vert
-            </Button>
-          </SimpleListItem>
-        </List>
+        <React.Fragment>
+          <Toolbar
+            title={
+              <GeocoderAutocomplete
+                id='origin-geocoder'
+                key='origin-geocoder'
+                className='md-title--toolbar'
+                block
+                placeholder='Start address'
+                proximity={center}
+                onAutocomplete={(label, index, data) => {
+                  actions.setOriginText(label);
+                  const origin = data[index];
+                  actions.setOrigin(origin.location[0], origin.location[1],
+                                    origin.name);
+                }}
+                onChange={(v) => { actions.setOriginText(v); }}
+                value={originText}
+              />
+            }
+            actions={[
+              <Button
+                onClick={() => actions.toggleTripPlanning(planningTrip) }
+                key='tripplanning--close'
+                icon
+              >
+                close
+              </Button>
+            ]}
+          />
+          <Toolbar
+            title={
+              <GeocoderAutocomplete
+                id='destination-geocoder'
+                key='destination-geocoder'
+                block
+                placeholder='End address'
+                className='md-title--toolbar'
+                proximity={center}
+                onAutocomplete={(label, index, data) => {
+                  actions.setDestinationText(label);
+                  const destination = data[index];
+                  actions.setDestination(
+                    destination.location[0],
+                    destination.location[1],
+                    destination.name
+                  );
+                }}
+                onChange={(v) => { actions.setDestinationText(v); }}
+                value={destinationText}
+              />
+            }
+            actions={[
+              <Button
+                className='md-btn--toolbar'
+                key='tripplanning--swap-waypoints'
+                icon
+                onClick={() => {
+                  actions.swapWaypoints(origin, destination);
+                }}
+              >
+                swap_vert
+              </Button>
+            ]}
+          />
+        </React.Fragment>
       );
     } else {
       topBar = (
-        <List>
-          <SimpleListItem>
+        <Toolbar
+          className='md-background--card'
+          title={
             <GeocoderAutocomplete
-              id='address_search'
-              key='address_search'
-              label='Search address'
+              id='address-search'
+              key='address-search'
+              className='address-search md-background--card'
+              listClassName='toolbar-search__list'
               block
+              placeholder='Search address'
               onAutocomplete={(label, index, data) => {
                 const poi = data[index];
                 actions.setPOI(poi.location[0], poi.location[1], poi.name);
@@ -180,12 +192,14 @@ const OmniCard = (props) => {
               onChange={(v) => { actions.setSearchText(v); }}
               value={searchText}
             />
+          }
+          actions={[
             <FontIcon
               key='search-icon'
               className={ cn('md-btn--toolbar md-btn--icon') }
             >
               search
-            </FontIcon>
+            </FontIcon>,
             <Button
               className='md-btn--toolbar'
               key='omnicard-tripplanning--toggle'
@@ -195,8 +209,8 @@ const OmniCard = (props) => {
             >
               directions
             </Button>
-          </SimpleListItem>
-        </List>
+          ]}
+        />
       );
     }
   }

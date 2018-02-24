@@ -63,12 +63,15 @@ export default class GeocoderAutocomplete extends Component {
 
   render() {
     const {
+      block,
       className,
       data,
       id,
       label,
+      listClassName,
       onAutocomplete,
       onChange,
+      placeholder,
       proximity,
       value,
     } = this.props;
@@ -80,8 +83,12 @@ export default class GeocoderAutocomplete extends Component {
     return (
       <Autocomplete
         id={id}
+        block={block}
         className={className}
         label={label}
+        listClassName={listClassName}
+        textFieldClassName='md-text-field--search'
+        placeholder={placeholder}
         data={places}
         dataLabel='name'
         deleteKeys={['location']}
@@ -94,21 +101,27 @@ export default class GeocoderAutocomplete extends Component {
 }
 
 GeocoderAutocomplete.propTypes = {
+  block: PropTypes.bool,
   className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
+  listClassName: PropTypes.string,
   onAutocomplete: PropTypes.func,
   onChange: PropTypes.func,
+  placeholder: PropTypes.string,
   proximity: PropTypes.arrayOf(PropTypes.number),
   value: PropTypes.string,
 };
 
 GeocoderAutocomplete.defaultProps = {
+  block: false,
   className: null,
   id: null,
   label: null,
+  listClassName: null,
   onAutocomplete: null,
   onChange: null,
+  placerholder: '',
   proximity: null,
   value: ''
 };
