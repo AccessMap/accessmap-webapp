@@ -1,4 +1,17 @@
 .map-marker {
   pointer-events: none;
   z-index: 0;
+
+  .pin-icon {
+    width: 40px;
+    height: 40px;
+
+    .pin-fill {
+      fill: #e54a3a;
+    }
+    .pin-shading {
+      fill: '#000';
+      fill-opacity: 0.2;
+    }
+  }
 }
