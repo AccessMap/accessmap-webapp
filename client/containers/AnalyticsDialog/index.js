@@ -22,20 +22,9 @@ const AnalyticsDialog = (props) => {
   }
 
   return (
-    <div
-      className='analytics-dialog-container'
-      style={{
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-      }}
-    >
-      <Card
-        style={{
-          width: '70%',
-        }}
-      >
-        <CardText style={{ paddingBottom: '8px' }}>
+    <div className='analytics-dialog-container'>
+      <Card>
+        <CardText>
           AccessMap uses your behavior for research and improving the site.
         </CardText>
         <CardActions>

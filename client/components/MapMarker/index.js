@@ -7,18 +7,16 @@ import SVGIcon from 'components/SVGIcon';
 
 export default function MapMarker(props) {
   const {
-    coordinates
+    coordinates,
+    moreProps,
   } = props;
 
   return (
     <Marker
-      {...props}
-      style={{
-        pointerEvents: 'none',
-        zIndex: 0,
-      }}
+      className='map-marker'
       coordinates={coordinates}
       anchor='bottom'
+      {...moreProps}
     >
       <SVGIcon
         height={48}

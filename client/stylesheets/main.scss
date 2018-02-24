@@ -28,10 +28,12 @@
 
 // 5. Components
 @import
+  'components/mapmarker',
   'components/featurecard';
 
 // 6. Containers
 @import
+  'containers/analyticsdialog',
   'containers/app',
   'containers/floatingbuttons',
   'containers/linkoverlay',

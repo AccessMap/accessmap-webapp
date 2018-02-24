@@ -1,0 +1,13 @@
+.analytics-dialog-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  .md-card {
+    width: 70%;
+
+    .md-card-text {
+      padding-bottom: 8px;
+    }
+  }
+}

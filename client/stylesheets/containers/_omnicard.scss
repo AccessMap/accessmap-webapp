@@ -78,4 +78,10 @@
 
 .omnicard.notoolbar {
   margin-top: 8px;
+
+  .md-list {
+    .md-btn {
+      float: right;
+    }
+  }
 }

@@ -90,9 +90,6 @@ const OmniCard = (props) => {
     topBar = (
       <List>
         <Button
-          style={{
-            float: 'right',
-          }}
           onClick={() => actions.toggleSettingProfile(settingProfile)}
           icon
         >

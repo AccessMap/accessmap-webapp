@@ -6,15 +6,10 @@ import SVGIcon from 'react-md/lib/SVGIcons';
 
 
 export default (props) => {
-  const {
-    style,
-  } = props;
-
   return (
     <SVGIcon
       viewBox={'0 0 650 125'}
       className='accessmaplogo'
-      style={style}
     >
       <path
         key='accessmaplogo-background'

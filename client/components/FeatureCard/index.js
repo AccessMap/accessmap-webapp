@@ -10,18 +10,12 @@ import List, { ListItem } from 'react-md/lib/Lists';
 import ListItemText from 'react-md/lib/Lists/ListItemText';
 
 const FeatureCard = (props) =>
-  <Card
-    className='feature-card md-cell md-cell--4'
-    style={{
-      display: 'block',
-      margin: '0 auto'
-    }}
-  >
+  <Card className='feature-card md-cell md-cell--4'>
     <CardTitle title={props.title} />
     <List>
       {props.featureProperties.map((d) =>
         <li className='md-list-item' key={d.name}>
-          <div style={{ display: 'flex' }} className='md-list-tile'>
+          <div className='md-list-tile'>
             <ListItemText
               className='md-tile-content--right-padding'
               primaryText={d.name}

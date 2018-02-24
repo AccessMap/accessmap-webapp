@@ -14,3 +14,16 @@ $only-mobile: 'screen and (max-width: #{$md-tablet-min-width})' !default;
     transform: none;
   }
 }
+
+.link-overlay {
+  tbody {
+    .md-table-row {
+      border-bottom: none;
+    }
+    .md-table-column {
+      padding-left: 0;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+  }
+}

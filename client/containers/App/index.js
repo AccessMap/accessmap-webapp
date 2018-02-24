@@ -70,23 +70,7 @@ class App extends Component {
             className='accessmap-title'
             key='accessmap-brand'
           >
-            { mobile
-              ?
-              <AccessMapIcon
-                style={{
-                  height: '32px',
-                  width: '32px',
-                }}
-              />
-              :
-              <AccessMapLogo
-                style={{
-                  height: '40px',
-                  width: '160px',
-                }}
-              />
-
-            }
+            {mobile ? <AccessMapIcon /> : <AccessMapLogo />}
           </div>
         }
         actions={

@@ -25,30 +25,11 @@ import wsdotlogo from '../../images/wsdot.png';
 
 const ContentRow = (props) => {
   return (
-    <TableRow
-      className='content-entry'
-      selectable={false}
-      style={{
-        borderBottom: 'none',
-      }}
-    >
-      <TableColumn
-        numeric
-        adjusted={false}
-        style={{
-          paddingLeft: 0,
-          paddingBottom: '8px',
-          paddingTop: '8px',
-        }}
-      >
+    <TableRow className='content-entry' selectable={false}>
+      <TableColumn numeric adjusted={false}>
         {props.buttons}
       </TableColumn>
-      <TableColumn
-        style={{
-          paddingBottom: '8px',
-          paddingTop: '8px',
-        }}
-      >
+      <TableColumn>
         {props.label}
       </TableColumn>
     </TableRow>
