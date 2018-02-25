@@ -1,10 +1,19 @@
 .analytics-dialog-container {
   position: absolute;
   bottom: 0;
-  width: 100%;
 
   .md-card {
-    width: 70%;
+    @media #{$md-mobile-media} {
+      width: 70%;
+    }
+
+    @media #{$md-mobile-landscape-media} {
+      width: auto;
+    }
+
+    @media #{$md-tablet-media} {
+      width: auto;
+    }
 
     .md-card-text {
       padding-bottom: 8px;

@@ -23,7 +23,7 @@ const AnalyticsDialog = (props) => {
     <div className='analytics-dialog-container'>
       <Card>
         <CardText>
-          AccessMap uses your behavior for research and improving the site.
+          {'AccessMap uses your anonymized behavior for research and site improvemens.'}
         </CardText>
         <CardActions>
           <Button
@@ -31,14 +31,14 @@ const AnalyticsDialog = (props) => {
             primary
             onClick={actions.enableAnalytics}
           >
-            Yes, use my clicks
+            {'Yes, this is fine'}
           </Button>
           <Button
             flat
             secondary
             onClick={actions.disableAnalytics}
           >
-            {'No, don\'t track me'}
+            {'No, don\'t do that'}
           </Button>
         </CardActions>
       </Card>
