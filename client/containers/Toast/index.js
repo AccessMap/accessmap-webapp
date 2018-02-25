@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
@@ -20,29 +20,26 @@ const Toast = (props) => {
       toasts={toasts.map(t => ({
         text: t,
       }))}
-      autohide={true}
+      autohide
       onDismiss={actions.popToast}
     />
   );
-}
+};
 
-function mapStateToProps(state) {
-  const {
-    toasts,
-  } = state;
+Toast.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  toasts: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
-  return {
-    toasts: toasts,
-  };
-}
+const mapStateToProps = state => ({
+  toasts: state.toasts,
+});
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(Toast);

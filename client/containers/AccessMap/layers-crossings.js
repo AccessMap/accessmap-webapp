@@ -25,9 +25,9 @@ const Crossings = (props) => {
         sourceLayer='crossings'
         paint={{
           'line-width': {
-            stops: [[12, 0.5], [16, 2], [22, 20]]
+            stops: [[12, 0.5], [16, 2], [22, 20]],
           },
-          'line-opacity': 0
+          'line-opacity': 0,
         }}
 
         before='bridge-street'
@@ -42,9 +42,9 @@ const Crossings = (props) => {
           requireCurbRamps,
           ['!',
             ['to-boolean',
-              ['get', 'curbramps']
-            ]
-          ]
+              ['get', 'curbramps'],
+            ],
+          ],
         ]}
         paint={{
           'line-color': '#ff0000',
@@ -59,12 +59,15 @@ const Crossings = (props) => {
             stops: [
               [12, WIDTH_INACCESSIBLE / 4],
               [16, WIDTH_INACCESSIBLE],
-              [20, WIDTH_INACCESSIBLE * 4]
-            ]
+              [20, WIDTH_INACCESSIBLE * 4],
+            ],
           },
-          'line-opacity': ['interpolate', ['linear'], ['zoom'],
-             CROSSINGS_VISIBLE - 0.5, 0.0,
-             CROSSINGS_VISIBLE, 1
+          'line-opacity': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            CROSSINGS_VISIBLE - 0.5, 0.0,
+            CROSSINGS_VISIBLE, 1,
           ],
         }}
         before='bridge-street'
@@ -78,19 +81,20 @@ const Crossings = (props) => {
         filter={[
           'any',
           !requireCurbRamps,
-          ['to-boolean',
-            ['get', 'curbramps']
-          ]
+          [
+            'to-boolean',
+            ['get', 'curbramps'],
+          ],
         ]}
         paint={{
           'line-color': '#000000',
           'line-width': {
-            stops: [[12, 0.5], [16, 2], [22, 20]]
+            stops: [[12, 0.5], [16, 2], [22, 20]],
           },
           'line-opacity': ['interpolate', ['linear'], ['zoom'],
-             CROSSINGS_VISIBLE - 0.5, 0.0,
-             CROSSINGS_VISIBLE, 0.5
-          ]
+            CROSSINGS_VISIBLE - 0.5, 0.0,
+            CROSSINGS_VISIBLE, 0.5,
+          ],
         }}
         before='bridge-street'
       />
@@ -102,39 +106,32 @@ const Crossings = (props) => {
         layout={{ 'line-cap': 'round' }}
         filter={[
           'to-boolean',
-          ['get', 'curbramps']
+          ['get', 'curbramps'],
         ]}
         paint={{
           'line-color': '#555555',
           'line-width': {
-            stops: [[12, 0.1], [15, 0.35], [22, 1]]
+            stops: [[12, 0.1], [15, 0.35], [22, 1]],
           },
           'line-gap-width': { stops: [[12, 0.5], [16, 2], [22, 20]] },
           'line-opacity': ['interpolate', ['linear'], ['zoom'],
-             CROSSINGS_VISIBLE - 0.5, 0.0,
-             CROSSINGS_VISIBLE, 0.5
+            CROSSINGS_VISIBLE - 0.5, 0.0,
+            CROSSINGS_VISIBLE, 0.5,
           ],
         }}
         before='bridge-street'
       />
     </React.Fragment>
   );
-}
-
-Crossings.propTypes = {
-  requireCurbRamps: PropTypes.bool,
 };
 
-function mapStateToProps(state) {
-  const {
-    routingprofile
-  } = state;
+Crossings.propTypes = {
+  requireCurbRamps: PropTypes.bool.isRequired,
+};
 
-  return {
-    requireCurbRamps: routingprofile.requireCurbRamps,
-  };
-}
-
+const mapStateToProps = state => ({
+  requireCurbRamps: state.routingprofile.requireCurbRamps,
+});
 
 export default connect(
   mapStateToProps,

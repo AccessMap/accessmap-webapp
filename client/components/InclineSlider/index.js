@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 import Slider from 'react-md/lib/Sliders';
 
 
-export default function InclineSlider(props) {
+const InclineSlider = (props) => {
   const {
+    controlled,
     id,
-    label,
     incline,
-    min,
+    label,
     max,
-    step,
-    valuePrecision,
+    min,
     onChange,
     onMouseEnter,
     onMouseLeave,
-    controlled
+    step,
+    valuePrecision,
   } = props;
 
   const inclineValue = +(incline * 100).toFixed(1);
@@ -36,7 +36,7 @@ export default function InclineSlider(props) {
       value={controlled ? inclineValue : undefined}
     />
   );
-}
+};
 
 InclineSlider.propTypes = {
   label: PropTypes.string.isRequired,
@@ -64,3 +64,5 @@ InclineSlider.defaultProps = {
   onMouseLeave: null,
   controlled: false,
 };
+
+export default InclineSlider;

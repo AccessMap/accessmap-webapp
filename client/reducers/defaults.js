@@ -5,7 +5,7 @@ export const defaultAnalytics = null;
 export const defaultWaypoints = {
   destination: null,
   origin: null,
-  poi: null
+  poi: null,
 };
 
 export const defaultActivities = {

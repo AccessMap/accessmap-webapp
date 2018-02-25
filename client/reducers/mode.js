@@ -8,16 +8,16 @@ import {
   CLOSE_PREFERENCES,
 } from 'actions';
 
+import { defaultMode as defaults } from './defaults';
+
 const modes = {
   DOWNHILL: 'DOWNHILL',
   UPHILL: 'UPHILL',
   OTHER: 'OTHER',
   NONE: null,
-}
+};
 
-import { defaultMode as defaults } from './defaults';
-
-export default function handle(state = defaults, action) {
+export default (state = defaults, action) => {
   switch (action.type) {
     case MOUSE_OVER_DOWNHILL:
       return modes.DOWNHILL;
@@ -36,4 +36,4 @@ export default function handle(state = defaults, action) {
     default:
       return state;
   }
-}
+};

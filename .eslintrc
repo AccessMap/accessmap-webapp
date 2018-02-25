@@ -23,7 +23,7 @@ rules:
   indent: 2
   func-style: 0
   func-names: 0
-  comma-dangle: 0
+  comma-dangle: 2
   no-console: 0
   no-param-reassign: 0
   linebreak-style: 0

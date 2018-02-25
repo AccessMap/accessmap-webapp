@@ -5,7 +5,7 @@ import Dialog from 'react-md/lib/Dialogs';
 import List, { ListItem } from 'react-md/lib/Lists';
 
 
-export default function ContextMenu(props) {
+const ContextMenu = (props) => {
   const {
     visible,
     onClickOrigin,
@@ -39,4 +39,20 @@ export default function ContextMenu(props) {
       </List>
     </Dialog>
   );
-}
+};
+
+ContextMenu.propTypes = {
+  onClickCancel: PropTypes.func,
+  onClickDestination: PropTypes.func,
+  onClickOrigin: PropTypes.func,
+  visible: PropTypes.bool,
+};
+
+ContextMenu.defaultProps = {
+  onClickCancel: null,
+  onClickDestination: null,
+  onClickOrigin: null,
+  visible: false,
+};
+
+export default ContextMenu;

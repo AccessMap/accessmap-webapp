@@ -4,7 +4,6 @@ import React from 'react';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import './stylesheets/main.scss';
-// import './style.scss';
 import './fonts/index.css';
 import './index.html';
 
@@ -21,5 +20,5 @@ ReactDOM.render(
       <App />
     </PersistGate>
   </Provider>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );

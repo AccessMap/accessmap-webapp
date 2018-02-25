@@ -32,10 +32,9 @@ const handleOrigin = (state = defaults.origin, action) => {
       if (action.payload.planningTrip) {
         // Was in trip planning mode, reset
         return null;
-      } else {
-        // Entering trip planning mode - copy from POI if it exists
-        return action.payload.poi;
       }
+      // Entering trip planning mode - copy from POI if it exists
+      return action.payload.poi;
     default:
       return state;
   }
@@ -74,5 +73,5 @@ const handlePOI = (state = defaults.poi, action) => {
 export default combineReducers({
   destination: handleDestination,
   origin: handleOrigin,
-  poi: handlePOI
+  poi: handlePOI,
 });

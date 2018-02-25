@@ -78,222 +78,198 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 export const LOG_BOUNDS = 'LOG_BOUNDS';
 
 // Action creators
-export function enableAnalytics() {
-  return {
-    type: ENABLE_ANALYTICS,
+export const enableAnalytics = () => ({
+  type: ENABLE_ANALYTICS,
+  meta: {
+    analytics: {
+      type: 'enable-analytics',
+    },
+  },
+});
+
+export const disableAnalytics = () => ({
+  type: DISABLE_ANALYTICS,
+  meta: {
+    analytics: {
+      type: 'disable-analytics',
+    },
+  },
+});
+
+export const addToast = text => ({
+  type: ADD_TOAST,
+  payload: text,
+  meta: {
+    analytics: {
+      type: 'add-toast',
+      payload: text,
+    },
+  },
+});
+
+export const popToast = () => ({
+  type: POP_TOAST,
+  meta: {
+    analytics: {
+      type: 'pop-toast',
+    },
+  },
+});
+
+export const clickAboutLink = () => ({
+  type: CLICK_ABOUT_LINK,
+  meta: {
+    analytics: {
+      type: 'click-about-link',
+    },
+  },
+});
+
+export const clickContactLink = () => ({
+  type: CLICK_CONTACT_LINK,
+  meta: {
+    analytics: {
+      type: 'click-contact-link',
+    },
+  },
+});
+
+export const closeLinkOverlay = () => ({
+  type: CLOSE_LINK_OVERLAY,
+  meta: {
+    analytics: {
+      type: 'close-link-overlay',
+    },
+  },
+});
+
+export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
+  const { waypoints } = getState();
+  dispatch({
+    type: TOGGLE_TRIP_PLANNING,
+    payload: {
+      planningTrip,
+      poi: waypoints.poi,
+    },
     meta: {
       analytics: {
-        type: 'enable-analytics',
-      }
-    }
-  };
-}
-
-export function disableAnalytics() {
-  return {
-    type: DISABLE_ANALYTICS,
-    meta: {
-      analytics: {
-        type: 'disable-analytics',
-      }
-    }
-  };
-}
-
-export function addToast(text) {
-  return {
-    type: ADD_TOAST,
-    payload: text,
-    meta: {
-      analytics: {
-        type: 'add-toast',
-        payload: text,
-      }
-    }
-  };
-}
-
-export function popToast() {
-  return {
-    type: POP_TOAST,
-    meta: {
-      analytics: {
-        type: 'pop-toast',
-      }
-    }
-  };
-}
-
-export function clickAboutLink() {
-  return {
-    type: CLICK_ABOUT_LINK,
-    meta: {
-      analytics: {
-        type: 'click-about-link',
-      }
-    }
-  };
-}
-
-export function clickContactLink() {
-  return {
-    type: CLICK_CONTACT_LINK,
-    meta: {
-      analytics: {
-        type: 'click-contact-link',
-      }
-    }
-  };
-}
-
-export function closeLinkOverlay() {
-  return {
-    type: CLOSE_LINK_OVERLAY,
-    meta: {
-      analytics: {
-        type: 'close-link-overlay',
-      }
-    }
-  };
-}
-
-export function toggleTripPlanning(planningTrip) {
-  return (dispatch, getState) => {
-    const {waypoints} = getState();
-    dispatch({
-      type: TOGGLE_TRIP_PLANNING,
-      payload: {
-        planningTrip,
-        poi: waypoints.poi,
+        type: 'toggle-trip-planning',
       },
-      meta: {
-        analytics: {
-          type: 'toggle-trip-planning',
-        }
-      }
-    });
-  };
-}
-
-export function toggleSettingProfile(displayed) {
-  return {
-    type: TOGGLE_SETTING_PROFILE,
-    payload: displayed,
-    meta: {
-      analytics: {
-        type: 'toggle-setting-profile',
-      }
-    }
-  };
-}
-
-export function requestRoute(origin, destination, params) {
-  return {
-    type: REQUEST_ROUTE,
-    payload: {
-      origin,
-      destination,
-      params
     },
-    meta: {
-      analytics: {
-        type: 'request-route',
-        payload: {
-          origin,
-          destination,
-          params
-        }
-      }
-    }
-  };
-}
+  });
+};
 
-export function receiveRoute(routeResult, mediaType) {
-  return {
-    type: RECEIVE_ROUTE,
-    payload: {
-      routeResult,
-      mediaType,
+export const toggleSettingProfile = displayed => ({
+  type: TOGGLE_SETTING_PROFILE,
+  payload: displayed,
+  meta: {
+    analytics: {
+      type: 'toggle-setting-profile',
     },
-    meta: {
-      analytics: {
-        type: 'receive-route',
-        payload: {
-          routeResult,
-          mediaType,
-        }
-      }
-    }
-  };
-}
+  },
+});
 
-export function failedRoute(origin, destination, error) {
-  return {
-    type: FAILED_ROUTE,
-    payload: {
-      origin,
-      destination,
-      error
+
+export const requestRoute = (origin, destination, params) => ({
+  type: REQUEST_ROUTE,
+  payload: {
+    origin,
+    destination,
+    params,
+  },
+  meta: {
+    analytics: {
+      type: 'request-route',
+      payload: {
+        origin,
+        destination,
+        params,
+      },
     },
-    meta: {
-      analytics: {
-        type: 'failed-route',
-        payload: {
-          origin,
-          destination,
-          error
-        }
-      }
-    }
+  },
+});
+
+export const receiveRoute = (routeResult, mediaType) => ({
+  type: RECEIVE_ROUTE,
+  payload: {
+    routeResult,
+    mediaType,
+  },
+  meta: {
+    analytics: {
+      type: 'receive-route',
+      payload: {
+        routeResult,
+        mediaType,
+      },
+    },
+  },
+});
+
+export const failedRoute = (origin, destination, error) => ({
+  type: FAILED_ROUTE,
+  payload: {
+    origin,
+    destination,
+    error,
+  },
+  meta: {
+    analytics: {
+      type: 'failed-route',
+      payload: {
+        origin,
+        destination,
+        error,
+      },
+    },
+  },
+});
+
+export const fetchRoute = (origin, destination, params, mediaType) => (dispatch) => {
+  dispatch(requestRoute(origin, destination, params));
+
+  const {
+    inclineMax,
+    inclineMin,
+    requireCurbRamps,
+    speed,
+  } = params;
+
+  const routeParams = {
+    origin: origin.geometry.coordinates.slice().reverse().join(','),
+    destination: destination
+                   .geometry
+                   .coordinates
+                   .slice()
+                   .reverse()
+                   .join(','),
+    incline_max: inclineMax,
+    incline_min: inclineMin,
+    speed,
   };
-}
+  if (requireCurbRamps) routeParams.avoid = 'curbs';
 
-export function fetchRoute(origin, destination, params, mediaType) {
-  return (dispatch) => {
-    dispatch(requestRoute(origin, destination, params));
+  const esc = encodeURIComponent;
+  const urlQuery = Object.keys(routeParams)
+    .map(k => `${esc(k)}=${esc(routeParams[k])}`)
+    .join('&');
 
-    const {
-      inclineMax,
-      inclineMin,
-      requireCurbRamps,
-      speed,
-    } = params;
+  const query = `${window.location.origin}/api/v2/route.json?${urlQuery}`;
 
-    const routeParams = {
-      origin: origin.geometry.coordinates.slice().reverse().join(','),
-      destination: destination
-                     .geometry
-                     .coordinates
-                     .slice()
-                     .reverse()
-                     .join(','),
-      incline_max: inclineMax,
-      incline_min: inclineMin,
-      speed: speed,
-    };
-    if (requireCurbRamps) routeParams.avoid = 'curbs';
+  fetch(query)
+    .then(
+      response => response.json(),
+      error => dispatch(failedRoute, origin, destination, error),
+    )
+    .then(json => dispatch(receiveRoute(json, mediaType)));
+};
 
-    const esc = encodeURIComponent;
-    const urlQuery = Object.keys(routeParams)
-      .map(k => `${esc(k)}=${esc(routeParams[k])}`)
-      .join('&');
 
-    const query = `${window.location.origin}/api/v2/route.json?${urlQuery}`;
-
-    fetch(query)
-      .then(
-        response => response.json(),
-        error => dispatch(failedRoute, origin, destination, error)
-      )
-      .then(json => dispatch(receiveRoute(json, mediaType)));
-  };
-}
-
-function routeIfValid(dispatch, getState) {
+const routeIfValid = (dispatch, getState) => {
   const state = getState();
   const {
     origin,
-    destination
+    destination,
   } = state.waypoints;
 
   const {
@@ -319,476 +295,412 @@ function routeIfValid(dispatch, getState) {
       mediaType,
     ));
   }
-}
+};
 
-export function toggleCurbRamps() {
-  return (dispatch, getState) => {
-    dispatch({
-      type: TOGGLE_CURBRAMPS,
-      meta: {
-        analytics: {
-          type: 'toggle-curbramps',
-        }
-      }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setInclineMax(value) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_INCLINE_MAX,
-      payload: value,
-      meta: {
-        analytics: {
-          type: 'set-incline-max',
-          payload: {
-            value
-          }
-        }
-      }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setInclineMin(value) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_INCLINE_MIN,
-      payload: value,
-      meta: {
-        analytics: {
-          type: 'set-incline-min',
-          payload: {
-            value
-          }
-        }
-      }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setProfile(profile) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SET_PROFILE,
-      payload: profile,
-      meta: {
-        analytics: {
-          type: 'set-profile',
-          payload: {
-            profile
-          },
-        }
-      }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setOrigin(lng, lat, name) {
-  return (dispatch, getState) => {
-    const { log } = getState();
-
-    dispatch({
-      type: SET_ORIGIN,
-      payload: { lng, lat, name, bounds: log.bounds },
-      meta: {
-        analytics: {
-          type: 'set-origin',
-          payload: { lng, lat, name, bounds: log.bounds },
-        }
-      }
-    });
-
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setDestination(lng, lat, name) {
-  return (dispatch, getState) => {
-    const { log } = getState();
-
-    dispatch({
-      type: SET_DESTINATION,
-      payload: { lng, lat, name, bounds: log.bounds },
-      meta: {
-        analytics: {
-          type: 'set-destination',
-          payload: { lng, lat, name, bounds: log.bounds },
-        }
-      }
-    });
-
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setPOI(lng, lat, name) {
-  return (dispatch, getState) => {
-    const { log } = getState();
-
-    dispatch({
-      type: SET_POI,
-      payload: { lng, lat, name, bounds: log.bounds },
-      meta: {
-        analytics: {
-          type: 'set-poi',
-          payload: { lng, lat, name },
-        }
-      }
-    });
-  }
-}
-
-export function loadApp() {
-  return {
-    type: LOAD_APP,
-  };
-}
-
-export function loadMap(width, height) {
-  return {
-    type: LOAD_MAP,
-    payload: {
-      width,
-      height,
-    }
-  };
-}
-
-export function resizeMap(width, height) {
-  return {
-    type: RESIZE_MAP,
-    payload: { width, height },
-  };
-}
-
-export function logBounds(bounds) {
-  return (dispatch, getState) => {
-    // Ignore when the map hasn't really moved - this event fires
-    // a ton at random times, even without map changes.
-    // (Since JavaScript == doesn't really work for arrays, gotta
-    // iterate)
-    const stateBounds = getState().log.bounds;
-    if (stateBounds) {
-      let bboxEqual = true;
-      for (let i = 0; i < bounds.length; i++) {
-        if (bounds[i] != stateBounds[i]) {
-          bboxEqual = false;
-        }
-      }
-      if (bboxEqual) return;
-    }
-
-    dispatch({
-      type: LOG_BOUNDS,
-      payload: bounds,
-      meta: {
-        analytics: {
-          type: 'log-bounds',
-          payload: {
-            bounds
-          }
-        }
-      }
-    });
-  }
-}
-
-export function setOriginDestination(originLat, originLon, originName, destLat, destLon, destName) {
-  return {
-    type: SET_ORIGIN_DESTINATION,
-    payload: {
-      originLat,
-      originLon,
-      originName,
-      destLat,
-      destLon,
-      destName,
-    }
-  };
-}
-
-export function swapWaypoints(origin, destination) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: SWAP_WAYPOINTS,
-      payload: {
-        origin,
-        destination
+export const toggleCurbRamps = () => (dispatch, getState) => {
+  dispatch({
+    type: TOGGLE_CURBRAMPS,
+    meta: {
+      analytics: {
+        type: 'toggle-curbramps',
       },
-      meta: {
-        analytics: {
-          type: 'swap-waypoints',
-          payload: {
-            origin,
-            destination
-          }
-        }
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
+
+
+export const setInclineMax = value => (dispatch, getState) => {
+  dispatch({
+    type: SET_INCLINE_MAX,
+    payload: value,
+    meta: {
+      analytics: {
+        type: 'set-incline-max',
+        payload: {
+          value,
+        },
+      },
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
+
+export const setInclineMin = value => (dispatch, getState) => {
+  dispatch({
+    type: SET_INCLINE_MIN,
+    payload: value,
+    meta: {
+      analytics: {
+        type: 'set-incline-min',
+        payload: {
+          value,
+        },
+      },
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
+
+export const setProfile = profile => (dispatch, getState) => {
+  dispatch({
+    type: SET_PROFILE,
+    payload: profile,
+    meta: {
+      analytics: {
+        type: 'set-profile',
+        payload: {
+          profile,
+        },
+      },
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
+
+
+export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
+  const { log } = getState();
+
+  dispatch({
+    type: SET_ORIGIN,
+    payload: { lng, lat, name, bounds: log.bounds },
+    meta: {
+      analytics: {
+        type: 'set-origin',
+        payload: { lng, lat, name, bounds: log.bounds },
+      },
+    },
+  });
+
+  routeIfValid(dispatch, getState);
+};
+
+
+export const setDestination = (lng, lat, name) => (dispatch, getState) => {
+  const { log } = getState();
+
+  dispatch({
+    type: SET_DESTINATION,
+    payload: { lng, lat, name, bounds: log.bounds },
+    meta: {
+      analytics: {
+        type: 'set-destination',
+        payload: { lng, lat, name, bounds: log.bounds },
+      },
+    },
+  });
+
+  routeIfValid(dispatch, getState);
+};
+
+export const setPOI = (lng, lat, name) => (dispatch, getState) => {
+  const { log } = getState();
+
+  dispatch({
+    type: SET_POI,
+    payload: { lng, lat, name, bounds: log.bounds },
+    meta: {
+      analytics: {
+        type: 'set-poi',
+        payload: { lng, lat, name },
+      },
+    },
+  });
+};
+
+export const loadApp = () => ({ type: LOAD_APP });
+
+export const loadMap = (width, height) => ({
+  type: LOAD_MAP,
+  payload: {
+    width,
+    height,
+  },
+});
+
+export const resizeMap = (width, height) => ({
+  type: RESIZE_MAP,
+  payload: { width, height },
+});
+
+export const logBounds = bounds => (dispatch, getState) => {
+  // Ignore when the map hasn't really moved - this event fires
+  // a ton at random times, even without map changes.
+  // (Since JavaScript == doesn't really work for arrays, gotta
+  // iterate)
+  const stateBounds = getState().log.bounds;
+  if (stateBounds) {
+    let bboxEqual = true;
+    for (let i = 0; i < bounds.length; i += 1) {
+      if (bounds[i] !== stateBounds[i]) {
+        bboxEqual = false;
       }
-    });
-    routeIfValid(dispatch, getState);
-  };
-}
-
-export function setCenter(center) {
-  return {
-    type: SET_CENTER,
-    payload: center
-  };
-}
-
-export function setZoom(zoom) {
-  return {
-    type: SET_ZOOM,
-    payload: zoom
-  };
-}
-
-export function setCenterAndZoom(center, zoom) {
-  // Useful for when you want to set both: if you just used setCenter and
-  // setZoom, you can get race conditions due to the map also updating state
-  // when it's finished zooming/moving
-  return {
-    type: SET_CENTER_AND_ZOOM,
-    payload: {
-      center,
-      zoom
     }
-  };
-}
+    if (bboxEqual) return;
+  }
 
-export function mapMove(center, zoom, bounds) {
-  return {
-    type: MAP_MOVE,
+  dispatch({
+    type: LOG_BOUNDS,
+    payload: bounds,
+    meta: {
+      analytics: {
+        type: 'log-bounds',
+        payload: {
+          bounds,
+        },
+      },
+    },
+  });
+};
+
+export const setOriginDestination = (latO, lonO, nameO, latD, lonD, nameD) => ({
+  type: SET_ORIGIN_DESTINATION,
+  payload: {
+    latO,
+    lonO,
+    nameO,
+    latD,
+    lonD,
+    nameD,
+  },
+});
+
+export const swapWaypoints = (origin, destination) => (dispatch, getState) => {
+  dispatch({
+    type: SWAP_WAYPOINTS,
     payload: {
-      center,
-      zoom,
-      bounds
+      origin,
+      destination,
     },
     meta: {
       analytics: {
-        type: 'map-move',
+        type: 'swap-waypoints',
         payload: {
-          center,
-          zoom,
-          bounds
-        }
-      }
-    }
-  };
-}
+          origin,
+          destination,
+        },
+      },
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
 
-export function resizeWindow() {
-  return {
-    type: RESIZE_WINDOW,
-    meta: {
-      analytics: {
-        type: 'resize-window',
-      }
-    }
-  };
-}
+
+export const setCenter = center => ({ type: SET_CENTER, payload: center });
+
+export const setZoom = zoom => ({ type: SET_ZOOM, payload: zoom });
+
+
+// Useful for when you want to set both: if you just used setCenter and
+// setZoom, you can get race conditions due to the map also updating state
+// when it's finished zooming/moving
+export const setCenterAndZoom = (center, zoom) => ({
+  type: SET_CENTER_AND_ZOOM,
+  payload: {
+    center,
+    zoom,
+  },
+});
+
+export const mapMove = (center, zoom, bounds) => ({
+  type: MAP_MOVE,
+  payload: {
+    center,
+    zoom,
+    bounds,
+  },
+  meta: {
+    analytics: {
+      type: 'map-move',
+      payload: {
+        center,
+        zoom,
+        bounds,
+      },
+    },
+  },
+});
+
+
+export const resizeWindow = () => ({
+  type: RESIZE_WINDOW,
+  meta: {
+    analytics: {
+      type: 'resize-window',
+    },
+  },
+});
+
 
 // TODO: include centerpoint? Gotta know where to show popups!
-export function mapClick(features) {
-  return {
-    type: MAP_CLICK,
-    payload: features,
-    meta: {
-      analytics: {
-        type: 'map-click',
-        payload: {
-          features
-        }
-      }
-    }
-  };
-}
-
-export function clearSelectedFeatures() {
-  return {
-    type: CLEAR_SELECTED_FEATURES,
-    meta: {
-      analytics: {
-        type: 'clear-selected-features'
-      }
-    }
-  };
-}
-
-export function mapContextClick(lng, lat) {
-  return {
-    type: MAP_CONTEXT_CLICK,
-    payload: {
-      lng,
-      lat
+export const mapClick = features => ({
+  type: MAP_CLICK,
+  payload: features,
+  meta: {
+    analytics: {
+      type: 'map-click',
+      payload: {
+        features,
+      },
     },
-    meta: {
-      analytics: {
-        type: 'map-context-click',
-        payload: {
-          lng,
-          lat
-        }
-      }
-    }
-  };
-}
+  },
+});
 
-export function cancelContext() {
-  return {
-    type: CANCEL_CONTEXT,
-    meta: {
-      analytics: {
-        type: 'cancel-context',
-      }
-    }
+
+export const clearSelectedFeatures = () => ({
+  type: CLEAR_SELECTED_FEATURES,
+  meta: {
+    analytics: {
+      type: 'clear-selected-features',
+    },
+  },
+});
+
+
+export const mapContextClick = (lng, lat) => ({
+  type: MAP_CONTEXT_CLICK,
+  payload: {
+    lng,
+    lat,
+  },
+  meta: {
+    analytics: {
+      type: 'map-context-click',
+      payload: {
+        lng,
+        lat,
+      },
+    },
+  },
+});
+
+export const cancelContext = () => ({
+  type: CANCEL_CONTEXT,
+  meta: {
+    analytics: {
+      type: 'cancel-context',
+    },
+  },
+});
+
+export const toggleGeolocation = () => (dispatch, getState) => {
+  const { geolocation } = getState();
+  if (geolocation && geolocation.status === 'Ok') {
+    dispatch({ type: CLEAR_GEOLOCATION });
+    return;
   }
-}
 
-export function toggleGeolocation() {
-  return (dispatch, getState) => {
-    const { geolocation } = getState();
-    if (geolocation && geolocation.status === 'Ok') {
-      dispatch({ type: CLEAR_GEOLOCATION });
-      return;
-    }
+  const permissions = navigator.permissions.query({ name: 'geolocation' });
+  permissions.then((p) => {
+    switch (p.state) {
+      case 'granted':
+      case 'prompt': {
+        dispatch({ type: REQUEST_GEOLOCATION });
 
-    const permissions = navigator.permissions.query({ name: 'geolocation' });
-    permissions.then(p => {
-      switch (p.state) {
-        case 'granted':
-        case 'prompt':
-          dispatch({ type: REQUEST_GEOLOCATION });
+        const success = (position) => {
+          const coordinates = [
+            position.coords.longitude,
+            position.coords.latitude,
+          ];
+          dispatch({
+            type: RECEIVE_GEOLOCATION,
+            payload: {
+              coordinates,
+              accuracy: position.coords.accuracy,
+            },
+          });
+        };
 
-          const success = (position) => {
-            const coordinates = [
-              position.coords.longitude,
-              position.coords.latitude
-            ];
-            dispatch({
-              type: RECEIVE_GEOLOCATION,
-              payload: {
-                coordinates,
-                accuracy: position.coords.accuracy
-              }
-            });
-          };
-
-          const error = (positionError) => {
-            // Failed - browser failed to get location
-            dispatch({ type: NO_GEOLOCATION });
-          };
-
-          navigator.geolocation.getCurrentPosition(success, error);
-          break;
-        case 'denied':
-        default:
+        const error = () => {
+          // Failed - browser failed to get location
           dispatch({ type: NO_GEOLOCATION });
+        };
+
+        navigator.geolocation.getCurrentPosition(success, error);
+        break;
       }
-    });
-  };
-}
-
-export function setSearchText(text) {
-  return {
-    type: SET_SEARCH_TEXT,
-    payload: text
-  }
-}
-
-export function setOriginText(text) {
-  return {
-    type: SET_ORIGIN_TEXT,
-    payload: text
-  }
-}
-
-export function setDestinationText(text) {
-  return {
-    type: SET_DESTINATION_TEXT,
-    payload: text
-  }
-}
-
-export function mouseOverDownhill() {
-  return {
-    type: MOUSE_OVER_DOWNHILL,
-    meta: {
-      analytics: {
-        type: 'mouse-over-downhill'
-      }
+      case 'denied':
+      default:
+        dispatch({ type: NO_GEOLOCATION });
     }
-  }
-}
+  });
+};
 
-export function mouseOutDownhill() {
-  return {
-    type: MOUSE_OUT_DOWNHILL,
-    meta: {
-      analytics: {
-        type: 'mouse-out-downhill'
-      }
-    }
-  }
-}
+export const setSearchText = text => ({
+  type: SET_SEARCH_TEXT,
+  payload: text,
+});
 
-export function openPreferences() {
-  return {
-    type: OPEN_PREFERENCES,
-    meta: {
-      analytics: {
-        type: 'open-preferences'
-      }
-    }
-  };
-}
+export const setOriginText = text => ({
+  type: SET_ORIGIN_TEXT,
+  payload: text,
+});
 
-export function closePreferences() {
-  return {
-    type: CLOSE_PREFERENCES,
-    meta: {
-      analytics: {
-        type: 'close-preferences'
-      }
-    }
-  };
-}
+export const setDestinationText = text => ({
+  type: SET_DESTINATION_TEXT,
+  payload: text,
+});
 
-export function openUphillPreferences() {
-  return {
-    type: OPEN_UPHILL_PREFERENCES,
-    meta: {
-      analytics: {
-        type: 'open-uphill-preferences'
-      }
-    }
-  };
-}
+export const mouseOverDownhill = () => ({
+  type: MOUSE_OVER_DOWNHILL,
+  meta: {
+    analytics: {
+      type: 'mouse-over-downhill',
+    },
+  },
+});
 
-export function openDownhillPreferences() {
-  return {
-    type: OPEN_DOWNHILL_PREFERENCES,
-    meta: {
-      analytics: {
-        type: 'open-downhill-preferences'
-      }
-    }
-  };
-}
+export const mouseOutDownhill = () => ({
+  type: MOUSE_OUT_DOWNHILL,
+  meta: {
+    analytics: {
+      type: 'mouse-out-downhill',
+    },
+  },
+});
 
-export function openOtherPreferences() {
-  return {
-    type: OPEN_OTHER_PREFERENCES,
-    meta: {
-      analytics: {
-        type: 'open-other-preferences'
-      }
-    }
-  };
-}
+export const openPreferences = () => ({
+  type: OPEN_PREFERENCES,
+  meta: {
+    analytics: {
+      type: 'open-preferences',
+    },
+  },
+});
+
+export const closePreferences = () => ({
+  type: CLOSE_PREFERENCES,
+  meta: {
+    analytics: {
+      type: 'close-preferences',
+    },
+  },
+});
+
+export const openUphillPreferences = () => ({
+  type: OPEN_UPHILL_PREFERENCES,
+  meta: {
+    analytics: {
+      type: 'open-uphill-preferences',
+    },
+  },
+});
+
+export const openDownhillPreferences = () => ({
+  type: OPEN_DOWNHILL_PREFERENCES,
+  meta: {
+    analytics: {
+      type: 'open-downhill-preferences',
+    },
+  },
+});
+
+export const openOtherPreferences = () => ({
+  type: OPEN_OTHER_PREFERENCES,
+  meta: {
+    analytics: {
+      type: 'open-other-preferences',
+    },
+  },
+});

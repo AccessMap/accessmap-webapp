@@ -5,7 +5,7 @@ import {
 
 import { defaultAnalytics as defaults } from './defaults';
 
-export default function handle(state = defaults, action) {
+export default (state = defaults, action) => {
   switch (action.type) {
     case ENABLE_ANALYTICS:
       return true;
@@ -14,4 +14,4 @@ export default function handle(state = defaults, action) {
     default:
       return state;
   }
-}
+};

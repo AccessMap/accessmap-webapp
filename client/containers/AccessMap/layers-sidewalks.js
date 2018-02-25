@@ -12,7 +12,7 @@ const DASH_INACCESSIBLE = [
   WIDTH_INACCESSIBLE * 1.5,
 ];
 
-const INCLINE_IDEAL = -0.0087
+const INCLINE_IDEAL = -0.0087;
 const COLORS = [chroma('lime'), chroma('yellow'), chroma('red')]
   .map(color => color.brighten(1.5));
 const COLOR_SCALE = chroma.scale(COLORS).mode('lab');
@@ -52,7 +52,7 @@ const Sidewalks = (props) => {
       0, COLOR_SCALE(b).hex(),
       1000 * -INCLINE_IDEAL, COLOR_SCALE(0).hex(),
       1000 * -midDown, COLOR_SCALE(midColor).hex(),
-      1000 * -maxDown, COLOR_SCALE(1).hex()
+      1000 * -maxDown, COLOR_SCALE(1).hex(),
     ];
   } else {
     // Find the incline=0 intercept (find cost at that point). Linear func.
@@ -65,7 +65,7 @@ const Sidewalks = (props) => {
       1000 * -midUp, COLOR_SCALE(midColor).hex(),
       0, COLOR_SCALE(b).hex(),
       1000 * midUp, COLOR_SCALE(midColor).hex(),
-      1000 * maxUp, COLOR_SCALE(1).hex()
+      1000 * maxUp, COLOR_SCALE(1).hex(),
     ];
   }
 
@@ -78,7 +78,7 @@ const Sidewalks = (props) => {
         sourceLayer='sidewalks'
         paint={{
           'line-width': {
-            stops: [[12, 0.2], [16, 3], [22, 30]]
+            stops: [[12, 0.2], [16, 3], [22, 30]],
           },
           'line-opacity': 0,
         }}
@@ -92,29 +92,31 @@ const Sidewalks = (props) => {
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
-           ['>',
+          [
+            '>',
             ['to-number', ['get', 'incline']],
             boundMax,
-           ],
-           false,
-           ['<',
+          ],
+          false,
+          [
+            '<',
             ['to-number', ['get', 'incline']],
             boundMin,
-           ],
-           false,
-           true
+          ],
+          false,
+          true,
         ]}
         paint={{
           'line-color': '#555555',
           'line-width': {
-            stops: [[14, 0.01], [22, 1]]
+            stops: [[14, 0.01], [22, 1]],
           },
           'line-opacity': {
-            stops: [[13.5, 0.0], [14, 1]]
+            stops: [[13.5, 0.0], [14, 1]],
           },
           'line-gap-width': {
-            stops: [[12, 0.5], [16, 3], [22, 30]]
-          }
+            stops: [[12, 0.5], [16, 3], [22, 30]],
+          },
         }}
         before='bridge-street'
       />
@@ -125,17 +127,19 @@ const Sidewalks = (props) => {
         sourceLayer='sidewalks'
         filter={[
           'case',
-           ['>',
+          [
+            '>',
             ['to-number', ['get', 'incline']],
             boundMax,
-           ],
-           true,
-           ['<',
+          ],
+          true,
+          [
+            '<',
             ['to-number', ['get', 'incline']],
             boundMin,
-           ],
-           true,
-           false
+          ],
+          true,
+          false,
         ]}
         paint={{
           'line-color': '#ff0000',
@@ -150,8 +154,8 @@ const Sidewalks = (props) => {
             stops: [
               [12, WIDTH_INACCESSIBLE / 4],
               [16, WIDTH_INACCESSIBLE],
-              [20, WIDTH_INACCESSIBLE * 4]
-            ]
+              [20, WIDTH_INACCESSIBLE * 4],
+            ],
           },
         }}
         before='bridge-street'
@@ -164,56 +168,63 @@ const Sidewalks = (props) => {
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
-           ['>',
+          [
+            '>',
             ['to-number', ['get', 'incline']],
             boundMax,
-           ],
-           false,
-           ['<',
+          ],
+          false,
+          [
+            '<',
             ['to-number', ['get', 'incline']],
             boundMin,
-           ],
-           false,
-           true
+          ],
+          false,
+          true,
         ]}
         paint={{
           'line-color': [
             'case',
-             ['>',
+            [
+              '>',
               ['to-number', ['get', 'incline']],
               boundMax,
-             ],
-             '#ff0000',
-             ['<',
+            ],
+            '#ff0000',
+            [
+              '<',
               ['to-number', ['get', 'incline']],
               boundMin,
-             ],
-             '#ff0000',
-             [
-               'interpolate',
-               ['linear'],
-               ['to-number', ['get', 'incline']],
-               ...inclineStops,
-             ],
+            ],
+            '#ff0000',
+            [
+              'interpolate',
+              ['linear'],
+              ['to-number', ['get', 'incline']],
+              ...inclineStops,
+            ],
           ],
           'line-width': {
-            stops: [[12, 0.2], [16, 3], [22, 30]]
+            stops: [[12, 0.2], [16, 3], [22, 30]],
           },
         }}
         before='bridge-street'
       />
     </React.Fragment>
   );
-}
+};
 
 Sidewalks.propTypes = {
-  inclineMax: PropTypes.number,
-  inclineMin: PropTypes.number,
+  inclineMax: PropTypes.number.isRequired,
+  inclineMin: PropTypes.number.isRequired,
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
 };
 
+Sidewalks.defaultProps = {
+  mode: null,
+};
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   const {
     mode,
     routingprofile,
@@ -222,10 +233,9 @@ function mapStateToProps(state) {
   return {
     inclineMax: routingprofile.inclineMax,
     inclineMin: routingprofile.inclineMin,
-    mode: mode,
+    mode,
   };
-}
-
+};
 
 export default connect(
   mapStateToProps,

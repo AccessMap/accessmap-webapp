@@ -34,16 +34,16 @@ if (process.env.NODE_ENV === 'development') {
 // for doing one-off user testing studies (NOT main site).
 
 // Root URL + /analytics
-const useAnalytics = process.env.FORCE_ANALYTICS === 'yes' ? true : false;
+const useAnalytics = process.env.FORCE_ANALYTICS === 'yes';
 if (useAnalytics) {
-  const analyticsURL = '//' + window.location.host + '/analytics';
+  const analyticsURL = `//${window.location.host}/analytics`;
   const analyticsWriteKey = process.env.ANALYTICS_KEY;
   rakam.init(analyticsWriteKey, null, {
     apiEndpoint: analyticsURL,
     includeUtm: true,
     trackClicks: true,
     trackForms: true,
-    includeReferrer: true
+    includeReferrer: true,
   });
 
   const analyticsMiddleware = analytics(({ type, payload }, state) => {
@@ -53,11 +53,10 @@ if (useAnalytics) {
   });
 
   middlewares.push(analyticsMiddleware);
-
 }
 
 export const store = createStore(
   persistedReducer,
-  applyMiddleware(...middlewares)
+  applyMiddleware(...middlewares),
 );
 export const persistor = persistStore(store);

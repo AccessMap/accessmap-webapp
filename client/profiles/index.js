@@ -20,4 +20,4 @@ export default {
     inclineMin: -0.14,
     requireCurbRamps: false,
   },
-}
+};

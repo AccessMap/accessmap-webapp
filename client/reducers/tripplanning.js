@@ -28,40 +28,39 @@ const handleGeocoderText = (state = defaults.geocoderText, action) => {
       return {
         ...state,
         searchText: action.payload,
-      }
+      };
     case SET_ORIGIN_TEXT:
       return {
         ...state,
         originText: action.payload,
-      }
+      };
     case SET_DESTINATION_TEXT:
       return {
         ...state,
         destinationText: action.payload,
-      }
+      };
     case SWAP_WAYPOINTS:
       return {
         ...state,
         originText: state.destinationText,
         destinationText: state.originText,
-      }
+      };
     case TOGGLE_TRIP_PLANNING:
       if (action.payload.planningTrip) {
         // User was planning a trip and has exited that mode
         // TODO: restore and/or never modify original POI search (should be
         // same as hitting 'back' button)
         return state;
-      } else {
-        // User has entered trip planning mode - copy search text to geocoder
-        return {
-          ...state,
-          originText: state.searchText,
-        }
       }
+      // User has entered trip planning mode - copy search text to geocoder
+      return {
+        ...state,
+        originText: state.searchText,
+      };
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   routeResult: handleRoute,

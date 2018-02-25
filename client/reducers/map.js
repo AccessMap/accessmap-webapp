@@ -12,7 +12,7 @@ import {
 
 import { defaultMap } from './defaults';
 
-function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
+const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
   switch (action.type) {
     case MAP_CLICK: {
       const feature = action.payload[0];
@@ -24,8 +24,8 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
             properties: {
               incline: {
                 name: 'Incline',
-                value: `${(Math.abs(feature.properties.incline) / 10).toFixed(1)} %`
-              }
+                value: `${(Math.abs(feature.properties.incline) / 10).toFixed(1)} %`,
+              },
             },
           };
         case 'crossings':
@@ -36,29 +36,28 @@ function handleSelectedFeature(state = defaultMap.selectedFeature, action) {
               curbramps: {
                 name: 'Curb Ramps',
                 value: feature.properties.curbramps ? 'Yes' : 'No',
-              }
-            }
+              },
+            },
           };
         default:
           return null;
       }
     }
     case CLEAR_SELECTED_FEATURES: {
-      return null
+      return null;
     }
     default:
       return state;
   }
-}
+};
 
-
-function handleMapContextClick(state = defaultMap.contextClick, action) {
+const handleMapContextClick = (state = defaultMap.contextClick, action) => {
   switch (action.type) {
     case MAP_CONTEXT_CLICK:
       return {
         lng: action.payload.lng,
-        lat: action.payload.lat
-      }
+        lat: action.payload.lat,
+      };
     case CANCEL_CONTEXT:
     case SET_ORIGIN:
     case SET_DESTINATION:
@@ -67,7 +66,7 @@ function handleMapContextClick(state = defaultMap.contextClick, action) {
     default:
       return state;
   }
-}
+};
 
 export default combineReducers({
   selectedFeature: handleSelectedFeature,

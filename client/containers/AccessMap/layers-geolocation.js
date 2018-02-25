@@ -12,7 +12,7 @@ const Geolocation = (props) => {
 
   const geolocationFc = {
     type: 'FeatureCollection',
-    features: []
+    features: [],
   };
   let geolocationRadius = 0;
 
@@ -21,9 +21,9 @@ const Geolocation = (props) => {
       type: 'Feature',
       geometry: {
         type: 'Point',
-        coordinates: geolocation.coordinates
+        coordinates: geolocation.coordinates,
       },
-      properties: {}
+      properties: {},
     });
     geolocationRadius = (
       geolocation.accuracy /
@@ -31,7 +31,7 @@ const Geolocation = (props) => {
       Math.cos(
         (geolocation.coordinates[1] *
          Math.PI) /
-        180
+        180,
       )
     );
   }
@@ -46,12 +46,12 @@ const Geolocation = (props) => {
           'circle-radius': {
             stops: [
               [0, 0],
-              [20, geolocationRadius]
+              [20, geolocationRadius],
             ],
-            base: 2
+            base: 2,
           },
           'circle-color': '#007cbf',
-          'circle-opacity': 0.2
+          'circle-opacity': 0.2,
         }}
       />
       <GeoJSONLayer
@@ -63,12 +63,12 @@ const Geolocation = (props) => {
           'circle-color': '#007cbf',
           'circle-opacity': 0.8,
           'circle-stroke-width': 2,
-          'circle-stroke-color': '#ffffff'
+          'circle-stroke-color': '#ffffff',
         }}
       />
     </React.Fragment>
   );
-}
+};
 
 Geolocation.propTypes = {
   geolocation: PropTypes.shape({
@@ -78,21 +78,17 @@ Geolocation.propTypes = {
       'Ok',
       'none',
       'unavailable',
-    ])
+    ]),
   }),
 };
 
+Geolocation.defaultProps = {
+  geolocation: null,
+};
 
-function mapStateToProps(state) {
-  const {
-    geolocation,
-  } = state;
-
-  return {
-    geolocation,
-  };
-}
-
+const mapStateToProps = state => ({
+  geolocation: state.geolocation,
+});
 
 export default connect(
   mapStateToProps,

@@ -11,8 +11,7 @@ import {
 // Default actions
 import { defaultBrowser as defaults } from './defaults';
 
-
-function handleMediaType(state = defaults.mediaType, action) {
+const handleMediaType = (state = defaults.mediaType, action) => {
   switch (action.type) {
     case RESIZE_WINDOW:
       return getMediaType();
@@ -21,8 +20,7 @@ function handleMediaType(state = defaults.mediaType, action) {
     default:
       return state;
   }
-}
-
+};
 
 export default combineReducers({
   mediaType: handleMediaType,

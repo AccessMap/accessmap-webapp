@@ -1,13 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import cn from 'classnames';
-
 import Autocomplete from 'react-md/lib/Autocompletes';
-
 import MapboxClient from 'mapbox/lib/services/geocoding';
-
 import throttle from 'lodash.throttle';
+
 
 const API_KEY = process.env.MAPBOX_TOKEN;
 
@@ -17,7 +14,7 @@ export default class GeocoderAutocomplete extends Component {
     places: [],
   }
 
-  _geocode = (value) => {
+  geocode = (value) => {
     if (!value) {
       this.setState({ places: [] });
       return;
@@ -38,7 +35,7 @@ export default class GeocoderAutocomplete extends Component {
       -122.43791813067659,
       47.471620665946823,
       -122.22065507703849,
-      47.75814927864544
+      47.75814927864544,
     ];
 
     mapboxClient.geocodeForward(value, geocoderOptions)
@@ -46,33 +43,30 @@ export default class GeocoderAutocomplete extends Component {
         this.setState({
           places: results.entity.features.map(d => ({
             name: d.place_name,
-            location: d.center
-          }))
+            location: d.center,
+          })),
         });
       });
   };
 
-  geocode = throttle(this._geocode, 250);
+  throttledGeocode = throttle(this.geocode, 250);
 
   handleOnChange = (value, event) => {
     if (this.props.onChange) {
       this.props.onChange(value, event);
     }
-    this.geocode(value);
+    this.throttledGeocode(value);
   };
 
   render() {
     const {
       block,
       className,
-      data,
       id,
       label,
       listClassName,
       onAutocomplete,
-      onChange,
       placeholder,
-      proximity,
       value,
     } = this.props;
 
@@ -121,7 +115,7 @@ GeocoderAutocomplete.defaultProps = {
   listClassName: null,
   onAutocomplete: null,
   onChange: null,
-  placerholder: '',
+  placeholder: '',
   proximity: null,
-  value: ''
+  value: '',
 };

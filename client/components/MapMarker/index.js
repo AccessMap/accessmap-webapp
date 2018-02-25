@@ -5,10 +5,10 @@ import { Marker } from 'react-mapbox-gl';
 import PinIcon from 'components/Icons/PinIcon';
 
 
-export default function MapMarker(props) {
+const MapMarker = (props) => {
   const {
     coordinates,
-    moreProps,
+    ...moreProps
   } = props;
 
   return (
@@ -21,8 +21,10 @@ export default function MapMarker(props) {
       <PinIcon />
     </Marker>
   );
-}
+};
 
 MapMarker.propTypes = {
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
+  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
 };
+
+export default MapMarker;

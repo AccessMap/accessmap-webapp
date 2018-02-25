@@ -17,13 +17,13 @@ const Route = (props) => {
   if (routeResult && routeResult.code === 'Ok') {
     const route = routeResult.routes[0];
 
-    const  routePath = {
+    const routePath = {
       type: 'FeatureCollection',
       features: [{
         type: 'Feature',
         geometry: route.geometry,
-        properties: {}
-      }]
+        properties: {},
+      }],
     };
 
     const routeJogs = {
@@ -34,26 +34,25 @@ const Route = (props) => {
           type: 'LineString',
           coordinates: [
             routeResult.origin.geometry.coordinates,
-            route.geometry.coordinates[0]
-          ]
+            route.geometry.coordinates[0],
+          ],
         },
         properties: {
-          waypoint: 'origin'
+          waypoint: 'origin',
         },
       }, {
-          type: 'Feature',
-          geometry: {
-            type: 'LineString',
-            coordinates: [
-              route.geometry.coordinates.slice(-1)[0],
-              routeResult.destination.geometry.coordinates
-            ]
-          },
-          properties: {
-            waypoint: 'destination'
-          },
-      },
-      ]
+        type: 'Feature',
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            route.geometry.coordinates.slice(-1)[0],
+            routeResult.destination.geometry.coordinates,
+          ],
+        },
+        properties: {
+          waypoint: 'destination',
+        },
+      }],
     };
 
     output = (
@@ -65,15 +64,15 @@ const Route = (props) => {
             'line-color': 'black',
             'line-opacity': 0.6,
             'line-width': {
-              stops: [[12, 0.2], [16, 3], [22, 30]]
+              stops: [[12, 0.2], [16, 3], [22, 30]],
             },
             'line-dasharray': {
               stops: [
                 [12, [0, 1]],
                 [15, [0, 1.5]],
-                [20, [0, 4]]
-              ]
-            }
+                [20, [0, 4]],
+              ],
+            },
           }}
           before={before}
         />
@@ -81,12 +80,12 @@ const Route = (props) => {
           data={routePath}
           lineLayout={{
             'line-cap': 'round',
-            'line-join': 'round'
+            'line-join': 'round',
           }}
           linePaint={{
             'line-color': '#4bf',
             'line-width': {
-              stops: [[12, 5], [16, 12], [22, 92]]
+              stops: [[12, 5], [16, 12], [22, 92]],
             },
           }}
           before={before}
@@ -95,16 +94,16 @@ const Route = (props) => {
           data={routePath}
           lineLayout={{
             'line-cap': 'round',
-            'line-join': 'round'
+            'line-join': 'round',
           }}
           linePaint={{
             'line-color': 'black',
             'line-gap-width': {
-              stops: [[12, 4.7], [16, 9.7], [22, 92]]
+              stops: [[12, 4.7], [16, 9.7], [22, 92]],
             },
             'line-width': {
-              stops: [[12, 0.5], [16, 1], [22, 1]]
-            }
+              stops: [[12, 0.5], [16, 1], [22, 1]],
+            },
           }}
           before={before}
         />
@@ -112,7 +111,7 @@ const Route = (props) => {
     );
   }
   return output;
-}
+};
 
 Route.propTypes = {
   before: PropTypes.string,
@@ -124,16 +123,9 @@ Route.defaultProps = {
   routeResult: null,
 };
 
-function mapStateToProps(state) {
-  const {
-    tripplanning,
-  } = state;
-
-  return {
-    routeResult: tripplanning.routeResult,
-  };
-}
-
+const mapStateToProps = state => ({
+  routeResult: state.tripplanning.routeResult,
+});
 
 export default connect(
   mapStateToProps,

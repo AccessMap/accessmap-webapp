@@ -6,7 +6,7 @@ import {
 
 import { defaultLinkOverlay as defaults } from './defaults';
 
-export default function handle(state = defaults, action) {
+export default (state = defaults, action) => {
   switch (action.type) {
     case CLICK_ABOUT_LINK:
       return 'about';
@@ -17,4 +17,4 @@ export default function handle(state = defaults, action) {
     default:
       return state;
   }
-}
+};

@@ -48,16 +48,23 @@ const Waypoints = (props) => {
       {poiComponent}
     </React.Fragment>
   );
-}
+};
 
 Waypoints.propTypes = {
   destination: pointFeatureNoProps,
   origin: pointFeatureNoProps,
+  planningTrip: PropTypes.bool,
   poi: pointFeatureNoProps,
 };
 
+Waypoints.defaultProps = {
+  destination: null,
+  origin: null,
+  planningTrip: false,
+  poi: null,
+};
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   const {
     activities,
     waypoints,
@@ -69,8 +76,7 @@ function mapStateToProps(state) {
     planningTrip: activities.planningTrip,
     poi: waypoints.poi,
   };
-}
-
+};
 
 export default connect(
   mapStateToProps,

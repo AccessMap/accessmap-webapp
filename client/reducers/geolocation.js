@@ -6,27 +6,27 @@ import {
 
 import { defaultGeolocation as defaults } from './defaults';
 
-export default function handle(state = defaults, action) {
+export default (state = defaults, action) => {
   switch (action.type) {
     case RECEIVE_GEOLOCATION:
       return {
         coordinates: action.payload.coordinates,
         accuracy: action.payload.accuracy,
-        status: 'Ok'
+        status: 'Ok',
       };
     case CLEAR_GEOLOCATION:
       return {
         coordinates: null,
         accuracy: null,
-        status: 'none'
+        status: 'none',
       };
     case NO_GEOLOCATION:
       return {
         coordinates: null,
         accuracy: null,
-        status: 'unavailable'
+        status: 'unavailable',
       };
     default:
       return state;
   }
-}
+};

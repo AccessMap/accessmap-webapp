@@ -4,18 +4,21 @@ import {
 } from 'react-md/lib/constants/media';
 
 
-export default function getMediaType() {
-    const matchDesktop = window.matchMedia(`
-      screen and (min-width: ${DESKTOP_MIN_WIDTH}px)
-    `).matches;
+const mediaType = () => {
+  const matchDesktop = window.matchMedia(`
+    screen and (min-width: ${DESKTOP_MIN_WIDTH}px)
+  `).matches;
 
-    if (matchDesktop) return 'DESKTOP';
+  if (matchDesktop) return 'DESKTOP';
 
-    const matchTablet = window.matchMedia(`
-      screen and (min-width: ${TABLET_MIN_WIDTH}px)
-    `).matches;
+  const matchTablet = window.matchMedia(`
+    screen and (min-width: ${TABLET_MIN_WIDTH}px)
+  `).matches;
 
-    if (matchTablet) return 'TABLET';
+  if (matchTablet) return 'TABLET';
 
-    return 'MOBILE';
-}
+  return 'MOBILE';
+};
+
+
+export default mediaType;

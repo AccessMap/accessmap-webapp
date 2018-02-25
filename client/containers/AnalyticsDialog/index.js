@@ -1,10 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import cn from 'classnames';
 
 import * as AppActions from 'actions';
 
@@ -40,31 +38,32 @@ const AnalyticsDialog = (props) => {
             secondary
             onClick={actions.disableAnalytics}
           >
-            No, don't track me
+            {'No, don\'t track me'}
           </Button>
         </CardActions>
       </Card>
     </div>
   );
-}
+};
 
-function mapStateToProps(state) {
-  const {
-    analytics
-  } = state;
+AnalyticsDialog.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  analytics: PropTypes.bool,
+};
 
-  return {
-    analytics: analytics,
-  };
-}
+AnalyticsDialog.defaultProps = {
+  analytics: null,
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapStateToProps = state => ({
+  analytics: state.analytics,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AnalyticsDialog);

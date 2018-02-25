@@ -1,10 +1,8 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
-import cn from 'classnames';
 
 import * as AppActions from 'actions';
 
@@ -29,31 +27,32 @@ const FloatingButtons = (props) => {
       <Button
         floating
         secondary
-        onClick={d => { actions.toggleTripPlanning(planningTrip) }}
+        onClick={() => actions.toggleTripPlanning(planningTrip)}
       >
         directions
       </Button>
     </div>
   );
-}
+};
 
-function mapStateToProps(state) {
-  const {
-    activities,
-  } = state;
+FloatingButtons.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  planningTrip: PropTypes.bool,
+};
 
-  return {
-    planningTrip: activities.planningTrip,
-  };
-}
+FloatingButtons.defaultProps = {
+  planningTrip: false,
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapStateToProps = state => ({
+  planningTrip: state.activities.planningTrip,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(FloatingButtons);

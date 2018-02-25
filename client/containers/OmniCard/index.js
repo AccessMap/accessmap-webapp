@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { bindActionCreators } from 'redux';
@@ -8,18 +8,18 @@ import cn from 'classnames';
 
 import * as AppActions from 'actions';
 
+import { pointFeature } from 'prop-schema';
+
 import Button from 'react-md/lib/Buttons';
-import Card, { CardText, CardTitle } from 'react-md/lib/Cards';
+import Card, { CardText } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
 import List from 'react-md/lib/Lists';
 import SelectionControl from 'react-md/lib/SelectionControls';
-import SVGIcon from 'react-md/lib/SVGIcons';
-import { TabsContainer, Tabs, Tab } from 'react-md/lib/Tabs';
+import { Tabs, Tab } from 'react-md/lib/Tabs';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 import InclineSlider from 'components/InclineSlider';
-import SimpleListItem from 'components/SimpleListItem';
 
 import CaneUserIcon from 'components/Icons/CaneUserIcon';
 import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
@@ -36,16 +36,10 @@ const OmniCard = (props) => {
     inclineMax,
     mediaType,
     mode,
-    onUphillChange,
-    onDownhillChange,
-    onCurbRampsChange,
-    onDownhillMouseEnter,
-    onDownhillMouseLeave,
     origin,
     originText,
     planningTrip,
     profileName,
-    proximity,
     requireCurbRamps,
     searchText,
     settingProfile,
@@ -97,124 +91,122 @@ const OmniCard = (props) => {
         </Button>
       </List>
     );
-  } else {
-    if (planningTrip) {
-      topBar = (
-        <React.Fragment>
-          <Toolbar
-            title={
-              <GeocoderAutocomplete
-                id='origin-geocoder'
-                key='origin-geocoder'
-                className='md-title--toolbar'
-                block
-                placeholder='Start address'
-                proximity={center}
-                onAutocomplete={(label, index, data) => {
-                  actions.setOriginText(label);
-                  const origin = data[index];
-                  actions.setOrigin(origin.location[0], origin.location[1],
-                                    origin.name);
-                }}
-                onChange={(v) => { actions.setOriginText(v); }}
-                value={originText}
-              />
-            }
-            actions={[
-              <Button
-                onClick={() => actions.toggleTripPlanning(planningTrip) }
-                key='tripplanning--close'
-                icon
-              >
-                close
-              </Button>
-            ]}
-          />
-          <Toolbar
-            title={
-              <GeocoderAutocomplete
-                id='destination-geocoder'
-                key='destination-geocoder'
-                block
-                placeholder='End address'
-                className='md-title--toolbar'
-                proximity={center}
-                onAutocomplete={(label, index, data) => {
-                  actions.setDestinationText(label);
-                  const destination = data[index];
-                  actions.setDestination(
-                    destination.location[0],
-                    destination.location[1],
-                    destination.name
-                  );
-                }}
-                onChange={(v) => { actions.setDestinationText(v); }}
-                value={destinationText}
-              />
-            }
-            actions={[
-              <Button
-                className='md-btn--toolbar'
-                key='tripplanning--swap-waypoints'
-                icon
-                onClick={() => {
-                  actions.swapWaypoints(origin, destination);
-                }}
-              >
-                swap_vert
-              </Button>
-            ]}
-          />
-        </React.Fragment>
-      );
-    } else {
-      topBar = (
+  } else if (planningTrip) {
+    topBar = (
+      <React.Fragment>
         <Toolbar
-          className='md-background--card'
           title={
             <GeocoderAutocomplete
-              id='address-search'
-              key='address-search'
-              className='address-search md-background--card'
-              listClassName='toolbar-search__list'
+              id='origin-geocoder'
+              key='origin-geocoder'
+              className='md-title--toolbar'
               block
-              placeholder='Search address'
-              onAutocomplete={(label, index, data) => {
-                const poi = data[index];
-                actions.setPOI(poi.location[0], poi.location[1], poi.name);
-                actions.setSearchText(poi.name);
-              }}
+              placeholder='Start address'
               proximity={center}
-              onChange={(v) => { actions.setSearchText(v); }}
-              value={searchText}
+              onAutocomplete={(label, index, data) => {
+                actions.setOriginText(label);
+                const o = data[index];
+                actions.setOrigin(o.location[0], o.location[1],
+                                  o.name);
+              }}
+              onChange={(v) => { actions.setOriginText(v); }}
+              value={originText}
             />
           }
           actions={[
-            <FontIcon
-              key='search-icon'
-              className={ cn('md-btn--toolbar md-btn--icon') }
-            >
-              search
-            </FontIcon>,
             <Button
-              className='md-btn--toolbar'
-              key='omnicard-tripplanning--toggle'
-              secondary
-              icon
               onClick={() => actions.toggleTripPlanning(planningTrip)}
+              key='tripplanning--close'
+              icon
             >
-              directions
-            </Button>
+              close
+            </Button>,
           ]}
         />
-      );
-    }
+        <Toolbar
+          title={
+            <GeocoderAutocomplete
+              id='destination-geocoder'
+              key='destination-geocoder'
+              block
+              placeholder='End address'
+              className='md-title--toolbar'
+              proximity={center}
+              onAutocomplete={(label, index, data) => {
+                actions.setDestinationText(label);
+                const dest = data[index];
+                actions.setDestination(
+                  dest.location[0],
+                  dest.location[1],
+                  dest.name,
+                );
+              }}
+              onChange={(v) => { actions.setDestinationText(v); }}
+              value={destinationText}
+            />
+          }
+          actions={[
+            <Button
+              className='md-btn--toolbar'
+              key='tripplanning--swap-waypoints'
+              icon
+              onClick={() => {
+                actions.swapWaypoints(origin, destination);
+              }}
+            >
+              swap_vert
+            </Button>,
+          ]}
+        />
+      </React.Fragment>
+    );
+  } else {
+    topBar = (
+      <Toolbar
+        className='md-background--card'
+        title={
+          <GeocoderAutocomplete
+            id='address-search'
+            key='address-search'
+            className='address-search md-background--card'
+            listClassName='toolbar-search__list'
+            block
+            placeholder='Search address'
+            onAutocomplete={(label, index, data) => {
+              const poi = data[index];
+              actions.setPOI(poi.location[0], poi.location[1], poi.name);
+              actions.setSearchText(poi.name);
+            }}
+            proximity={center}
+            onChange={(v) => { actions.setSearchText(v); }}
+            value={searchText}
+          />
+        }
+        actions={[
+          <FontIcon
+            key='search-icon'
+            className={cn('md-btn--toolbar md-btn--icon')}
+          >
+            search
+          </FontIcon>,
+          <Button
+            className='md-btn--toolbar'
+            key='omnicard-tripplanning--toggle'
+            secondary
+            icon
+            onClick={() => actions.toggleTripPlanning(planningTrip)}
+          >
+            directions
+          </Button>,
+        ]}
+      />
+    );
   }
 
   const profiles = (
     <React.Fragment>
-      <div className="dividers__border-example">
-        <div className="md-divider-border md-divider-border--top" />
+      <div className='dividers__border-example'>
+        <div className='md-divider-border md-divider-border--top' />
       </div>
       <List className='profiles-container'>
         <Button
@@ -302,7 +294,6 @@ const OmniCard = (props) => {
 
   let settingsComponent;
   switch (mode) {
-    case 'OTHER':
     case 'UPHILL':
       settingsComponent = uphillSlider;
       break;
@@ -312,6 +303,8 @@ const OmniCard = (props) => {
     case 'OTHER':
       settingsComponent = curbrampToggle;
       break;
+    default:
+      settingsComponent = uphillSlider;
   }
 
   let settings;
@@ -332,24 +325,14 @@ const OmniCard = (props) => {
               case 2:
                 actions.openOtherPreferences();
                 break;
+              default:
+                actions.openUphillPreferences();
             }
           }}
         >
-          <Tab
-            id='tab-uphill'
-            label='Uphill'
-          >
-          </Tab>
-          <Tab
-            id='tab-downhill'
-            label='Downhill'
-          >
-          </Tab>
-          <Tab
-            id='tab-other'
-            label='Other'
-          >
-          </Tab>
+          <Tab id='tab-uphill' label='Uphill' />
+          <Tab id='tab-downhill' label='Downhill' />
+          <Tab id='tab-other' label='Other' />
         </Tabs>
         <CardText>
           {settingsComponent}
@@ -369,17 +352,17 @@ const OmniCard = (props) => {
   return (
     <Card
       className={cn('omnicard', {
-        notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE'
+        notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE',
       })}
     >
       {topBar}
-      {(mediaType !== 'MOBILE' | settingProfile === false)
+      {(mediaType !== 'MOBILE' || settingProfile === false)
         ?
         profiles
         :
         undefined
       }
-      {(mediaType !== 'MOBILE' | settingProfile === true)
+      {(mediaType !== 'MOBILE' || settingProfile === true)
         ?
         settings
         :
@@ -387,15 +370,43 @@ const OmniCard = (props) => {
       }
     </Card>
   );
-}
-// TODO: make menu width same size as card
+};
+
+OmniCard.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  destination: pointFeature({ name: PropTypes.string }),
+  destinationText: PropTypes.string,
+  inclineMax: PropTypes.number,
+  inclineMin: PropTypes.number,
+  origin: pointFeature({ name: PropTypes.string }),
+  originText: PropTypes.string,
+  mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
+  mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
+  planningTrip: PropTypes.bool,
+  profileName: PropTypes.string,
+  settingProfile: PropTypes.bool,
+  requireCurbRamps: PropTypes.bool,
+  searchText: PropTypes.string,
+};
 
 OmniCard.defaultProps = {
-  onDownhillMouseEnter: null,
-  onDownhillMouseLeave: null,
-}
+  destination: null,
+  destinationText: '',
+  inclineMax: 0.085,
+  inclineMin: -0.1,
+  origin: null,
+  originText: '',
+  mediaType: 'DESKTOP',
+  mode: 'UPHILL',
+  planningTrip: false,
+  profileName: 'wheelchair',
+  settingProfile: false,
+  requireCurbRamps: true,
+  searchText: '',
+};
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   const {
     activities,
     browser,
@@ -412,26 +423,23 @@ function mapStateToProps(state) {
     destinationText: tripplanning.geocoderText.destinationText,
     inclineMax: routingprofile.inclineMax,
     inclineMin: routingprofile.inclineMin,
-    inclineIdeal: routingprofile.inclineIdeal,
     origin: waypoints.origin,
     originText: tripplanning.geocoderText.originText,
     mediaType: browser.mediaType,
-    mode: mode,
+    mode,
     planningTrip: activities.planningTrip,
     profileName: routingprofile.profileName,
     settingProfile: activities.settingProfile,
     requireCurbRamps: routingprofile.requireCurbRamps,
     searchText: tripplanning.geocoderText.searchText,
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(OmniCard);

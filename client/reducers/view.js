@@ -31,7 +31,7 @@ const omniCardDim = {
   height: 150,
 };
 
-export default function handleView(state = defaults, action) {
+export default (state = defaults, action) => {
   switch (action.type) {
     case SET_ORIGIN:
     case SET_DESTINATION:
@@ -45,7 +45,7 @@ export default function handleView(state = defaults, action) {
           ...state,
           lng: action.payload.lng,
           lat: action.payload.lat,
-          zoom: 16
+          zoom: 16,
         };
       }
       return state;
@@ -59,7 +59,7 @@ export default function handleView(state = defaults, action) {
         ...state,
         lng: action.payload.center[0],
         lat: action.payload.center[1],
-        zoom: action.payload.zoom
+        zoom: action.payload.zoom,
       };
     case MAP_MOVE:
       return {
@@ -73,7 +73,7 @@ export default function handleView(state = defaults, action) {
         ...state,
         lng: action.payload.coordinates[0],
         lat: action.payload.coordinates[1],
-        zoom: 16
+        zoom: 16,
       };
     case RECEIVE_ROUTE: {
       const { routeResult, mediaType } = action.payload;
@@ -99,7 +99,7 @@ export default function handleView(state = defaults, action) {
         // being negative.
         const bounds = bbox({
           type: 'Feature',
-          geometry: routeResult.routes[0].geometry
+          geometry: routeResult.routes[0].geometry,
         });
 
         // The size of the bounding box, in lat-lon degrees
@@ -109,7 +109,7 @@ export default function handleView(state = defaults, action) {
         // The degrees pad on the outside of the box, so that map markers can
         // be seen.
         const paddingLon = MARGIN_FACTOR * deltaLon;
-        const paddingLat = MARGIN_FACTOR * deltaLat
+        const paddingLat = MARGIN_FACTOR * deltaLat;
 
         // The padded dimensions of the bounding box
         const paddedDim = {
@@ -117,7 +117,7 @@ export default function handleView(state = defaults, action) {
           e: bounds[2] + paddingLon,
           s: bounds[1] - paddingLat,
           n: bounds[3] + paddingLat,
-        }
+        };
 
         // Padded bounding box, adjusted to not overlap widgets
         // NOTE: only left and top adjustments are currently applied
@@ -132,7 +132,7 @@ export default function handleView(state = defaults, action) {
           dim.w,
           dim.s,
           dim.e,
-          dim.n
+          dim.n,
         ],
         [state.mapWidth, state.mapHeight],
         0, 17, 512);
@@ -141,7 +141,7 @@ export default function handleView(state = defaults, action) {
           ...state,
           lng: center[0],
           lat: center[1],
-          zoom
+          zoom,
         };
       }
       return state;
@@ -156,4 +156,4 @@ export default function handleView(state = defaults, action) {
     default:
       return state;
   }
-}
+};

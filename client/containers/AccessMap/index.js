@@ -24,7 +24,7 @@ const CLICKABLE_LAYERS = [
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
   bearing: [0],
-  pitch: [0]
+  pitch: [0],
 });
 
 class AccessMap extends Component {
@@ -50,7 +50,7 @@ class AccessMap extends Component {
   updateDimensions() {
     const width = this.mapEl.container.clientWidth;
     const height = this.mapEl.container.clientHeight;
-    if (this.state.width != width | this.state.height != height) {
+    if (this.state.width !== width || this.state.height !== height) {
       this.setState({
         width,
         height,
@@ -85,7 +85,7 @@ class AccessMap extends Component {
             newBounds[0][0],
             newBounds[0][1],
             newBounds[1][0],
-            newBounds[1][1]
+            newBounds[1][1],
           ];
 
           if (e.originalEvent) {
@@ -110,6 +110,7 @@ class AccessMap extends Component {
         }}
         onContextMenu={(m, e) => {
           // Ignore the context menu event
+          e.preventDefault();
         }}
         onTouchStart={(m, e) => {
           const { lng, lat } = e.lngLat;
@@ -119,23 +120,19 @@ class AccessMap extends Component {
           }, 500);
         }}
         onTouchMove={() => clearTimeout(this.longPressTrigger)}
-        onTouchEnd={(m, e) => {
-          clearTimeout(this.longPressTrigger);
-        }}
+        onTouchEnd={() => clearTimeout(this.longPressTrigger)}
         onMouseMove={(m, e) => {
           const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
           const features = m.queryRenderedFeatures(e.point, {
-            layers: layers,
+            layers,
           });
-          m.getCanvas().style.cursor = features.length ? 'pointer': 'default';
+          m.getCanvas().style.cursor = features.length ? 'pointer' : 'default';
         }}
-        onDrag={(m, e) => {
-          m.getCanvas().style.cursor = 'grabbing';
-        }}
+        onDrag={(m) => { m.getCanvas().style.cursor = 'grabbing'; }}
         onClick={(m, e) => {
           const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
           const features = m.queryRenderedFeatures(e.point, {
-            layers: CLICKABLE_LAYERS
+            layers,
           });
           actions.mapClick(features);
         }}
@@ -146,7 +143,7 @@ class AccessMap extends Component {
             newBounds[0][0],
             newBounds[0][1],
             newBounds[1][0],
-            newBounds[1][1]
+            newBounds[1][1],
           ];
           actions.logBounds(bbox);
         }}
@@ -181,24 +178,16 @@ AccessMap.defaultProps = {
   zoom: 15,
 };
 
-function mapStateToProps(state) {
-  const {
-    view,
-  } = state;
+const mapStateToProps = state => ({
+  center: [state.view.lng, state.view.lat],
+  zoom: state.view.zoom,
+});
 
-  return {
-    center: [view.lng, view.lat],
-    zoom: view.zoom,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(AccessMap);

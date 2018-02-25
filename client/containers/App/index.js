@@ -1,12 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import cn from 'classnames';
-
-import { AccessibleFakeButton } from 'react-md/lib/Helpers';
-import Avatar from 'react-md/lib/Avatars';
 import Button from 'react-md/lib/Buttons';
 import Toolbar from 'react-md/lib/Toolbars';
 
@@ -25,21 +21,17 @@ import FeatureCard from 'components/FeatureCard';
 import * as AppActions from 'actions';
 
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  componentDidMount() {
+class App extends PureComponent {
+  componentDidMount = () => {
     this.props.actions.loadApp();
     window.addEventListener('resize', this.props.actions.resizeWindow);
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     window.removeEventListener('resize', this.props.actions.resizeWindow);
-  }
+  };
 
-  render() {
+  render = () => {
     const {
       actions,
       contextClick,
@@ -49,9 +41,7 @@ class App extends Component {
       settingProfile,
     } = this.props;
 
-    const mobile = mediaType == 'MOBILE';
-    const tablet = mediaType == 'TABLET';
-    const desktop = mediaType == 'DESKTOP';
+    const mobile = mediaType === 'MOBILE';
 
     const links = [{
       label: 'About',
@@ -74,17 +64,15 @@ class App extends Component {
           </div>
         }
         actions={
-          links.map(d => {
-            return (
-              <Button
-                flat
-                primary
-                onClick={d.action}
-              >
-                {d.label}
-              </Button>
-            );
-          })
+          links.map(d =>
+            <Button
+              flat
+              primary
+              onClick={d.action}
+            >
+              {d.label}
+            </Button>,
+          )
         }
         themed
         fixed
@@ -108,7 +96,7 @@ class App extends Component {
             }}
           />
           <ContextMenu
-            visible={contextClick === null ? false : true}
+            visible={contextClick !== null}
             onClickCancel={actions.cancelContext}
             onClickOrigin={() => {
               actions.setOrigin(contextClick.lng,
@@ -132,32 +120,36 @@ class App extends Component {
         </div>
       </React.Fragment>
     );
-  }
+  };
 }
 
 App.propTypes = {
-  /* eslint-disable react/forbid-prop-types */
-  /* eslint-disable react/require-default-props */
-  actions: PropTypes.object.isRequired,
-  /* eslint-enable react/forbid-prop-types */
-  /* eslint-enable react/require-default-props */
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  contextClick: PropTypes.shape({
+    lat: PropTypes.arrayOf(PropTypes.number),
+    lng: PropTypes.arrayOf(PropTypes.number),
+  }),
   planningTrip: PropTypes.bool,
   mediaType: PropTypes.string,
   selectedFeature: PropTypes.shape({
     type: PropTypes.string,
     info: PropTypes.shape({
       name: PropTypes.string,
-      value: PropTypes.string
+      value: PropTypes.string,
     }),
   }),
+  settingProfile: PropTypes.bool,
 };
 
 App.defaultProps = {
-  selectedFeature: null,
+  contextClick: null,
+  mediaType: null,
   planningTrip: false,
+  selectedFeature: null,
+  settingProfile: false,
 };
 
-function mapStateToProps(state) {
+const mapStateToProps = (state) => {
   const {
     activities,
     browser,
@@ -171,15 +163,13 @@ function mapStateToProps(state) {
     settingProfile: activities.settingProfile,
     selectedFeature: map.selectedFeature,
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(AppActions, dispatch)
-  };
-}
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(AppActions, dispatch),
+});
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
 )(App);

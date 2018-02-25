@@ -16,13 +16,13 @@ import { defaultActivities as defaults } from './defaults';
 const handleSettingProfile = (state = defaults.settingProfile, action) => {
   switch (action.type) {
     case SET_PROFILE:
-      return action.payload === 'custom' ? true : false;
+      return action.payload === 'custom';
     case TOGGLE_SETTING_PROFILE:
       return !action.payload;
     default:
       return state;
   }
-}
+};
 
 const handlePlanningTrip = (state = defaults.planningTrip, action) => {
   switch (action.type) {
@@ -51,5 +51,5 @@ const handleFetchingTrip = (state = defaults.fetchingTrip, action) => {
 export default combineReducers({
   fetchingTrip: handleFetchingTrip,
   planningTrip: handlePlanningTrip,
-  settingProfile: handleSettingProfile
+  settingProfile: handleSettingProfile,
 });

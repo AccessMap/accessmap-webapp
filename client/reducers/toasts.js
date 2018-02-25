@@ -6,8 +6,9 @@ import {
 
 import { defaultToasts as defaults } from './defaults';
 
-export default function handle(state = defaults, action) {
+export default (state = defaults, action) => {
   const toasts = state.slice();
+  let text;
   switch (action.type) {
     case ADD_TOAST:
       toasts.push(action.payload);
@@ -16,7 +17,6 @@ export default function handle(state = defaults, action) {
       toasts.shift();
       return toasts;
     case RECEIVE_ROUTE:
-      let text;
       switch (action.payload.routeResult.code) {
         case 'GraphNotReady':
         case 'SpatialIndexNotReady':
@@ -42,4 +42,4 @@ export default function handle(state = defaults, action) {
     default:
       return state;
   }
-}
+};

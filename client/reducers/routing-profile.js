@@ -35,9 +35,9 @@ const handleSpeed = (state = defaults.speed, action) => {
         case 'cane':
           return profiles.cane.speed;
         case 'custom':
-          return state;
         default:
-    }
+          return state;
+      }
     case SET_SPEED:
       return action.payload;
     default:
@@ -57,9 +57,9 @@ const handleInclineMax = (state = defaults.inclineMax, action) => {
         case 'cane':
           return profiles.cane.inclineMax;
         case 'custom':
-          return state;
         default:
-    }
+          return state;
+      }
     case SET_INCLINE_MAX:
       return action.payload;
     default:
@@ -78,8 +78,9 @@ const handleInclineMin = (state = defaults.inclineMin, action) => {
         case 'cane':
           return profiles.cane.inclineMin;
         case 'custom':
+        default:
           return state;
-    }
+      }
     case SET_INCLINE_MIN:
       return action.payload;
     default:
@@ -92,14 +93,15 @@ const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
     case SET_PROFILE:
       switch (action.payload) {
         case 'wheelchair':
-          return true
+          return true;
         case 'powered':
-          return true
+          return true;
         case 'cane':
-          return false
+          return false;
         case 'custom':
+        default:
           return state;
-    }
+      }
     case TOGGLE_CURBRAMPS:
       return !state;
     default:
