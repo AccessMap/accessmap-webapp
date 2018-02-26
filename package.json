@@ -1,9 +1,11 @@
 {
-  "name": "webpack2-react-redux-budget-app-sample",
+  "name": "accessmap-webapp",
   "version": "1.0.0",
   "private": true,
-  "description": "Budgeting App Sample - React, Redux, Webpack 2",
+  "description": "AccessMap Web App",
   "main": "index.js",
+  "repository": "github.com/accessmap/accessmap-webapp",
+  "engines": { "node" : ">=8.9.0" },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
