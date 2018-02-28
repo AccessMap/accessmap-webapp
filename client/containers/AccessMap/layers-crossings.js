@@ -73,50 +73,142 @@ const Crossings = (props) => {
         before='bridge-street'
       />
       <Layer
-        id='crossing'
+        id='crossing-unmarked'
         type='line'
         sourceId='pedestrian'
         sourceLayer='crossings'
         layout={{ 'line-cap': 'round' }}
         filter={[
-          'any',
-          !requireCurbRamps,
+          'all',
           [
-            'to-boolean',
-            ['get', 'curbramps'],
+            'any',
+            !requireCurbRamps,
+            [
+              'to-boolean',
+              ['get', 'curbramps'],
+            ],
+          ],
+          [
+            '!',
+            [
+              'to-boolean',
+              ['get', 'marked'],
+            ],
           ],
         ]}
         paint={{
-          'line-color': '#000000',
+          'line-color': '#888',
           'line-width': {
-            stops: [[12, 0.5], [16, 2], [22, 20]],
+            stops: [[12, 0.5], [16, 3], [22, 30]],
           },
           'line-opacity': ['interpolate', ['linear'], ['zoom'],
             CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 0.5,
+            CROSSINGS_VISIBLE, 1,
           ],
         }}
         before='bridge-street'
       />
       <Layer
-        id='crossing-outline'
+        id='crossing-marked-background'
         type='line'
         sourceId='pedestrian'
         sourceLayer='crossings'
         layout={{ 'line-cap': 'round' }}
         filter={[
-          'to-boolean',
-          ['get', 'curbramps'],
+          'all',
+          [
+            'any',
+            !requireCurbRamps,
+            [
+              'to-boolean',
+              ['get', 'curbramps'],
+            ],
+          ],
+          [
+            'to-boolean',
+            ['get', 'marked'],
+          ],
         ]}
         paint={{
-          'line-color': '#555555',
+          'line-color': '#555',
           'line-width': {
-            stops: [[12, 0.1], [15, 0.35], [22, 1]],
+            stops: [[12, 0.5], [16, 3], [22, 30]],
           },
-          'line-gap-width': { stops: [[12, 0.5], [16, 2], [22, 20]] },
           'line-opacity': ['interpolate', ['linear'], ['zoom'],
             CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 0.5,
+            CROSSINGS_VISIBLE, 1,
+          ],
+        }}
+        before='bridge-street'
+      />
+      <Layer
+        id='crossing-marked-outline'
+        type='line'
+        sourceId='pedestrian'
+        sourceLayer='crossings'
+        layout={{ 'line-cap': 'round' }}
+        filter={[
+          'all',
+          [
+            'any',
+            !requireCurbRamps,
+            [
+              'to-boolean',
+              ['get', 'curbramps'],
+            ],
+          ],
+          [
+            'to-boolean',
+            ['get', 'marked'],
+          ],
+        ]}
+        paint={{
+          'line-color': '#fff',
+          'line-gap-width': {
+            stops: [[12, 0.4], [16, 1.5], [22, 15]],
+          },
+          'line-width': { stops: [[12, 0.1], [16, 0.5], [22, 4]] },
+          'line-opacity': ['interpolate', ['linear'], ['zoom'],
+            CROSSINGS_VISIBLE - 0.5, 0.0,
+            CROSSINGS_VISIBLE, 1,
+          ],
+        }}
+        before='bridge-street'
+      />
+      <Layer
+        id='crossing-marked-dashes'
+        type='line'
+        sourceId='pedestrian'
+        sourceLayer='crossings'
+        filter={[
+          'all',
+          [
+            'any',
+            !requireCurbRamps,
+            [
+              'to-boolean',
+              ['get', 'curbramps'],
+            ],
+          ],
+          [
+            'to-boolean',
+            ['get', 'marked'],
+          ],
+        ]}
+        paint={{
+          'line-color': '#fff',
+          'line-width': {
+            stops: [[12, 0.4], [16, 1.5], [22, 15]],
+          },
+          'line-dasharray': {
+            stops: [
+              [16, [0.7, 1.4]],
+              [18, [0.4, 0.8]],
+            ],
+          },
+          'line-opacity': ['interpolate', ['linear'], ['zoom'],
+            CROSSINGS_VISIBLE - 0.5, 0.0,
+            CROSSINGS_VISIBLE, 1,
           ],
         }}
         before='bridge-street'

@@ -37,6 +37,10 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
                 name: 'Curb Ramps',
                 value: feature.properties.curbramps ? 'Yes' : 'No',
               },
+              marked: {
+                name: 'Marked Crossing',
+                value: feature.properties.marked ? 'Yes' : 'No',
+              },
             },
           };
         default:
