@@ -107,12 +107,12 @@ const Sidewalks = (props) => {
           true,
         ]}
         paint={{
-          'line-color': '#555555',
+          'line-color': '#000',
           'line-width': {
-            stops: [[14, 0.01], [22, 1]],
+            stops: [[14, 0.00], [20, 1]],
           },
           'line-opacity': {
-            stops: [[13.5, 0.0], [14, 1]],
+            stops: [[13.5, 0.0], [16, 1]],
           },
           'line-gap-width': {
             stops: [[12, 0.5], [16, 3], [22, 30]],
