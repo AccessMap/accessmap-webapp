@@ -110,7 +110,6 @@ class AccessMap extends Component {
         }}
         onContextMenu={(m, e) => {
           // Ignore the context menu event
-          e.preventDefault();
         }}
         onTouchStart={(m, e) => {
           const { lng, lat } = e.lngLat;

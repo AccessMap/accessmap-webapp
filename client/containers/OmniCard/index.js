@@ -104,10 +104,9 @@ const OmniCard = (props) => {
               placeholder='Start address'
               proximity={center}
               onAutocomplete={(label, index, data) => {
-                actions.setOriginText(label);
+                actions.setOriginText(data[index].name);
                 const o = data[index];
-                actions.setOrigin(o.location[0], o.location[1],
-                                  o.name);
+                actions.setOrigin(o.location[0], o.location[1], o.name);
               }}
               onChange={(v) => { actions.setOriginText(v); }}
               value={originText}
@@ -133,7 +132,7 @@ const OmniCard = (props) => {
               className='md-title--toolbar'
               proximity={center}
               onAutocomplete={(label, index, data) => {
-                actions.setDestinationText(label);
+                actions.setDestinationText(data[index].name);
                 const dest = data[index];
                 actions.setDestination(
                   dest.location[0],

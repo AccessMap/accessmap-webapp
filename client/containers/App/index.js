@@ -126,8 +126,8 @@ class App extends PureComponent {
 App.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   contextClick: PropTypes.shape({
-    lat: PropTypes.arrayOf(PropTypes.number),
-    lng: PropTypes.arrayOf(PropTypes.number),
+    lat: PropTypes.number,
+    lng: PropTypes.number,
   }),
   planningTrip: PropTypes.bool,
   mediaType: PropTypes.string,
