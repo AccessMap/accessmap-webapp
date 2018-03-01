@@ -5,7 +5,9 @@
   "description": "AccessMap Web App",
   "main": "index.js",
   "repository": "github.com/accessmap/accessmap-webapp",
-  "engines": { "node" : ">=8.9.0" },
+  "engines": {
+    "node": ">=8.9.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
@@ -13,6 +15,7 @@
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "lint": "eslint ./client ./webpack.config.js -f table || true"
   },
+  "pre-commit": "lint",
   "license": "MIT",
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -51,6 +54,7 @@
     "mapbox-gl": "0.42.2",
     "node-sass": "^4.5.3",
     "normalize.css": "^8.0.0",
+    "pre-commit": "^1.2.2",
     "prop-types": "^15.6.0",
     "rakam-js": "^1.0.3",
     "react": "^16.2.0",
