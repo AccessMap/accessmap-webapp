@@ -11,7 +11,7 @@ import * as AppActions from 'actions';
 import { pointFeature } from 'prop-schema';
 
 import Button from 'react-md/lib/Buttons';
-import Card, { CardText } from 'react-md/lib/Cards';
+import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import Slider from 'react-md/lib/Sliders';
@@ -87,15 +87,16 @@ const OmniCard = (props) => {
     // Mobile browser and settings should be open
     topBar = (
       <Toolbar
-        actions={[
+        nav={
           <Button
-            icon
-            tooltipLabel='Reset to profile defaults'
-            tooltipPosition='left'
+            flat
+            secondary
             onClick={() => actions.setProfileDefault(profileName)}
           >
-            refresh
-          </Button>,
+            Reset to defaults
+          </Button>
+        }
+        actions={[
           <Button
             tooltipLabel='Close'
             tooltipPosition='left'
@@ -439,19 +440,22 @@ const OmniCard = (props) => {
     );
   } else {
     settings = (
+      <React.Fragment>
       <CardText>
-        <Button
-          icon
-          tooltipLabel='Reset to profile defaults'
-          tooltipPosition='right'
-          onClick={() => actions.setProfileDefault(profileName)}
-        >
-          refresh
-        </Button>
         {uphillSlider}
         {downhillSlider}
         {curbrampToggle}
       </CardText>
+      <CardActions>
+        <Button
+          flat
+          secondary
+          onClick={() => actions.setProfileDefault(profileName)}
+        >
+          Reset to defaults
+        </Button>
+      </CardActions>
+      </React.Fragment>
     );
   }
 
