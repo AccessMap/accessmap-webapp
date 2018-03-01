@@ -230,9 +230,11 @@ const mapStateToProps = (state) => {
     routingprofile,
   } = state;
 
+  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+
   return {
-    inclineMax: routingprofile.inclineMax,
-    inclineMin: routingprofile.inclineMin,
+    inclineMax: profile.inclineMax,
+    inclineMin: profile.inclineMin,
     mode,
   };
 };

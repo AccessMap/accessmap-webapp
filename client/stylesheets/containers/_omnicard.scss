@@ -54,12 +54,18 @@
   }
 
   // Profile options
-  .profiles-container > * {
-    margin-left: 8px;
-  }
+  .profiles-container {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 
-  .profiles-container > .md-btn {
-    border: 1px solid $md-secondary-color;
+    > * {
+      margin-right: 8px;
+    }
+
+    .profile-selected {
+      border-bottom: 3px solid $md-secondary-color;
+    }
   }
 
   .md-autocomplete-list .md-list-item .md-list-tile {

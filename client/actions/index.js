@@ -22,6 +22,7 @@ export const SET_SPEED = 'SET_SPEED';
 export const SET_INCLINE_MAX = 'SET_INCLINE_MAX';
 export const SET_INCLINE_MIN = 'SET_INCLINE_MIN';
 export const SET_PROFILE = 'SET_PROFILE';
+export const SET_PROFILE_DEFAULT = 'SET_PROFILE_DEFAULT';
 export const TOGGLE_CURBRAMPS = 'TOGGLE_CURBRAMPS';
 
 // Settings modes - mostly used for mouseover view changes
@@ -356,6 +357,21 @@ export const setProfile = profile => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
+export const setProfileDefault = profile => (dispatch, getState) => {
+  dispatch({
+    type: SET_PROFILE_DEFAULT,
+    payload: profile,
+    meta: {
+      analytics: {
+        type: 'set-profile-default',
+        payload: {
+          profile,
+        },
+      },
+    },
+  });
+  routeIfValid(dispatch, getState);
+};
 
 export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
   const { log } = getState();

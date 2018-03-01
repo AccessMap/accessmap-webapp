@@ -182,9 +182,17 @@ Crossings.propTypes = {
   requireCurbRamps: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  requireCurbRamps: state.routingprofile.requireCurbRamps,
-});
+const mapStateToProps = (state) => {
+  const {
+    routingprofile,
+  } = state;
+
+  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+
+  return {
+    requireCurbRamps: profile.requireCurbRamps,
+  };
+};
 
 export default connect(
   mapStateToProps,

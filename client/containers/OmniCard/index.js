@@ -14,7 +14,7 @@ import Button from 'react-md/lib/Buttons';
 import Card, { CardText } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
 import List from 'react-md/lib/Lists';
-import SelectionControl from 'react-md/lib/SelectionControls';
+import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import { Tabs, Tab } from 'react-md/lib/Tabs';
 import Toolbar from 'react-md/lib/Toolbars';
 
@@ -30,10 +30,11 @@ const OmniCard = (props) => {
   const {
     actions,
     center,
+    currentProfile,
     destination,
     destinationText,
-    inclineMin,
     inclineMax,
+    inclineMin,
     mediaType,
     mode,
     origin,
@@ -44,6 +45,9 @@ const OmniCard = (props) => {
     searchText,
     settingProfile,
   } = props;
+
+  const defaultMode = (mediaType !== 'MOBILE' || !settingProfile);
+  const showSettings = (mediaType !== 'MOBILE' || settingProfile);
 
   // Logic:
   // This controller has multiple states, branching first on device and then
@@ -202,52 +206,87 @@ const OmniCard = (props) => {
     );
   }
 
-  const profiles = (
-    <React.Fragment>
-      <div className='dividers__border-example'>
-        <div className='md-divider-border md-divider-border--top' />
-      </div>
-      <List className='profiles-container'>
-        <Button
-          className='md-btn--toolbar'
-          icon
-          onClick={() => actions.setProfile('wheelchair')}
-        >
-          <WheelchairIcon
-            secondary={profileName === 'wheelchair'}
-            size={mediaType === 'DESKTOP' ? 20 : 24}
-          />
-        </Button>
-        <Button
-          className='md-btn--toolbar'
-          icon
-          onClick={() => actions.setProfile('powered')}
-        >
-          <PoweredWheelchairIcon
-            secondary={profileName === 'powered'}
-            size={mediaType === 'DESKTOP' ? 20 : 24}
-          />
-        </Button>
-        <Button
-          className='md-btn--toolbar'
-          icon
-          onClick={() => actions.setProfile('cane')}
-        >
-          <CaneUserIcon
-            secondary={profileName === 'cane'}
-            size={mediaType === 'DESKTOP' ? 20 : 24}
-          />
-        </Button>
-        <Button
-          className='md-btn--toolbar'
-          icon
-          secondary={profileName === 'custom'}
-          onClick={() => actions.setProfile('custom')}
-        >
-          settings
-        </Button>
-      </List>
-    </React.Fragment>
+  const profileList = [{
+    label: '',
+    value: '1',
+    onChange: () => actions.setProfile('wheelchair'),
+    className: profileName === 'wheelchair' ? 'profile-selected' : '',
+    checkedRadioIcon:
+      <WheelchairIcon
+        secondary
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+    uncheckedRadioIcon:
+      <WheelchairIcon
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+  }, {
+    label: '',
+    value: '2',
+    onChange: () => actions.setProfile('powered'),
+    className: profileName === 'powered' ? 'profile-selected' : '',
+    checkedRadioIcon:
+      <PoweredWheelchairIcon
+        secondary
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+    uncheckedRadioIcon:
+      <PoweredWheelchairIcon
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+  }, {
+    label: '',
+    value: '3',
+    onChange: () => actions.setProfile('cane'),
+    className: profileName === 'cane' ? 'profile-selected' : '',
+    checkedRadioIcon:
+      <CaneUserIcon
+        secondary
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+    uncheckedRadioIcon:
+      <CaneUserIcon
+        size={mediaType === 'DESKTOP' ? 20 : 24}
+      />
+    ,
+  }];
+
+  const profileActions = [
+    <Button
+      icon
+      onClick={() => actions.setProfileDefault(profileName)}
+    >
+      refresh
+    </Button>,
+  ];
+
+  mediaType === 'MOBILE' && profileActions.unshift(
+    <Button
+      icon
+      onClick={() => actions.toggleSettingProfile(settingProfile)}
+    >
+      settings
+    </Button>
+  );
+
+  const profileBar = (
+    <Toolbar
+      nav={
+    <SelectionControlGroup className='profiles-container'
+      id='profile-radio-selector'
+      name='routing-profile-selector'
+      type='radio'
+      controls={profileList}
+      controlClassName='md-inline-block'
+    />
+    }
+    actions={profileActions}
+    />
   );
 
   const uphillSlider = (
@@ -348,6 +387,12 @@ const OmniCard = (props) => {
     );
   }
 
+  const divider = (
+    <div className='dividers__border-example'>
+      <div className='md-divider-border md-divider-border--top' />
+    </div>
+  );
+
   return (
     <Card
       className={cn('omnicard', {
@@ -355,18 +400,9 @@ const OmniCard = (props) => {
       })}
     >
       {topBar}
-      {(mediaType !== 'MOBILE' || settingProfile === false)
-        ?
-        profiles
-        :
-        undefined
-      }
-      {(mediaType !== 'MOBILE' || settingProfile === true)
-        ?
-        settings
-        :
-        undefined
-      }
+      {defaultMode ? divider : undefined}
+      {defaultMode ? profileBar : undefined}
+      {showSettings ? settings : undefined}
     </Card>
   );
 };
@@ -374,34 +410,36 @@ const OmniCard = (props) => {
 OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  currentProfile: PropTypes.number,
   destination: pointFeature({ name: PropTypes.string }),
   destinationText: PropTypes.string,
-  inclineMax: PropTypes.number,
-  inclineMin: PropTypes.number,
   origin: pointFeature({ name: PropTypes.string }),
   originText: PropTypes.string,
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   planningTrip: PropTypes.bool,
-  profileName: PropTypes.string,
+  profiles: PropTypes.arrayOf(PropTypes.shape({
+    inclineMax: PropTypes.number,
+    inclineMin: PropTypes.number,
+    name: PropTypes.string,
+    requireCurbRamps: PropTypes.bool,
+    speed: PropTypes.number,
+  })),
   settingProfile: PropTypes.bool,
-  requireCurbRamps: PropTypes.bool,
   searchText: PropTypes.string,
 };
 
 OmniCard.defaultProps = {
+  currentProfile: 0,
   destination: null,
   destinationText: '',
-  inclineMax: 0.085,
-  inclineMin: -0.1,
   origin: null,
   originText: '',
   mediaType: 'DESKTOP',
   mode: 'UPHILL',
   planningTrip: false,
-  profileName: 'wheelchair',
+  profiles: [],
   settingProfile: false,
-  requireCurbRamps: true,
   searchText: '',
 };
 
@@ -416,20 +454,23 @@ const mapStateToProps = (state) => {
     waypoints,
   } = state;
 
+  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+
   return {
     center: [view.lng, view.lat],
     destination: waypoints.destination,
     destinationText: tripplanning.geocoderText.destinationText,
-    inclineMax: routingprofile.inclineMax,
-    inclineMin: routingprofile.inclineMin,
+    inclineMax: profile.inclineMax,
+    inclineMin: profile.inclineMin,
     origin: waypoints.origin,
     originText: tripplanning.geocoderText.originText,
     mediaType: browser.mediaType,
     mode,
     planningTrip: activities.planningTrip,
-    profileName: routingprofile.profileName,
+    profileName: profile.name,
+    requireCurbRamps: profile.requireCurbRamps,
+    selectedProfile: routingprofile.selectedProfile,
     settingProfile: activities.settingProfile,
-    requireCurbRamps: routingprofile.requireCurbRamps,
     searchText: tripplanning.geocoderText.searchText,
   };
 };

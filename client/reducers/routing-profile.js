@@ -1,118 +1,94 @@
 import { combineReducers } from 'redux';
-import profiles from 'profiles';
+import profileDefaults from 'profiles';
+import cloneObject from 'utils/clone-object';
 
 import {
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
   SET_PROFILE,
+  SET_PROFILE_DEFAULT,
   SET_SPEED,
   TOGGLE_CURBRAMPS,
 } from 'actions';
 
 import { defaultRoutingProfile as defaults } from './defaults';
 
-const handleProfileName = (state = defaults.profileName, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      return action.payload;
-    case SET_INCLINE_MAX:
-    case SET_INCLINE_MIN:
-    case TOGGLE_CURBRAMPS:
-      return 'custom';
-    default:
-      return state;
-  }
-};
-
-const handleSpeed = (state = defaults.speed, action) => {
+const handleRoutingProfile = (state = defaults, action) => {
+  const profiles = state.profiles;
   switch (action.type) {
     case SET_PROFILE:
       switch (action.payload) {
         case 'wheelchair':
-          return profiles.wheelchair.speed;
+          return {
+            ...state,
+            selectedProfile: 0,
+          };
         case 'powered':
-          return profiles.powered.speed;
+          return {
+            ...state,
+            selectedProfile: 1,
+          };
         case 'cane':
-          return profiles.cane.speed;
-        case 'custom':
+          return {
+            ...state,
+            selectedProfile: 2,
+          };
+        // TODO: this is where we'd search for custom profiles
+        default:
+          return state;
+      }
+    case SET_PROFILE_DEFAULT:
+      switch (action.payload) {
+        case 'wheelchair':
+          profiles[0] = cloneObject(profileDefaults.wheelchair);
+          return {
+            ...state,
+            profiles,
+          };
+        case 'powered':
+          profiles[1] = cloneObject(profileDefaults.powered);
+          return {
+            ...state,
+            profiles,
+          };
+        case 'cane':
+          profiles[2] = cloneObject(profileDefaults.cane);
+          return {
+            ...state,
+            profiles,
+          };
+        // TODO: this is where we'd search for custom profiles
         default:
           return state;
       }
     case SET_SPEED:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-
-const handleInclineMax = (state = defaults.inclineMax, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      switch (action.payload) {
-        case 'wheelchair':
-          return profiles.wheelchair.inclineMax;
-        case 'powered':
-          return profiles.powered.inclineMax;
-        case 'cane':
-          return profiles.cane.inclineMax;
-        case 'custom':
-        default:
-          return state;
-      }
+      profiles[state.selectedProfile].speed = action.payload;
+      return {
+        ...state,
+        profiles: profiles,
+      };
     case SET_INCLINE_MAX:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const handleInclineMin = (state = defaults.inclineMin, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      switch (action.payload) {
-        case 'wheelchair':
-          return profiles.wheelchair.inclineMin;
-        case 'powered':
-          return profiles.powered.inclineMin;
-        case 'cane':
-          return profiles.cane.inclineMin;
-        case 'custom':
-        default:
-          return state;
-      }
+      profiles[state.selectedProfile].inclineMax = action.payload;
+      return {
+        ...state,
+        profiles: profiles,
+      };
     case SET_INCLINE_MIN:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-const handleCurbRamps = (state = defaults.requireCurbRamps, action) => {
-  switch (action.type) {
-    case SET_PROFILE:
-      switch (action.payload) {
-        case 'wheelchair':
-          return true;
-        case 'powered':
-          return true;
-        case 'cane':
-          return false;
-        case 'custom':
-        default:
-          return state;
-      }
+      profiles[state.selectedProfile].inclineMin = action.payload;
+      return {
+        ...state,
+        profiles: profiles,
+      };
     case TOGGLE_CURBRAMPS:
-      return !state;
+      const newState = !profiles[state.selectedProfile].requireCurbramps;
+      profiles[state.selectedProfile].requireCurbramps = newState;
+      return {
+        ...state,
+        profiles: profiles,
+      };
     default:
       return state;
   }
 };
 
-export default combineReducers({
-  speed: handleSpeed,
-  inclineMax: handleInclineMax,
-  inclineMin: handleInclineMin,
-  profileName: handleProfileName,
-  requireCurbRamps: handleCurbRamps,
-});
+export default handleRoutingProfile;

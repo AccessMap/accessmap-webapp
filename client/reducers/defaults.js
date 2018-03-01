@@ -1,4 +1,5 @@
 import profiles from 'profiles';
+import cloneObject from 'utils/clone-object';
 
 export const defaultAnalytics = null;
 
@@ -23,7 +24,10 @@ export const defaultTripPlanning = {
   },
 };
 
-export const defaultRoutingProfile = profiles.wheelchair;
+export const defaultRoutingProfile = {
+  profiles: Object.values(cloneObject(profiles)),
+  selectedProfile: 0,
+};
 
 export const defaultView = {
   lng: -122.333592,
