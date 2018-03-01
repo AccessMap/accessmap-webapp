@@ -280,7 +280,7 @@ const routeIfValid = (dispatch, getState) => {
     inclineMin,
     requireCurbRamps,
     speed,
-  } = state.routingprofile;
+  } = state.routingprofile.profiles[state.routingprofile.selectedProfile];
 
   const {
     mediaType,
