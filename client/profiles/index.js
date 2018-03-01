@@ -1,6 +1,7 @@
 export default {
   wheelchair: {
     name: 'wheelchair',
+    label: 'Manual wheelchair',
     speed: 0.6,
     inclineMax: 0.08,
     inclineMin: -0.1,
@@ -8,6 +9,7 @@ export default {
   },
   powered: {
     name: 'powered',
+    label: 'Powered wheelchair',
     speed: 2,
     inclineMax: 0.12,
     inclineMin: -0.12,
@@ -15,6 +17,7 @@ export default {
   },
   cane: {
     name: 'cane',
+    label: 'Walk / Cane User',
     speed: 1,
     inclineMax: 0.14,
     inclineMin: -0.14,

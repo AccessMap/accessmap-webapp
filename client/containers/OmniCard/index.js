@@ -13,13 +13,13 @@ import { pointFeature } from 'prop-schema';
 import Button from 'react-md/lib/Buttons';
 import Card, { CardText } from 'react-md/lib/Cards';
 import FontIcon from 'react-md/lib/FontIcons';
-import List from 'react-md/lib/Lists';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
+import Slider from 'react-md/lib/Sliders';
 import { Tabs, Tab } from 'react-md/lib/Tabs';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
-import InclineSlider from 'components/InclineSlider';
+import TooltipFontIcon from 'components/TooltipFontIcon';
 
 import CaneUserIcon from 'components/Icons/CaneUserIcon';
 import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
@@ -39,6 +39,7 @@ const OmniCard = (props) => {
     origin,
     originText,
     planningTrip,
+    profileLabel,
     profileName,
     requireCurbRamps,
     searchText,
@@ -85,14 +86,26 @@ const OmniCard = (props) => {
   if (mediaType === 'MOBILE' && settingProfile) {
     // Mobile browser and settings should be open
     topBar = (
-      <List>
-        <Button
-          onClick={() => actions.toggleSettingProfile(settingProfile)}
-          icon
-        >
-          close
-        </Button>
-      </List>
+      <Toolbar
+        actions={[
+          <Button
+            icon
+            tooltipLabel='Reset to profile defaults'
+            tooltipPosition='left'
+            onClick={() => actions.setProfileDefault(profileName)}
+          >
+            refresh
+          </Button>,
+          <Button
+            tooltipLabel='Close'
+            tooltipPosition='left'
+            onClick={() => actions.toggleSettingProfile(settingProfile)}
+            icon
+          >
+            close
+          </Button>,
+        ]}
+      />
     );
   } else if (planningTrip) {
     topBar = (
@@ -120,6 +133,8 @@ const OmniCard = (props) => {
               onClick={() => actions.toggleTripPlanning(planningTrip)}
               key='tripplanning--close'
               icon
+              tooltipLabel='Close'
+              tooltipPosition='left'
             >
               close
             </Button>,
@@ -152,6 +167,8 @@ const OmniCard = (props) => {
               className='md-btn--toolbar'
               key='tripplanning--swap-waypoints'
               icon
+              tooltipLabel='Swap start and end'
+              tooltipPosition='left'
               onClick={() => {
                 actions.swapWaypoints(origin, destination);
               }}
@@ -196,6 +213,8 @@ const OmniCard = (props) => {
             key='omnicard-tripplanning--toggle'
             secondary
             icon
+            tooltipLabel='Plan a trip'
+            tooltipPosition='left'
             onClick={() => actions.toggleTripPlanning(planningTrip)}
           >
             directions
@@ -256,24 +275,28 @@ const OmniCard = (props) => {
   }];
 
   const profileActions = [
-    <Button
-      icon
-      onClick={() => actions.setProfileDefault(profileName)}
-    >
-      refresh
-    </Button>,
   ];
 
   if (mediaType === 'MOBILE') {
     profileActions.unshift(
       <Button
         icon
+        tooltipLabel='Edit profile settings'
+        tooltipPosition='top'
         onClick={() => actions.toggleSettingProfile(settingProfile)}
       >
         settings
       </Button>,
     );
   }
+
+  const profileLabelView = (
+    <CardText className='profile-label'>
+      <h6 className='md-subheading-2'>
+        {profileLabel}
+      </h6>
+    </CardText>
+  );
 
   const profileBar = (
     <Toolbar
@@ -291,26 +314,50 @@ const OmniCard = (props) => {
     />
   );
 
+  const uphillPercent = +(inclineMax * 100).toFixed(1);
+  const downhillPercent = +(inclineMin * 100).toFixed(1);
+
   const uphillSlider = (
-    <InclineSlider
-      id='uphill_discrete'
-      controlled
-      label='Maximum uphill incline'
-      incline={inclineMax}
+    <Slider
+      discrete
+      id='uphill-slider'
+      label={(
+        <React.Fragment>
+          {`Maximum uphill incline: ${uphillPercent}`}
+          <TooltipFontIcon
+            tooltipLabel='Cutoff for uphill steepness'
+            tooltipPosition='top'
+          >
+            help
+          </TooltipFontIcon>
+        </React.Fragment>
+      )}
+      defaultValue={uphillPercent}
       min={4}
       max={15}
       step={0.5}
       valuePrecision={1}
       onChange={d => actions.setInclineMax(d / 100)}
+      value={uphillPercent}
     />
   );
 
   const downhillSlider = (
-    <InclineSlider
-      id='downhill_discrete'
-      controlled
-      label='Maximum downhill incline'
-      incline={-inclineMin}
+    <Slider
+      discrete
+      id='downhill-slider'
+      label={(
+        <React.Fragment>
+          {`Maximum downhill incline: ${downhillPercent}`}
+          <TooltipFontIcon
+            tooltipLabel='Cutoff for downhill steepness'
+            tooltipPosition='top'
+          >
+            help
+          </TooltipFontIcon>
+        </React.Fragment>
+      )}
+      defaultValue={-downhillPercent}
       min={4}
       max={15}
       step={0.5}
@@ -318,6 +365,7 @@ const OmniCard = (props) => {
       onChange={d => actions.setInclineMin(-d / 100)}
       onMouseEnter={actions.mouseOverDownhill}
       onMouseLeave={actions.mouseOutDownhill}
+      value={-downhillPercent}
     />
   );
 
@@ -326,7 +374,17 @@ const OmniCard = (props) => {
       type='switch'
       checked={requireCurbRamps}
       id='require_curbramps'
-      label='Require curbramps'
+      label={(
+        <React.Fragment>
+          {'Require Curb Ramps'}
+          <TooltipFontIcon
+            tooltipLabel='Check if you need curb ramps'
+            tooltipPosition='top'
+          >
+            help
+          </TooltipFontIcon>
+        </React.Fragment>
+      )}
       name='require_curbramps_toggle'
       onChange={actions.toggleCurbRamps}
     />
@@ -382,6 +440,14 @@ const OmniCard = (props) => {
   } else {
     settings = (
       <CardText>
+        <Button
+          icon
+          tooltipLabel='Reset to profile defaults'
+          tooltipPosition='right'
+          onClick={() => actions.setProfileDefault(profileName)}
+        >
+          refresh
+        </Button>
         {uphillSlider}
         {downhillSlider}
         {curbrampToggle}
@@ -403,6 +469,7 @@ const OmniCard = (props) => {
     >
       {topBar}
       {defaultMode ? divider : undefined}
+      {defaultMode ? profileLabelView : undefined}
       {defaultMode ? profileBar : undefined}
       {showSettings ? settings : undefined}
     </Card>
@@ -421,6 +488,7 @@ OmniCard.propTypes = {
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   planningTrip: PropTypes.bool,
+  profileLabel: PropTypes.string.isRequired,
   profileName: PropTypes.string.isRequired,
   requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
@@ -463,6 +531,7 @@ const mapStateToProps = (state) => {
     mediaType: browser.mediaType,
     mode,
     planningTrip: activities.planningTrip,
+    profileLabel: profile.label,
     profileName: profile.name,
     requireCurbRamps: profile.requireCurbRamps,
     selectedProfile: routingprofile.selectedProfile,
