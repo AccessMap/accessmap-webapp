@@ -227,8 +227,8 @@ const OmniCard = (props) => {
 
   const profileList = [{
     label: '',
-    value: '1',
-    onChange: () => actions.setProfile('wheelchair'),
+    value: 'wheelchair',
+    onChange: (d) => actions.setProfile(d),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <WheelchairIcon
@@ -243,8 +243,8 @@ const OmniCard = (props) => {
     ),
   }, {
     label: '',
-    value: '2',
-    onChange: () => actions.setProfile('powered'),
+    value: 'powered',
+    onChange: (d) => actions.setProfile(d),
     className: profileName === 'powered' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <PoweredWheelchairIcon
@@ -259,8 +259,8 @@ const OmniCard = (props) => {
     ),
   }, {
     label: '',
-    value: '3',
-    onChange: () => actions.setProfile('cane'),
+    value: 'cane',
+    onChange: (d) => actions.setProfile(d),
     className: profileName === 'cane' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <CaneUserIcon
