@@ -54,8 +54,6 @@ export const MAP_MOVE = 'MAP_MOVE';
 // Map interactions
 export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
 export const MAP_CLICK = 'MAP_CLICK';
-export const MAP_CONTEXT_CLICK = 'MAP_CONTEXT_CLICK';
-export const CANCEL_CONTEXT = 'CANCEL_CONTEXT';
 
 // Geolocation
 export const CLEAR_GEOLOCATION = 'CLEAR_GEOLOCATION';
@@ -558,32 +556,6 @@ export const clearSelectedFeatures = () => ({
   },
 });
 
-
-export const mapContextClick = (lng, lat) => ({
-  type: MAP_CONTEXT_CLICK,
-  payload: {
-    lng,
-    lat,
-  },
-  meta: {
-    analytics: {
-      type: 'map-context-click',
-      payload: {
-        lng,
-        lat,
-      },
-    },
-  },
-});
-
-export const cancelContext = () => ({
-  type: CANCEL_CONTEXT,
-  meta: {
-    analytics: {
-      type: 'cancel-context',
-    },
-  },
-});
 
 export const toggleGeolocation = () => (dispatch, getState) => {
   const { geolocation } = getState();

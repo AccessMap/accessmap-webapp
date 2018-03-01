@@ -39,7 +39,6 @@ export const defaultLog = {
 
 export const defaultMap = {
   selectedFeature: null,
-  contextClick: null,
 };
 
 export const defaultGeolocation = null;

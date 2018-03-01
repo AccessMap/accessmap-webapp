@@ -3,19 +3,20 @@ import { combineReducers } from 'redux';
 import {
   MAP_CLICK,
   CLEAR_SELECTED_FEATURES,
-  MAP_CONTEXT_CLICK,
-  CANCEL_CONTEXT,
-  SET_ORIGIN,
-  SET_DESTINATION,
-  SET_ORIGIN_DESTINATION,
 } from 'actions';
 
 import { defaultMap } from './defaults';
+
 
 const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
   switch (action.type) {
     case MAP_CLICK: {
       const feature = action.payload.features[0];
+      // If there's already a feature selected and the incoming click doesn't
+      // have layer info, treat it as a 'clear' action
+      if (state && !feature) {
+        return null;
+      }
       // If it's a map click elsewhere, clear everything but location.
       if (!feature) {
         return {
@@ -61,24 +62,6 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
   }
 };
 
-const handleMapContextClick = (state = defaultMap.contextClick, action) => {
-  switch (action.type) {
-    case MAP_CONTEXT_CLICK:
-      return {
-        lng: action.payload.lng,
-        lat: action.payload.lat,
-      };
-    case CANCEL_CONTEXT:
-    case SET_ORIGIN:
-    case SET_DESTINATION:
-    case SET_ORIGIN_DESTINATION:
-      return null;
-    default:
-      return state;
-  }
-};
-
 export default combineReducers({
   selectedFeature: handleSelectedFeature,
-  contextClick: handleMapContextClick,
 });

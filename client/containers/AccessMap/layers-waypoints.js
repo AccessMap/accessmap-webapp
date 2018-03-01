@@ -65,7 +65,10 @@ Waypoints.propTypes = {
   selectedFeature: PropTypes.shape({
     layer: PropTypes.string,
     layerName: PropTypes.string,
-    properties: PropTypes.object,
+    properties: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.tring,
+    })),
     location: PropTypes.arrayOf(PropTypes.number),
   }),
 };
