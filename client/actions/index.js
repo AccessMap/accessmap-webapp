@@ -534,14 +534,15 @@ export const resizeWindow = () => ({
 
 
 // TODO: include centerpoint? Gotta know where to show popups!
-export const mapClick = features => ({
+export const mapClick = (features, location) => ({
   type: MAP_CLICK,
-  payload: features,
+  payload: { features, location },
   meta: {
     analytics: {
       type: 'map-click',
       payload: {
         features,
+        location,
       },
     },
   },

@@ -71,6 +71,7 @@ class AccessMap extends Component {
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
       <Map
+        className='accessmap'
         ref={(el) => { this.mapEl = el; }}
         center={center}
         zoom={[zoom]}
@@ -95,31 +96,6 @@ class AccessMap extends Component {
             actions.logBounds(bbox);
           }
         }}
-        onMouseDown={(m, e) => {
-          // NOTE: We can't use the 'contextmenu' event, because of
-          // inconsistent behavior between devices and browsers. Specifically,
-          // iOS safari doesn't create 'contextmenu' events, so to prevent
-          // double-firing on all other browsers, we just check for 'right
-          // click' on desktop and manually manage a long press using touch
-          // events.
-          if (e.originalEvent.button === 2) {
-            // Right click!
-            const { lng, lat } = e.lngLat;
-            actions.mapContextClick(lng, lat);
-          }
-        }}
-        onContextMenu={(m, e) => {
-          // Ignore the context menu event
-        }}
-        onTouchStart={(m, e) => {
-          const { lng, lat } = e.lngLat;
-          clearTimeout(this.longPressTrigger);
-          this.longPressTrigger = setTimeout(() => {
-            actions.mapContextClick(lng, lat);
-          }, 500);
-        }}
-        onTouchMove={() => clearTimeout(this.longPressTrigger)}
-        onTouchEnd={() => clearTimeout(this.longPressTrigger)}
         onMouseMove={(m, e) => {
           const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
           const features = m.queryRenderedFeatures(e.point, {
@@ -133,7 +109,8 @@ class AccessMap extends Component {
           const features = m.queryRenderedFeatures(e.point, {
             layers,
           });
-          actions.mapClick(features);
+          const point = [e.lngLat.lng, e.lngLat.lat];
+          actions.mapClick(features, point);
         }}
         onStyleLoad={(m) => {
           // TODO: run this earlier - right after mapbox style load
@@ -153,7 +130,7 @@ class AccessMap extends Component {
         <PedestrianSource />
 
         <Crossings />
-        <Route before='crossing-outline' />
+        <Route before='crossing-click' />
         <Sidewalks />
         <Waypoints />
         <Geolocation />

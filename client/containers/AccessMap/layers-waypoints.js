@@ -12,6 +12,7 @@ const Waypoints = (props) => {
     origin,
     planningTrip,
     poi,
+    selectedFeature,
   } = props;
 
   let originComponent = null;
@@ -33,7 +34,13 @@ const Waypoints = (props) => {
   }
 
   let poiComponent = null;
-  if (!planningTrip && poi) {
+  if (!planningTrip && selectedFeature) {
+    poiComponent = (
+      <MapMarker
+        coordinates={selectedFeature.location}
+      />
+    );
+  } else if (!planningTrip && poi) {
     poiComponent = (
       <MapMarker
         coordinates={poi.geometry.coordinates}
@@ -55,6 +62,12 @@ Waypoints.propTypes = {
   origin: pointFeatureNoProps,
   planningTrip: PropTypes.bool,
   poi: pointFeatureNoProps,
+  selectedFeature: PropTypes.shape({
+    layer: PropTypes.string,
+    layerName: PropTypes.string,
+    properties: PropTypes.object,
+    location: PropTypes.arrayOf(PropTypes.number),
+  }),
 };
 
 Waypoints.defaultProps = {
@@ -62,11 +75,13 @@ Waypoints.defaultProps = {
   origin: null,
   planningTrip: false,
   poi: null,
+  selectedFeature: null,
 };
 
 const mapStateToProps = (state) => {
   const {
     activities,
+    map,
     waypoints,
   } = state;
 
@@ -75,6 +90,7 @@ const mapStateToProps = (state) => {
     origin: waypoints.origin,
     planningTrip: activities.planningTrip,
     poi: waypoints.poi,
+    selectedFeature: map.selectedFeature,
   };
 };
 
