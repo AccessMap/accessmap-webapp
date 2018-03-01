@@ -228,7 +228,7 @@ const OmniCard = (props) => {
   const profileList = [{
     label: '',
     value: 'wheelchair',
-    onChange: (d) => actions.setProfile(d),
+    onChange: d => actions.setProfile(d),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <WheelchairIcon
@@ -244,7 +244,7 @@ const OmniCard = (props) => {
   }, {
     label: '',
     value: 'powered',
-    onChange: (d) => actions.setProfile(d),
+    onChange: d => actions.setProfile(d),
     className: profileName === 'powered' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <PoweredWheelchairIcon
@@ -260,7 +260,7 @@ const OmniCard = (props) => {
   }, {
     label: '',
     value: 'cane',
-    onChange: (d) => actions.setProfile(d),
+    onChange: d => actions.setProfile(d),
     className: profileName === 'cane' ? 'profile-selected' : '',
     checkedRadioIcon: (
       <CaneUserIcon
@@ -441,20 +441,20 @@ const OmniCard = (props) => {
   } else {
     settings = (
       <React.Fragment>
-      <CardText>
-        {uphillSlider}
-        {downhillSlider}
-        {curbrampToggle}
-      </CardText>
-      <CardActions>
-        <Button
-          flat
-          secondary
-          onClick={() => actions.setProfileDefault(profileName)}
-        >
-          Reset to defaults
-        </Button>
-      </CardActions>
+        <CardText>
+          {uphillSlider}
+          {downhillSlider}
+          {curbrampToggle}
+        </CardText>
+        <CardActions>
+          <Button
+            flat
+            secondary
+            onClick={() => actions.setProfileDefault(profileName)}
+          >
+            Reset to defaults
+          </Button>
+        </CardActions>
       </React.Fragment>
     );
   }
