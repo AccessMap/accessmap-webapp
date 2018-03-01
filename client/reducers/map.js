@@ -3,6 +3,9 @@ import { combineReducers } from 'redux';
 import {
   MAP_CLICK,
   CLEAR_SELECTED_FEATURES,
+  SET_ORIGIN,
+  SET_DESTINATION,
+  SET_ORIGIN_DESTINATION,
 } from 'actions';
 
 import { defaultMap } from './defaults';
@@ -57,6 +60,10 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
     } case CLEAR_SELECTED_FEATURES: {
       return null;
     }
+    case SET_ORIGIN:
+    case SET_DESTINATION:
+    case SET_ORIGIN_DESTINATION:
+      return null;
     default:
       return state;
   }
