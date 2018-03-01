@@ -471,6 +471,7 @@ const OmniCard = (props) => {
       {defaultMode ? divider : undefined}
       {defaultMode ? profileLabelView : undefined}
       {defaultMode ? profileBar : undefined}
+      {defaultMode ? divider : undefined}
       {showSettings ? settings : undefined}
     </Card>
   );
