@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import profileDefaults from 'profiles';
 import cloneObject from 'utils/clone-object';
 
@@ -15,6 +14,7 @@ import { defaultRoutingProfile as defaults } from './defaults';
 
 const handleRoutingProfile = (state = defaults, action) => {
   const profiles = state.profiles;
+
   switch (action.type) {
     case SET_PROFILE:
       switch (action.payload) {
@@ -65,27 +65,28 @@ const handleRoutingProfile = (state = defaults, action) => {
       profiles[state.selectedProfile].speed = action.payload;
       return {
         ...state,
-        profiles: profiles,
+        profiles,
       };
     case SET_INCLINE_MAX:
       profiles[state.selectedProfile].inclineMax = action.payload;
       return {
         ...state,
-        profiles: profiles,
+        profiles,
       };
     case SET_INCLINE_MIN:
       profiles[state.selectedProfile].inclineMin = action.payload;
       return {
         ...state,
-        profiles: profiles,
+        profiles,
       };
-    case TOGGLE_CURBRAMPS:
+    case TOGGLE_CURBRAMPS: {
       const newState = !profiles[state.selectedProfile].requireCurbramps;
       profiles[state.selectedProfile].requireCurbramps = newState;
       return {
         ...state,
-        profiles: profiles,
+        profiles,
       };
+    }
     default:
       return state;
   }

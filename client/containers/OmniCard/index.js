@@ -30,7 +30,6 @@ const OmniCard = (props) => {
   const {
     actions,
     center,
-    currentProfile,
     destination,
     destinationText,
     inclineMax,
@@ -211,49 +210,49 @@ const OmniCard = (props) => {
     value: '1',
     onChange: () => actions.setProfile('wheelchair'),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
-    checkedRadioIcon:
+    checkedRadioIcon: (
       <WheelchairIcon
         secondary
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
-    uncheckedRadioIcon:
+    ),
+    uncheckedRadioIcon: (
       <WheelchairIcon
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
+    ),
   }, {
     label: '',
     value: '2',
     onChange: () => actions.setProfile('powered'),
     className: profileName === 'powered' ? 'profile-selected' : '',
-    checkedRadioIcon:
+    checkedRadioIcon: (
       <PoweredWheelchairIcon
         secondary
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
-    uncheckedRadioIcon:
+    ),
+    uncheckedRadioIcon: (
       <PoweredWheelchairIcon
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
+    ),
   }, {
     label: '',
     value: '3',
     onChange: () => actions.setProfile('cane'),
     className: profileName === 'cane' ? 'profile-selected' : '',
-    checkedRadioIcon:
+    checkedRadioIcon: (
       <CaneUserIcon
         secondary
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
-    uncheckedRadioIcon:
+    ),
+    uncheckedRadioIcon: (
       <CaneUserIcon
         size={mediaType === 'DESKTOP' ? 20 : 24}
       />
-    ,
+    ),
   }];
 
   const profileActions = [
@@ -265,27 +264,30 @@ const OmniCard = (props) => {
     </Button>,
   ];
 
-  mediaType === 'MOBILE' && profileActions.unshift(
-    <Button
-      icon
-      onClick={() => actions.toggleSettingProfile(settingProfile)}
-    >
-      settings
-    </Button>
-  );
+  if (mediaType === 'MOBILE') {
+    profileActions.unshift(
+      <Button
+        icon
+        onClick={() => actions.toggleSettingProfile(settingProfile)}
+      >
+        settings
+      </Button>,
+    );
+  }
 
   const profileBar = (
     <Toolbar
       nav={
-    <SelectionControlGroup className='profiles-container'
-      id='profile-radio-selector'
-      name='routing-profile-selector'
-      type='radio'
-      controls={profileList}
-      controlClassName='md-inline-block'
-    />
-    }
-    actions={profileActions}
+        <SelectionControlGroup
+          className='profiles-container'
+          id='profile-radio-selector'
+          name='routing-profile-selector'
+          type='radio'
+          controls={profileList}
+          controlClassName='md-inline-block'
+        />
+      }
+      actions={profileActions}
     />
   );
 
@@ -410,27 +412,22 @@ const OmniCard = (props) => {
 OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
-  currentProfile: PropTypes.number,
   destination: pointFeature({ name: PropTypes.string }),
   destinationText: PropTypes.string,
+  inclineMax: PropTypes.number.isRequired,
+  inclineMin: PropTypes.number.isRequired,
   origin: pointFeature({ name: PropTypes.string }),
   originText: PropTypes.string,
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   planningTrip: PropTypes.bool,
-  profiles: PropTypes.arrayOf(PropTypes.shape({
-    inclineMax: PropTypes.number,
-    inclineMin: PropTypes.number,
-    name: PropTypes.string,
-    requireCurbRamps: PropTypes.bool,
-    speed: PropTypes.number,
-  })),
+  profileName: PropTypes.string.isRequired,
+  requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
   searchText: PropTypes.string,
 };
 
 OmniCard.defaultProps = {
-  currentProfile: 0,
   destination: null,
   destinationText: '',
   origin: null,
@@ -438,7 +435,6 @@ OmniCard.defaultProps = {
   mediaType: 'DESKTOP',
   mode: 'UPHILL',
   planningTrip: false,
-  profiles: [],
   settingProfile: false,
   searchText: '',
 };
