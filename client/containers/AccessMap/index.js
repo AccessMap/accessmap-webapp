@@ -77,6 +77,16 @@ class AccessMap extends Component {
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}
+        maxBounds={[
+          [
+            -122.71446096536938,
+            47.40689742599213,
+          ],
+          [
+            -121.9073424946721,
+            47.8092130645955,
+          ],
+        ]}
         /* eslint-disable react/style-prop-object */
         style='mapbox://styles/accessmap/cjdl9ee8d03es2rqod4413t1w'
         /* eslint-enable react/style-prop-object */
