@@ -112,6 +112,8 @@ const OmniCard = (props) => {
     topBar = (
       <React.Fragment>
         <Toolbar
+          className='geocoder-toolbar'
+          nav={<div>A</div>}
           title={
             <GeocoderAutocomplete
               id='origin-geocoder'
@@ -142,6 +144,8 @@ const OmniCard = (props) => {
           ]}
         />
         <Toolbar
+          className='geocoder-toolbar'
+          nav={<div>B</div>}
           title={
             <GeocoderAutocomplete
               id='destination-geocoder'

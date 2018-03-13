@@ -28,6 +28,13 @@
   }
 
   // Autocompletes (geocoders)
+  .geocoder-toolbar .md-toolbar--action-left {
+    margin: auto;
+    min-width: 32px;
+    text-align: right;
+  }
+
+
   #address-search-menu,
   #destination-geocoder-menu,
   #origin-geocoder-menu {
