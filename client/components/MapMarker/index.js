@@ -8,6 +8,7 @@ import PinIcon from 'components/Icons/PinIcon';
 const MapMarker = (props) => {
   const {
     coordinates,
+    label,
     ...moreProps
   } = props;
 
@@ -18,13 +19,23 @@ const MapMarker = (props) => {
       anchor='bottom'
       {...moreProps}
     >
-      <PinIcon />
+      <div>
+        <PinIcon />
+        <div className='pin-label'>
+          {label}
+        </div>
+      </div>
     </Marker>
   );
 };
 
 MapMarker.propTypes = {
   coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  label: PropTypes.string,
+};
+
+MapMarker.defaultProps = {
+  label: null,
 };
 
 export default MapMarker;

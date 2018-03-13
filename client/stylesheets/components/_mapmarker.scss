@@ -1,17 +1,26 @@
 .map-marker {
   pointer-events: none;
   z-index: 0;
+    margin-top: 8px;
 
   .pin-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 48px;
 
     .pin-fill {
-      fill: #e54a3a;
+      fill: #ff8496;
+      stroke: #000;
+      stroke-width: 1.5;
     }
-    .pin-shading {
-      fill: '#000';
-      fill-opacity: 0.2;
-    }
+  }
+
+  .pin-label {
+    position: absolute;
+    width: 100%;
+    margin: 9px auto 0;
+    top: 0;
+    text-align: center;
+    font-size: 12pt;
+    font-weight: 500;
   }
 }

@@ -20,6 +20,7 @@ const Waypoints = (props) => {
     originComponent = (
       <MapMarker
         coordinates={origin.geometry.coordinates}
+        label='A'
       />
     );
   }
@@ -29,6 +30,7 @@ const Waypoints = (props) => {
     destinationComponent = (
       <MapMarker
         coordinates={destination.geometry.coordinates}
+        label='B'
       />
     );
   }
