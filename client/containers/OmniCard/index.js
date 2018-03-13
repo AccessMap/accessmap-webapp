@@ -283,7 +283,7 @@ const OmniCard = (props) => {
       <Button
         icon
         tooltipLabel='Edit profile settings'
-        tooltipPosition='top'
+        tooltipPosition='left'
         onClick={() => actions.toggleSettingProfile(settingProfile)}
       >
         settings
