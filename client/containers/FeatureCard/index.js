@@ -67,7 +67,10 @@ const FeatureCard = (props) => {
             actions.setOrigin(
               selectedFeature.location[0],
               selectedFeature.location[1],
-              'Custom origin',
+              [
+                selectedFeature.location[0].toFixed(5),
+                selectedFeature.location[1].toFixed(5),
+              ].join(', '),
             );
           }}
         >
@@ -80,7 +83,10 @@ const FeatureCard = (props) => {
             actions.setDestination(
               selectedFeature.location[0],
               selectedFeature.location[1],
-              'Custom destination',
+              [
+                selectedFeature.location[0].toFixed(5),
+                selectedFeature.location[1].toFixed(5),
+              ].join(', '),
             );
           }}
         >

@@ -2,7 +2,9 @@ import { combineReducers } from 'redux';
 
 import {
   RECEIVE_ROUTE,
+  SET_DESTINATION,
   SET_DESTINATION_TEXT,
+  SET_ORIGIN,
   SET_ORIGIN_TEXT,
   SET_SEARCH_TEXT,
   SWAP_WAYPOINTS,
@@ -38,6 +40,16 @@ const handleGeocoderText = (state = defaults.geocoderText, action) => {
       return {
         ...state,
         destinationText: action.payload,
+      };
+    case SET_ORIGIN:
+      return {
+        ...state,
+        originText: action.payload.name,
+      };
+    case SET_DESTINATION:
+      return {
+        ...state,
+        destinationText: action.payload.name,
       };
     case SWAP_WAYPOINTS:
       return {
