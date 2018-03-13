@@ -25,8 +25,8 @@ const FeatureCard = (props) => {
     selectedFeature.layerName
     :
     [
-      selectedFeature.location[0].toFixed(5),
       selectedFeature.location[1].toFixed(5),
+      selectedFeature.location[0].toFixed(5),
     ].join(', ');
 
   return (
@@ -68,8 +68,8 @@ const FeatureCard = (props) => {
               selectedFeature.location[0],
               selectedFeature.location[1],
               [
-                selectedFeature.location[0].toFixed(5),
                 selectedFeature.location[1].toFixed(5),
+                selectedFeature.location[0].toFixed(5),
               ].join(', '),
             );
           }}
@@ -84,8 +84,8 @@ const FeatureCard = (props) => {
               selectedFeature.location[0],
               selectedFeature.location[1],
               [
-                selectedFeature.location[0].toFixed(5),
                 selectedFeature.location[1].toFixed(5),
+                selectedFeature.location[0].toFixed(5),
               ].join(', '),
             );
           }}
