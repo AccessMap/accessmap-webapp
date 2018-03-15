@@ -37,6 +37,7 @@ class App extends PureComponent {
       mediaType,
       planningTrip,
       settingProfile,
+      viewingMapInfo,
     } = this.props;
 
     const mobile = mediaType === 'MOBILE';
@@ -49,7 +50,7 @@ class App extends PureComponent {
       action: actions.clickContactLink,
     }];
 
-    const hideToolbar = (planningTrip || settingProfile) && mobile;
+    const hideToolbar = (planningTrip || settingProfile || viewingMapInfo) && mobile;
     const toolbar = hideToolbar ? null : (
       <Toolbar
         className={'topbar md-paper--1'}
@@ -101,12 +102,14 @@ App.propTypes = {
   planningTrip: PropTypes.bool,
   mediaType: PropTypes.string,
   settingProfile: PropTypes.bool,
+  viewingMapInfo: PropTypes.bool,
 };
 
 App.defaultProps = {
   mediaType: null,
   planningTrip: false,
   settingProfile: false,
+  viewingMapInfo: false,
 };
 
 const mapStateToProps = (state) => {
@@ -119,6 +122,7 @@ const mapStateToProps = (state) => {
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,
     settingProfile: activities.settingProfile,
+    viewingMapInfo: activities.viewingMapInfo,
   };
 };
 

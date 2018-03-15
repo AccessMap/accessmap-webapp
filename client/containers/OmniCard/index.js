@@ -44,10 +44,12 @@ const OmniCard = (props) => {
     requireCurbRamps,
     searchText,
     settingProfile,
+    viewingMapInfo,
   } = props;
 
   const defaultMode = (mediaType !== 'MOBILE' || !settingProfile);
   const showSettings = (mediaType !== 'MOBILE' || settingProfile);
+  const showOmniCard = (mediaType !== 'MOBILE' || !viewingMapInfo);
 
   // Logic:
   // This controller has multiple states, branching first on device and then
@@ -81,6 +83,7 @@ const OmniCard = (props) => {
   //  3. When in desktop mode, settings are always visible.
   //  4. Top bar swaps between search and waypoints depending on trip planning
   //  mode.
+  if (!showOmniCard) return null;
 
   let topBar;
   if (mediaType === 'MOBILE' && settingProfile) {
@@ -502,6 +505,7 @@ OmniCard.propTypes = {
   requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
   searchText: PropTypes.string,
+  viewingMapInfo: PropTypes.bool,
 };
 
 OmniCard.defaultProps = {
@@ -514,6 +518,7 @@ OmniCard.defaultProps = {
   planningTrip: false,
   settingProfile: false,
   searchText: '',
+  viewingMapInfo: false,
 };
 
 const mapStateToProps = (state) => {
@@ -546,6 +551,7 @@ const mapStateToProps = (state) => {
     selectedProfile: routingprofile.selectedProfile,
     settingProfile: activities.settingProfile,
     searchText: tripplanning.geocoderText.searchText,
+    viewingMapInfo: activities.viewingMapInfo,
   };
 };
 
