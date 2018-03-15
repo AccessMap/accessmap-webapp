@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as AppActions from 'actions';
 
 import Button from 'react-md/lib/Buttons';
-import Card, { CardText } from 'react-md/lib/Cards';
+import Card from 'react-md/lib/Cards';
 import List, { ListItem } from 'react-md/lib/Lists';
 import SVGIcon from 'react-md/lib/SVGIcons';
 import Toolbar from 'react-md/lib/Toolbars';
@@ -19,7 +19,6 @@ import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';
 const MapInfoButton = (props) => {
   const {
     actions,
-    mediaType,
     viewingMapInfo,
   } = props;
 
@@ -48,7 +47,7 @@ const MapInfoButton = (props) => {
               onClick={actions.closeMapInfo}
             >
               close
-            </Button>
+            </Button>,
           ]}
         />
         <List>
@@ -152,18 +151,15 @@ const MapInfoButton = (props) => {
 
 MapInfoButton.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   viewingMapInfo: PropTypes.bool,
 };
 
 MapInfoButton.defaultProps = {
   planningTrip: false,
-  mediaType: 'DESKTOP',
   viewingMapInfo: false,
 };
 
 const mapStateToProps = state => ({
-  mediaType: state.browser.mediaType,
   viewingMapInfo: state.activities.viewingMapInfo,
 });
 

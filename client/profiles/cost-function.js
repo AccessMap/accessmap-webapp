@@ -1,15 +1,10 @@
-import { INCLINE_IDEAL } from 'constants/routing';
-
-// (1 / divisor) = speed value to hit at min / max incline
-const DIVISOR = 5;
+import { DIVISOR, INCLINE_IDEAL } from 'constants/routing';
 
 const findK = (g, m, n) => Math.log(n) / Math.abs(g - m);
 
 const inclineCost = (incline, inclineMax, inclineMin, speedMax) => {
   // Tobler's hiking function
-  const tobler = (B, k, g, m) => {
-    return B * Math.exp(-k * Math.abs(g - m));
-  };
+  const tobler = (B, k, g, m) => B * Math.exp(-k * Math.abs(g - m));
 
   const inclineBound = incline > INCLINE_IDEAL ? inclineMax : inclineMin;
 
@@ -29,7 +24,8 @@ const inclineFromSpeed = (speed, inclineMax, inclineMin, speedMax, up) => {
   if (up) {
     return (Math.log(speed / B) / -k) + m;
   }
-    return -1 * ((Math.log(speed / B) / -k) - m);
+
+  return -1 * ((Math.log(speed / B) / -k) - m);
 };
 
 

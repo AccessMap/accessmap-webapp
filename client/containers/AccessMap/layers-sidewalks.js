@@ -201,6 +201,7 @@ Sidewalks.propTypes = {
   inclineMax: PropTypes.number.isRequired,
   inclineMin: PropTypes.number.isRequired,
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
+  speed: PropTypes.number.isRequired,
 };
 
 Sidewalks.defaultProps = {

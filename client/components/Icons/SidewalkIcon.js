@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SVGIcon from 'react-md/lib/SVGIcons';
 
 
 const SidewalkIcon = (props) => {
   const {
     fill,
-    ...iconProps,
+    ...iconProps
   } = props;
 
   return (
@@ -23,10 +24,18 @@ const SidewalkIcon = (props) => {
         opacity='0.97'
         stroke='#000'
         strokeWidth='.5'
-        fill={fill ? fill : 'none'}
+        fill={fill}
       />
     </SVGIcon>
   );
+};
+
+SidewalkIcon.propTypes = {
+  fill: PropTypes.string,
+};
+
+SidewalkIcon.defaultProps = {
+  fill: 'none',
 };
 
 export default SidewalkIcon;
