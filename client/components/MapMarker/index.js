@@ -17,6 +17,7 @@ const MapMarker = (props) => {
       className='map-marker'
       coordinates={coordinates}
       anchor='bottom'
+      style={{ zIndex: 1}}
       {...moreProps}
     >
       <div>
