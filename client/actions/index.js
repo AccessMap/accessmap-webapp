@@ -14,6 +14,8 @@ export const CLICK_CONTACT_LINK = 'CLICK_CONTACT_LINK';
 export const CLOSE_LINK_OVERLAY = 'CLOSE_LINK_OVERLAY';
 
 // Direct activity changes
+export const VIEW_MAP_INFO = 'VIEW_MAP_INFO';
+export const CLOSE_MAP_INFO = 'CLOSE_MAP_INFO';
 export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
 export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
 
@@ -168,6 +170,23 @@ export const toggleSettingProfile = displayed => ({
   },
 });
 
+export const viewMapInfo = () => ({
+  type: VIEW_MAP_INFO,
+  meta: {
+    analytics: {
+      type: 'view-map-info',
+    },
+  },
+});
+
+export const closeMapInfo = () => ({
+  type: CLOSE_MAP_INFO,
+  meta: {
+    analytics: {
+      type: 'close-map-info',
+    },
+  },
+});
 
 export const requestRoute = (origin, destination, params) => ({
   type: REQUEST_ROUTE,

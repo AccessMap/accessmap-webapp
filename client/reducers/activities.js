@@ -9,6 +9,8 @@ import {
   SET_PROFILE,
   TOGGLE_SETTING_PROFILE,
   TOGGLE_TRIP_PLANNING,
+  VIEW_MAP_INFO,
+  CLOSE_MAP_INFO,
 } from 'actions';
 
 import { defaultActivities as defaults } from './defaults';
@@ -23,6 +25,18 @@ const handleSettingProfile = (state = defaults.settingProfile, action) => {
       return state;
   }
 };
+
+const handleViewingMapInfo = (state = defaults.viewingMapInfo, action) => {
+  switch (action.type) {
+    case VIEW_MAP_INFO:
+      return true;
+    case CLOSE_MAP_INFO:
+      return false;
+    default:
+      return state;
+  }
+};
+
 
 const handlePlanningTrip = (state = defaults.planningTrip, action) => {
   switch (action.type) {
@@ -52,4 +66,5 @@ export default combineReducers({
   fetchingTrip: handleFetchingTrip,
   planningTrip: handlePlanningTrip,
   settingProfile: handleSettingProfile,
+  viewingMapInfo: handleViewingMapInfo,
 });

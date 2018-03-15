@@ -51,11 +51,7 @@ body {
   user-select: none;
 }
 
-.topbar,
-.omnicard,
-.floating-buttons,
-.feature-card,
-.analytics-dialog-container {
+.widgets * {
   z-index: 4;
 }
 

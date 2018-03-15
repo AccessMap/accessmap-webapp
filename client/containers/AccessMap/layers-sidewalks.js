@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { Layer } from 'react-mapbox-gl';
-import chroma from 'chroma-js';
+
+import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';
+import { inclineFromSpeed } from 'profiles/cost-function';
 
 
 const WIDTH_INACCESSIBLE = 1;
@@ -13,9 +15,6 @@ const DASH_INACCESSIBLE = [
 ];
 
 const INCLINE_IDEAL = -0.0087;
-const COLORS = [chroma('lime'), chroma('yellow'), chroma('red')]
-  .map(color => color.brighten(1.5));
-const COLOR_SCALE = chroma.scale(COLORS).mode('lab');
 
 
 const Sidewalks = (props) => {
@@ -23,51 +22,35 @@ const Sidewalks = (props) => {
     inclineMax,
     inclineMin,
     mode,
+    speed,
   } = props;
+
+  const inclineDownMid = inclineFromSpeed(speed / 2, inclineMax, inclineMin, speed, false);
+  const inclineUpMid = inclineFromSpeed(speed / 2, inclineMax, inclineMin, speed, true);
+
+  let inclineStops;
+  if (mode === 'DOWNHILL') {
+    inclineStops = [
+      1000 * inclineMin, SIDEWALK_STEEP,
+      1000 * inclineDownMid, SIDEWALK_MID,
+      1000 * INCLINE_IDEAL, SIDEWALK_FLAT,
+      1000 * -INCLINE_IDEAL, SIDEWALK_FLAT,
+      1000 * -inclineDownMid, SIDEWALK_MID,
+      1000 * -inclineMin, SIDEWALK_STEEP,
+    ];
+  } else {
+    inclineStops = [
+      1000 * -inclineMax, SIDEWALK_STEEP,
+      1000 * -inclineUpMid, SIDEWALK_MID,
+      0, SIDEWALK_FLAT,
+      1000 * inclineUpMid, SIDEWALK_MID,
+      1000 * inclineMax, SIDEWALK_STEEP,
+    ];
+  }
 
   // Set bounds for when elevations become 'too steep' on display.
   const boundMax = mode === 'DOWNHILL' ? 1000 * -inclineMin : 1000 * inclineMax;
   const boundMin = mode === 'DOWNHILL' ? 1000 * inclineMin : 1000 * -inclineMax;
-
-  const maxUp = Math.max(inclineMax, Math.abs(INCLINE_IDEAL) * 2);
-  const maxDown = Math.min(inclineMin, INCLINE_IDEAL);
-
-  let inclineStops;
-  // midColor is the distance between the color signifying 'most difficult'
-  // and the color signifying 'medium difficulty' on our scale
-  const midColor = 0.5;
-
-  const midDown = (maxDown + INCLINE_IDEAL) / 2;
-  const midUp = (maxUp + INCLINE_IDEAL) / 2;
-  if (mode === 'DOWNHILL') {
-    // Find the incline=0 intercept (find cost at that point). Linear func.
-    const dx = midDown - INCLINE_IDEAL;
-    const m = midColor / dx;
-    const b = INCLINE_IDEAL - (m * midDown);
-
-    inclineStops = [
-      1000 * maxDown, COLOR_SCALE(1).hex(),
-      1000 * midDown, COLOR_SCALE(midColor).hex(),
-      1000 * INCLINE_IDEAL, COLOR_SCALE(0).hex(),
-      0, COLOR_SCALE(b).hex(),
-      1000 * -INCLINE_IDEAL, COLOR_SCALE(0).hex(),
-      1000 * -midDown, COLOR_SCALE(midColor).hex(),
-      1000 * -maxDown, COLOR_SCALE(1).hex(),
-    ];
-  } else {
-    // Find the incline=0 intercept (find cost at that point). Linear func.
-    const dx = midUp - INCLINE_IDEAL;
-    const m = midColor / dx;
-    const b = INCLINE_IDEAL - (m * midUp);
-
-    inclineStops = [
-      1000 * -maxUp, COLOR_SCALE(1).hex(),
-      1000 * -midUp, COLOR_SCALE(midColor).hex(),
-      0, COLOR_SCALE(b).hex(),
-      1000 * midUp, COLOR_SCALE(midColor).hex(),
-      1000 * maxUp, COLOR_SCALE(1).hex(),
-    ];
-  }
 
   return (
     <React.Fragment>
@@ -235,6 +218,7 @@ const mapStateToProps = (state) => {
   return {
     inclineMax: profile.inclineMax,
     inclineMin: profile.inclineMin,
+    speed: profile.speed,
     mode,
   };
 };

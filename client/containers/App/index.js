@@ -11,6 +11,7 @@ import AnalyticsDialog from 'containers/AnalyticsDialog';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
+import MapInfoButton from 'containers/MapInfoButton';
 import OmniCard from 'containers/OmniCard';
 import Toast from 'containers/Toast';
 
@@ -79,13 +80,16 @@ class App extends PureComponent {
 
     return (
       <React.Fragment>
-        {toolbar}
         <AnalyticsDialog />
-        <OmniCard />
-        <FloatingButtons />
-        <LinkOverlay />
-        <Toast />
-        <FeatureCard />
+        <div className='widgets'>
+          <Toast />
+          {toolbar}
+          <MapInfoButton />
+          <FloatingButtons />
+          <LinkOverlay />
+          <OmniCard />
+          <FeatureCard />
+        </div>
         <AccessMap />
       </React.Fragment>
     );

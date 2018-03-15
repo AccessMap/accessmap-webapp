@@ -1,0 +1,40 @@
+// Overall layout
+.mapinfo {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 0;
+  margin-right: 16px;
+
+  @media #{$md-mobile-media} {
+    margin-top: 224px;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    margin-top: 224px;
+  }
+
+  @media #{$md-tablet-media} {
+    margin-top: $md-toolbar-tablet-height;
+  }
+
+  @media #{$md-desktop-media} {
+    margin-top: $md-toolbar-height;
+  }
+
+  > .md-card {
+    margin-top: 8px;
+  }
+
+  .md-btn {
+    color: $md-secondary-color;
+    background-color: $md-white-base;
+    display: block;
+    margin: 8px;
+  }
+}
+
+.md-btn--floating:hover {
+  color: $md-white-base;
+  background-color: $md-secondary-color;
+}
