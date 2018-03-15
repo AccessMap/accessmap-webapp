@@ -51,8 +51,8 @@ body {
   user-select: none;
 }
 
-.widgets * {
-  z-index: 4;
+.widgets > * {
+  z-index: 1;
 }
 
 .accessmapicon-primary,
