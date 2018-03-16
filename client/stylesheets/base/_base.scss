@@ -9,6 +9,13 @@ html {
   box-sizing: border-box;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 /**
  * Make all elements from the DOM inherit from the parent box-sizing
  * Since `*` has a specificity of 0, it does not override the `html` value

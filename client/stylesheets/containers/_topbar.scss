@@ -1,0 +1,58 @@
+.topbar {
+  background-color: $md-white-base;
+  z-index: 4;
+
+  #extra-settings-list {
+    @media #{$md-mobile-media} {
+      top: $md-toolbar-mobile-portrait-height;
+    }
+
+    @media #{$md-mobile-landscape-media} {
+      top: $md-toolbar-mobile-landscape-height;
+    }
+
+    @media #{$md-tablet-media} {
+      top: $md-toolbar-tablet-height;
+    }
+
+    @media #{$md-desktop-media} {
+      top: $md-toolbar-height;
+    }
+  }
+
+  .accessmap-title > * {
+    margin-top: 16px;
+    @media #{$md-mobile-media} {
+      margin-top: 12px;
+    }
+    @media #{$md-mobile-landscape-media} {
+      margin-top: 8px;
+    }
+    @media #{$md-tablet-media} {
+      margin-top: 12px;
+    }
+    @media #{$md-desktop-media} {
+      margin-top: 12px;
+    }
+  }
+
+  .accessmapicon {
+      width: 32px;
+      height: 32px;
+  }
+
+  .accessmaplogo {
+      width: 160px;
+      height: 40px;
+  }
+}
+
+.accessmapicon-primary,
+.accessmaplogo-primary, {
+  fill: #0d47a1;
+}
+
+.accessmapicon-secondary,
+.accessmaplogo-secondary {
+  fill: #448aff;
+}

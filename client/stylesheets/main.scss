@@ -34,12 +34,14 @@
 
 // 6. Containers
 @import
+  'containers/accessmap',
   'containers/analyticsdialog',
   'containers/app',
   'containers/floatingbuttons',
   'containers/linkoverlay',
   'containers/mapinfobutton',
-  'containers/omnicard';
+  'containers/omnicard',
+  'containers/topbar';
 
 // 7. Page-specific styles
 @import

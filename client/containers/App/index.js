@@ -14,9 +14,7 @@ import LinkOverlay from 'containers/LinkOverlay';
 import MapInfoButton from 'containers/MapInfoButton';
 import OmniCard from 'containers/OmniCard';
 import Toast from 'containers/Toast';
-
-import AccessMapIcon from 'components/Icons/AccessMapIcon';
-import AccessMapLogo from 'components/Icons/AccessMapLogo';
+import Topbar from 'containers/Topbar';
 
 import * as AppActions from 'actions';
 
@@ -32,59 +30,12 @@ class App extends PureComponent {
   };
 
   render = () => {
-    const {
-      actions,
-      mediaType,
-      planningTrip,
-      settingProfile,
-      viewingMapInfo,
-    } = this.props;
-
-    const mobile = mediaType === 'MOBILE';
-
-    const links = [{
-      label: 'About',
-      action: actions.clickAboutLink,
-    }, {
-      label: 'Contact',
-      action: actions.clickContactLink,
-    }];
-
-    const hideToolbar = (planningTrip || settingProfile || viewingMapInfo) && mobile;
-    const toolbar = hideToolbar ? null : (
-      <Toolbar
-        className={'topbar md-paper--1'}
-        title={
-          <div
-            className='accessmap-title'
-            key='accessmap-brand'
-          >
-            {mobile ? <AccessMapIcon /> : <AccessMapLogo />}
-          </div>
-        }
-        actions={
-          links.map(d =>
-            <Button
-              flat
-              primary
-              onClick={d.action}
-            >
-              {d.label}
-            </Button>,
-          )
-        }
-        themed
-        fixed
-        zDepth={0}
-      />
-    );
-
     return (
       <React.Fragment>
-        <AnalyticsDialog />
         <div className='widgets'>
+          <AnalyticsDialog />
           <Toast />
-          {toolbar}
+          <Topbar />
           <MapInfoButton />
           <FloatingButtons />
           <LinkOverlay />
@@ -99,32 +50,10 @@ class App extends PureComponent {
 
 App.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  planningTrip: PropTypes.bool,
-  mediaType: PropTypes.string,
-  settingProfile: PropTypes.bool,
-  viewingMapInfo: PropTypes.bool,
 };
 
-App.defaultProps = {
-  mediaType: null,
-  planningTrip: false,
-  settingProfile: false,
-  viewingMapInfo: false,
-};
-
-const mapStateToProps = (state) => {
-  const {
-    activities,
-    browser,
-  } = state;
-
-  return {
-    mediaType: browser.mediaType,
-    planningTrip: activities.planningTrip,
-    settingProfile: activities.settingProfile,
-    viewingMapInfo: activities.viewingMapInfo,
-  };
-};
+const mapStateToProps = state => ({
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch),
