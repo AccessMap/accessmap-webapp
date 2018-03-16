@@ -47,7 +47,7 @@ App.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({
