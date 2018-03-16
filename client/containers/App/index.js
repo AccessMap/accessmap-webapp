@@ -3,9 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Button from 'react-md/lib/Buttons';
-import Toolbar from 'react-md/lib/Toolbars';
-
 import AccessMap from 'containers/AccessMap';
 import AnalyticsDialog from 'containers/AnalyticsDialog';
 import FeatureCard from 'containers/FeatureCard';
@@ -29,23 +26,21 @@ class App extends PureComponent {
     window.removeEventListener('resize', this.props.actions.resizeWindow);
   };
 
-  render = () => {
-    return (
-      <React.Fragment>
-        <div className='widgets'>
-          <AnalyticsDialog />
-          <Toast />
-          <Topbar />
-          <MapInfoButton />
-          <FloatingButtons />
-          <LinkOverlay />
-          <OmniCard />
-          <FeatureCard />
-        </div>
-        <AccessMap />
-      </React.Fragment>
-    );
-  };
+  render = () => (
+    <React.Fragment>
+      <div className='widgets'>
+        <AnalyticsDialog />
+        <Toast />
+        <Topbar />
+        <MapInfoButton />
+        <FloatingButtons />
+        <LinkOverlay />
+        <OmniCard />
+        <FeatureCard />
+      </div>
+      <AccessMap />
+    </React.Fragment>
+  );
 }
 
 App.propTypes = {

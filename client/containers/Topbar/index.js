@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -57,7 +57,7 @@ const Topbar = (props) => {
           Contact
         </Button>,
         <MenuButton
-          id="extra-settings"
+          id='extra-settings'
           icon
           anchor={{
             x: 'inner right',
@@ -85,14 +85,14 @@ const Topbar = (props) => {
           ]}
         >
           more_vert
-        </MenuButton>
+        </MenuButton>,
       ]}
       themed
       fixed
       zDepth={0}
     />
   );
-}
+};
 
 Topbar.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
