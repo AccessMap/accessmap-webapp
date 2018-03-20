@@ -79,6 +79,13 @@ const Topbar = (props) => {
                   label='Contribute data to AccessMap'
                   labelBefore
                   defaultChecked
+                  onChange={(checked) => {
+                    if (checked) {
+                      actions.enableAnalytics();
+                    } else {
+                      actions.disableAnalytics();
+                    }
+                  }}
                 />
               }
             />,
