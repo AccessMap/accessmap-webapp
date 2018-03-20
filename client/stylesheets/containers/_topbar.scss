@@ -1,6 +1,39 @@
 .topbar {
-  background-color: $md-white-base;
   z-index: 4;
+  background-color: $md-white-base;
+
+  .analytics-dialog {
+    position: absolute;
+    margin-top: 25%;
+    z-index: 150;
+
+    @media #{$md-mobile-media} {
+      margin-left: 8px;
+      margin-right: 8px;
+      width: calc(100% - 16px);
+    }
+
+    @media #{$md-mobile-landscape-media} {
+      margin-left: 25%;
+      margin-right: 25%;
+      width: auto;
+    }
+
+    @media #{$md-tablet-media} {
+      margin-left: 25%;
+      margin-right: 25%;
+      width: auto;
+    }
+
+    .md-card-text {
+      padding-bottom: 8px;
+    }
+  }
+
+  #extra-settings-toggle {
+    z-index: 200;
+    background: #fff;
+  }
 
   #extra-settings-list {
     @media #{$md-mobile-media} {
@@ -46,6 +79,7 @@
       height: 40px;
   }
 }
+
 
 .accessmapicon-primary,
 .accessmaplogo-primary, {

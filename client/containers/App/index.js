@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import AccessMap from 'containers/AccessMap';
-import AnalyticsDialog from 'containers/AnalyticsDialog';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
@@ -29,7 +28,6 @@ class App extends PureComponent {
   render = () => (
     <React.Fragment>
       <div className='widgets'>
-        <AnalyticsDialog />
         <Toast />
         <Topbar />
         <MapInfoButton />
