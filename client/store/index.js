@@ -16,7 +16,7 @@ middlewares.push(thunkMiddleware);
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['analytics'],
+  whitelist: ['analytics', 'routingprofile'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
