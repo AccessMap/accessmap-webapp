@@ -31,6 +31,7 @@ const OmniCard = (props) => {
   const {
     actions,
     center,
+    dateTime,
     destination,
     destinationText,
     inclineMax,
@@ -299,7 +300,7 @@ const OmniCard = (props) => {
     );
   }
 
-  const date = new Date();
+  const date = new Date(dateTime);
 
   const profileLabelView = (
     <CardText className='profile-label'>
@@ -318,6 +319,10 @@ const OmniCard = (props) => {
                 defaultValue={date}
                 fullWidth={false}
                 pickerStyle={{ zIndex: 100 }}
+                onChange={(s, d) => {
+                  actions.setDate(d.getFullYear(), d.getMonth(),
+                                  d.getDate());
+                }}
               />
             </div>
             <div
@@ -328,6 +333,7 @@ const OmniCard = (props) => {
                 id='time-picker'
                 defaultValue={date}
                 fullWidth={false}
+                onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
               />
             </div>
           </div>
@@ -522,6 +528,7 @@ const OmniCard = (props) => {
 OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
+  dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
   destinationText: PropTypes.string,
   inclineMax: PropTypes.number.isRequired,
@@ -567,6 +574,7 @@ const mapStateToProps = (state) => {
 
   return {
     center: [view.lng, view.lat],
+    dateTime: tripplanning.dateTime,
     destination: waypoints.destination,
     destinationText: tripplanning.geocoderText.destinationText,
     inclineMax: profile.inclineMax,

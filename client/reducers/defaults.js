@@ -18,6 +18,7 @@ export const defaultActivities = {
 
 export const defaultTripPlanning = {
   routeResult: null,
+  dateTime: new Date().getTime(),
   geocoderText: {
     searchText: '',
     originText: '',

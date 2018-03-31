@@ -36,23 +36,23 @@ export const OPEN_UPHILL_PREFERENCES = 'OPEN_UPHILL_PREFERENCES';
 export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
 export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
-// User geocoding actions (typing into search bars)
+// Trip planning options
+export const SET_DATE = 'SET_DATE';
+export const SET_TIME = 'SET_TIME';
 export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
 export const SET_ORIGIN_TEXT = 'SET_ORIGIN_TEXT';
 export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
-
-// Map POIs
 export const SET_DESTINATION = 'SET_DESTINATION';
 export const SET_ORIGIN = 'SET_ORIGIN';
 export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
-export const SET_POI = 'SET_POI';
 export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
 
 // Map view settings
-export const SET_CENTER = 'SET_CENTER';
-export const SET_ZOOM = 'SET_ZOOM';
-export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
 export const MAP_MOVE = 'MAP_MOVE';
+export const SET_CENTER = 'SET_CENTER';
+export const SET_CENTER_AND_ZOOM = 'SET_CENTER_AND_ZOOM';
+export const SET_POI = 'SET_POI';
+export const SET_ZOOM = 'SET_ZOOM';
 
 // Map interactions
 export const CLEAR_SELECTED_FEATURES = 'CLEAR_SELECTED_FEATURES';
@@ -634,6 +634,16 @@ export const toggleGeolocation = () => (dispatch, getState) => {
     }
   });
 };
+
+export const setDate = (year, month, date) => ({
+  type: SET_DATE,
+  payload: { year, month, date },
+});
+
+export const setTime = (hours, minutes) => ({
+  type: SET_TIME,
+  payload: { hours, minutes },
+});
 
 export const setSearchText = text => ({
   type: SET_SEARCH_TEXT,
