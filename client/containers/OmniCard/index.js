@@ -12,6 +12,7 @@ import { pointFeature } from 'prop-schema';
 
 import Button from 'react-md/lib/Buttons';
 import Card, { CardActions, CardText } from 'react-md/lib/Cards';
+import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
 import FontIcon from 'react-md/lib/FontIcons';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import Slider from 'react-md/lib/Sliders';
@@ -298,11 +299,41 @@ const OmniCard = (props) => {
     );
   }
 
+  const date = new Date();
+
   const profileLabelView = (
     <CardText className='profile-label'>
-      <h6 className='md-subheading-2'>
+      <h6 className='md-subheading-2 md-inline-block'>
         {profileLabel}
       </h6>
+      { planningTrip
+        ?
+        <div>
+          <div
+            className='md-inline-block'
+            style={{width: '50%'}}
+          >
+            <DatePicker
+              id='date-picker'
+              defaultValue={date}
+              fullWidth={false}
+              pickerStyle={{zIndex: 100}}
+            />
+          </div>
+          <div
+            className='md-inline-block'
+            style={{width: '50%'}}
+          >
+            <TimePicker
+              id='time-picker'
+              defaultValue={date}
+              fullWidth={false}
+            />
+          </div>
+        </div>
+        :
+        null
+      }
     </CardText>
   );
 
