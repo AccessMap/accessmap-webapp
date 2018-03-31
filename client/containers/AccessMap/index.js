@@ -10,6 +10,7 @@ import * as AppActions from 'actions';
 import PedestrianSource from './source-pedestrian';
 
 import Crossings from './layers-crossings';
+import ElevatorPaths from './layers-elevator-paths';
 import Geolocation from './layers-geolocation';
 import Route from './layers-route';
 import Sidewalks from './layers-sidewalks';
@@ -18,6 +19,7 @@ import Waypoints from './layers-waypoints';
 
 const CLICKABLE_LAYERS = [
   'crossing-click',
+  'elevator-paths-click',
   'sidewalk-click',
 ];
 
@@ -140,6 +142,7 @@ class AccessMap extends Component {
         <PedestrianSource />
 
         <Crossings />
+        <ElevatorPaths />
         <Route before='crossing-click' />
         <Sidewalks />
         <Waypoints />

@@ -54,6 +54,19 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
             }],
             location: action.payload.location,
           };
+        case 'elevator_paths':
+          return {
+            layer: 'elevator_paths',
+            layerName: 'Elevator path',
+            properties: [{
+              name: 'Through',
+              value: feature.properties.via,
+            }, {
+              name: 'Available',
+              value: feature.properties.opening_hours,
+            }],
+            location: action.payload.location,
+          };
         default:
           return null;
       }
