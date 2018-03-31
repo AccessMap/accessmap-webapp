@@ -308,31 +308,31 @@ const OmniCard = (props) => {
       </h6>
       { planningTrip
         ?
-        <div>
-          <div
-            className='md-inline-block'
-            style={{width: '50%'}}
-          >
-            <DatePicker
-              id='date-picker'
-              defaultValue={date}
-              fullWidth={false}
-              pickerStyle={{zIndex: 100}}
-            />
+          <div>
+            <div
+              className='md-inline-block'
+              style={{width: '50%'}}
+            >
+              <DatePicker
+                id='date-picker'
+                defaultValue={date}
+                fullWidth={false}
+                pickerStyle={{zIndex: 100}}
+              />
+            </div>
+            <div
+              className='md-inline-block'
+              style={{width: '50%'}}
+            >
+              <TimePicker
+                id='time-picker'
+                defaultValue={date}
+                fullWidth={false}
+              />
+            </div>
           </div>
-          <div
-            className='md-inline-block'
-            style={{width: '50%'}}
-          >
-            <TimePicker
-              id='time-picker'
-              defaultValue={date}
-              fullWidth={false}
-            />
-          </div>
-        </div>
         :
-        null
+          null
       }
     </CardText>
   );
