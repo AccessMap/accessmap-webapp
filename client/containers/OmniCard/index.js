@@ -311,18 +311,18 @@ const OmniCard = (props) => {
           <div>
             <div
               className='md-inline-block'
-              style={{width: '50%'}}
+              style={{ width: '50%' }}
             >
               <DatePicker
                 id='date-picker'
                 defaultValue={date}
                 fullWidth={false}
-                pickerStyle={{zIndex: 100}}
+                pickerStyle={{ zIndex: 100 }}
               />
             </div>
             <div
               className='md-inline-block'
-              style={{width: '50%'}}
+              style={{ width: '50%' }}
             >
               <TimePicker
                 id='time-picker'
