@@ -251,6 +251,7 @@ export const fetchRoute = (origin, destination, params, mediaType) => (dispatch)
     inclineMin,
     requireCurbRamps,
     speed,
+    timeStamp,
   } = params;
 
   const routeParams = {
@@ -264,6 +265,7 @@ export const fetchRoute = (origin, destination, params, mediaType) => (dispatch)
     incline_max: inclineMax,
     incline_min: inclineMin,
     speed,
+    timestamp: timeStamp,
   };
   if (requireCurbRamps) routeParams.avoid = 'curbs';
 
@@ -301,6 +303,8 @@ const routeIfValid = (dispatch, getState) => {
     speed,
   } = state.routingprofile.profiles[state.routingprofile.selectedProfile];
 
+  const timeStamp = state.tripplanning.dateTime;
+
   const {
     mediaType,
   } = state.browser;
@@ -309,7 +313,7 @@ const routeIfValid = (dispatch, getState) => {
     dispatch(fetchRoute(
       origin,
       destination,
-      { inclineMax, inclineMin, requireCurbRamps, speed },
+      { inclineMax, inclineMin, requireCurbRamps, speed, timeStamp },
       mediaType,
     ));
   }
@@ -635,15 +639,23 @@ export const toggleGeolocation = () => (dispatch, getState) => {
   });
 };
 
-export const setDate = (year, month, date) => ({
-  type: SET_DATE,
-  payload: { year, month, date },
-});
+export const setDate = (year, month, date) => (dispatch, getState) => {
+  dispatch({
+    type: SET_DATE,
+    payload: { year, month, date },
+  });
 
-export const setTime = (hours, minutes) => ({
-  type: SET_TIME,
-  payload: { hours, minutes },
-});
+  routeIfValid(dispatch, getState);
+};
+
+export const setTime = (hours, minutes) => (dispatch, getState) => {
+  dispatch({
+    type: SET_TIME,
+    payload: { hours, minutes },
+  });
+
+  routeIfValid(dispatch, getState);
+};
 
 export const setSearchText = text => ({
   type: SET_SEARCH_TEXT,
