@@ -53,8 +53,6 @@ const OpeningHoursTable = (props) => {
     return available;
   });
 
-  console.log(rows);
-
   return (
     <DataTable
       className='opening-hours-table'
