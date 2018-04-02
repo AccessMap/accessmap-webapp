@@ -5,12 +5,27 @@ import { connect } from 'react-redux';
 
 import Button from 'react-md/lib/Buttons';
 import Card, { CardActions } from 'react-md/lib/Cards';
-import List from 'react-md/lib/Lists';
-import ListItemText from 'react-md/lib/Lists/ListItemText';
+import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/lib/DataTables';
 import Toolbar from 'react-md/lib/Toolbars';
+
+import OpeningHoursTable from 'components/OpeningHoursTable';
 
 import * as AppActions from 'actions';
 
+
+const ContentRow = props => (
+  <TableRow>
+    <TableColumn>{props.label}</TableColumn>
+    <TableColumn>
+      {props.content}
+    </TableColumn>
+  </TableRow>
+);
+
+ContentRow.propTypes = {
+  label: PropTypes.string.isRequired,
+  content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired,
+};
 
 const FeatureCard = (props) => {
   const {
@@ -18,7 +33,19 @@ const FeatureCard = (props) => {
     selectedFeature,
   } = props;
 
-  if (!selectedFeature) { return null; }
+  if (!selectedFeature) return null;
+  if (!selectedFeature.properties) selectedFeature.properties = {};
+
+  const {
+    curbramps,
+    description,
+    indoor,
+    incline,
+    marked,
+    openingHours,
+    surface,
+    via,
+  } = selectedFeature.properties;
 
   const title = selectedFeature.layerName
     ?
@@ -44,21 +71,45 @@ const FeatureCard = (props) => {
           </Button>
         }
       />
-      { selectedFeature.properties &&
-        <List>
-          {selectedFeature.properties.map(d =>
-            <li className='md-list-item' key={d.name}>
-              <div className='md-list-tile'>
-                <ListItemText
-                  className='md-tile-content--right-padding'
-                  primaryText={d.name}
-                />
-                <ListItemText primaryText={d.value} />
-              </div>
-            </li>,
-          )}
-        </List>
-      }
+      <DataTable className='feature-card-body' plain>
+        <TableBody>
+          {description ? <ContentRow label='Description' content={description} /> : null}
+          {
+            curbramps
+            ?
+              <ContentRow
+                label='Curb ramps'
+                content={curbramps ? 'Yes' : 'No'}
+              />
+            :
+              null
+          }
+          {
+            marked
+            ?
+              <ContentRow
+                label='Marked crosswalk'
+                content={marked ? 'Yes' : 'No'}
+              />
+            :
+              null
+          }
+          {incline ? <ContentRow label='Incline' content={`${(incline * 100).toFixed(1)}%`} /> : null}
+          {surface ? <ContentRow label='Surface' content={surface} /> : null}
+          {indoor ? <ContentRow label='Indoor' content={indoor ? 'Yes' : 'No'} /> : null}
+          {via ? <ContentRow label='Via' content={via} /> : null}
+          {
+            openingHours
+            ?
+              <ContentRow
+                label='Open Hours'
+                content={<OpeningHoursTable openingHours={openingHours} />}
+              />
+            :
+              null
+          }
+        </TableBody>
+      </DataTable>
       <CardActions>
         <Button
           flat
@@ -102,11 +153,8 @@ FeatureCard.propTypes = {
   selectedFeature: PropTypes.shape({
     layer: PropTypes.string,
     layerName: PropTypes.string,
-    properties: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      value: PropTypes.string,
-    })),
     location: PropTypes.arrayOf(PropTypes.number),
+    properties: PropTypes.object,
   }),
 };
 

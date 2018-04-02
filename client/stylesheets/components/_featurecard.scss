@@ -10,6 +10,12 @@
   .md-list-tile {
     display: flex;
   }
+
+  .feature-card-body {
+    tbody .md-table-row:not(:last-child) {
+        border-bottom: 0;
+    }
+  }
 }
 
 .feature-card-container {

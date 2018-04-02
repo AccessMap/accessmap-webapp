@@ -25,8 +25,8 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
         return {
           layer: null,
           layerName: null,
-          properties: null,
           location: action.payload.location,
+          properties: null,
         };
       }
       // If it's a special map feature, add extra info
@@ -35,38 +35,35 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
           return {
             layer: 'sidewalk',
             layerName: 'Sidewalk',
-            properties: [{
-              name: 'Incline',
-              value: `${(Math.abs(feature.properties.incline) / 10).toFixed(1)} %`,
-            }],
             location: action.payload.location,
+            properties: {
+              description: `${feature.properties.side} of ${feature.properties.street_name}`,
+              incline: feature.properties.incline / 1000,
+              surface: feature.properties.surface,
+            },
           };
         case 'crossings':
           return {
             layer: 'crossing',
             layerName: 'Street Crossing',
-            properties: [{
-              name: 'Curb Ramps',
-              value: feature.properties.curbramps ? 'Yes' : 'No',
-            }, {
-              name: 'Marked Crossing',
-              value: feature.properties.marked ? 'Yes' : 'No',
-            }],
             location: action.payload.location,
+            properties: {
+              curbramps: feature.properties.curbramps,
+              marked: feature.properties.marked,
+            },
           };
-        case 'elevator_paths':
+        case 'elevator_paths': {
           return {
             layer: 'elevator_paths',
             layerName: 'Elevator path',
-            properties: [{
-              name: 'Through',
-              value: feature.properties.via,
-            }, {
-              name: 'Available',
-              value: feature.properties.opening_hours,
-            }],
             location: action.payload.location,
+            properties: {
+              indoor: feature.properties.indoor,
+              openingHours: feature.properties.opening_hours,
+              via: feature.properties.via,
+            },
           };
+        }
         default:
           return null;
       }
