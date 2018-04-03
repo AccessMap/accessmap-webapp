@@ -18,7 +18,7 @@ export default {
   cane: {
     name: 'cane',
     label: 'Walk / Cane User',
-    speed: 1,
+    speed: 1.3,
     inclineMax: 0.14,
     inclineMin: -0.14,
     requireCurbRamps: false,
