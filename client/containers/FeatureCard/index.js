@@ -113,7 +113,7 @@ const FeatureCard = (props) => {
       <CardActions>
         <Button
           flat
-          secondary
+          primary
           onClick={() => {
             actions.setOrigin(
               selectedFeature.location[0],
@@ -129,7 +129,7 @@ const FeatureCard = (props) => {
         </Button>
         <Button
           flat
-          secondary
+          primary
           onClick={() => {
             actions.setDestination(
               selectedFeature.location[0],

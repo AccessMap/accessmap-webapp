@@ -95,7 +95,7 @@ const OmniCard = (props) => {
         nav={
           <Button
             flat
-            secondary
+            primary
             onClick={() => actions.setProfileDefault(profileName)}
           >
             Reset to defaults
@@ -493,7 +493,7 @@ const OmniCard = (props) => {
         <CardActions>
           <Button
             flat
-            secondary
+            primary
             onClick={() => actions.setProfileDefault(profileName)}
           >
             Reset to defaults
