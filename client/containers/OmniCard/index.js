@@ -306,42 +306,42 @@ const OmniCard = (props) => {
 
   const profileLabelView = (
     <CardText className='profile-label'>
-      { planningTrip
-        ?
-          <div>
-            <div
-              className='md-inline-block'
-              style={{ width: '50%' }}
-            >
-              <DatePicker
-                id='date-picker'
-                defaultValue={date}
-                fullWidth={false}
-                pickerStyle={{ zIndex: 100 }}
-                onChange={(s, d) => {
-                  actions.setDate(d.getFullYear(), d.getMonth(),
-                                  d.getDate());
-                }}
-              />
-            </div>
-            <div
-              className='md-inline-block'
-              style={{ width: '50%' }}
-            >
-              <TimePicker
-                id='time-picker'
-                defaultValue={date}
-                fullWidth={false}
-                onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
-              />
-            </div>
-          </div>
-        :
-          null
-      }
       <h6 className='md-subheading-2 md-inline-block'>
         {profileLabel}
       </h6>
+    </CardText>
+  );
+
+  const timePicker = (
+    <CardText>
+      <div
+        className='md-inline-block'
+        style={{ width: '50%' }}
+      >
+        <DatePicker
+          id='date-picker'
+          defaultValue={date}
+          fullWidth={false}
+          pickerStyle={{ zIndex: 100 }}
+          onChange={(s, d) => {
+            actions.setDate(d.getFullYear(), d.getMonth(),
+                            d.getDate());
+          }}
+        />
+      </div>
+      <div
+        className='md-inline-block'
+        style={{ width: '50%' }}
+      >
+        <TimePicker
+          id='time-picker'
+          autoOk
+          hoverMode
+          defaultValue={date}
+          fullWidth={false}
+          onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
+        />
+      </div>
     </CardText>
   );
 
@@ -519,13 +519,14 @@ const OmniCard = (props) => {
         notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE',
       })}
     >
-      {(defaultMode && fetchingTrip) ? progress : undefined}
+      {(defaultMode && fetchingTrip) ? progress : null}
       {topBar}
-      {defaultMode ? divider : undefined}
-      {defaultMode ? profileLabelView : undefined}
-      {defaultMode ? profileBar : undefined}
-      {showSettings ? divider : undefined}
-      {showSettings ? settings : undefined}
+      {defaultMode ? divider : null}
+      {(defaultMode && planningTrip) ? timePicker : null}
+      {defaultMode ? profileLabelView : null}
+      {defaultMode ? profileBar : null}
+      {showSettings ? divider : null}
+      {showSettings ? settings : null}
     </Card>
   );
 };
