@@ -304,9 +304,6 @@ const OmniCard = (props) => {
 
   const profileLabelView = (
     <CardText className='profile-label'>
-      <h6 className='md-subheading-2 md-inline-block'>
-        {profileLabel}
-      </h6>
       { planningTrip
         ?
           <div>
@@ -340,6 +337,9 @@ const OmniCard = (props) => {
         :
           null
       }
+      <h6 className='md-subheading-2 md-inline-block'>
+        {profileLabel}
+      </h6>
     </CardText>
   );
 
