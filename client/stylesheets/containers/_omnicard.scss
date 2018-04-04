@@ -97,6 +97,11 @@
   .md-slider-thumb--discrete-on::after {
     border-top-color: $md-secondary-color;
   }
+
+  .timepicker > * {
+    display: inline-block;
+    width: 50%;
+  }
 }
 
 .omnicard.notoolbar {

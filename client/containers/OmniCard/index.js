@@ -313,35 +313,25 @@ const OmniCard = (props) => {
   );
 
   const timePicker = (
-    <CardText>
-      <div
-        className='md-inline-block'
-        style={{ width: '50%' }}
-      >
-        <DatePicker
-          id='date-picker'
-          defaultValue={date}
-          fullWidth={false}
-          pickerStyle={{ zIndex: 100 }}
-          onChange={(s, d) => {
-            actions.setDate(d.getFullYear(), d.getMonth(),
-                            d.getDate());
-          }}
-        />
-      </div>
-      <div
-        className='md-inline-block'
-        style={{ width: '50%' }}
-      >
-        <TimePicker
-          id='time-picker'
-          autoOk
-          hoverMode
-          defaultValue={date}
-          fullWidth={false}
-          onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
-        />
-      </div>
+    <CardText className='timepicker'>
+      <DatePicker
+        id='date-picker'
+        defaultValue={date}
+        fullWidth={false}
+        pickerStyle={{ zIndex: 100 }}
+        onChange={(s, d) => {
+          actions.setDate(d.getFullYear(), d.getMonth(),
+                          d.getDate());
+        }}
+      />
+      <TimePicker
+        id='time-picker'
+        autoOk
+        hoverMode
+        defaultValue={date}
+        fullWidth={false}
+        onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
+      />
     </CardText>
   );
 
