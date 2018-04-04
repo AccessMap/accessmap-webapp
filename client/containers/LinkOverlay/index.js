@@ -160,7 +160,7 @@ const LinkOverlay = (props) => {
               buttons={
                 <Button
                   icon
-                  href='mailto:developers@accessmapseattle.com'
+                  href='mailto:accessmap.info@gmail.com'
                 >
                   mail
                 </Button>
