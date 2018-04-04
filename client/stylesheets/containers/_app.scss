@@ -14,10 +14,6 @@
   @media #{$md-tablet-media} {
     top: $md-toolbar-tablet-height;
   }
-
-  @media #{$md-desktop-media} {
-    top: $md-toolbar-height;
-  }
 }
 
 .widgets > * {

@@ -1,29 +1,20 @@
-// Overall layout
-.mapinfo {
+.mapinfo-btn {
   position: fixed;
   top: 0;
   right: 0;
   padding: 0;
   margin-right: 16px;
 
-  @media #{$md-mobile-media} {
+  @media #{$md-mobile-portrait-media} {
     margin-top: 224px;
   }
 
   @media #{$md-mobile-landscape-media} {
-    margin-top: 224px;
+    margin-top: $md-toolbar-mobile-landscape-height + 8px;
   }
 
   @media #{$md-tablet-media} {
-    margin-top: $md-toolbar-tablet-height;
-  }
-
-  @media #{$md-desktop-media} {
-    margin-top: $md-toolbar-height;
-  }
-
-  > .md-card {
-    margin-top: 8px;
+    margin-top: $md-toolbar-tablet-height + 8px;
   }
 
   .md-btn {
@@ -39,11 +30,31 @@
   }
 }
 
-.mapinfo-card.mobile {
-  position: absolute;
-  left: 0;
+.mapinfo-card {
+  position: fixed;
+  top: 0;
   right: 0;
-  margin-top: 8px;
-  margin-left: 8px;
-  margin-right: 8px;
+  padding: 0;
+  margin-right: 16px;
+
+  @media #{$md-mobile-portrait-media} {
+    margin-top: 8px;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    margin-top: 8px;
+  }
+
+  @media #{$md-tablet-media} {
+    margin-top: $md-toolbar-tablet-height + 8px;
+  }
+
+  @media #{'screen and (max-width: $md-tablet-min-width)'} {
+    // For all mobile, make it expand to width of screen
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
 }

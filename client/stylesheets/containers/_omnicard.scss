@@ -22,11 +22,6 @@
     margin-top: 8px + $md-toolbar-tablet-height;
   }
 
-  @media #{$md-desktop-media} {
-    width: 384px;
-    margin-top: calc(8px + $md-toolbar-height);
-  }
-
   // Autocompletes (geocoders)
   .geocoder-toolbar .md-toolbar--action-left {
     margin: auto;
@@ -54,9 +49,6 @@
       width: 352px;
     }
     @media #{$md-tablet-media} {
-      width: 352px;
-    }
-    @media #{$md-desktop-media} {
       width: 352px;
     }
   }

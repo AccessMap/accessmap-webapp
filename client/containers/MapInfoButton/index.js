@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import cn from 'classnames';
-
 import * as AppActions from 'actions';
 
 import Button from 'react-md/lib/Buttons';
@@ -30,7 +28,7 @@ const MapInfoButton = (props) => {
   if (mediaType === 'MOBILE' && planningTrip) return null;
 
   const button = (
-    <div className={cn('mapinfo', { mobile: mediaType === 'MOBILE' })}>
+    <div className='mapinfo-btn'>
       <Button
         floating
         secondary
@@ -44,7 +42,7 @@ const MapInfoButton = (props) => {
   );
 
   const mapInfo = (
-    <div className={cn('mapinfo-card', { mobile: mediaType === 'MOBILE' })}>
+    <div className='mapinfo-card'>
       <Card>
         <Toolbar
           title='Map legend'

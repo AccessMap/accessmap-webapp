@@ -47,10 +47,6 @@
     @media #{$md-tablet-media} {
       top: $md-toolbar-tablet-height;
     }
-
-    @media #{$md-desktop-media} {
-      top: $md-toolbar-height;
-    }
   }
 
   .accessmap-title > * {
@@ -62,9 +58,6 @@
       margin-top: 8px;
     }
     @media #{$md-tablet-media} {
-      margin-top: 12px;
-    }
-    @media #{$md-desktop-media} {
       margin-top: 12px;
     }
   }
