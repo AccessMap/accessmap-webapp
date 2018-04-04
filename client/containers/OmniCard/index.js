@@ -14,6 +14,7 @@ import Button from 'react-md/lib/Buttons';
 import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
 import FontIcon from 'react-md/lib/FontIcons';
+import { LinearProgress } from 'react-md/lib/Progress';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import Slider from 'react-md/lib/Sliders';
 import { Tabs, Tab } from 'react-md/lib/Tabs';
@@ -34,6 +35,7 @@ const OmniCard = (props) => {
     dateTime,
     destination,
     destinationText,
+    fetchingTrip,
     inclineMax,
     inclineMin,
     mediaType,
@@ -509,17 +511,20 @@ const OmniCard = (props) => {
     </div>
   );
 
+  const progress = <LinearProgress id='retrieving-route-indicator' />;
+
   return (
     <Card
       className={cn('omnicard', {
         notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE',
       })}
     >
+      {(defaultMode && fetchingTrip) ? progress : undefined}
       {topBar}
       {defaultMode ? divider : undefined}
       {defaultMode ? profileLabelView : undefined}
       {defaultMode ? profileBar : undefined}
-      {defaultMode ? divider : undefined}
+      {showSettings ? divider : undefined}
       {showSettings ? settings : undefined}
     </Card>
   );
@@ -531,6 +536,7 @@ OmniCard.propTypes = {
   dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
   destinationText: PropTypes.string,
+  fetchingTrip: PropTypes.bool,
   inclineMax: PropTypes.number.isRequired,
   inclineMin: PropTypes.number.isRequired,
   origin: pointFeature({ name: PropTypes.string }),
@@ -549,6 +555,7 @@ OmniCard.propTypes = {
 OmniCard.defaultProps = {
   destination: null,
   destinationText: '',
+  fetchingTrip: false,
   origin: null,
   originText: '',
   mediaType: 'DESKTOP',
@@ -577,6 +584,7 @@ const mapStateToProps = (state) => {
     dateTime: tripplanning.dateTime,
     destination: waypoints.destination,
     destinationText: tripplanning.geocoderText.destinationText,
+    fetchingTrip: activities.fetchingTrip,
     inclineMax: profile.inclineMax,
     inclineMin: profile.inclineMin,
     origin: waypoints.origin,
