@@ -73,9 +73,15 @@ const FeatureCard = (props) => {
       />
       <DataTable className='feature-card-body' plain>
         <TableBody>
-          {description ? <ContentRow label='Description' content={description} /> : null}
           {
-            curbramps
+            description !== undefined
+            ?
+              <ContentRow label='Description' content={description} />
+            :
+              null
+          }
+          {
+            curbramps !== undefined
             ?
               <ContentRow
                 label='Curb ramps'
@@ -85,7 +91,7 @@ const FeatureCard = (props) => {
               null
           }
           {
-            marked
+            marked !== undefined
             ?
               <ContentRow
                 label='Marked crosswalk'
@@ -94,12 +100,20 @@ const FeatureCard = (props) => {
             :
               null
           }
-          {incline ? <ContentRow label='Incline' content={`${(incline * 100).toFixed(1)}%`} /> : null}
-          {surface ? <ContentRow label='Surface' content={surface} /> : null}
-          {indoor ? <ContentRow label='Indoor' content={indoor ? 'Yes' : 'No'} /> : null}
-          {via ? <ContentRow label='Via' content={via} /> : null}
+          {incline !== undefined
+           ?
+             <ContentRow
+               label='Incline'
+               content={`${(incline * 100).toFixed(1)}%`}
+             />
+           :
+             null
+          }
+          {surface !== undefined ? <ContentRow label='Surface' content={surface} /> : null}
+          {indoor !== undefined ? <ContentRow label='Indoor' content={indoor ? 'Yes' : 'No'} /> : null}
+          {via !== undefined ? <ContentRow label='Via' content={via} /> : null}
           {
-            openingHours
+            openingHours !== undefined
             ?
               <ContentRow
                 label='Open Hours'
