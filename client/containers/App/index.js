@@ -9,6 +9,7 @@ import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
 import MapInfoButton from 'containers/MapInfoButton';
 import OmniCard from 'containers/OmniCard';
+import RoutingProgressBar from 'containers/RoutingProgressBar';
 import Toast from 'containers/Toast';
 import Topbar from 'containers/Topbar';
 
@@ -30,6 +31,7 @@ class App extends PureComponent {
       <div className='widgets'>
         <Toast />
         <Topbar />
+        <RoutingProgressBar />
         <MapInfoButton />
         <FloatingButtons />
         <LinkOverlay />

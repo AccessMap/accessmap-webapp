@@ -1,3 +1,25 @@
+.route-progressbar {
+  position: absolute;
+
+  margin-top: 0px;
+  height: 4px;
+  @media #{$md-mobile-media} {
+    top: 0;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    top: 0;
+  }
+
+  @media #{$md-tablet-media} {
+    top: $md-toolbar-tablet-height;
+  }
+
+  @media #{$md-desktop-media} {
+    top: $md-toolbar-height;
+  }
+}
+
 .widgets > * {
   z-index: 4;
 }
