@@ -15,9 +15,12 @@ const FloatingButtons = (props) => {
     mediaType,
     planningTrip,
     settingProfile,
+    viewingMapInfo,
   } = props;
 
-  if (mediaType === 'MOBILE' && (planningTrip || settingProfile)) return null;
+  if (mediaType === 'MOBILE') {
+    if (planningTrip || settingProfile || viewingMapInfo) return null;
+  }
 
   return (
     <div className='floating-buttons'>
@@ -48,18 +51,21 @@ FloatingButtons.propTypes = {
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   planningTrip: PropTypes.bool,
   settingProfile: PropTypes.bool,
+  viewingMapInfo: PropTypes.bool,
 };
 
 FloatingButtons.defaultProps = {
   planningTrip: false,
   mediaType: 'DESKTOP',
   settingProfile: false,
+  viewingMapInfo: false,
 };
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   planningTrip: state.activities.planningTrip,
   settingProfile: state.activities.settingProfile,
+  viewingMapInfo: state.activities.viewingMapInfo,
 });
 
 const mapDispatchToProps = dispatch => ({

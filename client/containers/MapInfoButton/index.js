@@ -23,11 +23,14 @@ const MapInfoButton = (props) => {
   const {
     actions,
     mediaType,
+    planningTrip,
     viewingMapInfo,
   } = props;
 
+  if (mediaType === 'MOBILE' && planningTrip) return null;
+
   const button = (
-    <div className='mapinfo'>
+    <div className={cn('mapinfo', { mobile: mediaType === 'MOBILE' })}>
       <Button
         floating
         secondary
@@ -41,7 +44,7 @@ const MapInfoButton = (props) => {
   );
 
   const mapInfo = (
-    <div className={cn('mapinfo', { mobile: mediaType === 'MOBILE' })}>
+    <div className={cn('mapinfo-card', { mobile: mediaType === 'MOBILE' })}>
       <Card>
         <Toolbar
           title='Map legend'
@@ -181,6 +184,7 @@ const MapInfoButton = (props) => {
 MapInfoButton.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.string,
+  planningTrip: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
 };
 
@@ -192,6 +196,7 @@ MapInfoButton.defaultProps = {
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
+  planningTrip: state.activities.planningTrip,
   viewingMapInfo: state.activities.viewingMapInfo,
 });
 
