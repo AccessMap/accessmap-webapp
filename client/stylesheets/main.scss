@@ -36,11 +36,13 @@
 // 6. Containers
 @import
   'containers/accessmap',
-  'containers/app',
   'containers/floatingbuttons',
   'containers/linkoverlay',
   'containers/mapinfobutton',
+  'containers/mapoverlay',
   'containers/omnicard',
+  'containers/root',
+  'containers/routingprogressbar',
   'containers/topbar';
 
 // 7. Page-specific styles
@@ -50,3 +52,8 @@
 // 8. Themes
 @import
   'themes/default';
+
+// 9. Hacks
+@import
+  'hacks/reactmdfloatingbuttons',
+  'hacks/reactmdtoolbarbuttons';

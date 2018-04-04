@@ -22,10 +22,11 @@ const MapInfoButton = (props) => {
     actions,
     mediaType,
     planningTrip,
+    settingProfile,
     viewingMapInfo,
   } = props;
 
-  if (mediaType === 'MOBILE' && planningTrip) return null;
+  if (mediaType === 'MOBILE' && (planningTrip || settingProfile)) return null;
 
   const button = (
     <div className='mapinfo-btn'>
@@ -183,18 +184,21 @@ MapInfoButton.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.string,
   planningTrip: PropTypes.bool,
+  settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
 };
 
 MapInfoButton.defaultProps = {
   mediaType: 'DESKTOP',
   planningTrip: false,
+  settingProfile: false,
   viewingMapInfo: false,
 };
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   planningTrip: state.activities.planningTrip,
+  settingProfile: state.activities.settingProfile,
   viewingMapInfo: state.activities.viewingMapInfo,
 });
 

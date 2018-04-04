@@ -1,11 +1,10 @@
 .topbar {
-  z-index: 4;
+  position: absolute;
   background-color: $md-white-base;
 
   .analytics-dialog {
     position: absolute;
     margin-top: 25%;
-    z-index: 150;
 
     @media #{$md-mobile-media} {
       margin-left: 8px;
@@ -28,11 +27,6 @@
     .md-card-text {
       padding-bottom: 8px;
     }
-  }
-
-  #extra-settings-toggle {
-    z-index: 200;
-    background: #fff;
   }
 
   #extra-settings-list {

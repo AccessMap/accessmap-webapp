@@ -1,25 +1,16 @@
 // Overall layout
 .omnicard {
-  position: absolute;
+  position: relative;
+  margin-bottom: 8px;
   top: 0;
   left: 0;
-  margin-left: 8px;
-  margin-right: 8px;
-  overflow: hidden;
-
-  @media #{$md-mobile-media} {
-    right: 0;
-    margin-top: 8px + $md-toolbar-mobile-portrait-height;
-  }
 
   @media #{$md-mobile-landscape-media} {
     width: 256px;
-    margin-top: 8px + $md-toolbar-mobile-landscape-height;
   }
 
   @media #{$md-tablet-media} {
     width: 384px;
-    margin-top: 8px + $md-toolbar-tablet-height;
   }
 
   // Autocompletes (geocoders)
@@ -94,8 +85,4 @@
     display: inline-block;
     width: 50%;
   }
-}
-
-.omnicard.notoolbar {
-  margin-top: 8px;
 }

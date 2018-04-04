@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 
 import Button from 'react-md/lib/Buttons';
 import Card, { CardActions, CardText } from 'react-md/lib/Cards';
-import FontIcon from 'react-md/lib/FontIcons';
 import { ListItemControl } from 'react-md/lib/Lists';
 import { MenuButton } from 'react-md/lib/Menus';
 import { Switch } from 'react-md/lib/SelectionControls';
@@ -73,7 +72,6 @@ const Topbar = (props) => {
           menuItems={[
             <ListItemControl
               key='toggle-track'
-              leftIcon={<FontIcon key='bug_report'>bug_report</FontIcon>}
               secondaryAction={
                 <Switch
                   id='toggle-track'

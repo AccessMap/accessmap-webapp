@@ -8,6 +8,7 @@ import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
 import MapInfoButton from 'containers/MapInfoButton';
+import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
 import RoutingProgressBar from 'containers/RoutingProgressBar';
 import Toast from 'containers/Toast';
@@ -28,16 +29,16 @@ class App extends PureComponent {
 
   render = () => (
     <React.Fragment>
-      <div className='widgets'>
-        <Toast />
-        <Topbar />
+      <Toast />
+      <Topbar />
+      <MapOverlay>
         <RoutingProgressBar />
+        <OmniCard />
         <MapInfoButton />
         <FloatingButtons />
         <LinkOverlay />
-        <OmniCard />
         <FeatureCard />
-      </div>
+      </MapOverlay>
       <AccessMap />
     </React.Fragment>
   );

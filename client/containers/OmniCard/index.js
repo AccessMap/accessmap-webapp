@@ -500,11 +500,7 @@ const OmniCard = (props) => {
   );
 
   return (
-    <Card
-      className={cn('omnicard', {
-        notoolbar: (planningTrip || settingProfile) && mediaType === 'MOBILE',
-      })}
-    >
+    <Card className='omnicard'>
       {topBar}
       {defaultMode ? divider : null}
       {(defaultMode && planningTrip) ? timePicker : null}

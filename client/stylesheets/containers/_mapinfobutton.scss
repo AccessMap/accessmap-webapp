@@ -1,60 +1,51 @@
 .mapinfo-btn {
-  position: fixed;
   top: 0;
   right: 0;
-  padding: 0;
-  margin-right: 16px;
 
   @media #{$md-mobile-portrait-media} {
-    margin-top: 224px;
+    // In portrait mode, arrange as relative vertical elements
+    padding: 0;
+    position: relative;
+    float: right;
   }
 
   @media #{$md-mobile-landscape-media} {
-    margin-top: $md-toolbar-mobile-landscape-height + 8px;
+    padding: inherit;
+    position: absolute;
   }
 
   @media #{$md-tablet-media} {
-    margin-top: $md-toolbar-tablet-height + 8px;
+    padding: inherit;
+    position: absolute;
   }
 
   .md-btn {
     color: $md-secondary-color;
     background-color: $md-white-base;
-    display: block;
-    margin: 8px;
   }
 
-  .md-btn--floating:hover {
+  .md-btn:hover {
     color: $md-white-base;
     background-color: $md-secondary-color;
   }
 }
 
 .mapinfo-card {
-  position: fixed;
   top: 0;
   right: 0;
-  padding: 0;
-  margin-right: 16px;
 
   @media #{$md-mobile-portrait-media} {
-    margin-top: 8px;
+    padding: 0;
+    position: relative;
   }
 
   @media #{$md-mobile-landscape-media} {
-    margin-top: 8px;
+    padding: inherit;
+    position: absolute;
   }
 
   @media #{$md-tablet-media} {
-    margin-top: $md-toolbar-tablet-height + 8px;
-  }
-
-  @media #{'screen and (max-width: $md-tablet-min-width)'} {
-    // For all mobile, make it expand to width of screen
+    padding: inherit;
     position: absolute;
-    left: 0;
-    right: 0;
-    margin-left: 8px;
-    margin-right: 8px;
   }
 }

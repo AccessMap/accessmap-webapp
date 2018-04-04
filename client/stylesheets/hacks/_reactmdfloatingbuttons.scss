@@ -1,0 +1,8 @@
+/*
+ * Floating icon buttons have hidden text that screws up absolute positioning,
+ * creating, e.g., an annoying margin to the right of the screen.
+ */
+
+.md-btn.md--icon.md-btn--floating {
+  overflow: hidden;
+}
