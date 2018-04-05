@@ -1,6 +1,9 @@
 const webpack = require('webpack');
 const path = require('path');
+// Used to pass .env to client JS that gets bundled
 const Dotenv = require('dotenv-webpack');
+// Used to pass .env to webpack config process.env
+require('dotenv').config();
 
 const sourcePath = path.join(__dirname, './client');
 const staticsPath = path.join(__dirname, './public');
