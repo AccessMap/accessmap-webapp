@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 const sourcePath = path.join(__dirname, './client');
 const staticsPath = path.join(__dirname, './public');
@@ -14,16 +15,7 @@ module.exports = function (env) {
       minChunks: Infinity,
       filename: 'vendor.bundle.js',
     }),
-    new webpack.EnvironmentPlugin({
-      NODE_ENV: nodeEnv,
-      MAPBOX_TOKEN: 'MAPBOX_TOKEN',
-      MAPZEN_TOKEN: 'MAPZEN_TOKEN',
-      TILESERVER: 'TILESERVER',
-      APISERVER: 'APISERVER',
-      ANALYTICS_KEY: 'ANALYTICS_KEY',
-      ANALYTICS_SERVER: 'ANALYTICS_SERVER',
-      FORCE_ANALYTICS: 'FORCE_ANALYTICS',
-    }),
+    new Dotenv({ systemvars: true }),
     new webpack.NamedModulesPlugin(),
   ];
 
