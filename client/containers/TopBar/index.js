@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Button from 'react-md/lib/Buttons';
-import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import { ListItemControl } from 'react-md/lib/Lists';
 import { MenuButton } from 'react-md/lib/Menus';
 import { Switch } from 'react-md/lib/SelectionControls';
@@ -16,10 +15,9 @@ import AccessMapLogo from 'components/Icons/AccessMapLogo';
 import * as AppActions from 'actions';
 
 
-const Topbar = (props) => {
+const TopBar = (props) => {
   const {
     actions,
-    analytics,
     mediaType,
     planningTrip,
     settingProfile,
@@ -76,7 +74,7 @@ const Topbar = (props) => {
                 <Switch
                   id='toggle-track'
                   name='track'
-                  label='Contribute data to AccessMap'
+                  label='Contribute web experience to research'
                   labelBefore
                   defaultChecked
                   onChange={(checked) => {
@@ -97,45 +95,19 @@ const Topbar = (props) => {
       themed
       fixed
       zDepth={0}
-    >
-      { analytics === null
-        ?
-          <React.Fragment>
-            <div className='md-overlay md-overlay--active' />
-            <Card className='analytics-dialog'>
-              <CardText>
-                AccessMap uses anonymized data for research and site improvements.
-                Change your data preferences using the extra settings button.
-              </CardText>
-              <CardActions centered>
-                <Button
-                  flat
-                  secondary
-                  swapTheming
-                  onClick={actions.enableAnalytics}
-                >
-                  OK
-                </Button>
-              </CardActions>
-            </Card>
-          </React.Fragment>
-        :
-          null
-      }
-    </Toolbar>
+    />
   );
 };
 
-Topbar.propTypes = {
+TopBar.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  analytics: PropTypes.bool.isRequired,
   planningTrip: PropTypes.bool,
   mediaType: PropTypes.string,
   settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
 };
 
-Topbar.defaultProps = {
+TopBar.defaultProps = {
   mediaType: null,
   planningTrip: false,
   settingProfile: false,
@@ -145,12 +117,10 @@ Topbar.defaultProps = {
 const mapStateToProps = (state) => {
   const {
     activities,
-    analytics,
     browser,
   } = state;
 
   return {
-    analytics,
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,
     settingProfile: activities.settingProfile,
@@ -165,4 +135,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Topbar);
+)(TopBar);

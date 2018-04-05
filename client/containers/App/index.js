@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import AccessMap from 'containers/AccessMap';
+import AnalyticsBar from 'containers/AnalyticsBar';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
@@ -12,7 +13,7 @@ import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
 import RoutingProgressBar from 'containers/RoutingProgressBar';
 import Toast from 'containers/Toast';
-import Topbar from 'containers/Topbar';
+import TopBar from 'containers/TopBar';
 
 import * as AppActions from 'actions';
 
@@ -30,7 +31,8 @@ class App extends PureComponent {
   render = () => (
     <React.Fragment>
       <Toast />
-      <Topbar />
+      <AnalyticsBar />
+      <TopBar />
       <MapOverlay>
         <RoutingProgressBar />
         <OmniCard />
