@@ -8,4 +8,7 @@
   @media #{$md-tablet-media} {
     margin-top: 8px;
   }
+  @media #{$md-desktop-media} {
+    margin-top: 12px;
+  }
 }
