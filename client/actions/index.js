@@ -278,10 +278,15 @@ export const fetchRoute = (origin, destination, params, mediaType) => (dispatch)
 
   fetch(query)
     .then(
-      response => response.json(),
-      error => dispatch(failedRoute, origin, destination, error),
-    )
-    .then(json => dispatch(receiveRoute(json, mediaType)));
+      (response) => {
+        if (response.ok) {
+          dispatch(receiveRoute(response.json(), mediaType));
+        } else {
+          dispatch(failedRoute(origin, destination, response.status));
+        }
+      },
+      error => dispatch(failedRoute(origin, destination, error)),
+    );
 };
 
 

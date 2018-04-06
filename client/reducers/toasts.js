@@ -1,5 +1,6 @@
 import {
   ADD_TOAST,
+  FAILED_ROUTE,
   POP_TOAST,
   RECEIVE_ROUTE,
 } from 'actions';
@@ -39,6 +40,15 @@ export default (state = defaults, action) => {
       }
       toasts.push(text);
       return toasts;
+    case FAILED_ROUTE:
+      switch (action.payload.error) {
+        case 500:
+        case 504:
+          toasts.push('Could not fetch route: server error');
+          return toasts;
+        default:
+          return toasts;
+      }
     default:
       return state;
   }

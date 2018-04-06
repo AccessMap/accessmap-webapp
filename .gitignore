@@ -6,4 +6,5 @@ static
 _nogit
 *.swp
 
+.env
 set_envs.sh
