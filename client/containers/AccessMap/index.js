@@ -25,6 +25,8 @@ const CLICKABLE_LAYERS = [
 
 const Map = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
+  minZoom: 10,
+  maxZoom: 20,
   bearing: [0],
   pitch: [0],
 });
