@@ -98,7 +98,9 @@ const TopBar = (props) => {
       themed
       fixed
       zDepth={0}
-    />
+    >
+      <h6 className='accessmaplogo-region'>Seattle</h6>
+    </Toolbar>
   );
 };
 
