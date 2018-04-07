@@ -11,7 +11,6 @@ const OpeningHoursTable = (props) => {
   const {
     openingHours,
   } = props;
-  // FIXME: handle 24/7
 
   const oh = new OpeningHours(openingHours);
 
@@ -24,18 +23,28 @@ const OpeningHoursTable = (props) => {
   const lastdate = new Date(curdate);
   lastdate.setDate(curdate.getDate() + 7);
 
-  const days = [[], [], [], [], [], [], []];
-  oh.getOpenIntervals(curdate, lastdate).map((interval) => {
-    const times = [];
-    for (let i = 0; i < 2; i += 1) {
-      const d = interval[0];
-      const hours = `${d.getHours() < 10 ? 0 : ''}${d.getHours()}`;
-      const minutes = `${d.getMinutes() < 10 ? 0 : ''}${d.getMinutes()}`;
-      times.push(`${hours}:${minutes}`);
-    }
-    days[interval[0].getDay()].push(times.join('-'));
-    return times;
-  });
+  const dateToString = (date) => {
+    const hours = `${date.getHours() < 10 ? 0 : ''}${date.getHours()}`;
+    const minutes = `${date.getMinutes() < 10 ? 0 : ''}${date.getMinutes()}`;
+    return `${hours}:${minutes}`;
+  };
+
+  let days;
+  if (open && oh.getNextChange() === undefined) {
+    days = Array(7).fill(['00:00-24:00']);
+  } else {
+    days = [[], [], [], [], [], [], []];
+
+    oh.getOpenIntervals(curdate, lastdate).map((interval) => {
+      const times = [
+        dateToString(interval[0]),
+        dateToString(interval[1]),
+      ];
+
+      days[interval[0].getDay()].push(times.join('-'));
+      return times;
+    });
+  }
 
   const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
