@@ -3,20 +3,21 @@
   right: 0;
 
   @media #{$md-mobile-portrait-media} {
-    // In portrait mode, arrange as relative vertical elements
-    padding: 0;
     position: relative;
+    margin: 0;
     float: right;
   }
 
   @media #{$md-mobile-landscape-media} {
-    padding: inherit;
     position: absolute;
+    margin-top: 8px;
+    margin-right: 8px;
   }
 
   @media #{$md-tablet-media} {
-    padding: inherit;
     position: absolute;
+    margin-top: 8px;
+    margin-right: 8px;
   }
 
   .md-btn {
