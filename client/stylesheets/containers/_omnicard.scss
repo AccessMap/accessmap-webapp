@@ -95,8 +95,19 @@
     border-top-color: $md-secondary-color;
   }
 
-  .timepicker > * {
-    display: inline-block;
-    width: 50%;
+  // Shrink padding for cardtext elements in omnicard when in mobile view
+  .timepicker,
+  .profile-label {
+    @media only screen and (max-width: #{$md-tablet-min-width}) and #{$md-portrait-media} {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .timepicker {
+    > * {
+      display: inline-block;
+      width: 50%;
+    }
   }
 }
