@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import SVGIcon from 'react-md/lib/SVGIcons';
+
 import { Marker } from 'react-mapbox-gl';
-import PinIcon from 'components/Icons/PinIcon';
+
+import mapPin from 'icons/map-pin.svg';
 
 
 const MapMarker = (props) => {
@@ -21,7 +24,7 @@ const MapMarker = (props) => {
       {...moreProps}
     >
       <div>
-        <PinIcon />
+        <SVGIcon className='pin-icon' size={48} use={mapPin.url} />
         <div className='pin-label'>
           {label}
         </div>
