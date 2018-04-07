@@ -43,7 +43,6 @@ const OmniCard = (props) => {
     origin,
     originText,
     planningTrip,
-    profileLabel,
     profileName,
     requireCurbRamps,
     searchText,
@@ -236,21 +235,21 @@ const OmniCard = (props) => {
   }
 
   const profileList = [{
-    label: '',
+    label: profileName === 'wheelchair' ? <h6>wheelchair</h6> : '',
     value: 'wheelchair',
     onChange: d => actions.setProfile(d),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
   }, {
-    label: '',
+    label: profileName === 'powered' ? <h6>powered</h6> : '',
     value: 'powered',
     onChange: d => actions.setProfile(d),
     className: profileName === 'powered' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
   }, {
-    label: '',
+    label: profileName === 'cane' ? <h6>cane/walk</h6> : '',
     value: 'cane',
     onChange: d => actions.setProfile(d),
     className: profileName === 'cane' ? 'profile-selected' : '',
@@ -276,14 +275,6 @@ const OmniCard = (props) => {
   }
 
   const date = new Date(dateTime);
-
-  const profileLabelView = (
-    <CardText className='profile-label'>
-      <h6 className='md-subheading-2 md-inline-block'>
-        {profileLabel}
-      </h6>
-    </CardText>
-  );
 
   const timePicker = (
     <CardText className='timepicker'>
@@ -457,7 +448,6 @@ const OmniCard = (props) => {
       {topBar}
       {defaultMode ? divider : null}
       {(defaultMode && planningTrip) ? timePicker : null}
-      {defaultMode ? profileLabelView : null}
       {defaultMode ? profileBar : null}
       {showSettings ? divider : null}
       {showSettings ? settingsPanel : null}
@@ -478,7 +468,6 @@ OmniCard.propTypes = {
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   planningTrip: PropTypes.bool,
-  profileLabel: PropTypes.string.isRequired,
   profileName: PropTypes.string.isRequired,
   requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
@@ -524,7 +513,6 @@ const mapStateToProps = (state) => {
     mediaType: browser.mediaType,
     mode,
     planningTrip: activities.planningTrip,
-    profileLabel: profile.label,
     profileName: profile.name,
     requireCurbRamps: profile.requireCurbRamps,
     selectedProfile: routingprofile.selectedProfile,

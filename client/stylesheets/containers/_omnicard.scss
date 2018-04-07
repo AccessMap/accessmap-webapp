@@ -58,20 +58,16 @@
     }
   }
 
-  .profile-label {
-    padding-bottom: 0;
-    h6 {
-      color: $md-primary-color;
-      font-weight: 500;
-      margin-bottom: 0;
-    }
-  }
-
   // Profile options
   .profiles-container {
     padding-top: 0;
     padding-bottom: 0;
     padding-left: 0;
+
+    span h6 {
+      margin-bottom: 0;
+      color: $md-primary-color;
+    }
 
     > * {
       margin-right: 8px;
