@@ -358,7 +358,7 @@ const OmniCard = (props) => {
       id='uphill-slider'
       label={(
         <React.Fragment>
-          {`Maximum uphill incline: ${uphillPercent}%`}
+          {`Avoid uphill steepness above ${uphillPercent}%`}
           <TooltipFontIcon
             tooltipLabel='Cutoff for uphill steepness'
             tooltipPosition='top'

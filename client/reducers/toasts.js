@@ -42,8 +42,8 @@ export default (state = defaults, action) => {
       return toasts;
     case FAILED_ROUTE:
       switch (action.payload.error) {
-        case 500:
-        case 504:
+        case '500':
+        case '504':
           toasts.push('Could not fetch route: server error');
           return toasts;
         default:
