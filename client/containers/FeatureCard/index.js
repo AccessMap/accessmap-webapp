@@ -104,7 +104,7 @@ const FeatureCard = (props) => {
            ?
              <ContentRow
                label='Incline'
-               content={`${(incline * 100).toFixed(1)}%`}
+               content={`${Math.abs((incline * 100).toFixed(1))}%`}
              />
            :
              null
