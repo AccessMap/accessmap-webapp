@@ -15,13 +15,18 @@
 
   // Autocompletes (geocoders)
   .geocoder-toolbar .md-toolbar--action-left {
-    margin: auto;
-    min-width: 32px;
-    text-align: right;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 16px;
+    text-align: center;
+    width: 24px;
+    @media #{$md-desktop-media} {
+      width: 20px;
+    }
   }
 
   .search-icon {
-    @media #{$md-mobile-media} {
+    @media #{$md-mobile-portrait-media} {
       margin-bottom: 8px;
     }
     @media #{$md-mobile-landscape-media} {
