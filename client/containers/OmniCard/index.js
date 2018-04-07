@@ -21,13 +21,12 @@ import Toolbar from 'react-md/lib/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 
-import CaneUserIcon from 'components/Icons/CaneUserIcon';
-import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
-import WheelchairIcon from 'components/Icons/WheelchairIcon';
-
+import caneUser from 'icons/cane-user.svg';
 import directions from 'icons/directions.svg';
 import magnify from 'icons/magnify.svg';
 import settings from 'icons/settings.svg';
+import wheelchair from 'icons/wheelchair.svg';
+import wheelchairPowered from 'icons/wheelchair-powered.svg';
 
 
 const OmniCard = (props) => {
@@ -241,49 +240,22 @@ const OmniCard = (props) => {
     value: 'wheelchair',
     onChange: d => actions.setProfile(d),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
-    checkedRadioIcon: (
-      <WheelchairIcon
-        secondary
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
-    uncheckedRadioIcon: (
-      <WheelchairIcon
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
+    checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
+    uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
   }, {
     label: '',
     value: 'powered',
     onChange: d => actions.setProfile(d),
     className: profileName === 'powered' ? 'profile-selected' : '',
-    checkedRadioIcon: (
-      <PoweredWheelchairIcon
-        secondary
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
-    uncheckedRadioIcon: (
-      <PoweredWheelchairIcon
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
+    checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
+    uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
   }, {
     label: '',
     value: 'cane',
     onChange: d => actions.setProfile(d),
     className: profileName === 'cane' ? 'profile-selected' : '',
-    checkedRadioIcon: (
-      <CaneUserIcon
-        secondary
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
-    uncheckedRadioIcon: (
-      <CaneUserIcon
-        size={mediaType === 'DESKTOP' ? 20 : 24}
-      />
-    ),
+    checkedRadioIcon: <SVGIcon secondary use={caneUser.url} />,
+    uncheckedRadioIcon: <SVGIcon use={caneUser.url} />,
   }];
 
   const profileActions = [
