@@ -111,7 +111,9 @@
     // Shrink icon padding in profile selector, make bottom border on card.
     .profiles-container {
       .md-ink-container {
+        left: 4px;
         height: 40px;
+        width: 40px;
       }
 
       .md-btn--icon {
