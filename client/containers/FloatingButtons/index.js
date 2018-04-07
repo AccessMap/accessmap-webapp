@@ -34,31 +34,37 @@ const FloatingButtons = (props) => {
         floating
         svg
         mini
+        secondary
+        swapTheming
         tooltipLabel='Zoom to your location'
         tooltipPosition='left'
         onClick={actions.toggleGeolocation}
       >
-        <SVGIcon secondary use={crosshairsGPS.url} />
+        <SVGIcon use={crosshairsGPS.url} />
       </Button>
       <Button
         floating
         svg
         mini
+        secondary
+        swapTheming
         tooltipLabel='Zoom in'
         tooltipPosition='left'
         onClick={() => actions.setZoom(zoom + 1)}
       >
-        <SVGIcon secondary use={plus.url} />
+        <SVGIcon use={plus.url} />
       </Button>
       <Button
         floating
         svg
         mini
+        secondary
+        swapTheming
         tooltipLabel='Zoom out'
         tooltipPosition='left'
         onClick={() => actions.setZoom(zoom - 1)}
       >
-        <SVGIcon secondary use={minus.url} />
+        <SVGIcon use={minus.url} />
       </Button>
     </div>
   );

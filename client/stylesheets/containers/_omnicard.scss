@@ -92,9 +92,18 @@
 
     // Shrink toolbars
     @include react-md-toolbars-mobile-landscape;
+    // Move buttons in toolbars to compensate
+    .md-toolbar .md-btn--toolbar {
+      &.md-btn--icon {
+        margin-top: 0;
+      }
+      &.md-btn--flat {
+        margin-top: 8px;
+      }
+    }
 
     // Shrink padding on CardText elements
-    .md-card-text {
+    .timepicker {
       padding-top: 0;
       padding-bottom: 0;
     }

@@ -34,12 +34,15 @@ const MapInfoButton = (props) => {
     <div className='mapinfo-btn'>
       <Button
         floating
+        svg
         mini
+        secondary
+        swapTheming
         tooltipLabel='Map Legend'
         tooltipPosition='left'
         onClick={actions.viewMapInfo}
       >
-        <SVGIcon secondary use={information.url} />
+        <SVGIcon use={information.url} />
       </Button>
     </div>
   );
