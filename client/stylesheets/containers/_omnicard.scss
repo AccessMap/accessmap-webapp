@@ -74,6 +74,16 @@
       color: $md-primary-color;
     }
 
+
+    .md-selection-control-container {
+      margin-right: 4px;
+    }
+
+    .md-selection-control-toggle {
+      padding-right: 0px;
+      width: 40px;
+    }
+
     .profile-selected {
       border-bottom: 3px solid $md-secondary-color;
     }

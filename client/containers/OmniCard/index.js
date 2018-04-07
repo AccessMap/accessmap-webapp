@@ -235,21 +235,21 @@ const OmniCard = (props) => {
   }
 
   const profileList = [{
-    label: profileName === 'wheelchair' ? <h6>wheelchair</h6> : '',
+    label: profileName === 'wheelchair' ? <h6>Wheelchair</h6> : '',
     value: 'wheelchair',
     onChange: d => actions.setProfile(d),
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
   }, {
-    label: profileName === 'powered' ? <h6>powered</h6> : '',
+    label: profileName === 'powered' ? <h6>Powered</h6> : '',
     value: 'powered',
     onChange: d => actions.setProfile(d),
     className: profileName === 'powered' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
   }, {
-    label: profileName === 'cane' ? <h6>cane/walk</h6> : '',
+    label: profileName === 'cane' ? <h6>Cane/Walk</h6> : '',
     value: 'cane',
     onChange: d => actions.setProfile(d),
     className: profileName === 'cane' ? 'profile-selected' : '',
