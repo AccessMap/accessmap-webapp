@@ -75,6 +75,7 @@
     "redux-persist": "^5.8.0",
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.5",
+    "svg-sprite-loader": "^3.7.3",
     "transform-loader": "^0.2.4",
     "url-loader": "^0.6.2"
   }

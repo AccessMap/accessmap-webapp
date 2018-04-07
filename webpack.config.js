@@ -1,9 +1,12 @@
 const webpack = require('webpack');
 const path = require('path');
-// Used to pass .env to client JS that gets bundled
-const Dotenv = require('dotenv-webpack');
 // Used to pass .env to webpack config process.env
 require('dotenv').config();
+
+/* Plugins */
+// Used to pass .env to client JS that gets bundled
+const Dotenv = require('dotenv-webpack');
+const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 
 const sourcePath = path.join(__dirname, './client');
 const staticsPath = path.join(__dirname, './public');
@@ -20,6 +23,7 @@ module.exports = function (env) {
     }),
     new Dotenv({ systemvars: true }),
     new webpack.NamedModulesPlugin(),
+    new SpriteLoaderPlugin(),
   ];
 
   if (isProd) {
@@ -103,7 +107,17 @@ module.exports = function (env) {
           loaders: ['style-loader', 'css-loader', 'sass-loader'],
         },
         {
-          test: /\.(woff|woff2|eot|ttf|svg)$/,
+          test: /\.svg$/,
+          use: {
+            loader: 'svg-sprite-loader',
+            options: {
+              extract: true,
+              spriteFilename: 'icon-sprites.[hash:0].svg',
+            },
+          },
+        },
+        {
+          test: /\.(woff|woff2|eot|ttf)$/,
           loader: 'file-loader?name=client/fonts/roboto/[name].[ext]',
         },
         {

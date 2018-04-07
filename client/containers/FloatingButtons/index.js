@@ -7,6 +7,10 @@ import { connect } from 'react-redux';
 import * as AppActions from 'actions';
 
 import Button from 'react-md/lib/Buttons';
+import SVGIcon from 'react-md/lib/SVGIcons';
+
+import minus from 'icons/minus.svg';
+import plus from 'icons/plus.svg';
 
 
 const FloatingButtons = (props) => {
@@ -16,6 +20,7 @@ const FloatingButtons = (props) => {
     planningTrip,
     settingProfile,
     viewingMapInfo,
+    zoom,
   } = props;
 
   if (mediaType === 'MOBILE') {
@@ -27,6 +32,7 @@ const FloatingButtons = (props) => {
       <Button
         floating
         secondary
+        mini
         tooltipLabel='Zoom to your location'
         tooltipPosition='left'
         onClick={actions.toggleGeolocation}
@@ -35,12 +41,23 @@ const FloatingButtons = (props) => {
       </Button>
       <Button
         floating
-        secondary
-        tooltipLabel='Plan a trip'
+        svg
+        mini
+        tooltipLabel='Zoom in'
         tooltipPosition='left'
-        onClick={() => actions.toggleTripPlanning(planningTrip)}
+        onClick={() => actions.setZoom(zoom + 1)}
       >
-        directions
+        <SVGIcon secondary use={plus.url} />
+      </Button>
+      <Button
+        floating
+        svg
+        mini
+        tooltipLabel='Zoom out'
+        tooltipPosition='left'
+        onClick={() => actions.setZoom(zoom - 1)}
+      >
+        <SVGIcon secondary use={minus.url} />
       </Button>
     </div>
   );
@@ -52,6 +69,7 @@ FloatingButtons.propTypes = {
   planningTrip: PropTypes.bool,
   settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
+  zoom: PropTypes.number.isRequired,
 };
 
 FloatingButtons.defaultProps = {
@@ -66,6 +84,7 @@ const mapStateToProps = state => ({
   planningTrip: state.activities.planningTrip,
   settingProfile: state.activities.settingProfile,
   viewingMapInfo: state.activities.viewingMapInfo,
+  zoom: state.view.zoom,
 });
 
 const mapDispatchToProps = dispatch => ({
