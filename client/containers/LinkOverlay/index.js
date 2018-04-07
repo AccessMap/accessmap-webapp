@@ -8,12 +8,15 @@ import * as AppActions from 'actions';
 
 import Button from 'react-md/lib/Buttons';
 import { DialogContainer } from 'react-md/lib/Dialogs';
-import FontIcon from 'react-md/lib/FontIcons';
 import List from 'react-md/lib/Lists';
 import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/lib/DataTables';
+import SVGIcon from 'react-md/lib/SVGIcons';
 
-import GithubIcon from 'components/Icons/GithubIcon';
-import TwitterIcon from 'components/Icons/TwitterIcon';
+import email from 'icons/email.svg';
+import githubCircle from 'icons/github-circle.svg';
+import heart from 'icons/heart.svg';
+import school from 'icons/school.svg';
+import twitter from 'icons/twitter.svg';
 
 import uwesciencelogo from '../../images/uwescience.jpg';
 import wsdotlogo from '../../images/wsdot.png';
@@ -65,10 +68,11 @@ const LinkOverlay = (props) => {
               buttons={(
                 <Button
                   icon
+                  svg
                   href='https://github.com/accessmap'
                   target='_blank'
                 >
-                  <GithubIcon />
+                  <SVGIcon use={githubCircle.url} />
                 </Button>
               )}
               label={'AccessMap is an open source project.'}
@@ -77,10 +81,11 @@ const LinkOverlay = (props) => {
               buttons={(
                 <Button
                   icon
+                  svg
                   href='https://tcat.cs.washington.edu/'
                   target='_blank'
                 >
-                  school
+                  <SVGIcon use={school.url} />
                 </Button>
               )}
               label='AccessMap is developed via the Taskar Center at the University of Washington.'
@@ -123,11 +128,7 @@ const LinkOverlay = (props) => {
                   href='https://www.washington.edu/giving/make-a-gift/?page=funds&source_typ=3&source=TASKAR'
                   target='_blank'
                 >
-                  <FontIcon
-                    error
-                  >
-                    favorite
-                  </FontIcon>
+                  <SVGIcon error use={heart.url} />
                 </Button>
               )}
               label='Contribute to AccessMap development by donating to the Taskar Center. Mention AccessMap in the comment.'
@@ -148,10 +149,11 @@ const LinkOverlay = (props) => {
               buttons={
                 <Button
                   icon
+                  svg
                   href='https://twitter.com/accessmapsea'
                   target='_blank'
                 >
-                  <TwitterIcon />
+                  <SVGIcon use={twitter.url} />
                 </Button>
               }
               label={'Follow us on social media.'}
@@ -160,9 +162,10 @@ const LinkOverlay = (props) => {
               buttons={
                 <Button
                   icon
+                  svg
                   href='mailto:accessmap.info@gmail.com'
                 >
-                  mail
+                  <SVGIcon use={email.url} />
                 </Button>
               }
               label='Email us if you encounter issues or want to help out'

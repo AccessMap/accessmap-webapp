@@ -20,6 +20,20 @@
     text-align: right;
   }
 
+  .search-icon {
+    @media #{$md-mobile-media} {
+      margin-bottom: 8px;
+    }
+    @media #{$md-mobile-landscape-media} {
+      margin-bottom: 8px;
+    }
+    @media #{$md-tablet-media} {
+      margin-bottom: 12px;
+    }
+    @media #{$md-desktop-media} {
+      margin-bottom: 14px;
+    }
+  }
 
   #address-search-menu,
   #destination-geocoder-menu,

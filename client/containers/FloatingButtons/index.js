@@ -9,6 +9,7 @@ import * as AppActions from 'actions';
 import Button from 'react-md/lib/Buttons';
 import SVGIcon from 'react-md/lib/SVGIcons';
 
+import crosshairsGPS from 'icons/crosshairs-gps.svg';
 import minus from 'icons/minus.svg';
 import plus from 'icons/plus.svg';
 
@@ -31,13 +32,13 @@ const FloatingButtons = (props) => {
     <div className='floating-buttons'>
       <Button
         floating
-        secondary
+        svg
         mini
         tooltipLabel='Zoom to your location'
         tooltipPosition='left'
         onClick={actions.toggleGeolocation}
       >
-        gps_fixed
+        <SVGIcon secondary use={crosshairsGPS.url} />
       </Button>
       <Button
         floating

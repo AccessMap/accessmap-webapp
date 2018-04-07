@@ -8,11 +8,14 @@ import { ListItemControl } from 'react-md/lib/Lists';
 import { MenuButton } from 'react-md/lib/Menus';
 import { Switch } from 'react-md/lib/SelectionControls';
 import Toolbar from 'react-md/lib/Toolbars';
+import SVGIcon from 'react-md/lib/SVGIcons';
 
 import AccessMapIcon from 'components/Icons/AccessMapIcon';
 import AccessMapLogo from 'components/Icons/AccessMapLogo';
 
 import * as AppActions from 'actions';
+
+import dotsVertical from 'icons/dots-vertical.svg';
 
 
 const TopBar = (props) => {
@@ -89,7 +92,7 @@ const TopBar = (props) => {
             />,
           ]}
         >
-          more_vert
+          <SVGIcon use={dotsVertical.url} />
         </MenuButton>,
       ]}
       themed

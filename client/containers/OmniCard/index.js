@@ -13,18 +13,21 @@ import { pointFeature } from 'prop-schema';
 import Button from 'react-md/lib/Buttons';
 import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
-import FontIcon from 'react-md/lib/FontIcons';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import Slider from 'react-md/lib/Sliders';
+import SVGIcon from 'react-md/lib/SVGIcons';
 import { Tabs, Tab } from 'react-md/lib/Tabs';
 import Toolbar from 'react-md/lib/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
-import TooltipFontIcon from 'components/TooltipFontIcon';
 
 import CaneUserIcon from 'components/Icons/CaneUserIcon';
 import PoweredWheelchairIcon from 'components/Icons/PoweredWheelchairIcon';
 import WheelchairIcon from 'components/Icons/WheelchairIcon';
+
+import directions from 'icons/directions.svg';
+import magnify from 'icons/magnify.svg';
+import settings from 'icons/settings.svg';
 
 
 const OmniCard = (props) => {
@@ -212,22 +215,21 @@ const OmniCard = (props) => {
           />
         }
         actions={[
-          <FontIcon
-            key='search-icon'
-            className={cn('md-btn--toolbar md-btn--icon')}
-          >
-            search
-          </FontIcon>,
+          <SVGIcon
+            className={cn('md-btn--toolbar search-icon')}
+            use={magnify.url}
+          />,
           <Button
             className='md-btn--toolbar'
             key='omnicard-tripplanning--toggle'
-            secondary
             icon
+            secondary
+            svg
             tooltipLabel='Plan a trip'
             tooltipPosition='left'
             onClick={() => actions.toggleTripPlanning(planningTrip)}
           >
-            directions
+            <SVGIcon use={directions.url} />
           </Button>,
         ]}
       />
@@ -291,11 +293,12 @@ const OmniCard = (props) => {
     profileActions.unshift(
       <Button
         icon
+        svg
         tooltipLabel='Edit profile settings'
         tooltipPosition='left'
         onClick={() => actions.toggleSettingProfile(settingProfile)}
       >
-        settings
+        <SVGIcon use={settings.url} />
       </Button>,
     );
   }
@@ -359,12 +362,6 @@ const OmniCard = (props) => {
       label={(
         <React.Fragment>
           {`Avoid uphill steepness above ${uphillPercent}%`}
-          <TooltipFontIcon
-            tooltipLabel='Cutoff for uphill steepness'
-            tooltipPosition='top'
-          >
-            help
-          </TooltipFontIcon>
         </React.Fragment>
       )}
       defaultValue={uphillPercent}
@@ -383,13 +380,7 @@ const OmniCard = (props) => {
       id='downhill-slider'
       label={(
         <React.Fragment>
-          {`Maximum downhill incline: ${downhillPercent}%`}
-          <TooltipFontIcon
-            tooltipLabel='Cutoff for downhill steepness'
-            tooltipPosition='top'
-          >
-            help
-          </TooltipFontIcon>
+          {`Avoid downhill steepness below ${downhillPercent}%`}
         </React.Fragment>
       )}
       defaultValue={-downhillPercent}
@@ -409,17 +400,7 @@ const OmniCard = (props) => {
       type='switch'
       checked={requireCurbRamps}
       id='require_curbramps'
-      label={(
-        <React.Fragment>
-          {'Require Curb Ramps'}
-          <TooltipFontIcon
-            tooltipLabel='Check if you need curb ramps'
-            tooltipPosition='top'
-          >
-            help
-          </TooltipFontIcon>
-        </React.Fragment>
-      )}
+      label='Require curb ramps'
       name='require_curbramps_toggle'
       onChange={actions.toggleCurbRamps}
     />
@@ -440,9 +421,9 @@ const OmniCard = (props) => {
       settingsComponent = uphillSlider;
   }
 
-  let settings;
+  let settingsPanel;
   if (mediaType === 'MOBILE') {
-    settings = (
+    settingsPanel = (
       <React.Fragment>
         <Tabs
           tabId='custom-settings'
@@ -473,7 +454,7 @@ const OmniCard = (props) => {
       </React.Fragment>
     );
   } else {
-    settings = (
+    settingsPanel = (
       <React.Fragment>
         <CardText>
           {uphillSlider}
@@ -507,7 +488,7 @@ const OmniCard = (props) => {
       {defaultMode ? profileLabelView : null}
       {defaultMode ? profileBar : null}
       {showSettings ? divider : null}
-      {showSettings ? settings : null}
+      {showSettings ? settingsPanel : null}
     </Card>
   );
 };

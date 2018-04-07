@@ -16,6 +16,8 @@ import Toolbar from 'react-md/lib/Toolbars';
 import SidewalkIcon from 'components/Icons/SidewalkIcon';
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';
 
+import information from 'icons/information.svg';
+
 
 const MapInfoButton = (props) => {
   const {
@@ -32,12 +34,12 @@ const MapInfoButton = (props) => {
     <div className='mapinfo-btn'>
       <Button
         floating
-        secondary
+        mini
         tooltipLabel='Map Legend'
         tooltipPosition='left'
         onClick={actions.viewMapInfo}
       >
-        information
+        <SVGIcon secondary use={information.url} />
       </Button>
     </div>
   );
