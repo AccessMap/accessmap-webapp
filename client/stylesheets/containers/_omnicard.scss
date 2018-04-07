@@ -95,12 +95,29 @@
     border-top-color: $md-secondary-color;
   }
 
-  // Shrink padding for cardtext elements in omnicard when in mobile view
-  .timepicker,
-  .profile-label {
-    @media only screen and (max-width: #{$md-tablet-min-width}) and #{$md-portrait-media} {
+  @media only screen and (max-width: #{$md-tablet-min-width}) and #{$md-portrait-media} {
+    // Mobile portrait mode: screen real estate is at a premium
+
+    // Shrink toolbars
+    @include react-md-toolbars-mobile-landscape;
+
+    // Shrink padding on CardText elements
+    .md-card-text {
       padding-top: 0;
       padding-bottom: 0;
+    }
+
+    // Shrink icon padding in profile selector, make bottom border on card.
+    .profiles-container {
+      .md-ink-container {
+        height: 40px;
+      }
+
+      .md-btn--icon {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        height: 40px;
+      }
     }
   }
 
