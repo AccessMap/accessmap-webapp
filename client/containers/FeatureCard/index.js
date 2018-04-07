@@ -12,6 +12,12 @@ import OpeningHoursTable from 'components/OpeningHoursTable';
 
 import * as AppActions from 'actions';
 
+const SURFACE_MAP = {
+  asphalt: 'Asphalt',
+  concrete: 'Concrete',
+  gravel: 'Gravel',
+  paving_stone: 'Paving stones',
+};
 
 const ContentRow = props => (
   <TableRow>
@@ -109,7 +115,7 @@ const FeatureCard = (props) => {
            :
              null
           }
-          {surface !== undefined ? <ContentRow label='Surface' content={surface} /> : null}
+          {surface !== undefined ? <ContentRow label='Surface' content={SURFACE_MAP[surface]} /> : null}
           {indoor !== undefined ? <ContentRow label='Indoor' content={indoor ? 'Yes' : 'No'} /> : null}
           {via !== undefined ? <ContentRow label='Via' content={via} /> : null}
           {
