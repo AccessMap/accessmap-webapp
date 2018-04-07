@@ -171,13 +171,13 @@ module.exports = function (env) {
       },
       proxy: {
         '/api': {
-          target: process.env.APISERVER,
+          target: process.env.API_SERVER,
           secure: false,
           changeOrigin: true,
           pathRewrite: { '^/api': '' },
         },
         '/tiles': {
-          target: process.env.TILESERVER,
+          target: process.env.TILE_SERVER,
           secure: false,
           changeOrigin: true,
           pathRewrite: { '^/tiles': '' },
