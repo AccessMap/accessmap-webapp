@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
     "profile": "cross-env NODE_ENV=production webpack --env.prod=true --env.profile=true",
-    "prod": "cross-env NODE_ENV=production webpack-dev-server --env.prod=true",
+    "prod": "cross-env NODE_ENV=production webpack --env.prod=true",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "lint": "eslint ./client ./webpack.config.js -f table || true",
     "linttest": "eslint ./client ./webpack.config.js -f table"
