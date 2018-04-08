@@ -7,13 +7,19 @@ import {
   RESIZE_OMNICARD,
 } from 'actions';
 
+import precisionRound from 'utils/precisionRound';
+
 // Default actions
 import { defaultLog as defaults } from './defaults';
 
 const handleBounds = (state = defaults.bounds, action) => {
   switch (action.type) {
     case LOG_BOUNDS:
-      return action.payload;
+      // Floating point errors can cause infinite loops. This avoids them.
+      if (precisionRound(action.payload, 8) !== precisionRound(state, 8)) {
+        return action.payload;
+      }
+      return state;
     case MAP_MOVE:
       return action.payload.bounds;
     default:
