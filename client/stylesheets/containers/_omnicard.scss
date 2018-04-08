@@ -81,7 +81,6 @@
 
     .md-selection-control-toggle {
       padding-right: 0px;
-      width: 40px;
     }
 
     .profile-selected {
@@ -135,6 +134,15 @@
         padding-top: 8px;
         padding-bottom: 8px;
         height: 40px;
+      }
+
+      .md-selection-control-container {
+        margin-right: 4px;
+      }
+
+      .md-selection-control-toggle {
+        padding-right: 0px;
+        width: 40px;
       }
     }
   }
