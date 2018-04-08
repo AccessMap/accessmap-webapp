@@ -41,6 +41,7 @@ export const defaultView = {
 
 export const defaultLog = {
   bounds: null,
+  omniCardDim: null,
 };
 
 export const defaultMap = {

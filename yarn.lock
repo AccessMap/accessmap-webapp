@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@mapbox/geo-viewport@^0.2.2":
+"@mapbox/geo-viewport@mapbox/geo-viewport#15/head":
   version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@mapbox/geo-viewport/-/geo-viewport-0.2.2.tgz#93206c044238c21a60fca7e9064c8ce63e8027b4"
+  resolved "https://codeload.github.com/mapbox/geo-viewport/tar.gz/bd034e5abbd141130585485b1a610ac49e8a4702"
   dependencies:
     "@mapbox/sphericalmercator" "~1.0.2"
 
@@ -20,7 +20,7 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@mapbox/shelf-pack/-/shelf-pack-3.1.0.tgz#1edea9c0bf6715b217171ba60646c201af520f6a"
 
-"@mapbox/sphericalmercator@~1.0.2":
+"@mapbox/sphericalmercator@^1.0.5", "@mapbox/sphericalmercator@~1.0.2":
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/@mapbox/sphericalmercator/-/sphericalmercator-1.0.5.tgz#70237b9774095ed1cfdbcea7a8fd1fc82b2691f2"
 

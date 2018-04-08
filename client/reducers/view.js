@@ -1,4 +1,6 @@
+// Note: using geo-viewport from a pull request that allows decimal zooms
 import geoViewport from '@mapbox/geo-viewport';
+import SphericalMercator from '@mapbox/sphericalmercator';
 import bbox from '@turf/bbox';
 import bboxPolygon from '@turf/bbox-polygon';
 import inside from '@turf/inside';
@@ -22,14 +24,6 @@ import {
 
 // Default actions
 import { defaultView as defaults } from './defaults';
-
-// OmniCard dimensions for use in calcs that prevent map results don't overlap
-// the controls. These are hard-coded for now to avoid needing to put control
-// size into the state tree // use CSS selections.
-const omniCardDim = {
-  width: 350,
-  height: 150,
-};
 
 export default (state = defaults, action) => {
   switch (action.type) {
@@ -76,66 +70,157 @@ export default (state = defaults, action) => {
         zoom: 16,
       };
     case RECEIVE_ROUTE: {
-      const { routeResult, mediaType } = action.payload;
+      const { routeResult, mediaType, omniCardDim } = action.payload;
 
       if (routeResult.routes.length > 0) {
-        // Give a little space so that pins can be seen, etc.
-        const MARGIN_FACTOR = 0.0;
+        /*
+         * Place the route in the middle of the main map space:
+         *   - Mobile portrait: below OmniCard
+         *   - Mobile landscape: to the right of the OmniCard
+         *   - Tablet/Desktop: to the right of the OmniCard
+         */
+        const tileSize = 512;
 
-        // Calculate left/top padding so that route isn't hidden behind widgets
-        let fracX;
-        let fracY;
-        if (mediaType === 'MOBILE') {
-          // For mobile, there's only vertically blocking elements
-          fracX = 0;
-          fracY = state.mapHeight / (state.mapHeight - omniCardDim.height);
-        } else {
-          // For non-mobile, place to the right of the OmniCard
-          fracX = state.mapWidth / (state.mapWidth - omniCardDim.width);
-          fracY = 0;
-        }
-
-        // FIXME: when this goes global, need to account for longitude delta
-        // being negative.
+        // FIXME: the routeResult doesn't include the start/end points
+        // The routeResult doesn't include origin/destination
         const bounds = bbox({
           type: 'Feature',
           geometry: routeResult.routes[0].geometry,
         });
+        const [ox, oy] = routeResult.origin.geometry.coordinates;
+        const [ex, ey] = routeResult.destination.geometry.coordinates;
+        bounds[0] = Math.min(bounds[0], ox, ex);
+        bounds[1] = Math.min(bounds[1], oy, ey);
+        bounds[2] = Math.max(bounds[2], ox, ex);
+        bounds[3] = Math.max(bounds[3], oy, ey);
 
-        // The size of the bounding box, in lat-lon degrees
-        const deltaLon = (bounds[2] - bounds[0]);
-        const deltaLat = (bounds[3] - bounds[1]);
-
-        // The degrees pad on the outside of the box, so that map markers can
-        // be seen.
-        const paddingLon = MARGIN_FACTOR * deltaLon;
-        const paddingLat = MARGIN_FACTOR * deltaLat;
-
-        // The padded dimensions of the bounding box
-        const paddedDim = {
-          w: bounds[0] - paddingLon,
-          e: bounds[2] + paddingLon,
-          s: bounds[1] - paddingLat,
-          n: bounds[3] + paddingLat,
+        // Calculate the space available for displaying the route
+        // TODO: subtract toolbar height
+        const margins = {
+          left: 0,
+          bottom: 0,
+          right: 0,
+          top: 0,
         };
 
-        // Padded bounding box, adjusted to not overlap widgets
-        // NOTE: only left and top adjustments are currently applied
-        const dim = {
-          w: paddedDim.w - (fracX * deltaLon),
-          e: paddedDim.e,
-          s: paddedDim.s,
-          n: paddedDim.n + (fracY * deltaLat),
+        // TODO:  Extract this info more programmatically - some of these
+        // numbers are magic / hard-coded and may change as we tweak styles.
+        // Should be able to extract from these components' dimensions:
+        //   - map-overlay
+        //   - omnicard
+        //   - topbar
+        //   - floatingbuttons
+        // FIXME: portrait mode is broken - need to know which mode we're in
+        if (mediaType === 'MOBILE') {
+          margins.top += omniCardDim.height;
+          // Padding of 8 on top of omnicard. Programmatic way to get this?
+          margins.top += 8;
+        } else {
+          // Tablet or desktop
+          margins.left += omniCardDim.width;
+          // Padding of 8 to left of omnicard. Programmatic way to get this?
+          margins.left += 8;
+          // this is a hard-coded magic number for the foating buttons
+          margins.right += 48;
+          // this is a hard-coded magic number for the topbar
+          margins.top += 64;
+        }
+
+        // These are the pixel dimensions of the map view
+        const mapView = {
+          width: state.mapWidth - margins.left - margins.right,
+          height: state.mapHeight - margins.bottom - margins.top,
+        };
+        const viewAspect = mapView.width / mapView.height;
+
+        // Get the bounds in web mercator - proportional (equivalent?) to
+        // pixels
+        const sm = new SphericalMercator(tileSize);
+        const boundsWM = sm.convert(bounds, '900913');
+        const routeAspect = (boundsWM[2] - boundsWM[0]) / (boundsWM[3] - boundsWM[1]);
+
+        /*
+         * Expand the bounding box with some padding for the route
+         */
+
+        // Padding in pixels
+        const padding = 80;
+        // Convert to web mercator units
+
+        /*
+         * Expand the bounds to fit in the map view area (px and py)
+         */
+
+        // Calculate the aspect ratio of the route
+        let dxWM = boundsWM[2] - boundsWM[0];
+        let dyWM = boundsWM[3] - boundsWM[1];
+
+        let paddingWM;
+        let side;
+        if (viewAspect > routeAspect) {
+          // View aspect is wider, so route will be centered on X axis
+          // - expand route west/east bbox to match aspect of view
+
+          // Use the y dim to find the padding
+          paddingWM = (dyWM / mapView.height) * padding;
+
+          side = ((viewAspect * dyWM) - dxWM) / 2;
+          boundsWM[0] -= side;
+          boundsWM[2] += side;
+        } else {
+          // Route aspect is taller, so route will be centered on Y axis
+          // - expand route north/west bbox to match aspect of view
+          // Use the x dim to find the padding
+          paddingWM = (dxWM / mapView.width) * padding;
+
+          side = ((dxWM / viewAspect) - dyWM) / 2;
+          boundsWM[1] -= side;
+          boundsWM[3] += side;
+        }
+
+        const paddedBoundsWM = [
+          boundsWM[0] - paddingWM,
+          boundsWM[1] - paddingWM,
+          boundsWM[2] + paddingWM,
+          boundsWM[3] + paddingWM,
+        ];
+
+        dxWM = paddedBoundsWM[2] - paddedBoundsWM[0];
+        dyWM = paddedBoundsWM[3] - paddedBoundsWM[1];
+
+        /*
+         * Expand the bounding box to include the previous element margins
+         */
+
+        const ratioX = dxWM / mapView.width;
+        const ratioY = dyWM / mapView.height;
+
+        const marginsWM = {
+          left: ((margins.left + mapView.width) * ratioX) - dxWM,
+          right: ((margins.right + mapView.width) * ratioX) - dxWM,
+          bottom: ((margins.bottom + mapView.height) * ratioY) - dyWM,
+          top: ((margins.top + mapView.height) * ratioY) - dyWM,
         };
 
-        const { center, zoom } = geoViewport.viewport([
-          dim.w,
-          dim.s,
-          dim.e,
-          dim.n,
-        ],
-        [state.mapWidth, state.mapHeight],
-        0, 17, 512);
+        // Adjust bounds to fit whole map
+        const boundsWMFull = [
+          paddedBoundsWM[0] - marginsWM.left,
+          paddedBoundsWM[1] - marginsWM.bottom,
+          paddedBoundsWM[2] + marginsWM.right,
+          paddedBoundsWM[3] + marginsWM.top,
+        ];
+
+        // Return to lon-lat
+        const boundsFull = sm.convert(boundsWMFull, 'WGS84');
+
+        const { center, zoom } = geoViewport.viewport(
+          boundsFull,
+          [state.mapWidth, state.mapHeight],
+          0,
+          22,
+          tileSize,
+          true,
+        );
 
         return {
           ...state,

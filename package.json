@@ -44,7 +44,8 @@
     "webpack-dev-server": "2.4.1"
   },
   "dependencies": {
-    "@mapbox/geo-viewport": "^0.2.2",
+    "@mapbox/geo-viewport": "mapbox/geo-viewport#15/head",
+    "@mapbox/sphericalmercator": "^1.0.5",
     "@turf/bbox": "^4.5.2",
     "@turf/bbox-polygon": "4.7.3",
     "@turf/inside": "^4.5.2",

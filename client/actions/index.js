@@ -75,8 +75,9 @@ export const LOAD_MAP = 'LOAD_MAP';
 export const RESIZE_MAP = 'RESIZE_MAP';
 export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
-// Logging - track data, doesn't impact rendering
+// Logging - track map view info, but isolated to prevent infinite recursion
 export const LOG_BOUNDS = 'LOG_BOUNDS';
+export const RESIZE_OMNICARD = 'RESIZE_OMNICARD';
 
 // Action creators
 export const enableAnalytics = () => ({
@@ -207,11 +208,12 @@ export const requestRoute = (origin, destination, params) => ({
   },
 });
 
-export const receiveRoute = (routeResult, mediaType) => ({
+export const receiveRoute = (routeResult, mediaType, omniCardDim) => ({
   type: RECEIVE_ROUTE,
   payload: {
     routeResult,
     mediaType,
+    omniCardDim,
   },
   meta: {
     analytics: {
@@ -243,7 +245,8 @@ export const failedRoute = (origin, destination, error) => ({
   },
 });
 
-export const fetchRoute = (origin, destination, params, mediaType) => (dispatch) => {
+export const fetchRoute = (origin, destination, params, mediaType, omniCardDim) => (dispatch) => {
+  // TODO: acquire state here rather than passing it from previous step
   dispatch(requestRoute(origin, destination, params));
 
   const {
@@ -285,7 +288,7 @@ export const fetchRoute = (origin, destination, params, mediaType) => (dispatch)
         throw new Error(response.status);
       },
     )
-    .then(json => dispatch(receiveRoute(json, mediaType)))
+    .then(json => dispatch(receiveRoute(json, mediaType, omniCardDim)))
     .catch(error => dispatch(failedRoute(origin, destination, error.message)));
 };
 
@@ -310,9 +313,8 @@ const routeIfValid = (dispatch, getState) => {
 
   const timeStamp = state.tripplanning.dateTime;
 
-  const {
-    mediaType,
-  } = state.browser;
+  const { mediaType } = state.browser;
+  const { omniCardDim } = state.log;
 
   if (planningTrip && origin !== null && destination !== null) {
     dispatch(fetchRoute(
@@ -320,6 +322,7 @@ const routeIfValid = (dispatch, getState) => {
       destination,
       { inclineMax, inclineMin, requireCurbRamps, speed, timeStamp },
       mediaType,
+      omniCardDim,
     ));
   }
 };
@@ -495,6 +498,12 @@ export const logBounds = bounds => (dispatch, getState) => {
     },
   });
 };
+
+export const resizeOmniCard = (height, width) => ({
+  type: RESIZE_OMNICARD,
+  payload: { height, width },
+});
+
 
 export const setOriginDestination = (latO, lonO, nameO, latD, lonD, nameD) => ({
   type: SET_ORIGIN_DESTINATION,

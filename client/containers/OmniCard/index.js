@@ -13,6 +13,7 @@ import { pointFeature } from 'prop-schema';
 import Button from 'react-md/lib/Buttons';
 import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
+import { ResizeObserver } from 'react-md/lib/Helpers';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
 import Slider from 'react-md/lib/Sliders';
 import SVGIcon from 'react-md/lib/SVGIcons';
@@ -451,6 +452,15 @@ const OmniCard = (props) => {
       {defaultMode ? profileBar : null}
       {showSettings ? divider : null}
       {showSettings ? settingsPanel : null}
+      <ResizeObserver
+        watchWidth
+        watchHeight
+        onResize={({ height, width }) => {
+          if (planningTrip) {
+            actions.resizeOmniCard(height, width);
+          }
+        }}
+      />
     </Card>
   );
 };
