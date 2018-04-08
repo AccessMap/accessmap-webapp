@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 // Used to pass .env to webpack config process.env
 require('dotenv').config();
 
@@ -13,6 +14,7 @@ const staticsPath = path.join(__dirname, './public');
 
 module.exports = function (env) {
   const nodeEnv = env && env.prod ? 'production' : 'development';
+  const isProfile = env && env.profile;
   const isProd = nodeEnv === 'production';
 
   const plugins = [
@@ -25,6 +27,10 @@ module.exports = function (env) {
     new webpack.NamedModulesPlugin(),
     new SpriteLoaderPlugin(),
   ];
+
+  if (isProfile) {
+    plugins.push(new BundleAnalyzerPlugin());
+  }
 
   if (isProd) {
     plugins.push(
@@ -94,7 +100,7 @@ module.exports = function (env) {
         },
         {
           test: /\.(js|jsx)$/,
-          exclude: /node_modules/,
+          exclude: /node_modules\/(?!react-md)/,
           use: {
             loader: 'babel-loader',
             options: {

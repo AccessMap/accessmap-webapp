@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Autocomplete from 'react-md/lib/Autocompletes';
+import Autocomplete from 'react-md/src/js/Autocompletes';
 import MapboxClient from 'mapbox/lib/services/geocoding';
 import throttle from 'lodash.throttle';
 

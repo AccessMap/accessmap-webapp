@@ -15,7 +15,7 @@ import Card, { CardActions, CardText } from 'react-md/lib/Cards';
 import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
 import { ResizeObserver } from 'react-md/lib/Helpers';
 import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
-import Slider from 'react-md/lib/Sliders';
+import Slider from 'react-md/src/js/Sliders';
 import SVGIcon from 'react-md/lib/SVGIcons';
 import { Tabs, Tab } from 'react-md/lib/Tabs';
 import Toolbar from 'react-md/lib/Toolbars';
