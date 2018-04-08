@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import Button from 'react-md/lib/Buttons';
-import { DialogContainer } from 'react-md/lib/Dialogs';
-import List from 'react-md/lib/Lists';
-import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/lib/DataTables';
-import SVGIcon from 'react-md/lib/SVGIcons';
+import Button from 'react-md/src/js/Buttons';
+import { DialogContainer } from 'react-md/src/js/Dialogs';
+import List from 'react-md/src/js/Lists';
+import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/src/js/DataTables';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 
 import email from 'icons/email.svg';
 import githubCircle from 'icons/github-circle.svg';

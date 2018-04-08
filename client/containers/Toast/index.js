@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import Snackbar from 'react-md/lib/Snackbars';
+import Snackbar from 'react-md/src/js/Snackbars';
 
 const Toast = (props) => {
   const {

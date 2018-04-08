@@ -1,5 +1,5 @@
 import React from 'react';
-import SVGIcon from 'react-md/lib/SVGIcons';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 
 
 const AccessMapLogo = () =>

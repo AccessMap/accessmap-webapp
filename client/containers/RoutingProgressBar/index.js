@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import { LinearProgress } from 'react-md/lib/Progress';
+import { LinearProgress } from 'react-md/src/js/Progress';
 
 const RoutingProgressBar = (props) => {
   const {

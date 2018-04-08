@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import Button from 'react-md/lib/Buttons';
-import SVGIcon from 'react-md/lib/SVGIcons';
+import Button from 'react-md/src/js/Buttons';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 
 import crosshairsGPS from 'icons/crosshairs-gps.svg';
 import minus from 'icons/minus.svg';

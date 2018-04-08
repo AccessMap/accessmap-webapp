@@ -1,7 +1,7 @@
 import {
   TABLET_MIN_WIDTH,
   DESKTOP_MIN_WIDTH,
-} from 'react-md/lib/constants/media';
+} from 'react-md/src/js/constants/media';
 
 
 const mediaType = () => {

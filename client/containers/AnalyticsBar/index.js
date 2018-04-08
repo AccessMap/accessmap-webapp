@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Button from 'react-md/lib/Buttons';
-import { CardText } from 'react-md/lib/Cards';
-import Toolbar from 'react-md/lib/Toolbars';
+import Button from 'react-md/src/js/Buttons';
+import { CardText } from 'react-md/src/js/Cards';
+import Toolbar from 'react-md/src/js/Toolbars';
 
 import * as AppActions from 'actions';
 

@@ -6,12 +6,12 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import Button from 'react-md/lib/Buttons';
-import Card from 'react-md/lib/Cards';
-import ExpansionPanel, { ExpansionList } from 'react-md/lib/ExpansionPanels';
-import List, { ListItem } from 'react-md/lib/Lists';
-import SVGIcon from 'react-md/lib/SVGIcons';
-import Toolbar from 'react-md/lib/Toolbars';
+import Button from 'react-md/src/js/Buttons';
+import Card from 'react-md/src/js/Cards';
+import ExpansionPanel, { ExpansionList } from 'react-md/src/js/ExpansionPanels';
+import List, { ListItem } from 'react-md/src/js/Lists';
+import SVGIcon from 'react-md/src/js/SVGIcons';
+import Toolbar from 'react-md/src/js/Toolbars';
 
 import SidewalkIcon from 'components/Icons/SidewalkIcon';
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';

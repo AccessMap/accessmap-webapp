@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import OpeningHours from 'opening_hours';
 
-import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/lib/DataTables';
+import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/src/js/DataTables';
 
 
 const OpeningHoursTable = (props) => {

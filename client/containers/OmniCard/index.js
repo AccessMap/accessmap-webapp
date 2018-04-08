@@ -10,15 +10,15 @@ import * as AppActions from 'actions';
 
 import { pointFeature } from 'prop-schema';
 
-import Button from 'react-md/lib/Buttons';
-import Card, { CardActions, CardText } from 'react-md/lib/Cards';
-import { DatePicker, TimePicker } from 'react-md/lib/Pickers';
-import { ResizeObserver } from 'react-md/lib/Helpers';
-import SelectionControl, { SelectionControlGroup } from 'react-md/lib/SelectionControls';
+import Button from 'react-md/src/js/Buttons';
+import Card, { CardActions, CardText } from 'react-md/src/js/Cards';
+import { DatePicker, TimePicker } from 'react-md/src/js/Pickers';
+import { ResizeObserver } from 'react-md/src/js/Helpers';
+import SelectionControl, { SelectionControlGroup } from 'react-md/src/js/SelectionControls';
 import Slider from 'react-md/src/js/Sliders';
-import SVGIcon from 'react-md/lib/SVGIcons';
-import { Tabs, Tab } from 'react-md/lib/Tabs';
-import Toolbar from 'react-md/lib/Toolbars';
+import SVGIcon from 'react-md/src/js/SVGIcons';
+import { Tabs, Tab } from 'react-md/src/js/Tabs';
+import Toolbar from 'react-md/src/js/Toolbars';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 

@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Button from 'react-md/lib/Buttons';
-import { ListItemControl } from 'react-md/lib/Lists';
-import { MenuButton } from 'react-md/lib/Menus';
-import { Switch } from 'react-md/lib/SelectionControls';
-import Toolbar from 'react-md/lib/Toolbars';
-import SVGIcon from 'react-md/lib/SVGIcons';
+import Button from 'react-md/src/js/Buttons';
+import { ListItemControl } from 'react-md/src/js/Lists';
+import { MenuButton } from 'react-md/src/js/Menus';
+import { Switch } from 'react-md/src/js/SelectionControls';
+import Toolbar from 'react-md/src/js/Toolbars';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 
 import AccessMapIcon from 'components/Icons/AccessMapIcon';
 import AccessMapLogo from 'components/Icons/AccessMapLogo';
