@@ -31,8 +31,8 @@ class App extends PureComponent {
   render = () => (
     <React.Fragment>
       <Toast />
-      <AnalyticsBar />
       <TopBar />
+      <AnalyticsBar />
       <MapOverlay>
         <RoutingProgressBar />
         <OmniCard />

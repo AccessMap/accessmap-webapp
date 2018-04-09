@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Button from 'react-md/src/js/Buttons';
-import { CardText } from 'react-md/src/js/Cards';
-import Toolbar from 'react-md/src/js/Toolbars';
+import Card from 'react-md/src/js/Cards';
 
 import * as AppActions from 'actions';
 
@@ -19,32 +18,21 @@ const AnalyticsBar = (props) => {
   if (analytics !== null) return null;
 
   return (
-    <Toolbar
+    <Card
       className='analyticsbar'
-      actions={[
-        <Button
-          flat
-          primary
-          onClick={actions.enableAnalytics}
-        >
-          okay
-        </Button>,
-        <Button
-          flat
-          primary
-          onClick={actions.disableAnalytics}
-        >
-          turn off
-        </Button>,
-      ]}
-      colored
-      fixed
     >
-      <CardText>
-        AccessMap improves its services and conducts academic research using
-        your experience on this website.
-      </CardText>
-    </Toolbar>
+      <span>
+      Your experience on this website improves AccessMap services and
+      supports academic research.
+      </span>
+      <Button
+        flat
+        primary
+        onClick={actions.enableAnalytics}
+      >
+        okay
+      </Button>
+    </Card>
   );
 };
 
