@@ -15,14 +15,16 @@ import Card, { CardActions, CardText } from 'react-md/src/js/Cards';
 import Collapse from 'react-md/src/js/Helpers/Collapse';
 import { DatePicker, TimePicker } from 'react-md/src/js/Pickers';
 import { ResizeObserver } from 'react-md/src/js/Helpers';
-import SelectionControl, { SelectionControlGroup } from 'react-md/src/js/SelectionControls';
-import Slider from 'react-md/src/js/Sliders';
+import { SelectionControlGroup } from 'react-md/src/js/SelectionControls';
 import SVGIcon from 'react-md/src/js/SVGIcons';
-import { Tabs, Tab } from 'react-md/src/js/Tabs';
 import Toolbar from 'react-md/src/js/Toolbars';
 import Tooltipped from 'react-md/src/js/Tooltips/Tooltipped';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
+
+import CurbRampsToggle from 'containers/Settings/CurbRampsToggle';
+import DownhillSlider from 'containers/Settings/DownhillSlider';
+import UphillSlider from 'containers/Settings/UphillSlider';
 
 import caneUser from 'icons/cane-user.svg';
 import directions from 'icons/directions.svg';
@@ -39,15 +41,11 @@ const OmniCard = (props) => {
     dateTime,
     destination,
     destinationText,
-    inclineMax,
-    inclineMin,
     mediaType,
-    mode,
     origin,
     originText,
     planningTrip,
     profileName,
-    requireCurbRamps,
     searchText,
     settingProfile,
     showTripOptions,
@@ -55,71 +53,12 @@ const OmniCard = (props) => {
   } = props;
 
   const isMobile = mediaType === 'MOBILE';
-  const defaultMode = (!isMobile || !settingProfile);
-  const showSettings = (!isMobile || settingProfile);
-  const showOmniCard = (!isMobile || !viewingMapInfo);
 
-  // Logic:
-  // This controller has multiple states, branching first on device and then
-  // on activity:
-  // 1. Desktop/tablet
-  //   A. Default:
-  //     - Search geocoder visible
-  //     - Profiles selectable
-  //     - Profile settings always visible
-  //   B. In trip planning mode
-  //     - Search geocoder gets swapped for two geocoders - start and end
-  // 2. Mobile
-  //   A. Default:
-  //     - Search geocoder visible
-  //     - Profiles selectable
-  //     - Profile settings hidden
-  //   B. In trip planning mode
-  //     - Same as for desktop, but profile settings still hidden
-  //   C. After clicking the 'custom settings' button:
-  //     - Geocoders hide, only settings shown. Close button in upper right to
-  //     get out of this mode
-  //
-  //  These states could be achieved in multiple fashions, e.g. by setting
-  //  display: * properties in CSS based on classes, etc, or by
-  //  creating/destroying components on the fly. I prefer the latter because it
-  //  leaves the DOM cleaner.
-  //
-  //  So, the card's logic:
-  //  1. When mobile and settings on: card only has settings + close button.
-  //  2. When mobile and settings off: card has top bar and profiles.
-  //  3. When in desktop mode, settings are always visible.
-  //  4. Top bar swaps between search and waypoints depending on trip planning
-  //  mode.
-  if (!showOmniCard) return null;
+  if (isMobile && settingProfile) return null;
+  if (isMobile && viewingMapInfo) return null;
 
   let topBar;
-  if (isMobile && settingProfile) {
-    // Mobile browser and settings should be open
-    topBar = (
-      <Toolbar
-        nav={
-          <Button
-            flat
-            primary
-            onClick={() => actions.setProfileDefault(profileName)}
-          >
-            Reset to defaults
-          </Button>
-        }
-        actions={[
-          <Button
-            tooltipLabel='Close'
-            tooltipPosition='left'
-            onClick={() => actions.toggleSettingProfile(settingProfile)}
-            icon
-          >
-            close
-          </Button>,
-        ]}
-      />
-    );
-  } else if (planningTrip) {
+  if (planningTrip) {
     topBar = (
       <React.Fragment>
         <Toolbar
@@ -313,7 +252,7 @@ const OmniCard = (props) => {
   const date = new Date(dateTime);
 
   const timePicker = (
-    <Collapse collapsed={!showTripOptions}>
+    <Collapse collapsed={isMobile && !showTripOptions}>
       <CardText className='timepicker'>
         <DatePicker
           id='date-picker'
@@ -337,132 +276,32 @@ const OmniCard = (props) => {
     </Collapse>
   );
 
-  const profileBar = (
-    <Toolbar
-      className='profiles-toolbar'
-      nav={
-        <SelectionControlGroup
-          className='profiles-container'
-          id='profile-radio-selector'
-          name='routing-profile-selector'
-          type='radio'
-          controls={profileList}
-          controlClassName='md-inline-block'
-        />
+  return (
+    <Card className='omnicard'>
+      {topBar}
+      <Toolbar
+        className='profiles-toolbar'
+        nav={
+          <SelectionControlGroup
+            className='profiles-container'
+            id='profile-radio-selector'
+            name='routing-profile-selector'
+            type='radio'
+            controls={profileList}
+            controlClassName='md-inline-block'
+          />
+        }
+        actions={profileActions}
+      />
+      {!isMobile ?
+        <CardText>
+          <UphillSlider />
+          <DownhillSlider />
+          <CurbRampsToggle />
+        </CardText> :
+        null
       }
-      actions={profileActions}
-    />
-  );
-
-  const uphillPercent = +(inclineMax * 100).toFixed(1);
-  const downhillPercent = +(inclineMin * 100).toFixed(1);
-
-  const uphillSlider = (
-    <Slider
-      discrete
-      id='uphill-slider'
-      label={(
-        <React.Fragment>
-          {`Avoid uphill steepness above ${uphillPercent}%`}
-        </React.Fragment>
-      )}
-      defaultValue={uphillPercent}
-      min={4}
-      max={15}
-      step={0.5}
-      valuePrecision={1}
-      onChange={d => actions.setInclineMax(d / 100)}
-      value={uphillPercent}
-    />
-  );
-
-  const downhillSlider = (
-    <Slider
-      discrete
-      id='downhill-slider'
-      label={(
-        <React.Fragment>
-          {`Avoid downhill steepness below ${downhillPercent}%`}
-        </React.Fragment>
-      )}
-      defaultValue={-downhillPercent}
-      min={4}
-      max={15}
-      step={0.5}
-      valuePrecision={1}
-      onChange={d => actions.setInclineMin(-d / 100)}
-      onMouseEnter={actions.mouseOverDownhill}
-      onMouseLeave={actions.mouseOutDownhill}
-      value={-downhillPercent}
-    />
-  );
-
-  const curbrampToggle = (
-    <SelectionControl
-      type='switch'
-      checked={requireCurbRamps}
-      id='require_curbramps'
-      label='Require curb ramps'
-      name='require_curbramps_toggle'
-      onChange={actions.toggleCurbRamps}
-    />
-  );
-
-  let settingsComponent;
-  switch (mode) {
-    case 'UPHILL':
-      settingsComponent = uphillSlider;
-      break;
-    case 'DOWNHILL':
-      settingsComponent = downhillSlider;
-      break;
-    case 'OTHER':
-      settingsComponent = curbrampToggle;
-      break;
-    default:
-      settingsComponent = uphillSlider;
-  }
-
-  let settingsPanel;
-  if (isMobile) {
-    settingsPanel = (
-      <React.Fragment>
-        <Tabs
-          tabId='custom-settings'
-          inactiveTabClassName='md-text--secondary'
-          onTabChange={(activeTabIndex) => {
-            switch (activeTabIndex) {
-              case 0:
-                actions.openUphillPreferences();
-                break;
-              case 1:
-                actions.openDownhillPreferences();
-                break;
-              case 2:
-                actions.openOtherPreferences();
-                break;
-              default:
-                actions.openUphillPreferences();
-            }
-          }}
-        >
-          <Tab id='tab-uphill' label='Uphill' />
-          <Tab id='tab-downhill' label='Downhill' />
-          <Tab id='tab-other' label='Other' />
-        </Tabs>
-        <CardText>
-          {settingsComponent}
-        </CardText>
-      </React.Fragment>
-    );
-  } else {
-    settingsPanel = (
-      <React.Fragment>
-        <CardText>
-          {uphillSlider}
-          {downhillSlider}
-          {curbrampToggle}
-        </CardText>
+      {!isMobile ?
         <CardActions>
           <Button
             flat
@@ -471,24 +310,9 @@ const OmniCard = (props) => {
           >
             Reset to defaults
           </Button>
-        </CardActions>
-      </React.Fragment>
-    );
-  }
-
-  const divider = (
-    <div className='dividers__border-example'>
-      <div className='md-divider-border md-divider-border--top' />
-    </div>
-  );
-
-  return (
-    <Card className='omnicard'>
-      {topBar}
-      {(defaultMode && !isMobile) ? divider : null}
-      {defaultMode ? profileBar : null}
-      {showSettings ? divider : null}
-      {showSettings ? settingsPanel : null}
+        </CardActions> :
+        null
+      }
       {planningTrip ? timePicker : null}
       <ResizeObserver
         watchWidth
@@ -509,15 +333,11 @@ OmniCard.propTypes = {
   dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
   destinationText: PropTypes.string,
-  inclineMax: PropTypes.number.isRequired,
-  inclineMin: PropTypes.number.isRequired,
   origin: pointFeature({ name: PropTypes.string }),
   originText: PropTypes.string,
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
-  mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   planningTrip: PropTypes.bool,
   profileName: PropTypes.string.isRequired,
-  requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
   searchText: PropTypes.string,
   showTripOptions: PropTypes.bool,
@@ -530,7 +350,6 @@ OmniCard.defaultProps = {
   origin: null,
   originText: '',
   mediaType: 'DESKTOP',
-  mode: 'UPHILL',
   planningTrip: false,
   settingProfile: false,
   searchText: '',
@@ -542,7 +361,6 @@ const mapStateToProps = (state) => {
   const {
     activities,
     browser,
-    mode,
     routingprofile,
     tripplanning,
     view,
@@ -556,15 +374,11 @@ const mapStateToProps = (state) => {
     dateTime: tripplanning.dateTime,
     destination: waypoints.destination,
     destinationText: tripplanning.geocoderText.destinationText,
-    inclineMax: profile.inclineMax,
-    inclineMin: profile.inclineMin,
     origin: waypoints.origin,
     originText: tripplanning.geocoderText.originText,
     mediaType: browser.mediaType,
-    mode,
     planningTrip: activities.planningTrip,
     profileName: profile.name,
-    requireCurbRamps: profile.requireCurbRamps,
     selectedProfile: routingprofile.selectedProfile,
     settingProfile: activities.settingProfile,
     searchText: tripplanning.geocoderText.searchText,
