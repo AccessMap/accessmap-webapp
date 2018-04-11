@@ -37,6 +37,7 @@ export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
 export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
 // Trip planning options
+export const HIDE_TRIP_OPTIONS = 'HIDE_TRIP_OPTIONS';
 export const SET_DATE = 'SET_DATE';
 export const SET_TIME = 'SET_TIME';
 export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
@@ -45,6 +46,7 @@ export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 export const SET_DESTINATION = 'SET_DESTINATION';
 export const SET_ORIGIN = 'SET_ORIGIN';
 export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
+export const SHOW_TRIP_OPTIONS = 'SHOW_TRIP_OPTIONS';
 export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
 
 // Map view settings
@@ -652,6 +654,24 @@ export const toggleGeolocation = () => (dispatch, getState) => {
     }
   });
 };
+
+export const hideTripOptions = () => ({
+  type: HIDE_TRIP_OPTIONS,
+  meta: {
+    analytics: {
+      type: 'hide-trip-options',
+    },
+  },
+});
+
+export const showTripOptions = () => ({
+  type: SHOW_TRIP_OPTIONS,
+  meta: {
+    analytics: {
+      type: 'show-trip-options',
+    },
+  },
+});
 
 export const setDate = (year, month, date) => (dispatch, getState) => {
   dispatch({

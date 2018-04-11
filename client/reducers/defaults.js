@@ -13,6 +13,7 @@ export const defaultActivities = {
   fetchingTrip: false,
   planningTrip: false,
   settingProfile: false,
+  showTripOptions: false,
   viewingMapInfo: false,
 };
 

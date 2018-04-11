@@ -14,84 +14,90 @@
   }
 
   // Autocompletes (geocoders)
-  .geocoder-toolbar .md-toolbar--action-left {
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 16px;
-    text-align: center;
-    width: 24px;
-    @media #{$md-desktop-media} {
-      width: 20px;
+  .geocoder-toolbar {
+    .md-toolbar--action-left {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 16px;
+      text-align: center;
+      width: 24px;
+      @media #{$md-desktop-media} {
+        width: 20px;
+      }
     }
-  }
 
-  .search-icon {
-    @media #{$md-mobile-portrait-media} {
-      margin-bottom: 8px;
+    .search-icon {
+      @media #{$md-mobile-portrait-media} {
+        margin-bottom: 8px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        margin-bottom: 8px;
+      }
+      @media #{$md-tablet-media} {
+        margin-bottom: 12px;
+      }
+      @media #{$md-desktop-media} {
+        margin-bottom: 14px;
+      }
     }
-    @media #{$md-mobile-landscape-media} {
-      margin-bottom: 8px;
-    }
-    @media #{$md-tablet-media} {
-      margin-bottom: 12px;
-    }
-    @media #{$md-desktop-media} {
-      margin-bottom: 14px;
-    }
-  }
 
-  #address-search-menu,
-  #destination-geocoder-menu,
-  #origin-geocoder-menu {
-    width: calc(100% - 128px);
-    .md-tile-text--primary {
-      font-weight: $md-font-regular;
+    #address-search-menu,
+    #destination-geocoder-menu,
+    #origin-geocoder-menu {
+      width: calc(100% - 128px);
+      .md-tile-text--primary {
+        font-weight: $md-font-regular;
+      }
     }
-  }
 
-  #origin-geocoder-menu-list,
-  #destination-geocoder-menu-list,
-  #address-search-menu-list {
-    @media #{$md-mobile-media} {
-      width: 256px;
+    #origin-geocoder-menu-list,
+    #destination-geocoder-menu-list,
+    #address-search-menu-list {
+      @media #{$md-mobile-media} {
+        width: 256px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        width: 352px;
+      }
+      @media #{$md-tablet-media} {
+        width: 352px;
+      }
     }
-    @media #{$md-mobile-landscape-media} {
-      width: 352px;
-    }
-    @media #{$md-tablet-media} {
-      width: 352px;
+
+    .md-autocomplete-list .md-list-item .md-list-tile {
+      padding-left: 16px;
     }
   }
 
   // Profile options
-  .profiles-container {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
+  .profiles-toolbar {
+    .profiles-container {
+      padding: 0;
 
-    span h6 {
-      margin-bottom: 0;
-      color: $md-primary-color;
+      span h6 {
+        margin-bottom: 0;
+        color: $md-primary-color;
+      }
+
+      .md-selection-control-toggle {
+        padding-left: 4px;
+      }
+
+      .md-selection-control-toggle + .md-selection-control-toggle {
+        padding-left: 12px;
+      }
+
+      .profile-selected {
+        border-bottom: 3px solid $md-secondary-color;
+      }
     }
 
-
-    .md-selection-control-container {
-      margin-right: 4px;
-    }
-
-    .md-selection-control-toggle {
-      padding-right: 0px;
-    }
-
-    .profile-selected {
-      border-bottom: 3px solid $md-secondary-color;
+    .md-toolbar--action-right {
+      margin-left: auto;
     }
   }
 
-  .md-autocomplete-list .md-list-item .md-list-tile {
-    padding-left: 16px;
-  }
-
+  // Profile editing section
   .md-slider-track-fill,
   .md-slider-thumb--on {
     background: $md-secondary-color;
@@ -101,7 +107,8 @@
     border-top-color: $md-secondary-color;
   }
 
-  @media only screen and (max-width: #{$md-tablet-min-width}) and #{$md-portrait-media} {
+  // Globalish settings for height between mobile / tablet
+  @media only screen and (max-width: #{$md-tablet-min-width}) {
     // Mobile portrait mode: screen real estate is at a premium
 
     // Shrink toolbars
@@ -124,25 +131,20 @@
 
     // Shrink icon padding in profile selector, make bottom border on card.
     .profiles-container {
-      .md-ink-container {
-        left: 4px;
-        height: 40px;
-        width: 40px;
-      }
-
       .md-btn--icon {
         padding-top: 8px;
         padding-bottom: 8px;
         height: 40px;
       }
 
-      .md-selection-control-container {
-        margin-right: 4px;
+      .md-selection-control-toggle {
+        padding-right: 4px;
+        padding-left: 0;
+        width: auto;
       }
 
-      .md-selection-control-toggle {
-        padding-right: 0px;
-        width: 40px;
+      .md-selection-control-container + .md-selection-control-container {
+        margin-left: 4px;
       }
     }
   }

@@ -1,19 +1,32 @@
 import { combineReducers } from 'redux';
 
 import {
+  CLOSE_MAP_INFO,
   FAILED_ROUTE,
+  HIDE_TRIP_OPTIONS,
   RECEIVE_ROUTE,
   REQUEST_ROUTE,
   SET_DESTINATION,
   SET_ORIGIN,
   SET_PROFILE,
+  SHOW_TRIP_OPTIONS,
   TOGGLE_SETTING_PROFILE,
   TOGGLE_TRIP_PLANNING,
   VIEW_MAP_INFO,
-  CLOSE_MAP_INFO,
 } from 'actions';
 
 import { defaultActivities as defaults } from './defaults';
+
+const handleShowTripOptions = (state = defaults.showTripOptions, action) => {
+  switch (action.type) {
+    case SHOW_TRIP_OPTIONS:
+      return true;
+    case HIDE_TRIP_OPTIONS:
+      return false;
+    default:
+      return state;
+  }
+};
 
 const handleSettingProfile = (state = defaults.settingProfile, action) => {
   switch (action.type) {
@@ -66,5 +79,6 @@ export default combineReducers({
   fetchingTrip: handleFetchingTrip,
   planningTrip: handlePlanningTrip,
   settingProfile: handleSettingProfile,
+  showTripOptions: handleShowTripOptions,
   viewingMapInfo: handleViewingMapInfo,
 });

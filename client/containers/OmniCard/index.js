@@ -12,6 +12,7 @@ import { pointFeature } from 'prop-schema';
 
 import Button from 'react-md/src/js/Buttons';
 import Card, { CardActions, CardText } from 'react-md/src/js/Cards';
+import Collapse from 'react-md/src/js/Helpers/Collapse';
 import { DatePicker, TimePicker } from 'react-md/src/js/Pickers';
 import { ResizeObserver } from 'react-md/src/js/Helpers';
 import SelectionControl, { SelectionControlGroup } from 'react-md/src/js/SelectionControls';
@@ -19,13 +20,14 @@ import Slider from 'react-md/src/js/Sliders';
 import SVGIcon from 'react-md/src/js/SVGIcons';
 import { Tabs, Tab } from 'react-md/src/js/Tabs';
 import Toolbar from 'react-md/src/js/Toolbars';
+import Tooltipped from 'react-md/src/js/Tooltips/Tooltipped';
 
 import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
 
 import caneUser from 'icons/cane-user.svg';
 import directions from 'icons/directions.svg';
 import magnify from 'icons/magnify.svg';
-import settings from 'icons/settings.svg';
+import pencil from 'icons/pencil.svg';
 import wheelchair from 'icons/wheelchair.svg';
 import wheelchairPowered from 'icons/wheelchair-powered.svg';
 
@@ -48,12 +50,14 @@ const OmniCard = (props) => {
     requireCurbRamps,
     searchText,
     settingProfile,
+    showTripOptions,
     viewingMapInfo,
   } = props;
 
-  const defaultMode = (mediaType !== 'MOBILE' || !settingProfile);
-  const showSettings = (mediaType !== 'MOBILE' || settingProfile);
-  const showOmniCard = (mediaType !== 'MOBILE' || !viewingMapInfo);
+  const isMobile = mediaType === 'MOBILE';
+  const defaultMode = (!isMobile || !settingProfile);
+  const showSettings = (!isMobile || settingProfile);
+  const showOmniCard = (!isMobile || !viewingMapInfo);
 
   // Logic:
   // This controller has multiple states, branching first on device and then
@@ -90,7 +94,7 @@ const OmniCard = (props) => {
   if (!showOmniCard) return null;
 
   let topBar;
-  if (mediaType === 'MOBILE' && settingProfile) {
+  if (isMobile && settingProfile) {
     // Mobile browser and settings should be open
     topBar = (
       <Toolbar
@@ -194,7 +198,7 @@ const OmniCard = (props) => {
   } else {
     topBar = (
       <Toolbar
-        className='md-background--card'
+        className='geocoder-toolbar'
         title={
           <GeocoderAutocomplete
             id='address-search'
@@ -242,6 +246,7 @@ const OmniCard = (props) => {
     className: profileName === 'wheelchair' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
+    inkDisabled: true,
   }, {
     label: profileName === 'powered' ? <h6>Powered</h6> : '',
     value: 'powered',
@@ -249,6 +254,7 @@ const OmniCard = (props) => {
     className: profileName === 'powered' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
     uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
+    inkDisabled: true,
   }, {
     label: profileName === 'cane' ? <h6>Cane/Walk</h6> : '',
     value: 'cane',
@@ -256,13 +262,14 @@ const OmniCard = (props) => {
     className: profileName === 'cane' ? 'profile-selected' : '',
     checkedRadioIcon: <SVGIcon secondary use={caneUser.url} />,
     uncheckedRadioIcon: <SVGIcon use={caneUser.url} />,
+    inkDisabled: true,
   }];
 
   const profileActions = [
   ];
 
-  if (mediaType === 'MOBILE') {
-    profileActions.unshift(
+  if (isMobile) {
+    profileActions.push(
       <Button
         icon
         svg
@@ -270,38 +277,69 @@ const OmniCard = (props) => {
         tooltipPosition='left'
         onClick={() => actions.toggleSettingProfile(settingProfile)}
       >
-        <SVGIcon use={settings.url} />
+        <SVGIcon use={pencil.url} />
       </Button>,
     );
+    if (planningTrip) {
+      profileActions.push(
+        <Tooltipped
+          label='Show trip options'
+          position='left'
+        >
+          <Button
+            icon
+            className='md-fake-btn md-icon md-btn--icon md-inline-block'
+            onClick={() => {
+              if (showTripOptions) {
+                actions.hideTripOptions();
+              } else {
+                actions.showTripOptions();
+              }
+            }}
+          >
+            <i
+              className={cn('md-icon material-icons md-collapser', {
+                'md-collapser--flipped': showTripOptions,
+              })}
+            >
+              keyboard_arrow_down
+            </i>
+          </Button>
+        </Tooltipped>,
+      );
+    }
   }
 
   const date = new Date(dateTime);
 
   const timePicker = (
-    <CardText className='timepicker'>
-      <DatePicker
-        id='date-picker'
-        defaultValue={date}
-        fullWidth={false}
-        pickerStyle={{ zIndex: 100 }}
-        onChange={(s, d) => {
-          actions.setDate(d.getFullYear(), d.getMonth(),
-                          d.getDate());
-        }}
-      />
-      <TimePicker
-        id='time-picker'
-        autoOk
-        hoverMode
-        defaultValue={date}
-        fullWidth={false}
-        onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
-      />
-    </CardText>
+    <Collapse collapsed={!showTripOptions}>
+      <CardText className='timepicker'>
+        <DatePicker
+          id='date-picker'
+          defaultValue={date}
+          fullWidth={false}
+          pickerStyle={{ zIndex: 100 }}
+          onChange={(s, d) => {
+            actions.setDate(d.getFullYear(), d.getMonth(),
+                            d.getDate());
+          }}
+        />
+        <TimePicker
+          id='time-picker'
+          autoOk
+          hoverMode
+          defaultValue={date}
+          fullWidth={false}
+          onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
+        />
+      </CardText>
+    </Collapse>
   );
 
   const profileBar = (
     <Toolbar
+      className='profiles-toolbar'
       nav={
         <SelectionControlGroup
           className='profiles-container'
@@ -386,7 +424,7 @@ const OmniCard = (props) => {
   }
 
   let settingsPanel;
-  if (mediaType === 'MOBILE') {
+  if (isMobile) {
     settingsPanel = (
       <React.Fragment>
         <Tabs
@@ -447,11 +485,11 @@ const OmniCard = (props) => {
   return (
     <Card className='omnicard'>
       {topBar}
-      {defaultMode ? divider : null}
-      {(defaultMode && planningTrip) ? timePicker : null}
+      {(defaultMode && !isMobile) ? divider : null}
       {defaultMode ? profileBar : null}
       {showSettings ? divider : null}
       {showSettings ? settingsPanel : null}
+      {planningTrip ? timePicker : null}
       <ResizeObserver
         watchWidth
         watchHeight
@@ -482,6 +520,7 @@ OmniCard.propTypes = {
   requireCurbRamps: PropTypes.bool.isRequired,
   settingProfile: PropTypes.bool,
   searchText: PropTypes.string,
+  showTripOptions: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
 };
 
@@ -495,6 +534,7 @@ OmniCard.defaultProps = {
   planningTrip: false,
   settingProfile: false,
   searchText: '',
+  showTripOptions: false,
   viewingMapInfo: false,
 };
 
@@ -528,6 +568,7 @@ const mapStateToProps = (state) => {
     selectedProfile: routingprofile.selectedProfile,
     settingProfile: activities.settingProfile,
     searchText: tripplanning.geocoderText.searchText,
+    showTripOptions: activities.showTripOptions,
     viewingMapInfo: activities.viewingMapInfo,
   };
 };

@@ -2,58 +2,8 @@
   position: absolute;
   background-color: $md-white-base;
 
-  .analytics-dialog {
-    position: absolute;
-    margin-top: 25%;
-
-    @media #{$md-mobile-media} {
-      margin-left: 8px;
-      margin-right: 8px;
-      width: calc(100% - 16px);
-    }
-
-    @media #{$md-mobile-landscape-media} {
-      margin-left: 25%;
-      margin-right: 25%;
-      width: auto;
-    }
-
-    @media #{$md-tablet-media} {
-      margin-left: 25%;
-      margin-right: 25%;
-      width: auto;
-    }
-
-    .md-card-text {
-      padding-bottom: 8px;
-    }
-  }
-
-  #extra-settings-list {
-    @media #{$md-mobile-media} {
-      top: $md-toolbar-mobile-portrait-height;
-    }
-
-    @media #{$md-mobile-landscape-media} {
-      top: $md-toolbar-mobile-landscape-height;
-    }
-
-    @media #{$md-tablet-media} {
-      top: $md-toolbar-tablet-height;
-    }
-  }
-
   .accessmap-title > * {
     margin-top: 16px;
-    @media #{$md-mobile-media} {
-      margin-top: 12px;
-    }
-    @media #{$md-mobile-landscape-media} {
-      margin-top: 8px;
-    }
-    @media #{$md-tablet-media} {
-      margin-top: 12px;
-    }
   }
 
   .accessmapicon {
@@ -71,16 +21,76 @@
     margin-bottom: auto;
     margin-left: 8px;
   }
+
+  .accessmapicon-primary,
+  .accessmaplogo-primary, {
+    fill: #0d47a1;
+  }
+
+  .accessmapicon-secondary,
+  .accessmaplogo-secondary {
+    fill: #448aff;
+  }
+
+  .analytics-dialog {
+    position: absolute;
+    margin-top: 25%;
+
+    .md-card-text {
+      padding-bottom: 8px;
+    }
+  }
+
+  @media #{$md-mobile-portrait-media} {
+    .accessmap-title > * {
+      margin-top: 12px;
+    }
+
+    .analytics-dialog {
+      margin-left: 8px;
+      margin-right: 8px;
+      width: calc(100% - 16px);
+    }
+
+    .md-title {
+      margin-left: 8px;
+    }
+
+    .md-btn--toolbar.md-btn--text {
+      padding-left: 8px;
+      padding-right: 8px;
+      min-width: 60px;
+    }
+
+    #extra-settings-list {
+      top: $md-toolbar-mobile-portrait-height;
+    }
+  }
+  @media #{$md-mobile-landscape-media} {
+    .accessmap-title > * {
+      margin-top: 8px;
+    }
+
+    .analytics-dialog {
+      margin-left: 25%;
+      margin-right: 25%;
+      width: auto;
+    }
+
+    #extra-settings-list {
+      top: $md-toolbar-mobile-landscape-height;
+    }
+  }
+
+  @media #{$md-tablet-media} {
+    .analytics-dialog {
+      margin-left: 25%;
+      margin-right: 25%;
+      width: auto;
+    }
+
+    #extra-settings-list {
+      top: $md-toolbar-tablet-height;
+    }
+  }
 }
-
-
-.accessmapicon-primary,
-.accessmaplogo-primary, {
-  fill: #0d47a1;
-}
-
-.accessmapicon-secondary,
-.accessmaplogo-secondary {
-  fill: #448aff;
-}
-
