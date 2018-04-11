@@ -39,13 +39,13 @@ UphillSlider.propTypes = {
 
 const mapStateToProps = (state) => {
   const {
-    routingprofile,
+    profile,
   } = state;
 
-  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+  const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    inclineMax: profile.inclineMax,
+    inclineMax: currentProfile.inclineMax,
   };
 };
 

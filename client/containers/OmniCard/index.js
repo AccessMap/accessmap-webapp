@@ -264,12 +264,12 @@ const mapStateToProps = (state) => {
   const {
     activities,
     browser,
-    routingprofile,
+    profile,
     tripplanning,
     waypoints,
   } = state;
 
-  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+  const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
     dateTime: tripplanning.dateTime,
@@ -277,8 +277,8 @@ const mapStateToProps = (state) => {
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,
-    profileName: profile.name,
-    selectedProfile: routingprofile.selectedProfile,
+    profileName: currentProfile.name,
+    selectedProfile: profile.selectedProfile,
     settingProfile: activities.settingProfile,
     showTripOptions: activities.showTripOptions,
     viewingMapInfo: activities.viewingMapInfo,

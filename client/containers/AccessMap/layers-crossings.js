@@ -184,13 +184,13 @@ Crossings.propTypes = {
 
 const mapStateToProps = (state) => {
   const {
-    routingprofile,
+    profile,
   } = state;
 
-  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+  const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    requireCurbRamps: profile.requireCurbRamps,
+    requireCurbRamps: currentProfile.requireCurbRamps,
   };
 };
 

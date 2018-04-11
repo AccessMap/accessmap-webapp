@@ -311,7 +311,7 @@ const routeIfValid = (dispatch, getState) => {
     inclineMin,
     requireCurbRamps,
     speed,
-  } = state.routingprofile.profiles[state.routingprofile.selectedProfile];
+  } = state.profile.profiles[state.profile.selectedProfile];
 
   const timeStamp = state.tripplanning.dateTime;
 

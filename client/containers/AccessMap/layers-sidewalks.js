@@ -211,15 +211,15 @@ Sidewalks.defaultProps = {
 const mapStateToProps = (state) => {
   const {
     map,
-    routingprofile,
+    profile,
   } = state;
 
-  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+  const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    inclineMax: profile.inclineMax,
-    inclineMin: profile.inclineMin,
-    speed: profile.speed,
+    inclineMax: currentProfile.inclineMax,
+    inclineMin: currentProfile.inclineMin,
+    speed: currentProfile.speed,
     inclineUphill: map.inclineUphill,
   };
 };

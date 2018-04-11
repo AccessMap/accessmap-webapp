@@ -20,14 +20,14 @@ const SettingsCard = (props) => {
     actions,
     mediaType,
     profileName,
-    settingsMode,
+    editorMode,
     settingProfile,
   } = props;
 
   if (mediaType !== 'MOBILE' || !settingProfile) return null;
 
   let settingsComponent;
-  switch (settingsMode) {
+  switch (editorMode) {
     case 'UPHILL':
       settingsComponent = <UphillSlider />;
       break;
@@ -97,14 +97,14 @@ const SettingsCard = (props) => {
 SettingsCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
-  settingsMode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
+  editorMode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   profileName: PropTypes.string.isRequired,
   settingProfile: PropTypes.bool,
 };
 
 SettingsCard.defaultProps = {
   mediaType: 'DESKTOP',
-  settingsMode: 'UPHILL',
+  editorMode: 'UPHILL',
   settingProfile: false,
 };
 
@@ -112,16 +112,15 @@ const mapStateToProps = (state) => {
   const {
     activities,
     browser,
-    settingseditor,
-    routingprofile,
+    profile,
   } = state;
 
-  const profile = routingprofile.profiles[routingprofile.selectedProfile];
+  const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
     mediaType: browser.mediaType,
-    settingsMode: settingseditor.mode,
-    profileName: profile.name,
+    editorMode: profile.editorMode,
+    profileName: currentProfile.name,
     settingProfile: activities.settingProfile,
   };
 };

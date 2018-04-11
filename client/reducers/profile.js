@@ -2,6 +2,13 @@ import profileDefaults from 'profiles';
 import cloneObject from 'utils/clone-object';
 
 import {
+  CLOSE_PREFERENCES,
+  MOUSE_OUT_DOWNHILL,
+  MOUSE_OVER_DOWNHILL,
+  OPEN_DOWNHILL_PREFERENCES,
+  OPEN_OTHER_PREFERENCES,
+  OPEN_PREFERENCES,
+  OPEN_UPHILL_PREFERENCES,
   SET_INCLINE_MAX,
   SET_INCLINE_MIN,
   SET_PROFILE,
@@ -10,12 +17,42 @@ import {
   TOGGLE_CURBRAMPS,
 } from 'actions';
 
-import { defaultRoutingProfile as defaults } from './defaults';
+import { defaultProfile as defaults } from './defaults';
+
+const modes = {
+  DOWNHILL: 'DOWNHILL',
+  UPHILL: 'UPHILL',
+  OTHER: 'OTHER',
+  NONE: null,
+};
 
 const handleRoutingProfile = (state = defaults, action) => {
   const profiles = state.profiles;
 
   switch (action.type) {
+    case MOUSE_OVER_DOWNHILL:
+    case OPEN_DOWNHILL_PREFERENCES:
+      return {
+        ...state,
+        editorMode: modes.DOWNHILL,
+      };
+    case MOUSE_OUT_DOWNHILL:
+    case OPEN_PREFERENCES:
+    case OPEN_UPHILL_PREFERENCES:
+      return {
+        ...state,
+        editorMode: modes.UPHILL,
+      };
+    case OPEN_OTHER_PREFERENCES:
+      return {
+        ...state,
+        editorMode: modes.OTHER,
+      };
+    case CLOSE_PREFERENCES:
+      return {
+        ...state,
+        editorMode: modes.NONE,
+      };
     case SET_PROFILE:
       switch (action.payload) {
         case 'wheelchair':
