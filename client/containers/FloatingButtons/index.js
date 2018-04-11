@@ -24,24 +24,24 @@ const FloatingButtons = (props) => {
     zoom,
   } = props;
 
-  if (mediaType === 'MOBILE') {
-    if (planningTrip || settingProfile || viewingMapInfo) return null;
-  }
-
   return (
     <div className='floating-buttons'>
-      <Button
-        floating
-        svg
-        mini
-        secondary
-        swapTheming
-        tooltipLabel='Zoom to your location'
-        tooltipPosition='left'
-        onClick={actions.toggleGeolocation}
-      >
-        <SVGIcon use={crosshairsGPS.url} />
-      </Button>
+      {(mediaType !== 'MOBILE') || !(planningTrip || settingProfile || viewingMapInfo) ? (
+        <Button
+          floating
+          svg
+          mini
+          secondary
+          swapTheming
+          tooltipLabel='Zoom to your location'
+          tooltipPosition='left'
+          onClick={actions.toggleGeolocation}
+        >
+          <SVGIcon use={crosshairsGPS.url} />
+        </Button>) : (
+        null
+        )
+      }
       <Button
         floating
         svg
