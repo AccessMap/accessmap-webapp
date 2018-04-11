@@ -41,9 +41,9 @@
       }
     }
 
-    #address-search-menu,
     #destination-geocoder-menu,
-    #origin-geocoder-menu {
+    #origin-geocoder-menu,
+    #search-geocoder-menu {
       width: calc(100% - 128px);
       .md-tile-text--primary {
         font-weight: $md-font-regular;
@@ -52,7 +52,7 @@
 
     #origin-geocoder-menu-list,
     #destination-geocoder-menu-list,
-    #address-search-menu-list {
+    #search-geocoder-menu-list {
       @media #{$md-mobile-media} {
         width: 256px;
       }

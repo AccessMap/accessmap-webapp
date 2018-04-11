@@ -20,7 +20,9 @@ import SVGIcon from 'react-md/src/js/SVGIcons';
 import Toolbar from 'react-md/src/js/Toolbars';
 import Tooltipped from 'react-md/src/js/Tooltips/Tooltipped';
 
-import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
+import DestinationGeocoder from 'containers/Geocoders/DestinationGeocoder';
+import OriginGeocoder from 'containers/Geocoders/OriginGeocoder';
+import SearchGeocoder from 'containers/Geocoders/SearchGeocoder';
 
 import CurbRampsToggle from 'containers/Settings/CurbRampsToggle';
 import DownhillSlider from 'containers/Settings/DownhillSlider';
@@ -37,16 +39,12 @@ import wheelchairPowered from 'icons/wheelchair-powered.svg';
 const OmniCard = (props) => {
   const {
     actions,
-    center,
     dateTime,
     destination,
-    destinationText,
     mediaType,
     origin,
-    originText,
     planningTrip,
     profileName,
-    searchText,
     settingProfile,
     showTripOptions,
     viewingMapInfo,
@@ -64,23 +62,7 @@ const OmniCard = (props) => {
         <Toolbar
           className='geocoder-toolbar'
           nav={<div>A</div>}
-          title={
-            <GeocoderAutocomplete
-              id='origin-geocoder'
-              key='origin-geocoder'
-              className='md-title--toolbar'
-              block
-              placeholder='Start address'
-              proximity={center}
-              onAutocomplete={(label, index, data) => {
-                actions.setOriginText(data[index].name);
-                const o = data[index];
-                actions.setOrigin(o.location[0], o.location[1], o.name);
-              }}
-              onChange={(v) => { actions.setOriginText(v); }}
-              value={originText}
-            />
-          }
+          title={<OriginGeocoder />}
           actions={[
             <Button
               onClick={() => actions.toggleTripPlanning(planningTrip)}
@@ -96,27 +78,7 @@ const OmniCard = (props) => {
         <Toolbar
           className='geocoder-toolbar'
           nav={<div>B</div>}
-          title={
-            <GeocoderAutocomplete
-              id='destination-geocoder'
-              key='destination-geocoder'
-              block
-              placeholder='End address'
-              className='md-title--toolbar'
-              proximity={center}
-              onAutocomplete={(label, index, data) => {
-                actions.setDestinationText(data[index].name);
-                const dest = data[index];
-                actions.setDestination(
-                  dest.location[0],
-                  dest.location[1],
-                  dest.name,
-                );
-              }}
-              onChange={(v) => { actions.setDestinationText(v); }}
-              value={destinationText}
-            />
-          }
+          title={<DestinationGeocoder />}
           actions={[
             <Button
               className='md-btn--toolbar'
@@ -139,22 +101,7 @@ const OmniCard = (props) => {
       <Toolbar
         className='geocoder-toolbar'
         title={
-          <GeocoderAutocomplete
-            id='address-search'
-            key='address-search'
-            className='address-search md-background--card'
-            listClassName='toolbar-search__list'
-            block
-            placeholder='Search address'
-            onAutocomplete={(label, index, data) => {
-              const poi = data[index];
-              actions.setPOI(poi.location[0], poi.location[1], poi.name);
-              actions.setSearchText(poi.name);
-            }}
-            proximity={center}
-            onChange={(v) => { actions.setSearchText(v); }}
-            value={searchText}
-          />
+          <SearchGeocoder />
         }
         actions={[
           <SVGIcon
@@ -329,30 +276,23 @@ const OmniCard = (props) => {
 
 OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  center: PropTypes.arrayOf(PropTypes.number).isRequired,
   dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
-  destinationText: PropTypes.string,
   origin: pointFeature({ name: PropTypes.string }),
-  originText: PropTypes.string,
   mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
   planningTrip: PropTypes.bool,
   profileName: PropTypes.string.isRequired,
   settingProfile: PropTypes.bool,
-  searchText: PropTypes.string,
   showTripOptions: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
 };
 
 OmniCard.defaultProps = {
   destination: null,
-  destinationText: '',
   origin: null,
-  originText: '',
   mediaType: 'DESKTOP',
   planningTrip: false,
   settingProfile: false,
-  searchText: '',
   showTripOptions: false,
   viewingMapInfo: false,
 };
@@ -363,25 +303,20 @@ const mapStateToProps = (state) => {
     browser,
     routingprofile,
     tripplanning,
-    view,
     waypoints,
   } = state;
 
   const profile = routingprofile.profiles[routingprofile.selectedProfile];
 
   return {
-    center: [view.lng, view.lat],
     dateTime: tripplanning.dateTime,
     destination: waypoints.destination,
-    destinationText: tripplanning.geocoderText.destinationText,
     origin: waypoints.origin,
-    originText: tripplanning.geocoderText.originText,
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,
     profileName: profile.name,
     selectedProfile: routingprofile.selectedProfile,
     settingProfile: activities.settingProfile,
-    searchText: tripplanning.geocoderText.searchText,
     showTripOptions: activities.showTripOptions,
     viewingMapInfo: activities.viewingMapInfo,
   };
