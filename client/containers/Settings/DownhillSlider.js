@@ -27,6 +27,8 @@ const DownhillSlider = (props) => {
       step={0.5}
       valuePrecision={1}
       onChange={d => actions.setInclineMin(-d / 100)}
+      onMouseEnter={actions.mouseOverDownhill}
+      onMouseLeave={actions.mouseOutDownhill}
       value={downhillPercent}
     />
   );

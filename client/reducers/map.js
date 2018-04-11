@@ -1,15 +1,37 @@
 import { combineReducers } from 'redux';
 
 import {
-  MAP_CLICK,
+  CLOSE_PREFERENCES,
   CLEAR_SELECTED_FEATURES,
-  SET_ORIGIN,
   SET_DESTINATION,
+  SET_ORIGIN,
   SET_ORIGIN_DESTINATION,
+  MAP_CLICK,
+  MOUSE_OVER_DOWNHILL,
+  MOUSE_OUT_DOWNHILL,
+  OPEN_DOWNHILL_PREFERENCES,
+  OPEN_OTHER_PREFERENCES,
+  OPEN_PREFERENCES,
+  OPEN_UPHILL_PREFERENCES,
 } from 'actions';
 
 import { defaultMap } from './defaults';
 
+const handleInclineUphill = (state = defaultMap.inclineUphill, action) => {
+  switch (action.type) {
+    case MOUSE_OVER_DOWNHILL:
+    case OPEN_DOWNHILL_PREFERENCES:
+      return false;
+    case CLOSE_PREFERENCES:
+    case MOUSE_OUT_DOWNHILL:
+    case OPEN_PREFERENCES:
+    case OPEN_UPHILL_PREFERENCES:
+    case OPEN_OTHER_PREFERENCES:
+      return true;
+    default:
+      return state;
+  }
+};
 
 const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
   switch (action.type) {
@@ -80,5 +102,6 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
 };
 
 export default combineReducers({
+  inclineUphill: handleInclineUphill,
   selectedFeature: handleSelectedFeature,
 });

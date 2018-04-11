@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 import {
   MOUSE_OVER_DOWNHILL,
   MOUSE_OUT_DOWNHILL,
@@ -8,7 +10,7 @@ import {
   CLOSE_PREFERENCES,
 } from 'actions';
 
-import { defaultMode as defaults } from './defaults';
+import { defaultSettingsEditor as defaults } from './defaults';
 
 const modes = {
   DOWNHILL: 'DOWNHILL',
@@ -17,7 +19,7 @@ const modes = {
   NONE: null,
 };
 
-export default (state = defaults, action) => {
+const defaultMode = (state = defaults.mode, action) => {
   switch (action.type) {
     case MOUSE_OVER_DOWNHILL:
       return modes.DOWNHILL;
@@ -37,3 +39,7 @@ export default (state = defaults, action) => {
       return state;
   }
 };
+
+export default combineReducers({
+  mode: defaultMode,
+});

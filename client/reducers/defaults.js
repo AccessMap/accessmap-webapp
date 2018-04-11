@@ -46,12 +46,15 @@ export const defaultLog = {
 };
 
 export const defaultMap = {
+  inclineUphill: true,
   selectedFeature: null,
 };
 
 export const defaultGeolocation = null;
 
-export const defaultMode = 'UPHILL';
+export const defaultSettingsEditor = {
+  mode: 'UPHILL',
+};
 
 export const defaultBrowser = {
   mediaType: null,

@@ -21,15 +21,23 @@ const Sidewalks = (props) => {
   const {
     inclineMax,
     inclineMin,
-    mode,
     speed,
+    inclineUphill,
   } = props;
 
   const inclineDownMid = inclineFromSpeed(speed / 2, inclineMax, inclineMin, speed, false);
   const inclineUpMid = inclineFromSpeed(speed / 2, inclineMax, inclineMin, speed, true);
 
   let inclineStops;
-  if (mode === 'DOWNHILL') {
+  if (inclineUphill) {
+    inclineStops = [
+      1000 * -inclineMax, SIDEWALK_STEEP,
+      1000 * -inclineUpMid, SIDEWALK_MID,
+      0, SIDEWALK_FLAT,
+      1000 * inclineUpMid, SIDEWALK_MID,
+      1000 * inclineMax, SIDEWALK_STEEP,
+    ];
+  } else {
     inclineStops = [
       1000 * inclineMin, SIDEWALK_STEEP,
       1000 * inclineDownMid, SIDEWALK_MID,
@@ -38,19 +46,11 @@ const Sidewalks = (props) => {
       1000 * -inclineDownMid, SIDEWALK_MID,
       1000 * -inclineMin, SIDEWALK_STEEP,
     ];
-  } else {
-    inclineStops = [
-      1000 * -inclineMax, SIDEWALK_STEEP,
-      1000 * -inclineUpMid, SIDEWALK_MID,
-      0, SIDEWALK_FLAT,
-      1000 * inclineUpMid, SIDEWALK_MID,
-      1000 * inclineMax, SIDEWALK_STEEP,
-    ];
   }
 
   // Set bounds for when elevations become 'too steep' on display.
-  const boundMax = mode === 'DOWNHILL' ? 1000 * -inclineMin : 1000 * inclineMax;
-  const boundMin = mode === 'DOWNHILL' ? 1000 * inclineMin : 1000 * -inclineMax;
+  const boundMax = inclineUphill ? 1000 * inclineMax : 1000 * -inclineMin;
+  const boundMin = inclineUphill ? 1000 * -inclineMax : 1000 * inclineMin;
 
   return (
     <React.Fragment>
@@ -200,17 +200,17 @@ const Sidewalks = (props) => {
 Sidewalks.propTypes = {
   inclineMax: PropTypes.number.isRequired,
   inclineMin: PropTypes.number.isRequired,
-  mode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER']),
+  inclineUphill: PropTypes.bool,
   speed: PropTypes.number.isRequired,
 };
 
 Sidewalks.defaultProps = {
-  mode: null,
+  inclineUphill: true,
 };
 
 const mapStateToProps = (state) => {
   const {
-    mode,
+    map,
     routingprofile,
   } = state;
 
@@ -220,7 +220,7 @@ const mapStateToProps = (state) => {
     inclineMax: profile.inclineMax,
     inclineMin: profile.inclineMin,
     speed: profile.speed,
-    mode,
+    inclineUphill: map.inclineUphill,
   };
 };
 

@@ -7,8 +7,8 @@ import geolocation from './geolocation';
 import linkoverlay from './link-overlay';
 import log from './log';
 import map from './map';
-import mode from './mode';
 import routingprofile from './routing-profile';
+import settingseditor from './settings-editor';
 import toasts from './toasts';
 import tripplanning from './tripplanning';
 import view from './view';
@@ -25,8 +25,8 @@ export default combineReducers({
   linkoverlay,
   log,
   map,
-  mode,
   routingprofile,
+  settingseditor,
   toasts,
   tripplanning,
   view,
