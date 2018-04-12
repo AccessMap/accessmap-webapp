@@ -99,11 +99,13 @@ const OmniCard = (props) => {
       <Toolbar
         className='geocoder-toolbar'
         title={<SearchGeocoder />}
-        actions={[
+        nav={
           <SVGIcon
             className={cn('md-btn--toolbar search-icon')}
             use={magnify.url}
-          />,
+          />
+        }
+        actions={[
           <Button
             className='md-btn--toolbar'
             key='omnicard-tripplanning--toggle'
@@ -198,7 +200,7 @@ const OmniCard = (props) => {
       {topBar}
       <Toolbar
         className='profiles-toolbar'
-        nav={<ProfileList />}
+        title={<ProfileList />}
         actions={profileActions}
       />
       {!isMobile ?

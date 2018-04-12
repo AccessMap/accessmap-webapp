@@ -18,7 +18,7 @@
     .md-toolbar--action-left {
       margin-top: auto;
       margin-bottom: auto;
-      margin-left: 16px;
+      margin-left: 8px;
       text-align: center;
       width: 24px;
       @media #{$md-desktop-media} {
@@ -28,31 +28,61 @@
 
     .search-icon {
       @media #{$md-mobile-portrait-media} {
-        margin-bottom: 8px;
       }
       @media #{$md-mobile-landscape-media} {
-        margin-bottom: 8px;
       }
       @media #{$md-tablet-media} {
-        margin-bottom: 12px;
+        margin-left: 16px;
       }
       @media #{$md-desktop-media} {
-        margin-bottom: 14px;
+        margin-left: 16px;
       }
     }
 
-    #destination-geocoder-menu,
-    #origin-geocoder-menu,
-    #search-geocoder-menu {
-      width: calc(100% - 128px);
+    .md-toolbar--title {
+      margin-left: 8px;
+    }
+
+    .md-autocomplete-container {
+      width: calc(100% - 96px);
+      padding-left: 8px;
+      height: 30px;
+      border-radius: 2px;
+      background-color: #f6f6f6;
+      margin-left: 8px;
+
       .md-tile-text--primary {
         font-weight: $md-font-regular;
       }
+
+      @media #{$md-mobile-portrait-media} {
+        width: calc(100% - 96px);
+        height: 32px;
+        margin: 8px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        width: calc(100% - 96px);
+        height: 32px;
+        margin: 8px;
+      }
+      @media #{$md-tablet-media} {
+        width: calc(100% - 128px);
+        height: 32px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        margin-left: 8px;
+      }
+      @media #{$md-desktop-media} {
+        width: calc(100% - 112px);
+        height: 32px;
+        margin-top: 16px;
+        margin-bottom: 16px;
+        margin-left: 8px;
+      }
+
     }
 
-    #origin-geocoder-menu-list,
-    #destination-geocoder-menu-list,
-    #search-geocoder-menu-list {
+    .md-autocomplete-list {
       @media #{$md-mobile-media} {
         width: 256px;
       }
@@ -60,17 +90,18 @@
         width: 352px;
       }
       @media #{$md-tablet-media} {
-        width: 352px;
+        width: auto;
       }
-    }
-
-    .md-autocomplete-list .md-list-item .md-list-tile {
-      padding-left: 16px;
+      .md-list-item .md-list-tile {
+        padding-left: 16px;
+      }
     }
   }
 
   // Profile options
   .profiles-toolbar {
+    padding-left: 8px;
+
     .profiles-container {
       padding: 0;
 
@@ -90,10 +121,6 @@
       .profile-selected {
         border-bottom: 3px solid $md-secondary-color;
       }
-    }
-
-    .md-toolbar--action-right {
-      margin-left: auto;
     }
   }
 
