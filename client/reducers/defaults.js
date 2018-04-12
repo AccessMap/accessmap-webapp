@@ -40,11 +40,6 @@ export const defaultToasts = [];
 export const defaultTripPlanning = {
   routeResult: null,
   dateTime: new Date().getTime(),
-  geocoderText: {
-    searchText: '',
-    originText: '',
-    destinationText: '',
-  },
 };
 
 export const defaultView = {

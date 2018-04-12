@@ -6,31 +6,29 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import GeocoderAutocomplete from 'components/GeocoderAutocomplete';
+import { DefaultedGeocoderAutocomplete } from 'components/GeocoderAutocomplete';
 
 const DestinationGeocoder = (props) => {
   const {
     actions,
     center,
-    destinationText,
+    destinationName,
   } = props;
 
   return (
-    <GeocoderAutocomplete
+    <DefaultedGeocoderAutocomplete
       id='destination-geocoder'
       key='destination-geocoder'
       className='destination-geocoder md-title--toolbar'
       listClassName='toolbar-destination__list'
       block
       placeholder='End address'
-      proximity={center}
       onAutocomplete={(label, index, data) => {
-        actions.setDestinationText(data[index].name);
         const o = data[index];
         actions.setDestination(o.location[0], o.location[1], o.name);
       }}
-      onChange={(v) => { actions.setDestinationText(v); }}
-      value={destinationText}
+      proximity={center}
+      defaultValue={destinationName || ''}
     />
   );
 };
@@ -38,22 +36,22 @@ const DestinationGeocoder = (props) => {
 DestinationGeocoder.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
-  destinationText: PropTypes.string,
+  destinationName: PropTypes.string,
 };
 
 DestinationGeocoder.defaultProps = {
-  destinationText: '',
+  destinationName: null,
 };
 
 const mapStateToProps = (state) => {
   const {
-    tripplanning,
     view,
+    waypoints,
   } = state;
 
   return {
     center: [view.lng, view.lat],
-    destinationText: tripplanning.geocoderText.destinationText,
+    destinationName: waypoints.destination ? waypoints.destination.properties.name : null,
   };
 };
 

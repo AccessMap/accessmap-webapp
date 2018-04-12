@@ -40,9 +40,6 @@ export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 export const HIDE_TRIP_OPTIONS = 'HIDE_TRIP_OPTIONS';
 export const SET_DATE = 'SET_DATE';
 export const SET_TIME = 'SET_TIME';
-export const SET_DESTINATION_TEXT = 'SET_DESTINATION_TEXT';
-export const SET_ORIGIN_TEXT = 'SET_ORIGIN_TEXT';
-export const SET_SEARCH_TEXT = 'SET_SEARCH_TEXT';
 export const SET_DESTINATION = 'SET_DESTINATION';
 export const SET_ORIGIN = 'SET_ORIGIN';
 export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
@@ -690,21 +687,6 @@ export const setTime = (hours, minutes) => (dispatch, getState) => {
 
   routeIfValid(dispatch, getState);
 };
-
-export const setSearchText = text => ({
-  type: SET_SEARCH_TEXT,
-  payload: text,
-});
-
-export const setOriginText = text => ({
-  type: SET_ORIGIN_TEXT,
-  payload: text,
-});
-
-export const setDestinationText = text => ({
-  type: SET_DESTINATION_TEXT,
-  payload: text,
-});
 
 export const mouseOverDownhill = () => ({
   type: MOUSE_OVER_DOWNHILL,

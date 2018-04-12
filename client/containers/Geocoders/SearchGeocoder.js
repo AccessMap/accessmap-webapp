@@ -12,7 +12,7 @@ const SearchGeocoder = (props) => {
   const {
     actions,
     center,
-    searchText,
+    poiName,
   } = props;
 
   return (
@@ -26,11 +26,9 @@ const SearchGeocoder = (props) => {
       onAutocomplete={(label, index, data) => {
         const poi = data[index];
         actions.setPOI(poi.location[0], poi.location[1], poi.name);
-        actions.setSearchText(poi.name);
       }}
       proximity={center}
-      onChange={(v) => { actions.setSearchText(v); }}
-      value={searchText}
+      defaultValue={poiName || ''}
     />
   );
 };
@@ -38,22 +36,22 @@ const SearchGeocoder = (props) => {
 SearchGeocoder.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
-  searchText: PropTypes.string,
+  poiName: PropTypes.string,
 };
 
 SearchGeocoder.defaultProps = {
-  searchText: '',
+  poiName: null,
 };
 
 const mapStateToProps = (state) => {
   const {
-    tripplanning,
     view,
+    waypoints,
   } = state;
 
   return {
     center: [view.lng, view.lat],
-    searchText: tripplanning.geocoderText.searchText,
+    poiName: waypoints.poi ? waypoints.poi.properties.name : null,
   };
 };
 

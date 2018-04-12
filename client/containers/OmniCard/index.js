@@ -98,9 +98,7 @@ const OmniCard = (props) => {
     topBar = (
       <Toolbar
         className='geocoder-toolbar'
-        title={
-          <SearchGeocoder />
-        }
+        title={<SearchGeocoder />}
         actions={[
           <SVGIcon
             className={cn('md-btn--toolbar search-icon')}
