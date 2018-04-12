@@ -27,10 +27,18 @@ const ProfileList = (props) => {
       name='routing-profile-selector'
       type='radio'
       controlClassName='md-inline-block'
+      onChange={(d, e) => {
+        if (e.type === 'change') {
+          actions.setProfile(d);
+        } else if (e.type === 'keydown') {
+          // This is improper navigation - arrow keys + space is better. But
+          // either this never worked for react-md or it broke at some point...
+          actions.setProfile(d);
+        }
+      }}
       controls={[{
         label: profileName === 'wheelchair' ? <h6>Wheelchair</h6> : '',
         value: 'wheelchair',
-        onChange: d => actions.setProfile(d),
         className: profileName === 'wheelchair' ? 'profile-selected' : '',
         checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
         uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
@@ -38,7 +46,6 @@ const ProfileList = (props) => {
       }, {
         label: profileName === 'powered' ? <h6>Powered</h6> : '',
         value: 'powered',
-        onChange: d => actions.setProfile(d),
         className: profileName === 'powered' ? 'profile-selected' : '',
         checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
         uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
@@ -46,7 +53,6 @@ const ProfileList = (props) => {
       }, {
         label: profileName === 'cane' ? <h6>Cane/Walk</h6> : '',
         value: 'cane',
-        onChange: d => actions.setProfile(d),
         className: profileName === 'cane' ? 'profile-selected' : '',
         checkedRadioIcon: <SVGIcon secondary use={caneUser.url} />,
         uncheckedRadioIcon: <SVGIcon use={caneUser.url} />,
