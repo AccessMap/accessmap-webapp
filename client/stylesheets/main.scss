@@ -29,13 +29,13 @@
 // 5. Components
 @import
   'components/mapmarker',
-  'components/featurecard',
   'components/opening_hours_table';
 
 // 6. Containers
 @import
   'containers/accessmap',
   'containers/analyticsbar',
+  'containers/featurecard',
   'containers/floatingbuttons',
   'containers/linkoverlay',
   'containers/mapinfobutton',
