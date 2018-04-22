@@ -10,12 +10,11 @@ import { inclineFromSpeed } from 'profiles/cost-function';
 
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [
-  WIDTH_INACCESSIBLE * 2,
+  WIDTH_INACCESSIBLE * 4,
   WIDTH_INACCESSIBLE * 1.5,
 ];
 
 const INCLINE_IDEAL = -0.0087;
-
 
 const Sidewalks = (props) => {
   const {
