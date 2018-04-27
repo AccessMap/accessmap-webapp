@@ -1,0 +1,34 @@
+.directions-card {
+/*
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+*/
+  height: 50%;
+
+  @media #{$md-mobile-portrait-media} {
+    padding: 0;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    padding: inherit;
+  }
+
+  @media #{$md-tablet-media} {
+    padding: inherit;
+  }
+
+  > .md-background--card {
+    height: 100%;
+  }
+
+  .directions--steps {
+    height: 90%;
+    overflow: auto;
+  }
+
+  .directions--step {
+    margin-bottom: 8px;
+  }
+}

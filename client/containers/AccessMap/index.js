@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import cn from 'classnames';
+
 import ReactMapboxGl from 'react-mapbox-gl';
 
 import * as AppActions from 'actions';
@@ -40,6 +42,7 @@ class AccessMap extends Component {
       height: 0,
     };
     this.updateDimensions = this.updateDimensions.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -63,10 +66,23 @@ class AccessMap extends Component {
     }
   }
 
+  handleClick(m, e) {
+    if (this.props.viewingDirections) return;
+
+    const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
+    const features = m.queryRenderedFeatures(e.point, {
+      layers,
+    });
+    const point = [e.lngLat.lng, e.lngLat.lat];
+
+    this.props.actions.mapClick(features, point);
+  }
+
   render() {
     const {
       actions,
       center,
+      viewingDirections,
       zoom,
       ...props
     } = this.props;
@@ -75,7 +91,9 @@ class AccessMap extends Component {
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
       <Map
-        className='accessmap'
+        className={cn('accessmap mapboxgl-map', {
+          directions: viewingDirections,
+        })}
         ref={(el) => { this.mapEl = el; }}
         center={center}
         zoom={[zoom]}
@@ -118,14 +136,7 @@ class AccessMap extends Component {
           m.getCanvas().style.cursor = features.length ? 'pointer' : 'default';
         }}
         onDrag={(m) => { m.getCanvas().style.cursor = 'grabbing'; }}
-        onClick={(m, e) => {
-          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
-          const features = m.queryRenderedFeatures(e.point, {
-            layers,
-          });
-          const point = [e.lngLat.lng, e.lngLat.lat];
-          actions.mapClick(features, point);
-        }}
+        onClick={this.handleClick}
         onStyleLoad={(m) => {
           // TODO: run this earlier - right after mapbox style load
           const newBounds = m.getBounds().toArray();
@@ -161,16 +172,19 @@ AccessMap.propTypes = {
   /* eslint-enable react/forbid-prop-types */
   /* eslint-enable react/require-default-props */
   center: PropTypes.arrayOf(PropTypes.number),
+  viewingDirections: PropTypes.bool,
   zoom: PropTypes.number,
 };
 
 AccessMap.defaultProps = {
   center: [-122.333592, 47.605628],
+  viewingDirections: false,
   zoom: 15,
 };
 
 const mapStateToProps = state => ({
   center: [state.view.lng, state.view.lat],
+  viewingDirections: state.activities.viewingDirections,
   zoom: state.view.zoom,
 });
 

@@ -13,7 +13,6 @@ import crosshairsGPS from 'icons/crosshairs-gps.svg';
 import minus from 'icons/minus.svg';
 import plus from 'icons/plus.svg';
 
-
 const FloatingButtons = (props) => {
   const {
     actions,
@@ -26,7 +25,7 @@ const FloatingButtons = (props) => {
 
   return (
     <div className='floating-buttons'>
-      {(mediaType !== 'MOBILE') || !(planningTrip || settingProfile || viewingMapInfo) ? (
+      {(mediaType !== 'mobile') || !(planningTrip || settingProfile || viewingMapInfo) ? (
         <Button
           floating
           svg
@@ -72,7 +71,7 @@ const FloatingButtons = (props) => {
 
 FloatingButtons.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   planningTrip: PropTypes.bool,
   settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
@@ -81,7 +80,7 @@ FloatingButtons.propTypes = {
 
 FloatingButtons.defaultProps = {
   planningTrip: false,
-  mediaType: 'DESKTOP',
+  mediaType: 'desktop',
   settingProfile: false,
   viewingMapInfo: false,
 };

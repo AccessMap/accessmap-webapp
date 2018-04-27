@@ -9,7 +9,8 @@ import log from './log';
 import map from './map';
 import profile from './profile';
 import toasts from './toasts';
-import tripplanning from './tripplanning';
+import routesettings from './route-settings';
+import route from './route';
 import view from './view';
 import waypoints from './waypoints';
 
@@ -25,8 +26,9 @@ export default combineReducers({
   log,
   map,
   profile,
+  route,
+  routesettings,
   toasts,
-  tripplanning,
   view,
   waypoints,
 });

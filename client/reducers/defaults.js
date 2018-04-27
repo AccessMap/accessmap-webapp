@@ -2,16 +2,17 @@ import profiles from 'profiles';
 import cloneObject from 'utils/clone-object';
 
 export const defaultActivities = {
-  fetchingTrip: false,
   planningTrip: false,
   settingProfile: false,
-  showTripOptions: false,
+  viewingDirections: false,
   viewingMapInfo: false,
+  viewingRoute: false,
 };
 
 export const defaultAnalytics = null;
 
 export const defaultBrowser = {
+  displayMode: 'landscape',
   mediaType: null,
 };
 
@@ -21,7 +22,6 @@ export const defaultLinkOverlay = null;
 
 export const defaultLog = {
   bounds: null,
-  omniCardDim: null,
 };
 
 export const defaultMap = {
@@ -37,17 +37,23 @@ export const defaultProfile = {
 
 export const defaultToasts = [];
 
-export const defaultTripPlanning = {
+export const defaultRoute = {
+  fetchingRoute: false,
   routeResult: null,
+};
+
+export const defaultRouteSettings = {
   dateTime: new Date().getTime(),
 };
 
 export const defaultView = {
   lng: -122.333592,
   lat: 47.605628,
-  zoom: 15,
   mapWidth: null,
   mapHeight: null,
+  omniCardHeight: 0,
+  omniCardWidth: 0,
+  zoom: 15,
 };
 
 export const defaultWaypoints = {

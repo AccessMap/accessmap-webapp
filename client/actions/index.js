@@ -37,14 +37,16 @@ export const OPEN_DOWNHILL_PREFERENCES = 'OPEN_DOWNHILL_PREFERENCES';
 export const OPEN_OTHER_PREFERENCES = 'OPEN_OTHER_PREFERENCES';
 
 // Trip planning options
-export const HIDE_TRIP_OPTIONS = 'HIDE_TRIP_OPTIONS';
 export const SET_DATE = 'SET_DATE';
 export const SET_TIME = 'SET_TIME';
 export const SET_DESTINATION = 'SET_DESTINATION';
 export const SET_ORIGIN = 'SET_ORIGIN';
 export const SET_ORIGIN_DESTINATION = 'SET_ORIGIN_DESTINATION';
-export const SHOW_TRIP_OPTIONS = 'SHOW_TRIP_OPTIONS';
 export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
+
+// Directions view toggle
+export const CLOSE_DIRECTIONS = 'CLOSE_DIRECTIONS';
+export const VIEW_DIRECTIONS = 'VIEW_DIRECTIONS';
 
 // Map view settings
 export const MAP_MOVE = 'MAP_MOVE';
@@ -76,7 +78,6 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
 // Logging - track map view info, but isolated to prevent infinite recursion
 export const LOG_BOUNDS = 'LOG_BOUNDS';
-export const RESIZE_OMNICARD = 'RESIZE_OMNICARD';
 
 // Action creators
 export const enableAnalytics = () => ({
@@ -207,19 +208,16 @@ export const requestRoute = (origin, destination, params) => ({
   },
 });
 
-export const receiveRoute = (routeResult, mediaType, omniCardDim) => ({
+export const receiveRoute = routeResult => ({
   type: RECEIVE_ROUTE,
   payload: {
     routeResult,
-    mediaType,
-    omniCardDim,
   },
   meta: {
     analytics: {
       type: 'receive-route',
       payload: {
         routeResult,
-        mediaType,
       },
     },
   },
@@ -244,7 +242,7 @@ export const failedRoute = (origin, destination, error) => ({
   },
 });
 
-export const fetchRoute = (origin, destination, params, mediaType, omniCardDim) => (dispatch) => {
+export const fetchRoute = (origin, destination, params) => (dispatch) => {
   // TODO: acquire state here rather than passing it from previous step
   dispatch(requestRoute(origin, destination, params));
 
@@ -287,7 +285,7 @@ export const fetchRoute = (origin, destination, params, mediaType, omniCardDim) 
         throw new Error(response.status);
       },
     )
-    .then(json => dispatch(receiveRoute(json, mediaType, omniCardDim)))
+    .then(json => dispatch(receiveRoute(json)))
     .catch(error => dispatch(failedRoute(origin, destination, error.message)));
 };
 
@@ -310,18 +308,13 @@ const routeIfValid = (dispatch, getState) => {
     speed,
   } = state.profile.profiles[state.profile.selectedProfile];
 
-  const timeStamp = state.tripplanning.dateTime;
-
-  const { mediaType } = state.browser;
-  const { omniCardDim } = state.log;
+  const timeStamp = state.routesettings.dateTime;
 
   if (planningTrip && origin !== null && destination !== null) {
     dispatch(fetchRoute(
       origin,
       destination,
       { inclineMax, inclineMin, requireCurbRamps, speed, timeStamp },
-      mediaType,
-      omniCardDim,
     ));
   }
 };
@@ -498,12 +491,6 @@ export const logBounds = bounds => (dispatch, getState) => {
   });
 };
 
-export const resizeOmniCard = (height, width) => ({
-  type: RESIZE_OMNICARD,
-  payload: { height, width },
-});
-
-
 export const setOriginDestination = (latO, lonO, nameO, latD, lonD, nameD) => ({
   type: SET_ORIGIN_DESTINATION,
   payload: {
@@ -550,6 +537,26 @@ export const setCenterAndZoom = (center, zoom) => ({
   payload: {
     center,
     zoom,
+  },
+});
+
+export const closeDirections = routeResult => ({
+  type: CLOSE_DIRECTIONS,
+  payload: routeResult,
+  meta: {
+    analytics: {
+      type: 'close-directions',
+    },
+  },
+});
+
+export const viewDirections = routeResult => ({
+  type: VIEW_DIRECTIONS,
+  payload: routeResult,
+  meta: {
+    analytics: {
+      type: 'view-directions',
+    },
   },
 });
 
@@ -651,24 +658,6 @@ export const toggleGeolocation = () => (dispatch, getState) => {
     }
   });
 };
-
-export const hideTripOptions = () => ({
-  type: HIDE_TRIP_OPTIONS,
-  meta: {
-    analytics: {
-      type: 'hide-trip-options',
-    },
-  },
-});
-
-export const showTripOptions = () => ({
-  type: SHOW_TRIP_OPTIONS,
-  meta: {
-    analytics: {
-      type: 'show-trip-options',
-    },
-  },
-});
 
 export const setDate = (year, month, date) => (dispatch, getState) => {
   dispatch({

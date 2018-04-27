@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 
-import getMediaType from 'utils/mediaTypes';
+import getMediaType from 'utils/media-type';
+import getDisplayMode from 'utils/display-mode';
 
 // Action types
 import {
@@ -13,15 +14,25 @@ import { defaultBrowser as defaults } from './defaults';
 
 const handleMediaType = (state = defaults.mediaType, action) => {
   switch (action.type) {
-    case RESIZE_WINDOW:
-      return getMediaType();
     case LOAD_APP:
+    case RESIZE_WINDOW:
       return getMediaType();
     default:
       return state;
   }
 };
 
+const handleDisplayMode = (state = defaults.displayMode, action) => {
+  switch (action.type) {
+    case LOAD_APP:
+    case RESIZE_WINDOW:
+      return getDisplayMode();
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
+  displayMode: handleDisplayMode,
   mediaType: handleMediaType,
 });

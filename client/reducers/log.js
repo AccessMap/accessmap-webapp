@@ -4,10 +4,9 @@ import { combineReducers } from 'redux';
 import {
   LOG_BOUNDS,
   MAP_MOVE,
-  RESIZE_OMNICARD,
 } from 'actions';
 
-import precisionRound from 'utils/precisionRound';
+import precisionRound from 'utils/precision-round';
 
 // Default actions
 import { defaultLog as defaults } from './defaults';
@@ -27,17 +26,6 @@ const handleBounds = (state = defaults.bounds, action) => {
   }
 };
 
-const handleOmniCardDim = (state = defaults.omniCardDim, action) => {
-  switch (action.type) {
-    case RESIZE_OMNICARD:
-      return action.payload;
-    default:
-      return state;
-  }
-};
-
-
 export default combineReducers({
   bounds: handleBounds,
-  omniCardDim: handleOmniCardDim,
 });

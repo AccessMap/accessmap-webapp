@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 
 import {
+  FAILED_ROUTE,
   RECEIVE_ROUTE,
-  SET_DATE,
-  SET_TIME,
+  REQUEST_ROUTE,
   TOGGLE_TRIP_PLANNING,
 } from 'actions';
 
-import { defaultTripPlanning as defaults } from './defaults';
+import { defaultRoute as defaults } from './defaults';
 
 const handleRoute = (state = defaults.routeResult, action) => {
   switch (action.type) {
@@ -20,24 +20,19 @@ const handleRoute = (state = defaults.routeResult, action) => {
   }
 };
 
-const handleDateTime = (state = defaults.dateTime, action) => {
-  const date = new Date(state);
+const handleFetchingRoute = (state = defaults.fetchingRoute, action) => {
   switch (action.type) {
-    case SET_DATE:
-      date.setFullYear(action.payload.year);
-      date.setMonth(action.payload.month);
-      date.setDate(action.payload.date);
-      return date.getTime();
-    case SET_TIME:
-      date.setHours(action.payload.hours);
-      date.setMinutes(action.payload.minutes);
-      return date.getTime();
+    case REQUEST_ROUTE:
+      return true;
+    case RECEIVE_ROUTE:
+    case FAILED_ROUTE:
+      return false;
     default:
       return state;
   }
 };
 
 export default combineReducers({
-  dateTime: handleDateTime,
+  fetchingRoute: handleFetchingRoute,
   routeResult: handleRoute,
 });

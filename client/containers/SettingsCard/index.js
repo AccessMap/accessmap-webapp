@@ -24,7 +24,7 @@ const SettingsCard = (props) => {
     settingProfile,
   } = props;
 
-  if (mediaType !== 'MOBILE' || !settingProfile) return null;
+  if (mediaType !== 'mobile' || !settingProfile) return null;
 
   let settingsComponent;
   switch (editorMode) {
@@ -96,14 +96,14 @@ const SettingsCard = (props) => {
 
 SettingsCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   editorMode: PropTypes.oneOf(['UPHILL', 'DOWNHILL', 'OTHER', null]),
   profileName: PropTypes.string.isRequired,
   settingProfile: PropTypes.bool,
 };
 
 SettingsCard.defaultProps = {
-  mediaType: 'DESKTOP',
+  mediaType: 'desktop',
   editorMode: 'UPHILL',
   settingProfile: false,
 };

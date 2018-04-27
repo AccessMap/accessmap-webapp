@@ -12,5 +12,7 @@
   .md-btn {
     display: block;
     background-color: $md-white-base;
+    float: right;
+    clear: right;
   }
 }

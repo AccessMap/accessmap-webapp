@@ -27,7 +27,7 @@ const TopBar = (props) => {
     viewingMapInfo,
   } = props;
 
-  const mobile = mediaType === 'MOBILE';
+  const mobile = mediaType === 'mobile';
 
   // When to hide the topbar
   if ((planningTrip || settingProfile || viewingMapInfo) && mobile) return null;

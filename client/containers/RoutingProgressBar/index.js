@@ -10,10 +10,10 @@ import { LinearProgress } from 'react-md/src/js/Progress';
 
 const RoutingProgressBar = (props) => {
   const {
-    fetchingTrip,
+    fetchingRoute,
   } = props;
 
-  if (fetchingTrip) {
+  if (fetchingRoute) {
     return (
       <LinearProgress
         id='retrieving-route-indicator'
@@ -25,14 +25,14 @@ const RoutingProgressBar = (props) => {
 };
 
 RoutingProgressBar.propTypes = {
-  fetchingTrip: PropTypes.bool,
+  fetchingRoute: PropTypes.bool,
 };
 
 RoutingProgressBar.defaultProps = {
-  fetchingTrip: false,
+  fetchingRoute: false,
 };
 
-const mapStateToProps = state => ({ fetchingTrip: state.activities.fetchingTrip });
+const mapStateToProps = state => ({ fetchingRoute: state.route.fetchingRoute });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch),

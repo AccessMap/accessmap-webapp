@@ -9,15 +9,15 @@ const mediaType = () => {
     screen and (min-width: ${DESKTOP_MIN_WIDTH}px)
   `).matches;
 
-  if (matchDesktop) return 'DESKTOP';
+  if (matchDesktop) return 'desktop';
 
   const matchTablet = window.matchMedia(`
     screen and (min-width: ${TABLET_MIN_WIDTH}px)
   `).matches;
 
-  if (matchTablet) return 'TABLET';
+  if (matchTablet) return 'tablet';
 
-  return 'MOBILE';
+  return 'mobile';
 };
 
 

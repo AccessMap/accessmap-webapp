@@ -26,7 +26,7 @@ const MapOverlay = (props) => {
       viewingMapInfo
     )
     &&
-    (mediaType === 'MOBILE')
+    (mediaType === 'mobile')
   );
 
   return (
@@ -45,7 +45,7 @@ MapOverlay.propTypes = {
     PropTypes.node,
     PropTypes.arrayOf(PropTypes.node),
   ]),
-  mediaType: PropTypes.oneOf(['MOBILE', 'TABLET', 'DESKTOP']),
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   planningTrip: PropTypes.bool,
   settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
@@ -53,7 +53,7 @@ MapOverlay.propTypes = {
 
 MapOverlay.defaultProps = {
   children: null,
-  mediaType: 'DESKTOP',
+  mediaType: 'desktop',
   planningTrip: false,
   settingProfile: false,
   viewingMapInfo: false,

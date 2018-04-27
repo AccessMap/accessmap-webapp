@@ -124,7 +124,7 @@ Route.defaultProps = {
 };
 
 const mapStateToProps = state => ({
-  routeResult: state.tripplanning.routeResult,
+  routeResult: state.route.routeResult,
 });
 
 export default connect(
