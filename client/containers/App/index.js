@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import cn from 'classnames';
-
 import AccessMap from 'containers/AccessMap';
 import AnalyticsBar from 'containers/AnalyticsBar';
 import FeatureCard from 'containers/FeatureCard';
@@ -33,42 +31,32 @@ class App extends PureComponent {
     window.removeEventListener('resize', this.props.actions.resizeWindow);
   };
 
-  render = () => {
-    const {
-      viewingDirections,
-    } = this.props;
-
-    return (
-      <React.Fragment>
-        <div className={cn('mapview', { directions: viewingDirections })}>
-          <Toast />
-          <TopBar />
-          <AnalyticsBar />
-          <MapOverlay>
-            <RoutingProgressBar />
-            <OmniCard />
-            <SettingsCard />
-            <MapInfoButton />
-            <FloatingButtons />
-            <LinkOverlay />
-            <TeaserButton />
-            <FeatureCard />
-          </MapOverlay>
-          <AccessMap />
-        </div>
-        <DirectionsCard />
-      </React.Fragment>
-    );
-  }
+  render = () => (
+    <React.Fragment>
+      <Toast />
+      <TopBar />
+      <AnalyticsBar />
+      <MapOverlay>
+        <RoutingProgressBar />
+        <OmniCard />
+        <SettingsCard />
+        <MapInfoButton />
+        <FloatingButtons />
+        <LinkOverlay />
+        <TeaserButton />
+        <FeatureCard />
+      </MapOverlay>
+      <AccessMap />
+      <DirectionsCard />
+    </React.Fragment>
+  );
 }
 
 App.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  viewingDirections: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => ({
-  viewingDirections: state.activities.viewingDirections,
+const mapStateToProps = () => ({
 });
 
 const mapDispatchToProps = dispatch => ({

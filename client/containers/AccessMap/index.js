@@ -82,6 +82,7 @@ class AccessMap extends Component {
     const {
       actions,
       center,
+      mediaType,
       viewingDirections,
       zoom,
       ...props
@@ -92,7 +93,7 @@ class AccessMap extends Component {
     return (
       <Map
         className={cn('accessmap mapboxgl-map', {
-          directions: viewingDirections,
+          directions: (mediaType === 'mobile') && viewingDirections,
         })}
         ref={(el) => { this.mapEl = el; }}
         center={center}
@@ -172,18 +173,21 @@ AccessMap.propTypes = {
   /* eslint-enable react/forbid-prop-types */
   /* eslint-enable react/require-default-props */
   center: PropTypes.arrayOf(PropTypes.number),
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   viewingDirections: PropTypes.bool,
   zoom: PropTypes.number,
 };
 
 AccessMap.defaultProps = {
   center: [-122.333592, 47.605628],
+  mediaType: 'mobile',
   viewingDirections: false,
   zoom: 15,
 };
 
 const mapStateToProps = state => ({
   center: [state.view.lng, state.view.lat],
+  mediaType: state.browser.mediaType,
   viewingDirections: state.activities.viewingDirections,
   zoom: state.view.zoom,
 });

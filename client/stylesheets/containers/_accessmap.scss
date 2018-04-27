@@ -13,7 +13,18 @@
   -ms-user-select: none;
   user-select: none;
 
+/*
   &.directions {
-    height: 50%;
+    @media #{$md-mobile-portrait-media} {
+      height: 50%;
+      width: 100%;
+    }
+
+    @media #{$md-mobile-landscape-media} {
+      height: 100%;
+      width: 50%;
+      right: 0;
+    }
   }
+*/
 }

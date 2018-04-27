@@ -9,7 +9,7 @@ const MINZOOM = 0;
 const MAXZOOM = 22;
 // Padding, in pixels, to add around the visible map view. This prevents wide
 // things like map markers getting obscured
-const PADDING = 48;
+const PADDING = 64;
 
 const mapSubview = (bounds, mapWidth, mapHeight, margins) => {
   /* Given a bounding box and info about margin sizes (in pixels) that

@@ -13,12 +13,13 @@ import { routeResult as routeResultProps } from 'prop-schema';
 const TeaserButton = (props) => {
   const {
     actions,
+    mediaType,
     routeResult,
     viewingDirections,
     viewingRoute,
   } = props;
 
-  if (!viewingRoute || viewingDirections) return null;
+  if ((mediaType !== 'mobile') || !viewingRoute || viewingDirections) return null;
 
   // Make a little expander card
   return (
@@ -35,18 +36,21 @@ const TeaserButton = (props) => {
 
 TeaserButton.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   routeResult: routeResultProps,
   viewingDirections: PropTypes.bool,
   viewingRoute: PropTypes.bool,
 };
 
 TeaserButton.defaultProps = {
+  mediaType: 'mobile',
   routeResult: null,
   viewingDirections: false,
   viewingRoute: false,
 };
 
 const mapStateToProps = state => ({
+  mediaType: state.browser.mediaType,
   routeResult: state.route.routeResult,
   viewingDirections: state.activities.viewingDirections,
   viewingRoute: state.activities.viewingRoute,

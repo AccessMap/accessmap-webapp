@@ -26,4 +26,18 @@
     margin-top: 0;
     height: 100%;
   }
+
+  &.directions {
+    position: absolute;
+    @media #{$md-mobile-portrait-media} {
+        height: 50%;
+        width: 100%;
+    }
+
+    @media #{$md-mobile-landscape-media} {
+        height: 100%;
+        width: 50%;
+        right: 0;
+    }
+  }
 }

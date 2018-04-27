@@ -5,6 +5,7 @@
   padding-left: 8px;
   width: 100%;
   z-index: 8;
+  margin-top: 0;
 
   background-color: $md-primary-color;
   color: $md-white-base;
@@ -14,6 +15,7 @@
     color: $md-white-base;
   }
 
+/*
   @media #{$md-mobile-portrait-media} {
     margin-top: $md-toolbar-mobile-portrait-height;
   }
@@ -25,6 +27,7 @@
   @media #{$md-tablet-media} {
     margin-top: $md-toolbar-tablet-height;
   }
+  */
 
   span {
     display: flex;

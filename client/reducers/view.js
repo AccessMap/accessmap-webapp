@@ -2,6 +2,7 @@
 import bboxPolygon from '@turf/bbox-polygon';
 import inside from '@turf/inside';
 
+import getDisplayMode from 'utils/display-mode';
 import getMediaType from 'utils/media-type';
 import mapSubview from 'utils/map-subview';
 import PointFeature from 'utils/geojson';
@@ -96,9 +97,15 @@ export default (state = defaults, action) => {
         const omnicard = document.getElementsByClassName('omnicard')[0];
 
         const mediaType = getMediaType();
+        const displayMode = getDisplayMode();
 
         if (mediaType === 'mobile') {
-          margins.top += omnicard.clientHeight;
+          if (displayMode === 'portrait') {
+            margins.top += omnicard.clientHeight;
+          }
+          if (displayMode === 'landscape') {
+            margins.left += omnicard.clientWidth;
+          }
           // Padding of 8 on top of omnicard. Programmatic way to get this?
           margins.top += 8;
           margins.right += 48;
@@ -130,6 +137,8 @@ export default (state = defaults, action) => {
       return state;
     }
     case VIEW_DIRECTIONS: {
+      const mediaType = getMediaType();
+      if (mediaType !== 'mobile') return state;
       /*
        * Place the route in the middle of the main map space:
        *   - Mobile portrait: below OmniCard
@@ -141,11 +150,13 @@ export default (state = defaults, action) => {
 
       const bounds = routeBounds(routeResult);
 
+      const displayMode = getDisplayMode();
+
       // Calculate the space available for displaying the route
       // TODO: subtract toolbar height
       const margins = {
-        left: 0,
-        bottom: state.mapHeight / 2,
+        left: displayMode === 'landscape' ? state.mapWidth / 2 : 0,
+        bottom: displayMode === 'portrait' ? state.mapHeight / 2 : 0,
         right: 0,
         top: 0,
       };
@@ -163,9 +174,14 @@ export default (state = defaults, action) => {
       };
     }
     case CLOSE_DIRECTIONS: {
+      const mediaType = getMediaType();
+      if (mediaType !== 'mobile') return state;
+
       const routeResult = action.payload;
 
       const bounds = routeBounds(routeResult);
+
+      const displayMode = getDisplayMode();
 
       const margins = {
         left: 0,
@@ -174,18 +190,20 @@ export default (state = defaults, action) => {
         top: 0,
       };
 
-      const mediaType = getMediaType();
-
-      if (mediaType === 'mobile') {
+      // TODO: relying on state for the height of the omniCard has issues.
+      // 1. Shouldn't really be part of state anyways
+      // 2. 'Remembering' the last height doesn't work when switching between
+      // portrait and landscape modes (mobile or tablet).
+      if (displayMode === 'portrait') {
         margins.top += state.omniCardHeight;
         margins.top += 8;
-        margins.right += 48;
-      } else {
+      }
+      if (displayMode === 'landscape') {
         margins.left += state.omniCardWidth;
         margins.left += 8;
-        margins.right += 48;
-        margins.top += 64;
       }
+
+      margins.right += 48;
 
       const {
         center,

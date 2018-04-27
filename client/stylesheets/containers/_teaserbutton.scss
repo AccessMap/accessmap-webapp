@@ -6,4 +6,8 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+
+  @media #{$md-mobile-landscape-media} {
+    margin-left: 8px;
+  }
 }
