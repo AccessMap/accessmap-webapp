@@ -18,7 +18,6 @@ import Route from './layers-route';
 import Sidewalks from './layers-sidewalks';
 import Waypoints from './layers-waypoints';
 
-
 const CLICKABLE_LAYERS = [
   'crossing-click',
   'elevator-paths-click',
@@ -111,7 +110,7 @@ class AccessMap extends Component {
           ],
         ]}
         /* eslint-disable react/style-prop-object */
-        style='mapbox://styles/accessmap/cjdl9ee8d03es2rqod4413t1w'
+        style='mapbox://styles/accessmap/cjglbmftk00202tqmpidtfxk3'
         /* eslint-enable react/style-prop-object */
         onMoveEnd={(m, e) => {
           const newBounds = m.getBounds().toArray();

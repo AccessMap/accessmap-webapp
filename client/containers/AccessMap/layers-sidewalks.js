@@ -7,6 +7,21 @@ import { Layer } from 'react-mapbox-gl';
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';
 import { inclineFromSpeed } from 'profiles/cost-function';
 
+// TODO: put the code for this icon in its own module
+/* eslint-disable import/no-webpack-loader-syntax */
+import directionArrowURL from '!file-loader!images/direction-arrow.png';
+import directionArrowWhiteURL from '!file-loader!images/direction-arrow-white.png';
+/* eslint-enable import/no-webpack-loader-syntax */
+
+const directionArrow = new Image();
+directionArrow.src = directionArrowURL;
+directionArrow.height = 48;
+directionArrow.width = 24;
+
+const directionArrowWhite = new Image();
+directionArrowWhite.src = directionArrowWhiteURL;
+directionArrowWhite.height = 48;
+directionArrowWhite.width = 24;
 
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [
@@ -192,6 +207,95 @@ const Sidewalks = (props) => {
         }}
         before='bridge-street'
       />
+      <Layer
+        id='sidewalk-downhill-arrow'
+        type='symbol'
+        sourceId='pedestrian'
+        sourceLayer='sidewalks'
+        minZoom={16}
+        images={[[
+          'direction-arrow', directionArrow,
+        ], [
+          'direction-arrow-white', directionArrowWhite,
+        ]]}
+        filter={[
+          'case',
+          [
+            '>',
+            ['to-number', ['get', 'incline']],
+            boundMax,
+          ],
+          false,
+          [
+            '<',
+            ['to-number', ['get', 'incline']],
+            boundMin,
+          ],
+          false,
+          true,
+        ]}
+        layout={{
+          'icon-allow-overlap': true,
+          'icon-ignore-placement': true,
+          'icon-image': [
+            'case',
+            [
+              '>',
+              [
+                'case',
+                [
+                  '<',
+                  ['to-number', ['get', 'incline']],
+                  0,
+                ],
+                ['*', -1, ['to-number', ['get', 'incline']]],
+                ['to-number', ['get', 'incline']],
+              ],
+              Math.abs((inclineStops[0] + inclineStops[2]) / 2),
+            ],
+            'direction-arrow-white',
+            'direction-arrow',
+          ],
+          'icon-rotate': [
+            'case',
+            [
+              '>=',
+              ['to-number', ['get', 'incline']],
+              0,
+            ],
+            270,
+            90,
+          ],
+          'icon-size': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            16, 0.1,
+            18, 0.3,
+            20, 0.4,
+          ],
+          'symbol-placement': 'line',
+          'icon-padding': 0,
+          'symbol-spacing': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            16, 50,
+            20, 200,
+          ],
+        }}
+        paint={{
+          'icon-opacity': [
+            'interpolate',
+            ['linear'],
+            ['zoom'],
+            16, 0.0,
+            16.25, 0.9,
+          ],
+        }}
+        before='bridge-street'
+      />
+
     </React.Fragment>
   );
 };
