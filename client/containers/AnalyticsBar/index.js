@@ -22,8 +22,7 @@ const AnalyticsBar = (props) => {
       className='analyticsbar'
     >
       <span>
-      Your experience on this website improves AccessMap services and
-      supports academic research.
+      Your use of AccessMap supports academic research.
       </span>
       <Button
         flat
