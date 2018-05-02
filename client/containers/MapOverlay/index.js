@@ -16,6 +16,7 @@ const MapOverlay = (props) => {
     settingProfile,
     viewingDirections,
     viewingMapInfo,
+    viewingRoute,
   } = props;
 
   const noToolbar = (
@@ -35,6 +36,7 @@ const MapOverlay = (props) => {
       className={cn('map-overlay', {
         notoolbar: noToolbar,
         directions: (mediaType === 'mobile') && viewingDirections,
+        routeview: (mediaType === 'mobile') && (viewingRoute && !viewingDirections),
       })}
     >
       {children}
@@ -52,6 +54,7 @@ MapOverlay.propTypes = {
   settingProfile: PropTypes.bool,
   viewingDirections: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
+  viewingRoute: PropTypes.bool,
 };
 
 MapOverlay.defaultProps = {
@@ -61,6 +64,7 @@ MapOverlay.defaultProps = {
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,
+  viewingRoute: false,
 };
 
 const mapStateToProps = state => ({
@@ -69,6 +73,7 @@ const mapStateToProps = state => ({
   settingProfile: state.activities.settingProfile,
   viewingDirections: state.activities.viewingDirections,
   viewingMapInfo: state.activities.viewingMapInfo,
+  viewingRoute: state.activities.viewingRoute,
 });
 
 const mapDispatchToProps = dispatch => ({

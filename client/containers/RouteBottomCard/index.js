@@ -10,53 +10,71 @@ import Button from 'react-md/src/js/Buttons';
 import Card, { CardText } from 'react-md/src/js/Cards';
 import Toolbar from 'react-md/src/js/Toolbars';
 
-import DirectionsList from 'components/DirectionsList';
-
 import { routeResult as routeResultProps } from 'prop-schema';
 
-const DirectionsCard = (props) => {
+const RouteBottomCard = (props) => {
   const {
     actions,
     mediaType,
     routeResult,
     viewingDirections,
+    viewingRoute,
   } = props;
 
-  if (!viewingDirections) return null;
+  if (!viewingRoute) return null;
+  if (viewingDirections) return null;
   if (mediaType !== 'mobile') return null;
 
+  const route = routeResult.routes[0];
+
+  const distance = Math.round(route.distance, 0);
+  const duration = Math.round(route.duration / 60, 0);
+
   return (
-    <div className='directions-card'>
-      <Card>
-        <Toolbar
-          title='Directions'
-          actions={[
-            <Button
-              icon
-              onClick={() => actions.closeDirections(routeResult)}
-            >
-              close
-            </Button>,
-          ]}
-        />
-        <CardText className='directions--steps'>
-          <DirectionsList routeResult={routeResult} />
+    <Card className='route-bottom-card'>
+      <Toolbar
+        title='Route'
+      >
+        <CardText>
+          {distance === 0 ?
+            '< 1 meter' :
+            `${distance} meters`
+          }
         </CardText>
-      </Card>
-    </div>
+        <CardText>
+          {duration === 0 ?
+            '< 1 minute' :
+            `${duration} minutes`
+          }
+        </CardText>
+      </Toolbar>
+      <Toolbar
+        actions={[
+          <Button
+            raised
+            primary
+            onClick={() => actions.viewDirections(routeResult)}
+          >
+            Get Directions
+          </Button>,
+        ]}
+      />
+    </Card>
   );
 };
 
-DirectionsCard.propTypes = {
+RouteBottomCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.string,
   routeResult: routeResultProps,
   viewingDirections: PropTypes.bool,
+  viewingRoute: PropTypes.bool,
 };
 
-DirectionsCard.defaultProps = {
+RouteBottomCard.defaultProps = {
   mediaType: 'desktop',
   routeResult: null,
+  viewingRoute: false,
   viewingDirections: false,
 };
 
@@ -64,6 +82,7 @@ const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   routeResult: state.route.routeResult,
   viewingDirections: state.activities.viewingDirections,
+  viewingRoute: state.activities.viewingRoute,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -73,4 +92,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DirectionsCard);
+)(RouteBottomCard);

@@ -5,6 +5,8 @@
   top: 0;
   left: 0;
 
+  z-index: 5;
+
   @media #{$md-mobile-landscape-media} {
     width: 320px;
   }

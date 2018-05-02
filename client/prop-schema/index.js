@@ -42,6 +42,7 @@ export const lineFeatureCollection = PropTypes.shape({
   }),
 });
 
+// Route data
 export const routeResult = PropTypes.shape({
   code: PropTypes.oneOf([
     'Ok',

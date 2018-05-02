@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import AccessMap from 'containers/AccessMap';
 import AnalyticsBar from 'containers/AnalyticsBar';
+import DirectionsBottomSheet from 'containers/DirectionsBottomSheet';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
@@ -12,7 +13,7 @@ import MapInfoButton from 'containers/MapInfoButton';
 import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
 import RoutingProgressBar from 'containers/RoutingProgressBar';
-import DirectionsCard from 'containers/DirectionsCard';
+import RouteBottomCard from 'containers/RouteBottomCard';
 import SettingsCard from 'containers/SettingsCard';
 import TeaserButton from 'containers/TeaserButton';
 import Toast from 'containers/Toast';
@@ -45,9 +46,10 @@ class App extends PureComponent {
         <LinkOverlay />
         <TeaserButton />
         <FeatureCard />
+        <RouteBottomCard />
       </MapOverlay>
       <AccessMap />
-      <DirectionsCard />
+      <DirectionsBottomSheet />
     </React.Fragment>
   );
 }

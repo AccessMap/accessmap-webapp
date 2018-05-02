@@ -43,4 +43,19 @@ a {
 
 $md-primary-color: $md-blue-900;
 $md-secondary-color: $md-blue-a-200;
+$md-light-theme-app-bar-color: $md-white-base;
+
+$md-light-theme-colors: (
+  text: $md-light-theme-text-color,
+  secondary: $md-light-theme-secondary-text-color,
+  icon: $md-light-theme-icon-text-color,
+  disabled: $md-light-theme-disabled-text-color,
+  hint: $md-light-theme-hint-text-color,
+  divider: $md-light-theme-divider-color,
+  background: $md-light-theme-background-color,
+  card: $md-light-theme-card-color,
+  hover: $md-light-theme-divider-color,
+  toolbar: $md-light-theme-app-bar-color,
+);
+
 @include react-md-everything;

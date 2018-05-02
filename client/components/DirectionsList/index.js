@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card, { CardTitle } from 'react-md/src/js/Cards';
+import { CrossingCard, ElevatorPathCard, SidewalkCard } from 'components/DirectionsCards';
 
 import { routeResult as routeResultProps } from 'prop-schema';
 
@@ -14,51 +14,41 @@ const DirectionsList = (props) => {
     // Transform raw data into ListItems
     // TODO: create a dedicated 'directions step' component
     const p = d.properties;
-    const ptype = p.path_type;
-    const distance = Math.round(p.length, 1);
-
-    let title;
-    switch (ptype) {
-      case 'sidewalk':
-        title = `Use sidewalk: ${p.side} of ${p.street_name}`;
-        break;
-      case 'crossing':
-        title = `Cross ${p.street_name}`;
-        break;
-      case 'elevator_path':
-        title = 'Use elevator';
-        break;
-      default:
-        title = 'Move along';
-    }
-
-    let subtitle;
-    switch (ptype) {
-      case 'sidewalk':
-        subtitle = `${distance} meters`;
-        break;
-      case 'crossing':
-        subtitle = `${distance} meters`;
-        break;
-      case 'elevator_path':
-        subtitle = `${distance} meters: ${p.via}`;
-        break;
-      default:
-        subtitle = 'Move along';
-    }
 
     const origin = routeResult.origin.geometry.coordinates;
     const destination = routeResult.destination.geometry.coordinates;
     const key = `step-${origin}-${destination}-${i}`;
 
-    return (
-      <Card className='directions--step' key={key}>
-        <CardTitle
-          title={title}
-          subtitle={subtitle}
-        />
-      </Card>
-    );
+    switch (p.path_type) {
+      case 'sidewalk':
+        return (
+          <SidewalkCard
+            key={key}
+            distance={p.length}
+            streetName={p.street_name}
+            streetSide={p.side}
+          />
+        );
+      case 'crossing':
+        return (
+          <CrossingCard
+            key={key}
+            distance={p.length}
+            streetName={p.street_name}
+          />
+        );
+      case 'elevator_path':
+        return (
+          <ElevatorPathCard
+            key={key}
+            distance={p.length}
+            indoor={p.indoor}
+            via={p.via}
+          />
+        );
+      default:
+        return null;
+    }
   });
 
   return (

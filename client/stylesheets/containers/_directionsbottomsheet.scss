@@ -1,6 +1,6 @@
-.directions-card {
+.directions-bottom-sheet {
   z-index: 4;
-  position: fixed;
+  position: absolute;
 
   @media #{$md-mobile-portrait-media} {
     bottom: 0;

@@ -95,30 +95,41 @@ export default (state = defaults, action) => {
         };
 
         const omnicard = document.getElementsByClassName('omnicard')[0];
+        const routeBottomCard = document.getElementsByClassName('route-bottom-sheet')[0];
 
         const mediaType = getMediaType();
         const displayMode = getDisplayMode();
 
-        if (mediaType === 'mobile') {
-          if (displayMode === 'portrait') {
-            margins.top += omnicard.clientHeight;
-          }
-          if (displayMode === 'landscape') {
+        if (omnicard) {
+          if (mediaType === 'mobile') {
+            if (displayMode === 'portrait') {
+              margins.top += omnicard.clientHeight;
+              margins.top += 16;  // omnicard's own margin
+            }
+            if (displayMode === 'landscape') {
+              margins.left += omnicard.clientWidth;
+              margins.left += 16;  // omnicard's own margin
+            }
+          } else {
+            // Tablet or desktop
             margins.left += omnicard.clientWidth;
+            margins.left += 16; // omnicard's own margins
+            // this is a hard-coded magic number for the topbar
+            margins.top += 64;
           }
-          // Padding of 8 on top of omnicard. Programmatic way to get this?
-          margins.top += 8;
-          margins.right += 48;
-        } else {
-          // Tablet or desktop
-          margins.left += omnicard.clientWidth;
-          // Padding of 8 to left of omnicard. Programmatic way to get this?
-          margins.left += 8;
-          // this is a hard-coded magic number for the foating buttons
-          margins.right += 48;
-          // this is a hard-coded magic number for the topbar
-          margins.top += 64;
         }
+
+        if (routeBottomCard) {
+          if (mediaType === 'mobile') {
+            if (displayMode === 'portrait') {
+              margins.bottom += routeBottomCard.clientHeight;
+              margins.bottom += 16; // routeBottomCard's own margin
+            }
+          }
+        }
+
+        // To account for zoom buttons
+        margins.right += 48;
 
         const {
           center,
@@ -153,11 +164,10 @@ export default (state = defaults, action) => {
       const displayMode = getDisplayMode();
 
       // Calculate the space available for displaying the route
-      // TODO: subtract toolbar height
       const margins = {
         left: displayMode === 'landscape' ? state.mapWidth / 2 : 0,
         bottom: displayMode === 'portrait' ? state.mapHeight / 2 : 0,
-        right: 0,
+        right: 48,  // Accounts for zoom buttons
         top: 0,
       };
 
@@ -190,13 +200,10 @@ export default (state = defaults, action) => {
         top: 0,
       };
 
-      // TODO: relying on state for the height of the omniCard has issues.
-      // 1. Shouldn't really be part of state anyways
-      // 2. 'Remembering' the last height doesn't work when switching between
-      // portrait and landscape modes (mobile or tablet).
       if (displayMode === 'portrait') {
         margins.top += state.omniCardHeight;
         margins.top += 8;
+        margins.bottom += 112;  // Hard-coded for route summary card size
       }
       if (displayMode === 'landscape') {
         margins.left += state.omniCardWidth;

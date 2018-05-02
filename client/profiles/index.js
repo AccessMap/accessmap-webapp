@@ -2,7 +2,7 @@ export default {
   wheelchair: {
     name: 'wheelchair',
     label: 'Manual wheelchair',
-    speed: 0.6,
+    speed: 0.8,
     inclineMax: 0.08,
     inclineMin: -0.1,
     requireCurbRamps: true,
@@ -18,7 +18,7 @@ export default {
   cane: {
     name: 'cane',
     label: 'Walk / Cane User',
-    speed: 1.3,
+    speed: 1,
     inclineMax: 0.14,
     inclineMin: -0.14,
     requireCurbRamps: false,
