@@ -7,8 +7,6 @@
   margin-right: auto;
   width: 100%;
 
-  z-index: 4;
-
   @media #{$md-mobile-portrait-media} {
     // 56 px = floating buttons width
     left: 0;

@@ -17,6 +17,9 @@
     width: 50%;
     margin-bottom: 0px;
     margin-left: 0;
+    &.md-card{
+      z-index: 6;
+    }
   }
 
   @media #{$md-tablet-media} {
