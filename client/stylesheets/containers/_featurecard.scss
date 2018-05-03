@@ -7,22 +7,26 @@
   margin: 0 auto;
   overflow: hidden;
 
+  @media #{$md-mobile-landscape-media} {
+    margin-left: 0;
+    bottom: 0;
+    height: 100%;
+    width: 50%;
+  }
+  @media #{$md-tablet-media} {
+    margin-left: auto;
+    left: $omnicard-tablet-width + 8px;
+    height: auto;
+    width: calc(33% - 16px);
+  }
+
   .md-list-tile {
     display: flex;
   }
 
   .feature-card-body {
     tbody .md-table-row:not(:last-child) {
-        border-bottom: 0;
+      border-bottom: 0;
     }
   }
-}
-
-.feature-card-container {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: 0 auto;
-  overflow: hidden;
 }

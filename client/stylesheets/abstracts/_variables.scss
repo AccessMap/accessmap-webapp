@@ -65,3 +65,10 @@ $breakpoints: (
 /// @example scss - When using a CDN
 ///   $base-url: 'http://cdn.example.com/assets/';
 $base-url: '/assets/' !default;
+
+
+/// OmniCard widths, when hard-coded
+$omnicard-mobile-portrait-width: 100%;
+$omnicard-mobile-landscape-width: 320px;
+$omnicard-tablet-width: 384px;
+$omnicard-desktop-width: 384px;

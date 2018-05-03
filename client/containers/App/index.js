@@ -42,8 +42,8 @@ class App extends PureComponent {
         <MapInfoButton />
         <FloatingButtons />
         <LinkOverlay />
-        <FeatureCard />
         <RouteBottomCard />
+        <FeatureCard />
       </MapOverlay>
       <AccessMap />
       <DirectionsBottomSheet />

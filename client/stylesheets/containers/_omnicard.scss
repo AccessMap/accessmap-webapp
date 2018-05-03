@@ -5,20 +5,23 @@
   top: 0;
   left: 0;
 
+  @media #{$md-mobile-portrait-media} {
+    width: $omnicard-mobile-portrait-width;
+  }
+
   @media #{$md-mobile-landscape-media} {
-    width: 320px;
+    max-width: 50%;
+    width: $omnicard-mobile-landscape-width;
   }
 
   @media #{$md-tablet-media} {
-    width: 384px;
-  }
-
-  @media #{$md-tablet-media} {
+    width: $omnicard-tablet-width;
     height: 100%;
     overflow: auto;
   }
 
   @media #{$md-desktop-media} {
+    width: $omnicard-desktop-width;
     height: 100%;
     overflow: auto;
   }
