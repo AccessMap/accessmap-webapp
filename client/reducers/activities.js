@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
 
 import {
+  HIDE_DRAWER,
   CLOSE_MAP_INFO,
   CLOSE_DIRECTIONS,
+  SHOW_DRAWER,
   RECEIVE_ROUTE,
   SET_DESTINATION,
   SET_ORIGIN,
@@ -14,6 +16,17 @@ import {
 } from 'actions';
 
 import { defaultActivities as defaults } from './defaults';
+
+const handleDrawerVisible = (state = defaults.drawerVisible, action) => {
+  switch (action.type) {
+    case SHOW_DRAWER:
+      return true;
+    case HIDE_DRAWER:
+      return false;
+    default:
+      return state;
+  }
+};
 
 const handleSettingProfile = (state = defaults.settingProfile, action) => {
   switch (action.type) {
@@ -72,6 +85,7 @@ const handleViewingRoute = (state = defaults.viewingRoute, action) => {
 };
 
 export default combineReducers({
+  drawerVisible: handleDrawerVisible,
   planningTrip: handlePlanningTrip,
   settingProfile: handleSettingProfile,
   viewingDirections: handleViewingDirections,

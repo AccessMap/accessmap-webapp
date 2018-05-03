@@ -27,8 +27,11 @@ import CurbRampsToggle from 'containers/Settings/CurbRampsToggle';
 import DownhillSlider from 'containers/Settings/DownhillSlider';
 import UphillSlider from 'containers/Settings/UphillSlider';
 
+import AccessMapLogo from 'components/Icons/AccessMapLogo';
+
 import directions from 'icons/directions.svg';
 import magnify from 'icons/magnify.svg';
+import menu from 'icons/menu.svg';
 import pencil from 'icons/pencil.svg';
 
 import { pointFeature, routeResult as routeResultProps } from 'prop-schema';
@@ -47,6 +50,7 @@ class OmniCard extends React.PureComponent {
       actions,
       dateTime,
       destination,
+      drawerVisible,
       mediaType,
       origin,
       planningTrip,
@@ -88,6 +92,39 @@ class OmniCard extends React.PureComponent {
     if (isMobile && settingProfile) return null;
     if (isMobile && viewingDirections) return null;
     if (isMobile && viewingMapInfo) return null;
+
+    const header = isMobile && planningTrip ?
+      null :
+      (
+        <Toolbar
+          className='omnicard--header'
+          title={
+            <div
+              className='accessmap-title'
+              key='accessmap-brand'
+            >
+              <AccessMapLogo />
+            </div>
+          }
+          nav={
+            <Button
+              icon
+              svg
+              onClick={() => {
+                if (drawerVisible) {
+                  actions.hideDrawer();
+                } else {
+                  actions.showDrawer();
+                }
+              }}
+            >
+              <SVGIcon use={menu.url} />
+            </Button>
+          }
+        >
+          <h6 className='accessmaplogo-region'>Seattle</h6>
+        </Toolbar>
+      );
 
     let topBar;
     if (planningTrip) {
@@ -228,6 +265,7 @@ class OmniCard extends React.PureComponent {
 
     return (
       <Card className='omnicard'>
+        {header}
         {topBar}
         {(viewingRoute && !viewingDirections && !isMobile) ?
           <CardText>
@@ -276,6 +314,7 @@ OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
+  drawerVisible: PropTypes.bool.isRequired,
   origin: pointFeature({ name: PropTypes.string }),
   mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   planningTrip: PropTypes.bool,
@@ -314,6 +353,7 @@ const mapStateToProps = (state) => {
   return {
     dateTime: routesettings.dateTime,
     destination: waypoints.destination,
+    drawerVisible: activities.drawerVisible,
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,

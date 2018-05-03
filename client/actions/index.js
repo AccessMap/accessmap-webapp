@@ -79,6 +79,10 @@ export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 // Logging - track map view info, but isolated to prevent infinite recursion
 export const LOG_BOUNDS = 'LOG_BOUNDS';
 
+// Drawer toggles
+export const SHOW_DRAWER = 'SHOW_DRAWER';
+export const HIDE_DRAWER = 'HIDE_DRAWER';
+
 // Action creators
 export const enableAnalytics = () => ({
   type: ENABLE_ANALYTICS,
@@ -738,4 +742,12 @@ export const openOtherPreferences = () => ({
       type: 'open-other-preferences',
     },
   },
+});
+
+export const showDrawer = () => ({
+  type: SHOW_DRAWER,
+});
+
+export const hideDrawer = () => ({
+  type: HIDE_DRAWER,
 });
