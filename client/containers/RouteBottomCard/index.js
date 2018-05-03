@@ -15,7 +15,6 @@ import { routeResult as routeResultProps } from 'prop-schema';
 const RouteBottomCard = (props) => {
   const {
     actions,
-    mediaType,
     routeResult,
     viewingDirections,
     viewingRoute,
@@ -23,7 +22,6 @@ const RouteBottomCard = (props) => {
 
   if (!viewingRoute) return null;
   if (viewingDirections) return null;
-  if (mediaType !== 'mobile') return null;
 
   const route = routeResult.routes[0];
 
@@ -65,21 +63,18 @@ const RouteBottomCard = (props) => {
 
 RouteBottomCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  mediaType: PropTypes.string,
   routeResult: routeResultProps,
   viewingDirections: PropTypes.bool,
   viewingRoute: PropTypes.bool,
 };
 
 RouteBottomCard.defaultProps = {
-  mediaType: 'desktop',
   routeResult: null,
   viewingRoute: false,
   viewingDirections: false,
 };
 
 const mapStateToProps = state => ({
-  mediaType: state.browser.mediaType,
   routeResult: state.route.routeResult,
   viewingDirections: state.activities.viewingDirections,
   viewingRoute: state.activities.viewingRoute,

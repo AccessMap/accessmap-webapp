@@ -95,37 +95,30 @@ export default (state = defaults, action) => {
         };
 
         const omnicard = document.getElementsByClassName('omnicard')[0];
-        const routeBottomCard = document.getElementsByClassName('route-bottom-sheet')[0];
-
         const mediaType = getMediaType();
         const displayMode = getDisplayMode();
 
         if (omnicard) {
           if (mediaType === 'mobile') {
             if (displayMode === 'portrait') {
-              margins.top += omnicard.clientHeight;
-              margins.top += 16;  // omnicard's own margin
+              margins.top += omnicard.clientHeight + 16;
             }
             if (displayMode === 'landscape') {
-              margins.left += omnicard.clientWidth;
-              margins.left += 16;  // omnicard's own margin
+              margins.left += omnicard.clientWidth + 16;
             }
           } else {
-            // Tablet or desktop
-            margins.left += omnicard.clientWidth;
-            margins.left += 16; // omnicard's own margins
-            // this is a hard-coded magic number for the topbar
-            margins.top += 64;
+            margins.left += omnicard.clientWidth + 16;
           }
         }
 
-        if (routeBottomCard) {
-          if (mediaType === 'mobile') {
-            if (displayMode === 'portrait') {
-              margins.bottom += routeBottomCard.clientHeight;
-              margins.bottom += 16; // routeBottomCard's own margin
-            }
+        // 128 px is expected height of the card. We can't get the height of
+        // the card dynamically, as it gets created as a result of this action.
+        if (mediaType === 'mobile') {
+          if (displayMode === 'portrait') {
+            margins.bottom += 128 + 16;
           }
+        } else {
+          margins.bottom += 128 + 16;
         }
 
         // To account for zoom buttons

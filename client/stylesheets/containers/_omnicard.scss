@@ -201,6 +201,10 @@
     overflow: auto;
   }
 
+  .directions--step {
+    margin-bottom: 8px;
+  }
+
   .omnicard--header {
     .accessmap-title > * {
       @media #{$md-mobile-portrait-media} {

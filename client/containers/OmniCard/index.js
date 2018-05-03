@@ -59,7 +59,6 @@ class OmniCard extends React.PureComponent {
       settingProfile,
       viewingDirections,
       viewingMapInfo,
-      viewingRoute,
     } = this.props;
 
     const {
@@ -267,18 +266,6 @@ class OmniCard extends React.PureComponent {
       <Card className='omnicard'>
         {header}
         {topBar}
-        {(viewingRoute && !viewingDirections && !isMobile) ?
-          <CardText>
-            <Button
-              raised
-              primary
-              onClick={() => actions.viewDirections(routeResult)}
-            >
-              Get Directions
-            </Button>
-          </CardText> :
-          null
-        }
         <Toolbar
           className='profiles-toolbar'
           title={<ProfileList />}
@@ -323,7 +310,6 @@ OmniCard.propTypes = {
   settingProfile: PropTypes.bool,
   viewingDirections: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
-  viewingRoute: PropTypes.bool,
 };
 
 OmniCard.defaultProps = {
@@ -335,7 +321,6 @@ OmniCard.defaultProps = {
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,
-  viewingRoute: false,
 };
 
 const mapStateToProps = (state) => {
@@ -363,7 +348,6 @@ const mapStateToProps = (state) => {
     settingProfile: activities.settingProfile,
     viewingDirections: activities.viewingDirections,
     viewingMapInfo: activities.viewingMapInfo,
-    viewingRoute: activities.viewingRoute,
   };
 };
 
