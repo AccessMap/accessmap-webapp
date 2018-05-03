@@ -14,10 +14,11 @@
     width: 50%;
   }
   @media #{$md-tablet-media} {
-    margin-left: auto;
     left: $omnicard-tablet-width + 8px;
+    bottom: 8px;
     height: auto;
     width: calc(33% - 16px);
+    margin-left: auto;
   }
 
   .md-list-tile {
