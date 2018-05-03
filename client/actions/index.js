@@ -78,7 +78,7 @@ export const RESIZE_MAP = 'RESIZE_MAP';
 export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
 // Logging - track map view info, but isolated to prevent infinite recursion
-export const LOG_BOUNDS = 'LOG_BOUNDS';
+export const MAP_LOAD = 'MAP_LOAD';
 
 // Drawer toggles
 export const SHOW_DRAWER = 'SHOW_DRAWER';
@@ -466,35 +466,15 @@ export const resizeMap = (width, height) => ({
   payload: { width, height },
 });
 
-export const logBounds = bounds => (dispatch, getState) => {
-  // Ignore when the map hasn't really moved - this event fires
-  // a ton at random times, even without map changes.
-  // (Since JavaScript == doesn't really work for arrays, gotta
-  // iterate)
-  const stateBounds = getState().log.bounds;
-  if (stateBounds) {
-    let bboxEqual = true;
-    for (let i = 0; i < bounds.length; i += 1) {
-      if (bounds[i] !== stateBounds[i]) {
-        bboxEqual = false;
-      }
-    }
-    if (bboxEqual) return;
-  }
-
-  dispatch({
-    type: LOG_BOUNDS,
-    payload: bounds,
-    meta: {
-      analytics: {
-        type: 'log-bounds',
-        payload: {
-          bounds,
-        },
-      },
+export const mapLoad = bounds => ({
+  type: MAP_LOAD,
+  payload: bounds,
+  meta: {
+    analytics: {
+      type: 'map-load',
     },
-  });
-};
+  },
+});
 
 export const setOriginDestination = (latO, lonO, nameO, latD, lonD, nameD) => ({
   type: SET_ORIGIN_DESTINATION,

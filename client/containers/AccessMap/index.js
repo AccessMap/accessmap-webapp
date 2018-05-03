@@ -124,8 +124,6 @@ class AccessMap extends Component {
           if (e.originalEvent) {
             const { lng, lat } = m.getCenter();
             actions.mapMove([lng, lat], m.getZoom(), bbox);
-          } else {
-            actions.logBounds(bbox);
           }
         }}
         onMouseMove={(m, e) => {
@@ -146,7 +144,7 @@ class AccessMap extends Component {
             newBounds[1][0],
             newBounds[1][1],
           ];
-          actions.logBounds(bbox);
+          actions.mapLoad(bbox);
         }}
 
         {...props}

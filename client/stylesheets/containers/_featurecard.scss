@@ -7,18 +7,25 @@
   margin: 0 auto;
   overflow: hidden;
 
+  @media #{$md-mobile-portrait-media} {
+    margin-bottom: 8px;
+  }
+
   @media #{$md-mobile-landscape-media} {
-    margin-left: 0;
     bottom: 0;
     height: 100%;
     width: 50%;
+    margin-bottom: 0px;
+    margin-left: 0;
   }
+
   @media #{$md-tablet-media} {
     left: $omnicard-tablet-width + 8px;
     bottom: 8px;
     height: auto;
     width: calc(33% - 16px);
     margin-left: auto;
+    margin-bottom: 0px;
   }
 
   .md-list-tile {
