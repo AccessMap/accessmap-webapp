@@ -141,8 +141,6 @@ export default (state = defaults, action) => {
           lng: center[0],
           lat: center[1],
           zoom,
-          omniCardHeight: omnicard.clientHeight,
-          omniCardWidth: omnicard.clientWidth,
         };
       }
       return state;
@@ -153,8 +151,7 @@ export default (state = defaults, action) => {
       /*
        * Place the route in the middle of the main map space:
        *   - Mobile portrait: below OmniCard
-       *   - Mobile landscape: to the right of the OmniCard
-       *   - Tablet/Desktop: to the right of the OmniCard
+       *   - Everything else: to the right of the OmniCard
        */
 
       const routeResult = action.payload;
@@ -181,47 +178,22 @@ export default (state = defaults, action) => {
         lng: center[0],
         lat: center[1],
         zoom,
+        lastView: {
+          lng: state.lng,
+          lat: state.lat,
+          zoom: state.zoom,
+        },
       };
     }
     case CLOSE_DIRECTIONS: {
       const mediaType = getMediaType();
       if (mediaType !== 'mobile') return state;
-
-      const routeResult = action.payload;
-
-      const bounds = routeBounds(routeResult);
-
-      const displayMode = getDisplayMode();
-
-      const margins = {
-        left: 0,
-        bottom: 0,
-        right: 0,
-        top: 0,
-      };
-
-      if (displayMode === 'portrait') {
-        margins.top += state.omniCardHeight;
-        margins.top += 8;
-        margins.bottom += 112;  // Hard-coded for route summary card size
-      }
-      if (displayMode === 'landscape') {
-        margins.left += state.omniCardWidth;
-        margins.left += 8;
-      }
-
-      margins.right += 48;
-
-      const {
-        center,
-        zoom,
-      } = mapSubview(bounds, state.mapWidth, state.mapHeight, margins);
-
       return {
         ...state,
-        lng: center[0],
-        lat: center[1],
-        zoom,
+        lng: state.lastView.lng,
+        lat: state.lastView.lat,
+        zoom: state.lastView.zoom,
+        lastView: null,
       };
     }
     case LOAD_MAP:
