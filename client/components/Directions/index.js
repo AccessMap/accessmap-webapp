@@ -1,11 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import Button from 'react-md/src/js/Buttons';
+import { CardText } from 'react-md/src/js/Cards';
+import Toolbar from 'react-md/src/js/Toolbars';
 
 import { CrossingCard, ElevatorPathCard, SidewalkCard } from 'components/DirectionsCards';
 
 import { routeResult as routeResultProps } from 'prop-schema';
 
-const DirectionsList = (props) => {
+const Directions = (props) => {
   const {
+    onClose,
     routeResult,
   } = props;
 
@@ -53,17 +59,32 @@ const DirectionsList = (props) => {
 
   return (
     <React.Fragment>
-      {steps}
+      <Toolbar
+        title='Directions'
+        actions={[
+          <Button
+            icon
+            onClick={onClose}
+          >
+            close
+          </Button>,
+        ]}
+      />
+      <CardText className='directions--steps'>
+        {steps}
+      </CardText>
     </React.Fragment>
   );
 };
 
-DirectionsList.propTypes = {
+Directions.propTypes = {
+  onClose: PropTypes.func,
   routeResult: routeResultProps,
 };
 
-DirectionsList.defaultProps = {
+Directions.defaultProps = {
+  onClose: null,
   routeResult: null,
 };
 
-export default DirectionsList;
+export default Directions;

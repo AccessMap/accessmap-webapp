@@ -16,8 +16,6 @@ import { LinearProgress } from 'react-md/src/js/Progress';
 import SVGIcon from 'react-md/src/js/SVGIcons';
 import Toolbar from 'react-md/src/js/Toolbars';
 
-import DirectionsList from 'components/DirectionsList';
-
 import DestinationGeocoder from 'containers/Geocoders/DestinationGeocoder';
 import OriginGeocoder from 'containers/Geocoders/OriginGeocoder';
 import SearchGeocoder from 'containers/Geocoders/SearchGeocoder';
@@ -29,6 +27,8 @@ import DownhillSlider from 'containers/Settings/DownhillSlider';
 import UphillSlider from 'containers/Settings/UphillSlider';
 
 import AccessMapLogo from 'components/Icons/AccessMapLogo';
+import Directions from 'components/Directions';
+import RouteInfo from 'components/RouteInfo';
 
 import directions from 'icons/directions.svg';
 import magnify from 'icons/magnify.svg';
@@ -61,6 +61,7 @@ class OmniCard extends React.PureComponent {
       settingProfile,
       viewingDirections,
       viewingMapInfo,
+      viewingRouteInfo,
     } = this.props;
 
     const {
@@ -69,23 +70,24 @@ class OmniCard extends React.PureComponent {
 
     const isMobile = mediaType === 'mobile';
 
-    if (!isMobile && viewingDirections) {
+    if (!isMobile && (viewingDirections)) {
       return (
         <Card className='omnicard directions--mode'>
-          <Toolbar
-            title='Directions'
-            actions={[
-              <Button
-                icon
-                onClick={() => actions.closeDirections(routeResult)}
-              >
-                close
-              </Button>,
-            ]}
+          <Directions
+            onClose={() => actions.closeDirections(routeResult)}
+            routeResult={routeResult}
           />
-          <CardText className='directions--bar'>
-            <DirectionsList routeResult={routeResult} />
-          </CardText>
+        </Card>
+      );
+    }
+
+    if (!isMobile && (viewingRouteInfo)) {
+      return (
+        <Card className='omnicard route-info--mode'>
+          <RouteInfo
+            onClose={() => actions.closeDirections(routeResult)}
+            routeResult={routeResult}
+          />
         </Card>
       );
     }
@@ -93,6 +95,7 @@ class OmniCard extends React.PureComponent {
     if (isMobile && settingProfile) return null;
     if (isMobile && viewingDirections) return null;
     if (isMobile && viewingMapInfo) return null;
+    if (isMobile && viewingRouteInfo) return null;
 
     const header = isMobile && planningTrip ?
       null :
@@ -320,6 +323,7 @@ OmniCard.propTypes = {
   settingProfile: PropTypes.bool,
   viewingDirections: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
+  viewingRouteInfo: PropTypes.bool,
 };
 
 OmniCard.defaultProps = {
@@ -332,6 +336,7 @@ OmniCard.defaultProps = {
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,
+  viewingRouteInfo: false,
 };
 
 const mapStateToProps = (state) => {
@@ -360,6 +365,7 @@ const mapStateToProps = (state) => {
     settingProfile: activities.settingProfile,
     viewingDirections: activities.viewingDirections,
     viewingMapInfo: activities.viewingMapInfo,
+    viewingRouteInfo: activities.viewingRouteInfo,
   };
 };
 

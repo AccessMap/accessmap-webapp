@@ -8,6 +8,7 @@ export const defaultActivities = {
   viewingDirections: false,
   viewingMapInfo: false,
   viewingRoute: false,
+  viewingRouteInfo: false,
 };
 
 export const defaultAnalytics = null;

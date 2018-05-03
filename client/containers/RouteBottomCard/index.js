@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import * as AppActions from 'actions';
 
 import Button from 'react-md/src/js/Buttons';
-import Card, { CardText } from 'react-md/src/js/Cards';
+import Card, { CardActions, CardText } from 'react-md/src/js/Cards';
 import Toolbar from 'react-md/src/js/Toolbars';
 
 import { routeResult as routeResultProps } from 'prop-schema';
@@ -18,10 +18,13 @@ const RouteBottomCard = (props) => {
     routeResult,
     viewingDirections,
     viewingRoute,
+    viewingRouteInfo,
   } = props;
 
   if (!viewingRoute) return null;
-  if (viewingDirections) return null;
+  if (viewingDirections || viewingRouteInfo) return null;
+  if (!routeResult) return null;
+  if (routeResult.code !== 'Ok') return null;
 
   const route = routeResult.routes[0];
 
@@ -46,17 +49,24 @@ const RouteBottomCard = (props) => {
           }
         </CardText>
       </Toolbar>
-      <Toolbar
-        actions={[
-          <Button
-            raised
-            primary
-            onClick={() => actions.viewDirections(routeResult)}
-          >
-            Get Directions
-          </Button>,
-        ]}
-      />
+      <CardActions>
+        <Button
+          className='route-bottom-card--button'
+          raised
+          secondary
+          onClick={() => actions.viewRouteInfo(routeResult)}
+        >
+          Trip info
+        </Button>
+        <Button
+          className='route-bottom-card--button'
+          raised
+          primary
+          onClick={() => actions.viewDirections(routeResult)}
+        >
+          List Directions
+        </Button>
+      </CardActions>
     </Card>
   );
 };
@@ -66,18 +76,21 @@ RouteBottomCard.propTypes = {
   routeResult: routeResultProps,
   viewingDirections: PropTypes.bool,
   viewingRoute: PropTypes.bool,
+  viewingRouteInfo: PropTypes.bool,
 };
 
 RouteBottomCard.defaultProps = {
   routeResult: null,
   viewingRoute: false,
   viewingDirections: false,
+  viewingRouteInfo: false,
 };
 
 const mapStateToProps = state => ({
   routeResult: state.route.routeResult,
   viewingDirections: state.activities.viewingDirections,
   viewingRoute: state.activities.viewingRoute,
+  viewingRouteInfo: state.activities.viewingRouteInfo,
 });
 
 const mapDispatchToProps = dispatch => ({

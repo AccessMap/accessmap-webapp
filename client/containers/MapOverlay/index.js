@@ -14,13 +14,14 @@ const MapOverlay = (props) => {
     mediaType,
     viewingDirections,
     viewingRoute,
+    viewingRouteInfo,
   } = props;
 
   return (
     <div
       className={cn('map-overlay', {
-        directions: (mediaType === 'mobile') && viewingDirections,
-        routeview: (mediaType === 'mobile') && (viewingRoute && !viewingDirections),
+        directions: (mediaType === 'mobile') && (viewingDirections || viewingRouteInfo),
+        routeview: (mediaType === 'mobile') && (viewingRoute && !viewingDirections && !viewingRouteInfo),
       })}
     >
       {children}
@@ -36,6 +37,7 @@ MapOverlay.propTypes = {
   mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   viewingDirections: PropTypes.bool,
   viewingRoute: PropTypes.bool,
+  viewingRouteInfo: PropTypes.bool,
 };
 
 MapOverlay.defaultProps = {
@@ -43,12 +45,14 @@ MapOverlay.defaultProps = {
   mediaType: 'desktop',
   viewingDirections: false,
   viewingRoute: false,
+  viewingRouteInfo: false,
 };
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   viewingDirections: state.activities.viewingDirections,
   viewingRoute: state.activities.viewingRoute,
+  viewingRouteInfo: state.activities.viewingRouteInfo,
 });
 
 const mapDispatchToProps = dispatch => ({

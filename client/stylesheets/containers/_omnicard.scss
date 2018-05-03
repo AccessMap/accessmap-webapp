@@ -252,4 +252,15 @@
     margin-top: 0px;
     height: 4px;
   }
+
+  .route-elevation-profile {
+    width: 100%;
+    height: auto;
+
+    path {
+      stroke: #ffaa00;
+      stroke-width: 1;
+      fill: none;
+    }
+  }
 }

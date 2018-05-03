@@ -47,6 +47,7 @@ export const SWAP_WAYPOINTS = 'SWAP_WAYPOINTS';
 // Directions view toggle
 export const CLOSE_DIRECTIONS = 'CLOSE_DIRECTIONS';
 export const VIEW_DIRECTIONS = 'VIEW_DIRECTIONS';
+export const VIEW_ROUTE_INFO = 'VIEW_ROUTE_INFO';
 
 // Map view settings
 export const MAP_MOVE = 'MAP_MOVE';
@@ -579,6 +580,16 @@ export const mapMove = (center, zoom, bounds) => ({
         zoom,
         bounds,
       },
+    },
+  },
+});
+
+export const viewRouteInfo = routeResult => ({
+  type: VIEW_ROUTE_INFO,
+  payload: routeResult,
+  meta: {
+    analytics: {
+      type: 'view-route-info',
     },
   },
 });

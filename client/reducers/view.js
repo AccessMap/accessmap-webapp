@@ -23,6 +23,7 @@ import {
   SET_ZOOM,
   SET_CENTER_AND_ZOOM,
   VIEW_DIRECTIONS,
+  VIEW_ROUTE_INFO,
 } from 'actions';
 
 // Default actions
@@ -138,7 +139,8 @@ export default (state = defaults, action) => {
       }
       return state;
     }
-    case VIEW_DIRECTIONS: {
+    case VIEW_DIRECTIONS:
+    case VIEW_ROUTE_INFO: {
       const mediaType = getMediaType();
       if (mediaType !== 'mobile') return state;
       /*

@@ -1,4 +1,4 @@
-.directions-bottom-sheet {
+.route-bottom-sheet {
   z-index: 4;
   position: absolute;
 
@@ -28,5 +28,21 @@
 
   .directions--step {
     margin-bottom: 8px;
+  }
+
+  .route-info--contents {
+    height: 90%;
+    overflow: auto;
+  }
+
+  .route-elevation-profile {
+    width: 100%;
+    height: auto;
+
+    path {
+      stroke: #ffaa00;
+      stroke-width: 1;
+      fill: none;
+    }
   }
 }

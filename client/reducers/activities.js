@@ -13,6 +13,7 @@ import {
   TOGGLE_TRIP_PLANNING,
   VIEW_DIRECTIONS,
   VIEW_MAP_INFO,
+  VIEW_ROUTE_INFO,
 } from 'actions';
 
 import { defaultActivities as defaults } from './defaults';
@@ -82,6 +83,17 @@ const handleViewingRoute = (state = defaults.viewingRoute, action) => {
   }
 };
 
+const handleViewingRouteInfo = (state = defaults.viewingRouteInfo, action) => {
+  switch (action.type) {
+    case VIEW_ROUTE_INFO:
+      return true;
+    case CLOSE_DIRECTIONS:
+      return false;
+    default:
+      return state;
+  }
+};
+
 export default combineReducers({
   drawerVisible: handleDrawerVisible,
   planningTrip: handlePlanningTrip,
@@ -89,4 +101,5 @@ export default combineReducers({
   viewingDirections: handleViewingDirections,
   viewingMapInfo: handleViewingMapInfo,
   viewingRoute: handleViewingRoute,
+  viewingRouteInfo: handleViewingRouteInfo,
 });

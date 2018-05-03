@@ -6,64 +6,63 @@ import { connect } from 'react-redux';
 
 import * as AppActions from 'actions';
 
-import Button from 'react-md/src/js/Buttons';
-import Card, { CardText } from 'react-md/src/js/Cards';
-import Toolbar from 'react-md/src/js/Toolbars';
+import Card from 'react-md/src/js/Cards';
 
-import DirectionsList from 'components/DirectionsList';
+import Directions from 'components/Directions';
+import RouteInfo from 'components/RouteInfo';
 
 import { routeResult as routeResultProps } from 'prop-schema';
 
-const DirectionsBottomCard = (props) => {
+const RouteBottomSheet = (props) => {
   const {
     actions,
     mediaType,
     routeResult,
     viewingDirections,
+    viewingRouteInfo,
   } = props;
 
-  if (!viewingDirections) return null;
+  if (!viewingDirections && !viewingRouteInfo) return null;
   if (mediaType !== 'mobile') return null;
 
   return (
-    <div className='directions-bottom-sheet'>
+    <div className='route-bottom-sheet'>
       <Card>
-        <Toolbar
-          title='Directions'
-          actions={[
-            <Button
-              icon
-              onClick={() => actions.closeDirections(routeResult)}
-            >
-              close
-            </Button>,
-          ]}
-        />
-        <CardText className='directions--steps'>
-          <DirectionsList routeResult={routeResult} />
-        </CardText>
+        {viewingDirections ?
+          <Directions
+            onClose={() => actions.closeDirections(routeResult)}
+            routeResult={routeResult}
+          /> :
+          <RouteInfo
+            onClose={() => actions.closeDirections(routeResult)}
+            routeResult={routeResult}
+          />
+        }
       </Card>
     </div>
   );
 };
 
-DirectionsBottomCard.propTypes = {
+RouteBottomSheet.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.string,
   routeResult: routeResultProps,
   viewingDirections: PropTypes.bool,
+  viewingRouteInfo: PropTypes.bool,
 };
 
-DirectionsBottomCard.defaultProps = {
+RouteBottomSheet.defaultProps = {
   mediaType: 'desktop',
   routeResult: null,
   viewingDirections: false,
+  viewingRouteInfo: false,
 };
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   routeResult: state.route.routeResult,
   viewingDirections: state.activities.viewingDirections,
+  viewingRouteInfo: state.activities.viewingRouteInfo,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -73,4 +72,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(DirectionsBottomCard);
+)(RouteBottomSheet);
