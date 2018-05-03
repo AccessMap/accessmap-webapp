@@ -12,6 +12,7 @@ import Button from 'react-md/src/js/Buttons';
 import Card, { CardActions, CardText } from 'react-md/src/js/Cards';
 import Collapse from 'react-md/src/js/Helpers/Collapse';
 import { DatePicker, TimePicker } from 'react-md/src/js/Pickers';
+import { LinearProgress } from 'react-md/src/js/Progress';
 import SVGIcon from 'react-md/src/js/SVGIcons';
 import Toolbar from 'react-md/src/js/Toolbars';
 
@@ -51,6 +52,7 @@ class OmniCard extends React.PureComponent {
       dateTime,
       destination,
       drawerVisible,
+      fetchingRoute,
       mediaType,
       origin,
       planningTrip,
@@ -264,6 +266,13 @@ class OmniCard extends React.PureComponent {
 
     return (
       <Card className='omnicard'>
+        { fetchingRoute ?
+          <LinearProgress
+            id='retrieving-route-indicator'
+            className='route-progressbar'
+          /> :
+          null
+        }
         {header}
         {topBar}
         <Toolbar
@@ -302,6 +311,7 @@ OmniCard.propTypes = {
   dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
   drawerVisible: PropTypes.bool.isRequired,
+  fetchingRoute: PropTypes.bool,
   origin: pointFeature({ name: PropTypes.string }),
   mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   planningTrip: PropTypes.bool,
@@ -315,6 +325,7 @@ OmniCard.propTypes = {
 OmniCard.defaultProps = {
   destination: null,
   origin: null,
+  fetchingRoute: false,
   mediaType: 'desktop',
   planningTrip: false,
   routeResult: null,
@@ -339,6 +350,7 @@ const mapStateToProps = (state) => {
     dateTime: routesettings.dateTime,
     destination: waypoints.destination,
     drawerVisible: activities.drawerVisible,
+    fetchingRoute: route.fetchingRoute,
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: activities.planningTrip,

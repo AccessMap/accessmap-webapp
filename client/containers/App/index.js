@@ -13,7 +13,6 @@ import LinkOverlay from 'containers/LinkOverlay';
 import MapInfoButton from 'containers/MapInfoButton';
 import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
-import RoutingProgressBar from 'containers/RoutingProgressBar';
 import RouteBottomCard from 'containers/RouteBottomCard';
 import SettingsCard from 'containers/SettingsCard';
 import Toast from 'containers/Toast';
@@ -36,7 +35,6 @@ class App extends PureComponent {
       <Toast />
       <AnalyticsBar />
       <MapOverlay>
-        <RoutingProgressBar />
         <OmniCard />
         <SettingsCard />
         <MapInfoButton />

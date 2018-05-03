@@ -244,4 +244,12 @@
       fill: $md-secondary-color;
     }
   }
+
+  .route-progressbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-top: 0px;
+    height: 4px;
+  }
 }
