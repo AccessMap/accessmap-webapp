@@ -77,8 +77,6 @@ const handleViewingRoute = (state = defaults.viewingRoute, action) => {
   switch (action.type) {
     case RECEIVE_ROUTE:
       return true;
-    case TOGGLE_TRIP_PLANNING:
-      return !action.payload.planningTrip;
     default:
       return state;
   }
