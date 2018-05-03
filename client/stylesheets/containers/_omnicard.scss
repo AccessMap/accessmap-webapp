@@ -17,13 +17,25 @@
   @media #{$md-tablet-media} {
     width: $omnicard-tablet-width;
     height: 100%;
-    overflow: auto;
   }
 
   @media #{$md-desktop-media} {
     width: $omnicard-desktop-width;
     height: 100%;
+  }
+
+  &.directions--mode {
+    height: 100%;
     overflow: auto;
+  }
+
+  .directions--bar {
+    height: 80%;
+    overflow: auto;
+  }
+
+  .directions--step {
+    margin-bottom: 8px;
   }
 
   // Autocompletes (geocoders)
@@ -190,19 +202,6 @@
       display: inline-block;
       width: 50%;
     }
-  }
-
-  &.directions--mode {
-    height: 100%;
-  }
-
-  .directions--bar {
-    height: 80%;
-    overflow: auto;
-  }
-
-  .directions--step {
-    margin-bottom: 8px;
   }
 
   .omnicard--header {
