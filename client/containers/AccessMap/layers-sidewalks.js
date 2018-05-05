@@ -13,6 +13,28 @@ import directionArrowURL from '!file-loader!images/direction-arrow.png';
 import directionArrowWhiteURL from '!file-loader!images/direction-arrow-white.png';
 /* eslint-enable import/no-webpack-loader-syntax */
 
+const EARTH_RADIUS = 6378137;
+const LAT = 47.6;
+const TILESIZE = 512;
+
+const pixelsPerMeter = (zoom) => {
+  const scale = 2 ** zoom;
+  const worldSize = TILESIZE * scale;
+  const rest = 2 * Math.PI * EARTH_RADIUS * Math.abs(Math.cos(LAT * (Math.PI / 180)));
+  return worldSize / rest;
+};
+
+const setWidthAtZoom = (width, zoom) => d => width * (2 ** (d - (zoom - 1)));
+
+const wayWidthExpression = [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+].concat([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map((d) => {
+  if (d < 17) return [d, setWidthAtZoom(3, 16)(d)];
+  return [d, ['*', pixelsPerMeter(d), ['get', 'width']]];
+}).reduce((a, d) => a.concat(d)));
+
 const directionArrow = new Image();
 directionArrow.src = directionArrowURL;
 directionArrow.height = 48;
@@ -111,9 +133,7 @@ const Sidewalks = (props) => {
           'line-opacity': {
             stops: [[13.5, 0.0], [16, 1]],
           },
-          'line-gap-width': {
-            stops: [[12, 0.5], [16, 3], [22, 30]],
-          },
+          'line-gap-width': wayWidthExpression,
         }}
         before='bridge-street'
       />
@@ -147,13 +167,12 @@ const Sidewalks = (props) => {
               [16, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 1.5]],
             ],
           },
-          'line-width': {
-            stops: [
-              [12, WIDTH_INACCESSIBLE / 4],
-              [16, WIDTH_INACCESSIBLE],
-              [20, WIDTH_INACCESSIBLE * 4],
-            ],
-          },
+          'line-width': [
+            'interpolate', ['linear'], ['zoom'],
+            12, WIDTH_INACCESSIBLE / 4,
+            16, WIDTH_INACCESSIBLE,
+            20, WIDTH_INACCESSIBLE * 4,
+          ],
         }}
         before='bridge-street'
       />
@@ -201,9 +220,7 @@ const Sidewalks = (props) => {
               ...inclineStops,
             ],
           ],
-          'line-width': {
-            stops: [[12, 0.2], [16, 3], [22, 30]],
-          },
+          'line-width': wayWidthExpression,
         }}
         before='bridge-street'
       />

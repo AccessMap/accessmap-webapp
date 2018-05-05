@@ -51,6 +51,7 @@ const FeatureCard = (props) => {
     openingHours,
     surface,
     via,
+    width,
   } = selectedFeature.properties;
 
   const title = selectedFeature.layerName
@@ -116,6 +117,13 @@ const FeatureCard = (props) => {
              null
           }
           {surface !== undefined ? <ContentRow label='Surface' content={SURFACE_MAP[surface]} /> : null}
+          {width !== undefined ?
+            <ContentRow
+              label='Width'
+              content={`${width.toFixed(1)} meters`}
+            /> :
+            null
+          }
           {indoor !== undefined ? <ContentRow label='Indoor' content={indoor ? 'Yes' : 'No'} /> : null}
           {via !== undefined ? <ContentRow label='Via' content={via} /> : null}
           {

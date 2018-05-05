@@ -62,6 +62,7 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
               description: `${feature.properties.side} of ${feature.properties.street_name}`,
               incline: feature.properties.incline / 1000,
               surface: feature.properties.surface,
+              width: feature.properties.width,
             },
           };
         case 'crossings':
