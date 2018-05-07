@@ -32,7 +32,7 @@ const wayWidthExpression = [
   ['zoom'],
 ].concat([10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22].map((d) => {
   if (d < 17) return [d, setWidthAtZoom(3, 16)(d)];
-  return [d, ['*', pixelsPerMeter(d), ['get', 'width']]];
+  return [d, ['*', pixelsPerMeter(d), ['max', ['get', 'width'], 0.5]]];
 }).reduce((a, d) => a.concat(d)));
 
 const directionArrow = new Image();
