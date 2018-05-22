@@ -23,9 +23,9 @@ const handleOrigin = (state = defaults.origin, action) => {
                           action.payload.lat,
                           { name: action.payload.name });
     case SET_ORIGIN_DESTINATION:
-      return PointFeature(action.payload.originLng,
-                          action.payload.originLat,
-                          { name: action.payload.name });
+      return PointFeature(action.payload.origin.lon,
+                          action.payload.origin.lat,
+                          { name: action.payload.origin.name });
     case SWAP_WAYPOINTS:
       return action.payload.destination;
     case TOGGLE_TRIP_PLANNING:
@@ -47,9 +47,9 @@ const handleDestination = (state = defaults.destination, action) => {
                           action.payload.lat,
                           { name: action.payload.name });
     case SET_ORIGIN_DESTINATION:
-      return PointFeature(action.payload.destLng,
-                          action.payload.destLat,
-                          { name: action.payload.name });
+      return PointFeature(action.payload.destination.lon,
+                          action.payload.destination.lat,
+                          { name: action.payload.destination.name });
     case SWAP_WAYPOINTS:
       return action.payload.origin;
     case TOGGLE_TRIP_PLANNING:

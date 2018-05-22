@@ -314,10 +314,6 @@ const routeIfValid = (dispatch, getState) => {
   } = state.waypoints;
 
   const {
-    planningTrip,
-  } = state.activities;
-
-  const {
     inclineMax,
     inclineMin,
     requireCurbRamps,
@@ -326,7 +322,7 @@ const routeIfValid = (dispatch, getState) => {
 
   const timeStamp = state.routesettings.dateTime;
 
-  if (planningTrip && origin !== null && destination !== null) {
+  if (origin !== null && destination !== null) {
     dispatch(fetchRoute(
       origin,
       destination,
@@ -444,15 +440,16 @@ export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
 
   const origin = { lon: lng, lat, name };
 
+  const waypointsNormalized = [origin, destination];
+
   const directionsParams = {
     lon: params.lon,
     lat: params.lat,
     zoom: params.zoom,
-    origin,
-    destination,
+    waypoints: waypointsNormalized,
   };
 
-  dispatch(router5Actions.navigateTo('root.directions.at', directionsParams));
+  dispatch(router5Actions.navigateTo('root.directions.waypoints.at', directionsParams));
 };
 
 
@@ -488,15 +485,16 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
 
   const destination = { lon: lng, lat, name };
 
+  const waypointsNormalized = [origin, destination];
+
   const directionsParams = {
     lon: params.lon,
     lat: params.lat,
     zoom: params.zoom,
-    origin,
-    destination,
+    waypoints: waypointsNormalized,
   };
 
-  dispatch(router5Actions.navigateTo('root.directions.at', directionsParams));
+  dispatch(router5Actions.navigateTo('root.directions.waypoints.at', directionsParams));
 };
 
 export const setPOI = (lng, lat, name) => (dispatch, getState) => {
@@ -514,6 +512,14 @@ export const setPOI = (lng, lat, name) => (dispatch, getState) => {
   });
 };
 
+export const setOriginDestination = (origin, destination) => (dispatch, getState) => {
+  dispatch({
+    type: SET_ORIGIN_DESTINATION,
+    payload: { origin, destination },
+  });
+  routeIfValid(dispatch, getState);
+};
+
 export const loadApp = () => ({ type: LOAD_APP });
 
 export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
@@ -521,8 +527,22 @@ export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
     type: LOAD_MAP,
   });
   const { router } = getState();
+  const waypointsRoutes = [
+    'root.directions.waypoints',
+    'root.directions.waypoints.at',
+  ];
   if (router.route && router.route.name === 'root.home') {
     dispatch(router5Actions.navigateTo('root.home.at', { lon, lat, zoom }));
+  } else if (router.route && waypointsRoutes.includes(router.route.name)) {
+    // Extract params
+    const { waypoints } = router.route.params;
+    if (waypoints.length > 1) {
+      const origin = waypoints[0];
+      origin.name = [origin.lon, origin.lat].join(',');
+      const destination = waypoints[1];
+      destination.name = [destination.lon, destination.lat].join(',');
+      dispatch(setOriginDestination(origin, destination));
+    }
   }
 };
 
@@ -538,18 +558,6 @@ export const mapLoad = bounds => ({
     analytics: {
       type: 'map-load',
     },
-  },
-});
-
-export const setOriginDestination = (latO, lonO, nameO, latD, lonD, nameD) => ({
-  type: SET_ORIGIN_DESTINATION,
-  payload: {
-    latO,
-    lonO,
-    nameO,
-    latD,
-    lonD,
-    nameD,
   },
 });
 

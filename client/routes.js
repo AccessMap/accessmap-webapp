@@ -13,6 +13,29 @@ const pathToLoc = ({ lon, lat, zoom }) => ({
   zoom: precisionRound(zoom, 2),
 });
 
+const waypointsToPath = (waypoints) => {
+  if (!waypoints) return undefined;
+  const encoded = [];
+  waypoints.forEach((w) => {
+    if (w) {
+      const lon = precisionRound(w.lon, 7);
+      const lat = precisionRound(w.lat, 7);
+      encoded.push([lon, lat].join('_'));
+    }
+  });
+
+  return encoded.join('\'');
+};
+
+const pathToWaypoints = (path) => {
+  const waypoints = path.split('\'').map((w) => {
+    const coords = w.split('_').map(c => precisionRound(c, 7));
+    return { lon: coords[0], lat: coords[1] };
+  });
+  return waypoints;
+};
+
+
 const routes = [{
   name: 'root',
   path: '/',
@@ -22,7 +45,7 @@ const routes = [{
     path: '/',
     children: [{
       name: 'at',
-      path: 'at/:lon_:lat_:zoom<.*>z',
+      path: 'at:lon_:lat_:zoom<.*>z',
       defaultParams: {
         lon: mapConstants.lon,
         lat: mapConstants.lat,
@@ -33,42 +56,46 @@ const routes = [{
     }],
   }, {
     name: 'directions',
-    path: '/dir',
+    path: 'dir',
     children: [{
+      name: 'waypoints',
+      path: '/wp:waypoints',
+      deParams: params => ({ waypoints: waypointsToPath(params.waypoints) }),
+      decodeParams: ({ waypoints }) => ({ waypoints: pathToWaypoints(waypoints) }),
+      children: [{
+        name: 'at',
+        // TODO: query params can't match commas, periods, etc. Instead, use
+        // url-parameter-matrix for origin & destination (or just all waypoints)
+        // and use custom regex.
+        path: '/at:lon_:lat_:zoom<.*>z',
+        defaultParams: {
+          lon: mapConstants.lon,
+          lat: mapConstants.lat,
+          zoom: mapConstants.zoom,
+        },
+        encodeParams: (params) => {
+          const located = locToPath({ lon: params.lon, lat: params.lat, zoom: params.zoom });
+          const waypointsEnc = waypointsToPath(params.waypoints);
+          return { ...located, waypoints: waypointsEnc };
+        },
+        decodeParams: (params) => {
+          const located = pathToLoc({ lon: params.lon, lat: params.lat, zoom: params.zoom });
+          const waypointsEnc = pathToWaypoints(params.waypoints);
+          return { ...located, waypoints: waypointsEnc };
+        },
+      }],
+    }, {
       name: 'at',
-      path: '/at/:lon_:lat_:zoom<.*>z?origin&destination',
+      // TODO: query params can't match commas, periods, etc. Instead, use
+      // url-parameter-matrix for origin & destination (or just all waypoints)
+      // and use custom regex.
+      path: '/at:lon_:lat_:zoom<.*>z',
       defaultParams: {
         lon: mapConstants.lon,
         lat: mapConstants.lat,
         zoom: mapConstants.zoom,
       },
-      encodeParams: (params) => {
-        // Process lat/lon/zoom
-        const { lon, lat, zoom } = params;
-        const located = locToPath({ lon, lat, zoom });
-
-        // Process origin and/or destination
-        const { origin, destination } = params;
-        let originEncoded;
-        if (params.origin !== undefined && params.origin !== null) {
-          const oLon = precisionRound(origin.lon, 7);
-          const oLat = precisionRound(origin.lat, 7);
-          originEncoded = [oLon, oLat].join(',');
-        }
-
-        let destinationEncoded;
-        if (params.destination !== undefined && params.destination !== null) {
-          const dLon = precisionRound(destination.lon, 7);
-          const dLat = precisionRound(destination.lat, 7);
-          destinationEncoded = [dLon, dLat].join(',');
-        }
-
-        return {
-          ...located,
-          origin: originEncoded,
-          destination: destinationEncoded,
-        };
-      },
+      encodeParams: locToPath,
       decodeParams: pathToLoc,
     }],
   }],
