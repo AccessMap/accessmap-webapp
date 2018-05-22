@@ -17,19 +17,21 @@ const routes = [{
   name: 'root',
   path: '/',
   forwardTo: 'root.home',
-}, {
-  name: 'root.home',
-  path: '/',
-}, {
-  name: 'root.home.at',
-  path: 'at/:lon_:lat_:zoom<.*>z',
-  defaultParams: {
-    lon: mapConstants.lon,
-    lat: mapConstants.lat,
-    zoom: mapConstants.zoom,
-  },
-  encodeParams: locToPath,
-  decodeParams: pathToLoc,
+  children: [{
+    name: 'home',
+    path: '/',
+    children: [{
+      name: 'at',
+      path: 'at/:lon_:lat_:zoom<.*>z',
+      defaultParams: {
+        lon: mapConstants.lon,
+        lat: mapConstants.lat,
+        zoom: mapConstants.zoom,
+      },
+      encodeParams: locToPath,
+      decodeParams: pathToLoc,
+    }],
+  }],
 }];
 
 export default routes;
