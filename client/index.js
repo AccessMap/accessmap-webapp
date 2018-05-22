@@ -11,14 +11,23 @@ import './index.html';
 // If styles + html get imported after App, component-level styling breaks
 /* eslint-disable import/first */
 import App from 'containers/App';
-import { store, persistor } from 'store';
+import createRouter from 'create-router';
+import createStore from 'store/create-store';
+import createPersistor from 'store/create-persistor';
 /* eslint-enable import/first */
 
-ReactDOM.render(
-  <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>,
-  document.getElementById('root'),
-);
+const router = createRouter();
+const store = createStore(router);
+const persistor = createPersistor(store);
+
+
+router.start(() => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <App />
+      </PersistGate>
+    </Provider>,
+    document.getElementById('root'),
+  );
+});

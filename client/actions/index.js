@@ -1,4 +1,5 @@
 // Action types
+import { actions as router5Actions } from 'redux-router5';
 
 // Analytics settings
 export const ENABLE_ANALYTICS = 'ENABLE_ANALYTICS';
@@ -545,24 +546,34 @@ export const viewDirections = routeResult => ({
   },
 });
 
-export const mapMove = (center, zoom, bounds) => ({
-  type: MAP_MOVE,
-  payload: {
-    center,
-    zoom,
-    bounds,
-  },
-  meta: {
-    analytics: {
-      type: 'map-move',
-      payload: {
-        center,
-        zoom,
-        bounds,
+export const mapMove = (lon, lat, zoom, bounds) => (dispatch, getState) => {
+  dispatch({
+    type: MAP_MOVE,
+    payload: {
+      lon,
+      lat,
+      zoom,
+      bounds,
+    },
+    meta: {
+      analytics: {
+        type: 'map-move',
+        payload: {
+          lon,
+          lat,
+          zoom,
+          bounds,
+        },
       },
     },
-  },
-});
+  });
+
+  const { router } = getState();
+  const { route } = router;
+  const params = { ...route.params, lon, lat, zoom };
+
+  dispatch(router5Actions.navigateTo(route.name, params));
+};
 
 export const viewRouteInfo = routeResult => ({
   type: VIEW_ROUTE_INFO,

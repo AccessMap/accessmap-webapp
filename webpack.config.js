@@ -77,6 +77,7 @@ module.exports = function (env) {
     output: {
       path: staticsPath,
       filename: '[name].bundle.js',
+      publicPath: '/',
     },
     module: {
       rules: [
@@ -170,7 +171,9 @@ module.exports = function (env) {
 
     devServer: {
       contentBase: './client',
-      historyApiFallback: true,
+      historyApiFallback: {
+        disableDotRule: true,
+      },
       port: 3000,
       compress: isProd,
       inline: !isProd,

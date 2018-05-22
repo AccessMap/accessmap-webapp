@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
+import mapConstants from 'constants/map';
+
 import cn from 'classnames';
 
 import ReactMapboxGl from 'react-mapbox-gl';
@@ -80,7 +82,8 @@ class AccessMap extends Component {
   render() {
     const {
       actions,
-      center,
+      lon,
+      lat,
       mediaType,
       viewingDirections,
       zoom,
@@ -95,20 +98,11 @@ class AccessMap extends Component {
           directions: (mediaType === 'mobile') && viewingDirections,
         })}
         ref={(el) => { this.mapEl = el; }}
-        center={center}
+        center={[lon, lat]}
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}
-        maxBounds={[
-          [
-            -122.71446096536938,
-            47.40689742599213,
-          ],
-          [
-            -121.9073424946721,
-            47.8092130645955,
-          ],
-        ]}
+        maxBounds={mapConstants.bounds}
         /* eslint-disable react/style-prop-object */
         style='mapbox://styles/accessmap/cjglbmftk00202tqmpidtfxk3'
         /* eslint-enable react/style-prop-object */
@@ -122,8 +116,8 @@ class AccessMap extends Component {
           ];
 
           if (e.originalEvent) {
-            const { lng, lat } = m.getCenter();
-            actions.mapMove([lng, lat], m.getZoom(), bbox);
+            const center = m.getCenter();
+            actions.mapMove(center.lng, center.lat, m.getZoom(), bbox);
           }
         }}
         onMouseMove={(m, e) => {
@@ -169,25 +163,38 @@ AccessMap.propTypes = {
   actions: PropTypes.object.isRequired,
   /* eslint-enable react/forbid-prop-types */
   /* eslint-enable react/require-default-props */
-  center: PropTypes.arrayOf(PropTypes.number),
+  lon: PropTypes.number,
+  lat: PropTypes.number,
   mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   viewingDirections: PropTypes.bool,
   zoom: PropTypes.number,
 };
 
 AccessMap.defaultProps = {
-  center: [-122.333592, 47.605628],
+  lon: mapConstants.lon,
+  lat: mapConstants.lat,
   mediaType: 'mobile',
   viewingDirections: false,
-  zoom: 15,
+  zoom: mapConstants.zoom,
 };
 
-const mapStateToProps = state => ({
-  center: [state.view.lng, state.view.lat],
-  mediaType: state.browser.mediaType,
-  viewingDirections: state.activities.viewingDirections,
-  zoom: state.view.zoom,
-});
+const mapStateToProps = (state) => {
+  const {
+    activities,
+    browser,
+    router,
+  } = state;
+
+  const mapParams = router.route ? router.route.params : null;
+
+  return {
+    lon: mapParams ? mapParams.lon : undefined,
+    lat: mapParams ? mapParams.lat : undefined,
+    mediaType: browser.mediaType,
+    viewingDirections: activities.viewingDirections,
+    zoom: mapParams ? mapParams.zoom : undefined,
+  };
+};
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch),

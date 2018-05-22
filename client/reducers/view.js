@@ -62,8 +62,8 @@ export default (state = defaults, action) => {
     case MAP_MOVE:
       return {
         ...state,
-        lng: action.payload.center[0],
-        lat: action.payload.center[1],
+        lng: action.payload.lon,
+        lat: action.payload.lat,
         zoom: action.payload.zoom,
       };
     case RECEIVE_GEOLOCATION:

@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
 
+import { router5Reducer } from 'redux-router5';
+
 import activities from './activities';
 import analytics from './analytics';
 import browser from './browser';
@@ -27,6 +29,7 @@ export default combineReducers({
   map,
   profile,
   route,
+  router: router5Reducer,
   routesettings,
   toasts,
   view,
