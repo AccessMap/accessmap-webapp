@@ -20,9 +20,9 @@
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@mapbox/shelf-pack/-/shelf-pack-3.1.0.tgz#1edea9c0bf6715b217171ba60646c201af520f6a"
 
-"@mapbox/sphericalmercator@^1.0.5", "@mapbox/sphericalmercator@~1.0.2":
+"@mapbox/sphericalmercator@mapbox/sphericalmercator#32/head", "@mapbox/sphericalmercator@~1.0.2":
   version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@mapbox/sphericalmercator/-/sphericalmercator-1.0.5.tgz#70237b9774095ed1cfdbcea7a8fd1fc82b2691f2"
+  resolved "https://codeload.github.com/mapbox/sphericalmercator/tar.gz/0d1cc287a262e490c4fca6d2b6446274521667e0"
 
 "@mapbox/tiny-sdf@^1.1.0":
   version "1.1.0"

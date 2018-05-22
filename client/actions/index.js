@@ -1,5 +1,8 @@
+import inView from 'utils/in-view';
+import centerInView from 'utils/center-in-view';
+
 // Action types
-import { actions as router5Actions } from 'redux-router5';
+import { actions as router5 } from 'redux-router5';
 
 // Analytics settings
 export const ENABLE_ANALYTICS = 'ENABLE_ANALYTICS';
@@ -171,9 +174,9 @@ export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
   const params = { lon, lat, zoom, origin, destination };
 
   if (planningTrip) {
-    dispatch(router5Actions.navigateTo('root.home.at', params));
+    dispatch(router5.navigateTo('root.home.at', params));
   } else {
-    dispatch(router5Actions.navigateTo('root.directions.at', params));
+    dispatch(router5.navigateTo('root.directions.at', params));
   }
 };
 
@@ -449,7 +452,7 @@ export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
     waypoints: waypointsNormalized,
   };
 
-  dispatch(router5Actions.navigateTo('root.directions.waypoints.at', directionsParams));
+  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
 };
 
 
@@ -494,11 +497,11 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
     waypoints: waypointsNormalized,
   };
 
-  dispatch(router5Actions.navigateTo('root.directions.waypoints.at', directionsParams));
+  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
 };
 
 export const setPOI = (lng, lat, name) => (dispatch, getState) => {
-  const { log } = getState();
+  const { log, router } = getState();
 
   dispatch({
     type: SET_POI,
@@ -510,6 +513,20 @@ export const setPOI = (lng, lat, name) => (dispatch, getState) => {
       },
     },
   });
+
+  if (router.route) {
+    const { params } = router.route;
+    if (!inView(lng, lat, params.lon, params.lat, params.zoom)) {
+      // TODO: put the default POI zoom in the constants module, use here and
+      // in reducers.
+      const center = centerInView(lng, lat, 16);
+      const updatedParams = { ...params, lon: center[0], lat: center[1] };
+      const routeName = router.route.name.endsWith('.at') ?
+        router.route.name :
+        `${router.route.name}.at`;
+      dispatch(router5.navigateTo(routeName, updatedParams));
+    }
+  }
 };
 
 export const setOriginDestination = (origin, destination) => (dispatch, getState) => {
@@ -532,7 +549,7 @@ export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
     'root.directions.waypoints.at',
   ];
   if (router.route && router.route.name === 'root.home') {
-    dispatch(router5Actions.navigateTo('root.home.at', { lon, lat, zoom }));
+    dispatch(router5.navigateTo('root.home.at', { lon, lat, zoom }));
   } else if (router.route && waypointsRoutes.includes(router.route.name)) {
     // Extract params
     const { waypoints } = router.route.params;
@@ -655,7 +672,7 @@ export const mapMove = (lon, lat, zoom, bounds) => (dispatch, getState) => {
       `${route.name}.at`;
   }
 
-  dispatch(router5Actions.navigateTo(routeName, params));
+  dispatch(router5.navigateTo(routeName, params));
 };
 
 export const viewRouteInfo = routeResult => ({

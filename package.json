@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@mapbox/geo-viewport": "mapbox/geo-viewport#15/head",
-    "@mapbox/sphericalmercator": "^1.0.5",
+    "@mapbox/sphericalmercator": "mapbox/sphericalmercator#32/head",
     "@turf/bbox": "^4.5.2",
     "@turf/bbox-polygon": "4.7.3",
     "@turf/inside": "^4.5.2",
@@ -83,5 +83,8 @@
     "svg-sprite-loader": "^3.7.3",
     "transform-loader": "^0.2.4",
     "url-loader": "^0.6.2"
+  },
+    "resolutions": {
+    "@mapbox/sphericalmercator": "mapbox/sphericalmercator#32/head"
   }
 }
