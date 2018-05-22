@@ -1,5 +1,8 @@
 import inView from 'utils/in-view';
+import getVisibleMargins from 'utils/get-visible-margins';
 import centerInView from 'utils/center-in-view';
+import routeBounds from 'utils/route-bounds';
+import mapSubview from 'utils/map-subview';
 
 // Action types
 import { actions as router5 } from 'redux-router5';
@@ -227,20 +230,39 @@ export const requestRoute = (origin, destination, params) => ({
   },
 });
 
-export const receiveRoute = routeResult => ({
-  type: RECEIVE_ROUTE,
-  payload: {
-    routeResult,
-  },
-  meta: {
-    analytics: {
-      type: 'receive-route',
-      payload: {
-        routeResult,
+export const receiveRoute = routeResult => (dispatch, getState) => {
+  const { route } = getState().router;
+
+  dispatch({
+    type: RECEIVE_ROUTE,
+    payload: {
+      routeResult,
+    },
+    meta: {
+      analytics: {
+        type: 'receive-route',
+        payload: {
+          routeResult,
+        },
       },
     },
-  },
-});
+  });
+
+  const { params } = route;
+  const bounds = routeBounds(routeResult);
+  const margins = getVisibleMargins();
+  const { center, zoom } = mapSubview(bounds, margins);
+
+  const directionsParams = {
+    ...params,
+    lon: center[0],
+    lat: center[1],
+    zoom,
+  };
+
+  // TODO: extract 'navigate to other area' into its own action creator
+  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
+};
 
 export const failedRoute = (origin, destination, error) => ({
   type: FAILED_ROUTE,
