@@ -152,7 +152,7 @@ export const closeLinkOverlay = () => ({
 });
 
 export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
-  const { waypoints } = getState();
+  const { router, waypoints } = getState();
   dispatch({
     type: TOGGLE_TRIP_PLANNING,
     payload: {
@@ -165,6 +165,16 @@ export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
       },
     },
   });
+
+  const { lon, lat, zoom } = router.route.params;
+  const { origin, destination } = waypoints;
+  const params = { lon, lat, zoom, origin, destination };
+
+  if (planningTrip) {
+    dispatch(router5Actions.navigateTo('root.home.at', params));
+  } else {
+    dispatch(router5Actions.navigateTo('root.directions.at', params));
+  }
 };
 
 export const toggleSettingProfile = displayed => ({
@@ -403,7 +413,7 @@ export const setProfileDefault = profile => (dispatch, getState) => {
 };
 
 export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
-  const { log } = getState();
+  const { log, router, waypoints } = getState();
 
   dispatch({
     type: SET_ORIGIN,
@@ -417,11 +427,37 @@ export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
   });
 
   routeIfValid(dispatch, getState);
+
+  const { params } = router.route;
+
+  const { destination: waypointsDestination } = waypoints;
+  let destination;
+  if (waypointsDestination !== undefined && waypointsDestination !== null) {
+    destination = {
+      lon: waypointsDestination.geometry.coordinates[0],
+      lat: waypointsDestination.geometry.coordinates[1],
+      name: waypointsDestination.properties.name,
+    };
+  } else {
+    destination = waypointsDestination;
+  }
+
+  const origin = { lon: lng, lat, name };
+
+  const directionsParams = {
+    lon: params.lon,
+    lat: params.lat,
+    zoom: params.zoom,
+    origin,
+    destination,
+  };
+
+  dispatch(router5Actions.navigateTo('root.directions.at', directionsParams));
 };
 
 
 export const setDestination = (lng, lat, name) => (dispatch, getState) => {
-  const { log } = getState();
+  const { log, router, waypoints } = getState();
 
   dispatch({
     type: SET_DESTINATION,
@@ -435,6 +471,32 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
   });
 
   routeIfValid(dispatch, getState);
+
+  const { params } = router.route;
+  const { origin: waypointsOrigin } = waypoints;
+
+  let origin;
+  if (waypointsOrigin !== undefined && waypoints !== null) {
+    origin = {
+      lon: waypointsOrigin.geometry.coordinates[0],
+      lat: waypointsOrigin.geometry.coordinates[1],
+      name: waypointsOrigin.properties.name,
+    };
+  } else {
+    origin = waypointsOrigin;
+  }
+
+  const destination = { lon: lng, lat, name };
+
+  const directionsParams = {
+    lon: params.lon,
+    lat: params.lat,
+    zoom: params.zoom,
+    origin,
+    destination,
+  };
+
+  dispatch(router5Actions.navigateTo('root.directions.at', directionsParams));
 };
 
 export const setPOI = (lng, lat, name) => (dispatch, getState) => {
