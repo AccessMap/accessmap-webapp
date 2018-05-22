@@ -454,13 +454,15 @@ export const setPOI = (lng, lat, name) => (dispatch, getState) => {
 
 export const loadApp = () => ({ type: LOAD_APP });
 
-export const loadMap = (width, height) => ({
-  type: LOAD_MAP,
-  payload: {
-    width,
-    height,
-  },
-});
+export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
+  dispatch({
+    type: LOAD_MAP,
+  });
+  const { router } = getState();
+  if (router.route && router.route.name === 'root.home') {
+    dispatch(router5Actions.navigateTo('root.home.at', { lon, lat, zoom }));
+  }
+};
 
 export const resizeMap = (width, height) => ({
   type: RESIZE_MAP,
@@ -570,9 +572,20 @@ export const mapMove = (lon, lat, zoom, bounds) => (dispatch, getState) => {
 
   const { router } = getState();
   const { route } = router;
-  const params = { ...route.params, lon, lat, zoom };
 
-  dispatch(router5Actions.navigateTo(route.name, params));
+  let params;
+  let routeName;
+  if (route === null) {
+    params = { lon, lat, zoom };
+    routeName = 'root.home.at';
+  } else {
+    params = { ...route.params, lon, lat, zoom };
+    routeName = route.name.endsWith('.at') ?
+      route.name :
+      `${route.name}.at`;
+  }
+
+  dispatch(router5Actions.navigateTo(routeName, params));
 };
 
 export const viewRouteInfo = routeResult => ({

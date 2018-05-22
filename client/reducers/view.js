@@ -11,7 +11,6 @@ import routeBounds from 'utils/route-bounds';
 // Action types
 import {
   CLOSE_DIRECTIONS,
-  LOAD_MAP,
   MAP_MOVE,
   RECEIVE_GEOLOCATION,
   RECEIVE_ROUTE,
@@ -191,7 +190,6 @@ export default (state = defaults, action) => {
         lastView: null,
       };
     }
-    case LOAD_MAP:
     case RESIZE_MAP:
       return {
         ...state,

@@ -13,9 +13,16 @@ const pathToLoc = ({ lon, lat, zoom }) => ({
   zoom: precisionRound(zoom, 2),
 });
 
-export default [{
-  name: 'index',
-  path: '/at/:lon_:lat_:zoom<.*>z',
+const routes = [{
+  name: 'root',
+  path: '/',
+  forwardTo: 'root.home',
+}, {
+  name: 'root.home',
+  path: '/',
+}, {
+  name: 'root.home.at',
+  path: 'at/:lon_:lat_:zoom<.*>z',
   defaultParams: {
     lon: mapConstants.lon,
     lat: mapConstants.lat,
@@ -24,3 +31,5 @@ export default [{
   encodeParams: locToPath,
   decodeParams: pathToLoc,
 }];
+
+export default routes;
