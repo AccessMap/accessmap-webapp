@@ -45,13 +45,15 @@ SearchGeocoder.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
-    view,
+    router,
     waypoints,
   } = state;
 
+  const { lon, lat } = router.route.params;
+
   return {
-    center: [view.lng, view.lat],
-    poiName: waypoints.poi ? waypoints.poi.properties.name : null,
+    center: [lon, lat],
+    poiName: waypoints.poi ? waypoints.poi.name : null,
   };
 };
 

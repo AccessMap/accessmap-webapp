@@ -48,7 +48,7 @@ export const defaultRouteSettings = {
 };
 
 export const defaultView = {
-  lng: -122.333592,
+  lon: -122.333592,
   lastView: null,
   lat: 47.605628,
   mapWidth: null,

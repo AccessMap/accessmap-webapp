@@ -5,7 +5,7 @@ import inside from '@turf/inside';
 import getDisplayMode from 'utils/display-mode';
 import getMediaType from 'utils/media-type';
 import mapSubview from 'utils/map-subview';
-import PointFeature from 'utils/geojson';
+import PointFeature from 'utils/point-feature';
 import routeBounds from 'utils/route-bounds';
 
 // Action types
@@ -33,14 +33,14 @@ export default (state = defaults, action) => {
     case SET_ORIGIN:
     case SET_DESTINATION:
     case SET_POI: {
-      const waypoint = PointFeature(action.payload.lng,
+      const waypoint = PointFeature(action.payload.lon,
                                     action.payload.lat,
                                     { name: action.payload.name });
       const inView = inside(waypoint, bboxPolygon(action.payload.bounds));
       if (!inView) {
         return {
           ...state,
-          lng: action.payload.lng,
+          lon: action.payload.lon,
           lat: action.payload.lat,
           zoom: 16,
         };
@@ -48,27 +48,27 @@ export default (state = defaults, action) => {
       return state;
     }
     case SET_CENTER:
-      return { ...state, lng: action.payload[0], lat: action.payload[1] };
+      return { ...state, lon: action.payload[0], lat: action.payload[1] };
     case SET_ZOOM:
       return { ...state, zoom: action.payload };
     case SET_CENTER_AND_ZOOM:
       return {
         ...state,
-        lng: action.payload.center[0],
+        lon: action.payload.center[0],
         lat: action.payload.center[1],
         zoom: action.payload.zoom,
       };
     case MAP_MOVE:
       return {
         ...state,
-        lng: action.payload.lon,
+        lon: action.payload.lon,
         lat: action.payload.lat,
         zoom: action.payload.zoom,
       };
     case RECEIVE_GEOLOCATION:
       return {
         ...state,
-        lng: action.payload.coordinates[0],
+        lon: action.payload.coordinates[0],
         lat: action.payload.coordinates[1],
         zoom: 16,
       };
@@ -131,7 +131,7 @@ export default (state = defaults, action) => {
 
         return {
           ...state,
-          lng: center[0],
+          lon: center[0],
           lat: center[1],
           zoom,
         };
@@ -169,11 +169,11 @@ export default (state = defaults, action) => {
 
       return {
         ...state,
-        lng: center[0],
+        lon: center[0],
         lat: center[1],
         zoom,
         lastView: {
-          lng: state.lng,
+          lon: state.lon,
           lat: state.lat,
           zoom: state.zoom,
         },
@@ -184,7 +184,7 @@ export default (state = defaults, action) => {
       if (mediaType !== 'mobile') return state;
       return {
         ...state,
-        lng: state.lastView.lng,
+        lon: state.lastView.lon,
         lat: state.lastView.lat,
         zoom: state.lastView.zoom,
         lastView: null,

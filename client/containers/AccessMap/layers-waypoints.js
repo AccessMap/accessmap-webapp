@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 
 import MapMarker from 'components/MapMarker';
 import { pointFeatureNoProps } from 'prop-schema';
+import pointFeature from 'utils/point-feature';
 
 
 const Waypoints = (props) => {
   const {
     destination,
     origin,
-    planningTrip,
     poi,
     selectedFeature,
   } = props;
@@ -36,13 +36,13 @@ const Waypoints = (props) => {
   }
 
   let poiComponent = null;
-  if (!planningTrip && selectedFeature) {
+  if (selectedFeature) {
     poiComponent = (
       <MapMarker
         coordinates={selectedFeature.location}
       />
     );
-  } else if (!planningTrip && poi) {
+  } else if (poi) {
     poiComponent = (
       <MapMarker
         coordinates={poi.geometry.coordinates}
@@ -62,7 +62,6 @@ const Waypoints = (props) => {
 Waypoints.propTypes = {
   destination: pointFeatureNoProps,
   origin: pointFeatureNoProps,
-  planningTrip: PropTypes.bool,
   poi: pointFeatureNoProps,
   selectedFeature: PropTypes.shape({
     layer: PropTypes.string,
@@ -75,7 +74,6 @@ Waypoints.propTypes = {
 Waypoints.defaultProps = {
   destination: null,
   origin: null,
-  planningTrip: false,
   poi: null,
   selectedFeature: null,
 };
@@ -83,15 +81,24 @@ Waypoints.defaultProps = {
 const mapStateToProps = (state) => {
   const {
     map,
-    router,
     waypoints,
   } = state;
 
+  const selectedWaypoints = {};
+  Object.entries(waypoints).forEach(([key, value]) => {
+    if (value) {
+      selectedWaypoints[key] = pointFeature(value.lon, value.lat, value.name);
+    } else {
+      selectedWaypoints[key] = null;
+    }
+  });
+
+  const { poi, origin, destination } = selectedWaypoints;
+
   return {
-    destination: waypoints.destination,
-    origin: waypoints.origin,
-    planningTrip: router.route && router.route.name.startsWith('root.dir'),
-    poi: waypoints.poi,
+    destination,
+    origin,
+    poi,
     selectedFeature: map.selectedFeature,
   };
 };

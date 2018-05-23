@@ -173,12 +173,15 @@ export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
   });
 
   const { lon, lat, zoom } = router.route.params;
-  const { origin, destination } = waypoints;
+  const { origin, destination, poi } = waypoints;
   const params = { lon, lat, zoom, origin, destination };
 
   if (planningTrip) {
     dispatch(router5.navigateTo('root.home.at', params));
   } else {
+    if (!origin && poi) {
+      params.origin = poi;
+    }
     dispatch(router5.navigateTo('root.directions.at', params));
   }
 };
@@ -296,13 +299,8 @@ export const fetchRoute = (origin, destination, params) => (dispatch) => {
   } = params;
 
   const routeParams = {
-    origin: origin.geometry.coordinates.slice().reverse().join(','),
-    destination: destination
-                   .geometry
-                   .coordinates
-                   .slice()
-                   .reverse()
-                   .join(','),
+    origin: [origin.lat, origin.lon].join(','),
+    destination: [destination.lat, destination.lon].join(','),
     incline_max: inclineMax,
     incline_min: inclineMin,
     speed,
@@ -433,16 +431,16 @@ export const setProfileDefault = profile => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
-export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
+export const setOrigin = (lon, lat, name) => (dispatch, getState) => {
   const { log, router, waypoints } = getState();
 
   dispatch({
     type: SET_ORIGIN,
-    payload: { lng, lat, name, bounds: log.bounds },
+    payload: { lon, lat, name, bounds: log.bounds },
     meta: {
       analytics: {
         type: 'set-origin',
-        payload: { lng, lat, name, bounds: log.bounds },
+        payload: { lon, lat, name, bounds: log.bounds },
       },
     },
   });
@@ -451,19 +449,8 @@ export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
 
   const { params } = router.route;
 
-  const { destination: waypointsDestination } = waypoints;
-  let destination;
-  if (waypointsDestination !== undefined && waypointsDestination !== null) {
-    destination = {
-      lon: waypointsDestination.geometry.coordinates[0],
-      lat: waypointsDestination.geometry.coordinates[1],
-      name: waypointsDestination.properties.name,
-    };
-  } else {
-    destination = waypointsDestination;
-  }
-
-  const origin = { lon: lng, lat, name };
+  const { destination } = waypoints;
+  const origin = { lon, lat, name };
 
   const waypointsNormalized = [origin, destination];
 
@@ -478,16 +465,16 @@ export const setOrigin = (lng, lat, name) => (dispatch, getState) => {
 };
 
 
-export const setDestination = (lng, lat, name) => (dispatch, getState) => {
+export const setDestination = (lon, lat, name) => (dispatch, getState) => {
   const { log, router, waypoints } = getState();
 
   dispatch({
     type: SET_DESTINATION,
-    payload: { lng, lat, name, bounds: log.bounds },
+    payload: { lon, lat, name, bounds: log.bounds },
     meta: {
       analytics: {
         type: 'set-destination',
-        payload: { lng, lat, name, bounds: log.bounds },
+        payload: { lon, lat, name, bounds: log.bounds },
       },
     },
   });
@@ -495,20 +482,8 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 
   const { params } = router.route;
-  const { origin: waypointsOrigin } = waypoints;
-
-  let origin;
-  if (waypointsOrigin) {
-    origin = {
-      lon: waypointsOrigin.geometry.coordinates[0],
-      lat: waypointsOrigin.geometry.coordinates[1],
-      name: waypointsOrigin.properties.name,
-    };
-  } else {
-    origin = waypointsOrigin;
-  }
-
-  const destination = { lon: lng, lat, name };
+  const { origin } = waypoints;
+  const destination = { lon, lat, name };
 
   const waypointsNormalized = [origin, destination];
 
@@ -522,26 +497,26 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
   dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
 };
 
-export const setPOI = (lng, lat, name) => (dispatch, getState) => {
+export const setPOI = (lon, lat, name) => (dispatch, getState) => {
   const { log, router } = getState();
 
   dispatch({
     type: SET_POI,
-    payload: { lng, lat, name, bounds: log.bounds },
+    payload: { lon, lat, name, bounds: log.bounds },
     meta: {
       analytics: {
         type: 'set-poi',
-        payload: { lng, lat, name },
+        payload: { lon, lat, name },
       },
     },
   });
 
   if (router.route) {
     const { params } = router.route;
-    if (!inView(lng, lat, params.lon, params.lat, params.zoom)) {
+    if (!inView(lon, lat, params.lon, params.lat, params.zoom)) {
       // TODO: put the default POI zoom in the constants module, use here and
       // in reducers.
-      const center = centerInView(lng, lat, 16);
+      const center = centerInView(lon, lat, 16);
       const updatedParams = { ...params, lon: center[0], lat: center[1] };
       const routeName = router.route.name.endsWith('.at') ?
         router.route.name :

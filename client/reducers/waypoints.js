@@ -1,7 +1,5 @@
 import { actionTypes as router5Types } from 'redux-router5';
 
-import PointFeature from 'utils/geojson';
-
 // Action types
 import {
   SET_ORIGIN,
@@ -19,33 +17,26 @@ const handleWaypoints = (state = defaults, action) => {
     case SET_POI:
       return {
         ...state,
-        poi: PointFeature(action.payload.lng,
-                          action.payload.lat,
-                          { name: action.payload.name }),
+        poi: action.payload,
       };
     case SET_ORIGIN:
       return {
         ...state,
-        origin: PointFeature(action.payload.lng,
-                             action.payload.lat,
-                             { name: action.payload.name }),
+        origin: action.payload,
+        poi: null,
       };
     case SET_DESTINATION:
       return {
         ...state,
-        destination: PointFeature(action.payload.lng,
-                                  action.payload.lat,
-                                  { name: action.payload.name }),
+        destination: action.payload,
+        poi: null,
       };
     case SET_ORIGIN_DESTINATION:
       return {
         ...state,
-        origin: PointFeature(action.payload.origin.lon,
-                             action.payload.origin.lat,
-                             { name: action.payload.origin.name }),
-        destination: PointFeature(action.payload.destination.lon,
-                                  action.payload.destination.lat,
-                                  { name: action.payload.destination.name }),
+        origin: action.payload.origin,
+        destination: action.payload.destination,
+        poi: null,
       };
     case SWAP_WAYPOINTS:
       return {
@@ -56,11 +47,23 @@ const handleWaypoints = (state = defaults, action) => {
     case router5Types.TRANSITION_SUCCESS: {
       if (!action.payload.route ||
           !action.payload.route.name.startsWith('root.directions')) {
+        // We've exited directions mode - clear out origin/destination
         return { ...state, origin: null, destination: null };
       }
-      // If this is 'rehydrating' from the URL, catch and update
+      // If this is 'rehydrating' directions mode from the URL, catch and
+      // update
       const { origin, destination } = action.payload.route.params;
-      const newOrigin = (!state.origin && origin) ? origin : state.origin;
+      let newOrigin = state.origin;
+      if (!state.origin) {
+        // Origin isn't set.
+        if (origin) {
+          // Attempt to grab it from the URL
+          newOrigin = origin;
+        } else {
+          // Attempt to grab a previously-selected POI
+          newOrigin = state.poi;
+        }
+      }
       const newDestination = (!state.destination && destination) ? destination : state.destination;
       return { ...state, origin: newOrigin, destination: newDestination };
     }

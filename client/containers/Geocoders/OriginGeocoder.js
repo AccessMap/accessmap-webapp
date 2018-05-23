@@ -45,13 +45,15 @@ OriginGeocoder.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
-    view,
+    router,
     waypoints,
   } = state;
 
+  const { lon, lat } = router.route.params;
+
   return {
-    center: [view.lng, view.lat],
-    originName: waypoints.origin ? waypoints.origin.properties.name : null,
+    center: [lon, lat],
+    originName: waypoints.origin ? waypoints.origin.name : null,
   };
 };
 
