@@ -1,13 +1,11 @@
-import mapDefaults from 'constants/map';
+import mapConstants from 'constants/map';
 import precisionRound from 'utils/precision-round';
 
-const locToPath = (params) => {
-  const located = [];
-  if ('lon' in params) located.lon = precisionRound(params.lon, 7);
-  if ('lat' in params) located.lat = precisionRound(params.lat, 7);
-  if ('zoom' in params) located.zoom = precisionRound(params.zoom, 2);
-  return { ...params, ...located };
-};
+const locToPath = ({ lon, lat, zoom }) => ({
+  lon: precisionRound(lon, 7),
+  lat: precisionRound(lat, 7),
+  zoom: precisionRound(zoom, 2),
+});
 
 const pathToLoc = ({ lon, lat, zoom }) => ({
   lon: precisionRound(lon, 7),
@@ -15,9 +13,8 @@ const pathToLoc = ({ lon, lat, zoom }) => ({
   zoom: precisionRound(zoom, 2),
 });
 
-const waypointsToPath = (params) => {
-  if (!('waypoints' in params)) return params;
-  const { waypoints } = params;
+const waypointsToPath = (waypoints) => {
+  if (!waypoints) return undefined;
   const encoded = [];
   waypoints.forEach((w) => {
     if (w) {
@@ -27,7 +24,7 @@ const waypointsToPath = (params) => {
     }
   });
 
-  return { ...params, waypoints: encoded.join('\'') };
+  return encoded.join('\'');
 };
 
 const pathToWaypoints = (path) => {
@@ -38,51 +35,21 @@ const pathToWaypoints = (path) => {
   return waypoints;
 };
 
-// Tree legend: names = nodes, edges = lines, parentheses = view state could be
-// outside of URL
-//
-//
-//
-// Rough overview of the tree:
-//
-//                root
-//                 |
-//         --------+---------
-//        /                  \
-//      home         planning directions      <-- determined by path level 1
-//     /    \                 |  \
-// (profile) (legend)         | (profile, geocoding, legend)
-//                            |
-//                   viewing directions  <-- determined by path level 2
-//                            |
-//                       -----+-----
-//                      /     |     \
-//                (profile) (info)  (steps)
-//
-//
-//
-// Note: every single view should have a location (lon, lat, zoom). If it
-// doesn't, this should trigger a thunk that retrieves it through this logic:
-// - If we're in 'home' mode, just grab the defaults
-// - If we're in planning trip mode and no waypoints, grab defaults. If one
-// waypoint, start at it. If both waypoints, request trip and transition to
-// viewing directions.
-// - If viewing directions, request trip and transition to viewing directions
-
 
 const routes = [{
   name: 'root',
   path: '/',
+  forwardTo: 'root.home',
   children: [{
     name: 'home',
     path: '/',
     children: [{
       name: 'at',
-      path: 'at!:lon_:lat_:zoom<.*>z?mode',
+      path: 'at:lon_:lat_:zoom<.*>z',
       defaultParams: {
-        lon: mapDefaults.lon,
-        lat: mapDefaults.lat,
-        zoom: mapDefaults.zoom,
+        lon: mapConstants.lon,
+        lat: mapConstants.lat,
+        zoom: mapConstants.zoom,
       },
       encodeParams: locToPath,
       decodeParams: pathToLoc,
@@ -92,7 +59,7 @@ const routes = [{
     path: 'dir',
     children: [{
       name: 'waypoints',
-      path: '/wp!:waypoints',
+      path: '/wp:waypoints',
       deParams: params => ({ waypoints: waypointsToPath(params.waypoints) }),
       decodeParams: ({ waypoints }) => ({ waypoints: pathToWaypoints(waypoints) }),
       children: [{
@@ -100,17 +67,21 @@ const routes = [{
         // TODO: query params can't match commas, periods, etc. Instead, use
         // url-parameter-matrix for origin & destination (or just all waypoints)
         // and use custom regex.
-        path: '/at!:lon_:lat_:zoom<.*>z?mode',
+        path: '/at:lon_:lat_:zoom<.*>z',
         defaultParams: {
-          lon: mapDefaults.lon,
-          lat: mapDefaults.lat,
-          zoom: mapDefaults.zoom,
+          lon: mapConstants.lon,
+          lat: mapConstants.lat,
+          zoom: mapConstants.zoom,
         },
-        encodeParams: params => waypointsToPath(locToPath(params)),
+        encodeParams: (params) => {
+          const located = locToPath({ lon: params.lon, lat: params.lat, zoom: params.zoom });
+          const waypointsEnc = waypointsToPath(params.waypoints);
+          return { ...located, waypoints: waypointsEnc };
+        },
         decodeParams: (params) => {
           const located = pathToLoc({ lon: params.lon, lat: params.lat, zoom: params.zoom });
           const waypointsEnc = pathToWaypoints(params.waypoints);
-          return { ...params, ...located, waypoints: waypointsEnc };
+          return { ...located, waypoints: waypointsEnc };
         },
       }],
     }, {
@@ -118,14 +89,14 @@ const routes = [{
       // TODO: query params can't match commas, periods, etc. Instead, use
       // url-parameter-matrix for origin & destination (or just all waypoints)
       // and use custom regex.
-      path: '/at!:lon_:lat_:zoom<.*>z?mode',
+      path: '/at:lon_:lat_:zoom<.*>z',
       defaultParams: {
-        lon: mapDefaults.lon,
-        lat: mapDefaults.lat,
-        zoom: mapDefaults.zoom,
+        lon: mapConstants.lon,
+        lat: mapConstants.lat,
+        zoom: mapConstants.zoom,
       },
-      encodeParams: params => ({ ...params, ...locToPath(params) }),
-      decodeParams: params => ({ ...params, ...pathToLoc(params) }),
+      encodeParams: locToPath,
+      decodeParams: pathToLoc,
     }],
   }],
 }];

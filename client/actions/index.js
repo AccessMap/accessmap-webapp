@@ -552,9 +552,9 @@ export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
     const { waypoints } = router.route.params;
     if (waypoints.length > 1) {
       const origin = waypoints[0];
-      origin.name = [origin.lon, origin.lat].join(',');
+      origin.name = [origin.lat, origin.lon].join(', ');
       const destination = waypoints[1];
-      destination.name = [destination.lon, destination.lat].join(',');
+      destination.name = [destination.lat, destination.lon].join(', ');
       dispatch(setOriginDestination(origin, destination));
     }
   }

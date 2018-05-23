@@ -11,7 +11,7 @@ import './index.html';
 // If styles + html get imported after App, component-level styling breaks
 /* eslint-disable import/first */
 import App from 'containers/App';
-import createRouter from 'create-router';
+import createRouter from 'router/create-router';
 import createStore from 'store/create-store';
 import createPersistor from 'store/create-persistor';
 /* eslint-enable import/first */
