@@ -123,11 +123,12 @@ const mapStateToProps = (state) => {
   const {
     activities,
     browser,
+    router,
   } = state;
 
   return {
     mediaType: browser.mediaType,
-    planningTrip: activities.planningTrip,
+    planningTrip: router.route && router.route.name.startsWith('root.dir'),
     settingProfile: activities.settingProfile,
     viewingMapInfo: activities.viewingMapInfo,
   };

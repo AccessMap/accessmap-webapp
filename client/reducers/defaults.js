@@ -3,7 +3,6 @@ import cloneObject from 'utils/clone-object';
 
 export const defaultActivities = {
   drawerVisible: false,
-  planningTrip: false,
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,

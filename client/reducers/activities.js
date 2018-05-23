@@ -6,11 +6,8 @@ import {
   CLOSE_DIRECTIONS,
   SHOW_DRAWER,
   RECEIVE_ROUTE,
-  SET_DESTINATION,
-  SET_ORIGIN,
   SET_PROFILE,
   TOGGLE_SETTING_PROFILE,
-  TOGGLE_TRIP_PLANNING,
   VIEW_DIRECTIONS,
   VIEW_MAP_INFO,
   VIEW_ROUTE_INFO,
@@ -35,18 +32,6 @@ const handleSettingProfile = (state = defaults.settingProfile, action) => {
       return action.payload === 'custom';
     case TOGGLE_SETTING_PROFILE:
       return !action.payload;
-    default:
-      return state;
-  }
-};
-
-const handlePlanningTrip = (state = defaults.planningTrip, action) => {
-  switch (action.type) {
-    case TOGGLE_TRIP_PLANNING:
-      return !action.payload.planningTrip;
-    case SET_ORIGIN:
-    case SET_DESTINATION:
-      return true;
     default:
       return state;
   }
@@ -96,7 +81,6 @@ const handleViewingRouteInfo = (state = defaults.viewingRouteInfo, action) => {
 
 export default combineReducers({
   drawerVisible: handleDrawerVisible,
-  planningTrip: handlePlanningTrip,
   settingProfile: handleSettingProfile,
   viewingDirections: handleViewingDirections,
   viewingMapInfo: handleViewingMapInfo,

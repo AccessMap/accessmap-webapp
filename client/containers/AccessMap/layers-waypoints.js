@@ -82,15 +82,15 @@ Waypoints.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
-    activities,
     map,
+    router,
     waypoints,
   } = state;
 
   return {
     destination: waypoints.destination,
     origin: waypoints.origin,
-    planningTrip: activities.planningTrip,
+    planningTrip: router.route && router.route.name.startsWith('root.dir'),
     poi: waypoints.poi,
     selectedFeature: map.selectedFeature,
   };

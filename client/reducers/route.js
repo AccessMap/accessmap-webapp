@@ -1,20 +1,23 @@
 import { combineReducers } from 'redux';
+import { actionTypes as router5Types } from 'redux-router5';
 
 import {
   FAILED_ROUTE,
   RECEIVE_ROUTE,
   REQUEST_ROUTE,
-  TOGGLE_TRIP_PLANNING,
 } from 'actions';
 
 import { defaultRoute as defaults } from './defaults';
 
 const handleRoute = (state = defaults.routeResult, action) => {
   switch (action.type) {
-    case TOGGLE_TRIP_PLANNING:
-      return action.payload.planningTrip ? null : state;
     case RECEIVE_ROUTE:
       return action.payload.routeResult;
+    case router5Types.TRANSITION_SUCCESS:
+      if (action.payload.route) {
+        return action.payload.route.name.startsWith('root.directions') ? state : null;
+      }
+      return state;
     default:
       return state;
   }

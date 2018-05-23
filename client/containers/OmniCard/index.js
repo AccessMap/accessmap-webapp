@@ -345,6 +345,7 @@ const mapStateToProps = (state) => {
     browser,
     profile,
     route,
+    router,
     routesettings,
     waypoints,
   } = state;
@@ -358,7 +359,7 @@ const mapStateToProps = (state) => {
     fetchingRoute: route.fetchingRoute,
     origin: waypoints.origin,
     mediaType: browser.mediaType,
-    planningTrip: activities.planningTrip,
+    planningTrip: router.route && router.route.name.startsWith('root.directions'),
     profileName: currentProfile.name,
     routeResult: route.routeResult,
     selectedProfile: profile.selectedProfile,

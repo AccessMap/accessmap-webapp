@@ -498,7 +498,7 @@ export const setDestination = (lng, lat, name) => (dispatch, getState) => {
   const { origin: waypointsOrigin } = waypoints;
 
   let origin;
-  if (waypointsOrigin !== undefined && waypoints !== null) {
+  if (waypointsOrigin) {
     origin = {
       lon: waypointsOrigin.geometry.coordinates[0],
       lat: waypointsOrigin.geometry.coordinates[1],
