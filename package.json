@@ -48,7 +48,7 @@
   },
   "dependencies": {
     "@mapbox/geo-viewport": "mapbox/geo-viewport#15/head",
-    "@mapbox/sphericalmercator": "mapbox/sphericalmercator#32/head",
+    "@mapbox/sphericalmercator": "^1.1.0",
     "@turf/bbox": "^4.5.2",
     "@turf/bbox-polygon": "4.7.3",
     "@turf/inside": "^4.5.2",
@@ -59,8 +59,9 @@
     "lodash.throttle": "^4.1.1",
     "mapbox": "^1.0.0-beta7",
     "mapbox-gl": "0.42.2",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.9.0",
     "normalize.css": "^8.0.0",
+    "oidc-client": "^1.5.1-beta.1",
     "opening_hours": "^3.5.0",
     "pre-commit": "^1.2.2",
     "prop-types": "^15.6.0",
@@ -83,8 +84,5 @@
     "svg-sprite-loader": "^3.7.3",
     "transform-loader": "^0.2.4",
     "url-loader": "^0.6.2"
-  },
-    "resolutions": {
-    "@mapbox/sphericalmercator": "mapbox/sphericalmercator#32/head"
   }
 }

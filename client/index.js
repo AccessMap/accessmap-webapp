@@ -20,7 +20,6 @@ const router = createRouter();
 const store = createStore(router);
 const persistor = createPersistor(store);
 
-
 router.start(() => {
   ReactDOM.render(
     <Provider store={store}>

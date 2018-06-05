@@ -6,6 +6,7 @@ import storage from 'redux-persist/lib/storage';
 import { router5Middleware } from 'redux-router5';
 
 import createAnalyticsMiddleware from 'store/create-analytics-middleware';
+import createOpenIDMiddleware from 'store/create-openid-middleware';
 
 import rootReducer from 'reducers';
 
@@ -17,6 +18,9 @@ const configureStore = (router) => {
 
   // Analytics middleware
   middlewares.push(createAnalyticsMiddleware());
+
+  // Authentication middleware
+  middlewares.push(createOpenIDMiddleware());
 
   // Router middleware
   middlewares.push(router5Middleware(router));

@@ -98,6 +98,12 @@ const routes = [{
       encodeParams: locToPath,
       decodeParams: pathToLoc,
     }],
+  }, {
+    name: 'signin',
+    path: 'signin',
+  }, {
+    name: 'silent',
+    path: 'silent',
   }],
 }];
 

@@ -91,7 +91,12 @@ export const MAP_LOAD = 'MAP_LOAD';
 export const SHOW_DRAWER = 'SHOW_DRAWER';
 export const HIDE_DRAWER = 'HIDE_DRAWER';
 
+// Authentication
+export const LOGIN = 'LOGIN';
+
 // Action creators
+export const login = () => ({ type: LOGIN });
+
 export const enableAnalytics = () => ({
   type: ENABLE_ANALYTICS,
   meta: {
