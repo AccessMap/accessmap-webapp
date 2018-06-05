@@ -1,3 +1,4 @@
+import { gotUser, userLoggedIn } from 'actions';
 import { UserManager } from 'oidc-client';
 
 const createOpenIDMiddleware = () => {
@@ -25,19 +26,28 @@ const createOpenIDMiddleware = () => {
     // FIXME: replace action type strings with imported constant vars
     switch (action.type) {
       case 'LOGIN':
-        mgr.signinPopup({ state: 'accessmap-web-login' }).then(user => console.log(user));
+        mgr.signinPopup({ state: 'accessmap-web-login' })
+          .then(user => next(userLoggedIn(user)));
         break;
       case '@@router5/TRANSITION_SUCCESS':
+        // TODO: catch errors
         if (action.payload.route.name === 'root.signin') {
           mgr.signinPopupCallback();
         } else if (action.payload.route.name === 'root.silent') {
-          mgr.signinSilentCallback().then(() => {
-            mgr.getUser().then(u => console.log(u.expires_in));
-          });
+          mgr.signinSilentCallback();
         }
         break;
-      default:
+      // TODO: on app load / various actions, refresh user session (silent renewal)
+      default: {
+        // Check if the user is already logged in. If so and store has no user data,
+        // dispatch user refresh action
+        const { auth } = store.getState();
+        if (!auth.user) {
+          mgr.getUser()
+            .then((user) => { if (user) next(gotUser(user)); });
+        }
         break;
+      }
     }
     next(action);
   };

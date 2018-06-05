@@ -9,7 +9,6 @@ import AppDrawer from 'containers/AppDrawer';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
-import Login from 'containers/Login';
 import MapInfoButton from 'containers/MapInfoButton';
 import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
@@ -37,7 +36,6 @@ class App extends PureComponent {
       <AnalyticsBar />
       <MapOverlay>
         <OmniCard />
-        <Login />
         <SettingsCard />
         <MapInfoButton />
         <FloatingButtons />

@@ -12,6 +12,10 @@ export const defaultActivities = {
 
 export const defaultAnalytics = null;
 
+export const defaultAuth = {
+  user: null,
+};
+
 export const defaultBrowser = {
   displayMode: 'landscape',
   mediaType: null,

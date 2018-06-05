@@ -22,6 +22,8 @@ import SearchGeocoder from 'containers/Geocoders/SearchGeocoder';
 
 import ProfileList from 'containers/ProfileList';
 
+import Login from 'containers/Login';
+
 import CurbRampsToggle from 'containers/Settings/CurbRampsToggle';
 import DownhillSlider from 'containers/Settings/DownhillSlider';
 import UphillSlider from 'containers/Settings/UphillSlider';
@@ -125,6 +127,9 @@ class OmniCard extends React.PureComponent {
               <SVGIcon use={menu.url} />
             </Button>
           }
+          actions={[
+            <Login />,
+          ]}
         >
           <h6 className='accessmaplogo-region'>Seattle</h6>
         </Toolbar>

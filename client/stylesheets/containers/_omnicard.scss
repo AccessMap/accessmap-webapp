@@ -40,6 +40,71 @@
     margin-bottom: 8px;
   }
 
+  // Header
+  .omnicard--header {
+    .accessmap-title > * {
+      @media #{$md-mobile-portrait-media} {
+        margin-top: 8px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        margin-top: 8px;
+      }
+      @media #{$md-tablet-media} {
+        margin-top: 16px;
+      }
+    }
+
+    .accessmap-title {
+      @media #{$md-mobile-portrait-media} {
+        margin-left: 8px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        margin-left: 4px;
+      }
+      @media #{$md-tablet-media} {
+        margin-left: 20px;
+      }
+    }
+
+    .accessmapicon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .accessmaplogo {
+        width: 128px;
+        height: 32px;
+    }
+
+    .accessmaplogo-region {
+      margin-top: auto;
+      margin-bottom: auto;
+      margin-left: 4px;
+    }
+
+    .accessmapicon-primary,
+    .accessmaplogo-primary, {
+      fill: $md-primary-color;
+    }
+
+    .accessmapicon-secondary,
+    .accessmaplogo-secondary {
+      fill: $md-secondary-color;
+    }
+
+    .md-toolbar--action-right .md-btn {
+      @media #{$md-mobile-portrait-media} {
+        margin-top: 8px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        margin-top: 8px;
+      }
+      @media #{$md-tablet-media} {
+        margin-top: 16px;
+      }
+    }
+  }
+
   // Autocompletes (geocoders)
   .geocoder-toolbar {
     .md-toolbar--action-left {
@@ -203,46 +268,6 @@
     > * {
       display: inline-block;
       width: 50%;
-    }
-  }
-
-  .omnicard--header {
-    .accessmap-title > * {
-      @media #{$md-mobile-portrait-media} {
-        margin-top: 4px;
-      }
-      @media #{$md-mobile-landscape-media} {
-        margin-top: 4px;
-      }
-      @media #{$md-tablet-media} {
-        margin-top: 12px;
-      }
-    }
-
-    .accessmapicon {
-        width: 32px;
-        height: 32px;
-    }
-
-    .accessmaplogo {
-        width: 160px;
-        height: 40px;
-    }
-
-    .accessmaplogo-region {
-      margin-top: auto;
-      margin-bottom: auto;
-      margin-left: 8px;
-    }
-
-    .accessmapicon-primary,
-    .accessmaplogo-primary, {
-      fill: $md-primary-color;
-    }
-
-    .accessmapicon-secondary,
-    .accessmaplogo-secondary {
-      fill: $md-secondary-color;
     }
   }
 

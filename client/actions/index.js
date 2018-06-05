@@ -93,9 +93,19 @@ export const HIDE_DRAWER = 'HIDE_DRAWER';
 
 // Authentication
 export const LOGIN = 'LOGIN';
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export const GOT_USER = 'GOT_USER';
 
 // Action creators
 export const login = () => ({ type: LOGIN });
+export const userLoggedIn = user => ({
+  type: USER_LOGGED_IN,
+  payload: user,
+});
+export const gotUser = user => ({
+  type: GOT_USER,
+  payload: user,
+});
 
 export const enableAnalytics = () => ({
   type: ENABLE_ANALYTICS,

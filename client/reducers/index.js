@@ -4,6 +4,7 @@ import { router5Reducer } from 'redux-router5';
 
 import activities from './activities';
 import analytics from './analytics';
+import auth from './auth';
 import browser from './browser';
 import geolocation from './geolocation';
 import linkoverlay from './link-overlay';
@@ -22,6 +23,7 @@ import waypoints from './waypoints';
 export default combineReducers({
   activities,
   analytics,
+  auth,
   browser,
   geolocation,
   linkoverlay,

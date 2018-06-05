@@ -15,12 +15,13 @@ const Login = (props) => {
   } = props;
 
   return (
-    <div className='mapinfo-btn'>
+    <div>
       <Button
-        raised
+        flat
+        primary
         onClick={actions.login}
       >
-        Log in
+        Sign in
       </Button>
     </div>
   );
