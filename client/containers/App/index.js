@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import AccessMap from 'containers/AccessMap';
+import Map from 'containers/Map';
 import AnalyticsBar from 'containers/AnalyticsBar';
 import AppDrawer from 'containers/AppDrawer';
 import FeatureCard from 'containers/FeatureCard';
@@ -45,7 +45,7 @@ class App extends PureComponent {
         <RouteBottomCard />
         <FeatureCard />
       </MapOverlay>
-      <AccessMap />
+      <Map />
       <RouteBottomSheet />
       <AppDrawer />
     </React.Fragment>

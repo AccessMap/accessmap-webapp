@@ -26,7 +26,7 @@ const CLICKABLE_LAYERS = [
   'sidewalk-click',
 ];
 
-const Map = ReactMapboxGl({
+const MapboxGL = ReactMapboxGl({
   accessToken: process.env.MAPBOX_TOKEN,
   minZoom: 10,
   maxZoom: 20,
@@ -34,7 +34,7 @@ const Map = ReactMapboxGl({
   pitch: [0],
 });
 
-class AccessMap extends Component {
+class Map extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -93,8 +93,8 @@ class AccessMap extends Component {
     // NOTE: Do not create actions that modify the `view` substate via
     // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
-      <Map
-        className={cn('accessmap mapboxgl-map', {
+      <MapboxGL
+        className={cn('map mapboxgl-map', {
           directions: (mediaType === 'mobile') && viewingDirections,
         })}
         ref={(el) => { this.mapEl = el; }}
@@ -155,12 +155,12 @@ class AccessMap extends Component {
         <Sidewalks />
         <Waypoints />
         <Geolocation />
-      </Map>
+      </MapboxGL>
     );
   }
 }
 
-AccessMap.propTypes = {
+Map.propTypes = {
   /* eslint-disable react/forbid-prop-types */
   /* eslint-disable react/require-default-props */
   actions: PropTypes.object.isRequired,
@@ -173,7 +173,7 @@ AccessMap.propTypes = {
   zoom: PropTypes.number,
 };
 
-AccessMap.defaultProps = {
+Map.defaultProps = {
   lon: mapConstants.lon,
   lat: mapConstants.lat,
   mediaType: 'mobile',
@@ -206,4 +206,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(AccessMap);
+)(Map);

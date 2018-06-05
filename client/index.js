@@ -10,7 +10,8 @@ import './index.html';
 // Note: order matters here (at least with webpack as of 2017-05-22).
 // If styles + html get imported after App, component-level styling breaks
 /* eslint-disable import/first */
-import App from 'containers/App';
+// import App from 'containers/App';
+import Index from 'containers/Index';
 import createRouter from 'router/create-router';
 import createStore from 'store/create-store';
 import createPersistor from 'store/create-persistor';
@@ -24,7 +25,7 @@ router.start(() => {
   ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <App />
+        <Index />
       </PersistGate>
     </Provider>,
     document.getElementById('root'),
