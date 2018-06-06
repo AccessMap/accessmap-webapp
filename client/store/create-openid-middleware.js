@@ -13,7 +13,7 @@ const createOpenIDMiddleware = () => {
   const base = `${location.protocol}//${location.hostname}${location.port ? `:${location.port}` : ''}`;
   const settings = {
     authority: 'https://accounts.open-to-all.com/auth/realms/OpenToAll',
-    client_id: 'test-dev',
+    client_id: process.env.OPENID_CLIENT_ID,
     response_type: 'id_token token',
     scope: 'openid email roles',
 
