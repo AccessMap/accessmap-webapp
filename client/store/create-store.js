@@ -16,6 +16,14 @@ const configureStore = (router) => {
   // Thunks: async side effects
   middlewares.push(thunkMiddleware);
 
+  // Persist (on client side) anlytics and routing profile info
+  const persistConfig = {
+    key: 'root',
+    storage,
+    whitelist: ['analytics', 'profile'],
+  };
+  const persistedReducer = persistReducer(persistConfig, rootReducer);
+
   // Analytics middleware
   middlewares.push(createAnalyticsMiddleware());
 
@@ -32,14 +40,6 @@ const configureStore = (router) => {
     middlewares.push(logger);
   }
   /* eslint-enble global-require */
-
-  // Persist (on client side) anlytics and routing profile info
-  const persistConfig = {
-    key: 'root',
-    storage,
-    whitelist: ['analytics', 'profile'],
-  };
-  const persistedReducer = persistReducer(persistConfig, rootReducer);
 
   const store = createStore(
     persistedReducer,

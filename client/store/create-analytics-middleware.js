@@ -14,6 +14,14 @@ const createAnalyticsMiddleware = () => {
   });
   const middleware = analytics(({ type, payload }, state) => {
     if (state.analytics || state.analytics == null) {
+      // Do user check
+      if (state.auth.user) {
+        if (rakam.getUserId() !== state.auth.user.profile.email) {
+          rakam.setUserId(state.auth.user.profile.email);
+        }
+      } else if (rakam.getUserId()) {
+        rakam.setUserId(null);
+      }
       rakam.logEvent(type, { ...payload });
     }
   });
