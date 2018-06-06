@@ -16,8 +16,13 @@ const createAnalyticsMiddleware = () => {
     if (state.analytics || state.analytics == null) {
       // Do user check
       if (state.auth.user) {
-        if (rakam.getUserId() !== state.auth.user.profile.email) {
-          rakam.setUserId(state.auth.user.profile.email);
+        const { profile } = state.auth.user;
+        if (rakam.getUserId() !== profile.sub) {
+          rakam.setUserId(profile.sub);
+          rakam.setSuperProperties({
+            user_preferred_username: profile.preferred_username,
+            user_email: profile.email,
+          }, true);
         }
       } else if (rakam.getUserId()) {
         rakam.setUserId(null);
