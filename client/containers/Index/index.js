@@ -5,19 +5,25 @@ import { connect } from 'react-redux';
 import App from 'containers/App';
 
 const Index = (props) => {
-  if (props.silent) return null;
-  return <App />;
+  const { routeName } = props;
+  switch (routeName) {
+    case 'root.signin':
+    case 'root.silent':
+    case 'root.signout':
+      return null;
+    default:
+      return <App />;
+  }
 };
 
 Index.propTypes = {
-  silent: PropTypes.bool.isRequired,
+  routeName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => {
-  const silentRoutes = ['root.signin', 'root.silent'];
   const { route } = state.router;
   return {
-    silent: route && silentRoutes.includes(route.name),
+    routeName: route ? route.name : null,
   };
 };
 

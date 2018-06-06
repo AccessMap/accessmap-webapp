@@ -104,6 +104,9 @@ const routes = [{
   }, {
     name: 'silent',
     path: 'silent',
+  }, {
+    name: 'signout',
+    path: 'signout?state',
   }],
 }];
 

@@ -1,0 +1,36 @@
+.login {
+  .user-account-avatar {
+    background: $md-secondary-color;
+
+    @media #{$md-mobile-portrait-media} {
+      height: 32px;
+      width: 32px;
+      margin-top: 4px;
+    }
+
+    @media #{$md-mobile-landscape-media} {
+      height: 32px;
+      width: 32px;
+      margin-top: 4px;
+    }
+
+    @media #{$md-tablet-media} {
+      height: 32px;
+      width: 32px;
+      margin-top: 16px;
+    }
+
+    .md-avatar-content {
+      font-size: 20px;
+    }
+  }
+
+  .menu-down {
+    padding-left: 0;
+    margin-top: auto;
+  }
+
+  .account-link:hover {
+    text-decoration: none;
+  }
+}
