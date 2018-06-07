@@ -83,6 +83,7 @@
     "sass-loader": "^6.0.5",
     "svg-sprite-loader": "^3.7.3",
     "transform-loader": "^0.2.4",
-    "url-loader": "^0.6.2"
+    "url-loader": "^0.6.2",
+    "uuid": "^3.2.1"
   }
 }
