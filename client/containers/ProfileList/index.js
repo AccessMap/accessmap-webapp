@@ -27,6 +27,7 @@ const ProfileList = (props) => {
       name='routing-profile-selector'
       type='radio'
       controlClassName='md-inline-block'
+      defaultValue={profileName}
       onChange={(d, e) => {
         if (e.type === 'change') {
           actions.setProfile(d);
