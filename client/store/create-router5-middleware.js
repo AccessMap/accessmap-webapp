@@ -46,7 +46,9 @@ const createRouter5Middleware = (router) => {
       }
       case RECEIVE_ROUTE: {
         const { params } = router.getState();
-        const bounds = routeBounds(action.payload.routeResult);
+        const { routeResult } = action.payload;
+        if (routeResult.code !== 'Ok') break;
+        const bounds = routeBounds(routeResult);
         const margins = getVisibleMargins();
         const { center, zoom } = mapSubview(bounds, margins);
 
