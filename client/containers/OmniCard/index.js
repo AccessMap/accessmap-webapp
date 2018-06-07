@@ -148,7 +148,7 @@ class OmniCard extends React.PureComponent {
                 onClick={() => actions.toggleTripPlanning(planningTrip)}
                 key='tripplanning--close'
                 icon
-                tooltipLabel='Close'
+                tooltipLabel='Close trip'
                 tooltipPosition='left'
               >
                 close
