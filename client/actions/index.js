@@ -645,7 +645,20 @@ export const swapWaypoints = (origin, destination) => (dispatch, getState) => {
 
 export const setCenter = center => ({ type: SET_CENTER, payload: center });
 
-export const setZoom = zoom => ({ type: SET_ZOOM, payload: zoom });
+export const setZoom = zoom => (dispatch, getState) => {
+  dispatch({ type: SET_ZOOM, payload: zoom });
+
+  const { router } = getState();
+  const { route } = router;
+
+  if (route !== null) {
+    const params = { ...route.params, zoom };
+    const routeName = route.name.endsWith('.at') ?
+      route.name :
+      `${route.name}.at`;
+    dispatch(router5.navigateTo(routeName, params));
+  }
+};
 
 
 // Useful for when you want to set both: if you just used setCenter and
