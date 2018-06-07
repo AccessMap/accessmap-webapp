@@ -1,11 +1,7 @@
 // Note: using geo-viewport from a pull request that allows decimal zooms
-import bboxPolygon from '@turf/bbox-polygon';
-import inside from '@turf/inside';
-
 import getDisplayMode from 'utils/display-mode';
 import getMediaType from 'utils/media-type';
 import mapSubview from 'utils/map-subview';
-import PointFeature from 'utils/point-feature';
 import routeBounds from 'utils/route-bounds';
 
 // Action types
@@ -15,9 +11,6 @@ import {
   RECEIVE_GEOLOCATION,
   RECEIVE_ROUTE,
   RESIZE_MAP,
-  SET_ORIGIN,
-  SET_DESTINATION,
-  SET_POI,
   SET_CENTER,
   SET_ZOOM,
   SET_CENTER_AND_ZOOM,
@@ -30,23 +23,6 @@ import { defaultView as defaults } from './defaults';
 
 export default (state = defaults, action) => {
   switch (action.type) {
-    case SET_ORIGIN:
-    case SET_DESTINATION:
-    case SET_POI: {
-      const waypoint = PointFeature(action.payload.lon,
-                                    action.payload.lat,
-                                    { name: action.payload.name });
-      const inView = inside(waypoint, bboxPolygon(action.payload.bounds));
-      if (!inView) {
-        return {
-          ...state,
-          lon: action.payload.lon,
-          lat: action.payload.lat,
-          zoom: 16,
-        };
-      }
-      return state;
-    }
     case SET_CENTER:
       return { ...state, lon: action.payload[0], lat: action.payload[1] };
     case SET_ZOOM:

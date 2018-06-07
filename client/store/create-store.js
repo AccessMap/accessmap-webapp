@@ -3,10 +3,11 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { router5Middleware } from 'redux-router5';
+import { reduxPlugin as router5ReduxPlugin } from 'redux-router5';
 
 import createAnalyticsMiddleware from 'store/create-analytics-middleware';
 import createOpenIDMiddleware from 'store/create-openid-middleware';
+import createRouter5Middleware from 'store/create-router5-middleware';
 
 import rootReducer from 'reducers';
 
@@ -33,7 +34,7 @@ const configureStore = (router) => {
   middlewares.push(createAnalyticsMiddleware());
 
   // Router middleware
-  middlewares.push(router5Middleware(router));
+  middlewares.push(createRouter5Middleware(router));
 
   // Logging middleware - for debug purposes
   /* eslint-disable global-require */
@@ -47,6 +48,9 @@ const configureStore = (router) => {
     persistedReducer,
     applyMiddleware(...middlewares),
   );
+
+  // Sync router navigations to redux store
+  router.usePlugin(router5ReduxPlugin(store.dispatch));
 
   return store;
 };

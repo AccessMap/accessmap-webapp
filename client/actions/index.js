@@ -1,13 +1,4 @@
-import inView from 'utils/in-view';
-import getDisplayMode from 'utils/display-mode';
-import getMediaType from 'utils/media-type';
-import getVisibleMargins from 'utils/get-visible-margins';
-import centerInView from 'utils/center-in-view';
-import routeBounds from 'utils/route-bounds';
-import mapSubview from 'utils/map-subview';
-
 // Action types
-import { actions as router5 } from 'redux-router5';
 
 // Analytics settings
 export const ENABLE_ANALYTICS = 'ENABLE_ANALYTICS';
@@ -199,34 +190,17 @@ export const closeLinkOverlay = () => ({
   },
 });
 
-export const toggleTripPlanning = planningTrip => (dispatch, getState) => {
-  const { router, waypoints } = getState();
-  dispatch({
-    type: TOGGLE_TRIP_PLANNING,
-    payload: {
-      planningTrip,
-      poi: waypoints.poi,
+export const toggleTripPlanning = planningTrip => ({
+  type: TOGGLE_TRIP_PLANNING,
+  payload: {
+    planningTrip,
+  },
+  meta: {
+    analytics: {
+      type: 'toggle-trip-planning',
     },
-    meta: {
-      analytics: {
-        type: 'toggle-trip-planning',
-      },
-    },
-  });
-
-  const { lon, lat, zoom } = router.route.params;
-  const { origin, destination, poi } = waypoints;
-  const params = { lon, lat, zoom, origin, destination };
-
-  if (planningTrip) {
-    dispatch(router5.navigateTo('root.home.at', params));
-  } else {
-    if (!origin && poi) {
-      params.origin = poi;
-    }
-    dispatch(router5.navigateTo('root.directions.at', params));
-  }
-};
+  },
+});
 
 export const toggleSettingProfile = displayed => ({
   type: TOGGLE_SETTING_PROFILE,
@@ -275,39 +249,20 @@ export const requestRoute = (origin, destination, params) => ({
   },
 });
 
-export const receiveRoute = routeResult => (dispatch, getState) => {
-  const { route } = getState().router;
-
-  dispatch({
-    type: RECEIVE_ROUTE,
-    payload: {
-      routeResult,
-    },
-    meta: {
-      analytics: {
-        type: 'receive-route',
-        payload: {
-          routeResult,
-        },
+export const receiveRoute = routeResult => ({
+  type: RECEIVE_ROUTE,
+  payload: {
+    routeResult,
+  },
+  meta: {
+    analytics: {
+      type: 'receive-route',
+      payload: {
+        routeResult,
       },
     },
-  });
-
-  const { params } = route;
-  const bounds = routeBounds(routeResult);
-  const margins = getVisibleMargins();
-  const { center, zoom } = mapSubview(bounds, margins);
-
-  const directionsParams = {
-    ...params,
-    lon: center[0],
-    lat: center[1],
-    zoom,
-  };
-
-  // TODO: extract 'navigate to other area' into its own action creator
-  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
-};
+  },
+});
 
 export const failedRoute = (origin, destination, error) => ({
   type: FAILED_ROUTE,
@@ -474,99 +429,46 @@ export const setProfileDefault = profile => (dispatch, getState) => {
 };
 
 export const setOrigin = (lon, lat, name) => (dispatch, getState) => {
-  const { log, router, waypoints } = getState();
-
   dispatch({
     type: SET_ORIGIN,
-    payload: { lon, lat, name, bounds: log.bounds },
+    payload: { lon, lat, name },
     meta: {
       analytics: {
         type: 'set-origin',
-        payload: { lon, lat, name, bounds: log.bounds },
-      },
-    },
-  });
-
-  routeIfValid(dispatch, getState);
-
-  const { params } = router.route;
-
-  const { destination } = waypoints;
-  const origin = { lon, lat, name };
-
-  const waypointsNormalized = [origin, destination];
-
-  const directionsParams = {
-    lon: params.lon,
-    lat: params.lat,
-    zoom: params.zoom,
-    waypoints: waypointsNormalized,
-  };
-
-  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
-};
-
-
-export const setDestination = (lon, lat, name) => (dispatch, getState) => {
-  const { log, router, waypoints } = getState();
-
-  dispatch({
-    type: SET_DESTINATION,
-    payload: { lon, lat, name, bounds: log.bounds },
-    meta: {
-      analytics: {
-        type: 'set-destination',
-        payload: { lon, lat, name, bounds: log.bounds },
-      },
-    },
-  });
-
-  routeIfValid(dispatch, getState);
-
-  const { params } = router.route;
-  const { origin } = waypoints;
-  const destination = { lon, lat, name };
-
-  const waypointsNormalized = [origin, destination];
-
-  const directionsParams = {
-    lon: params.lon,
-    lat: params.lat,
-    zoom: params.zoom,
-    waypoints: waypointsNormalized,
-  };
-
-  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
-};
-
-export const setPOI = (lon, lat, name) => (dispatch, getState) => {
-  const { log, router } = getState();
-
-  dispatch({
-    type: SET_POI,
-    payload: { lon, lat, name, bounds: log.bounds },
-    meta: {
-      analytics: {
-        type: 'set-poi',
         payload: { lon, lat, name },
       },
     },
   });
 
-  if (router.route) {
-    const { params } = router.route;
-    if (!inView(lon, lat, params.lon, params.lat, params.zoom)) {
-      // TODO: put the default POI zoom in the constants module, use here and
-      // in reducers.
-      const center = centerInView(lon, lat, 16);
-      const updatedParams = { ...params, lon: center[0], lat: center[1] };
-      const routeName = router.route.name.endsWith('.at') ?
-        router.route.name :
-        `${router.route.name}.at`;
-      dispatch(router5.navigateTo(routeName, updatedParams));
-    }
-  }
+  routeIfValid(dispatch, getState);
 };
+
+
+export const setDestination = (lon, lat, name) => (dispatch, getState) => {
+  dispatch({
+    type: SET_DESTINATION,
+    payload: { lon, lat, name },
+    meta: {
+      analytics: {
+        type: 'set-destination',
+        payload: { lon, lat, name },
+      },
+    },
+  });
+
+  routeIfValid(dispatch, getState);
+};
+
+export const setPOI = (lon, lat, name) => ({
+  type: SET_POI,
+  payload: { lon, lat, name },
+  meta: {
+    analytics: {
+      type: 'set-poi',
+      payload: { lon, lat, name },
+    },
+  },
+});
 
 export const setOriginDestination = (origin, destination) => (dispatch, getState) => {
   dispatch({
@@ -577,6 +479,8 @@ export const setOriginDestination = (origin, destination) => (dispatch, getState
 };
 
 export const loadApp = () => ({
+  // NOTE: Important! LOAD_APP analytics meta is required for our implementation of
+  // rakam js analytics.
   type: LOAD_APP,
   meta: {
     analytics: {
@@ -585,39 +489,21 @@ export const loadApp = () => ({
   },
 });
 
-export const loadMap = (lon, lat, zoom, bbox) => (dispatch, getState) => {
-  // NOTE: Important! LOAD_MAP analytics meta is required for our implementation of
-  // rakam js analytics.
-  dispatch({
-    type: LOAD_MAP,
-    payload: {
-      bounds: bbox,
+export const loadMap = (lon, lat, zoom, bbox) => ({
+  type: LOAD_MAP,
+  payload: {
+    bounds: bbox,
+    lon,
+    lat,
+    zoom,
+  },
+  meta: {
+    analytics: {
+      type: 'load-map',
     },
-    meta: {
-      analytics: {
-        type: 'load-map',
-      },
-    },
-  });
-  const { router } = getState();
-  const waypointsRoutes = [
-    'root.directions.waypoints',
-    'root.directions.waypoints.at',
-  ];
-  if (router.route && router.route.name === 'root.home') {
-    dispatch(router5.navigateTo('root.home.at', { lon, lat, zoom }));
-  } else if (router.route && waypointsRoutes.includes(router.route.name)) {
-    // Extract params
-    const { waypoints } = router.route.params;
-    if (waypoints.length > 1) {
-      const origin = waypoints[0];
-      origin.name = [origin.lat, origin.lon].join(', ');
-      const destination = waypoints[1];
-      destination.name = [destination.lat, destination.lon].join(', ');
-      dispatch(setOriginDestination(origin, destination));
-    }
-  }
-};
+  },
+});
+
 
 export const resizeMap = (width, height) => ({
   type: RESIZE_MAP,
@@ -647,21 +533,7 @@ export const swapWaypoints = (origin, destination) => (dispatch, getState) => {
 
 export const setCenter = center => ({ type: SET_CENTER, payload: center });
 
-export const setZoom = zoom => (dispatch, getState) => {
-  dispatch({ type: SET_ZOOM, payload: zoom });
-
-  const { router } = getState();
-  const { route } = router;
-
-  if (route !== null) {
-    const params = { ...route.params, zoom };
-    const routeName = route.name.endsWith('.at') ?
-      route.name :
-      `${route.name}.at`;
-    dispatch(router5.navigateTo(routeName, params));
-  }
-};
-
+export const setZoom = zoom => ({ type: SET_ZOOM, payload: zoom });
 
 // Useful for when you want to set both: if you just used setCenter and
 // setZoom, you can get race conditions due to the map also updating state
@@ -674,32 +546,15 @@ export const setCenterAndZoom = (center, zoom) => ({
   },
 });
 
-export const closeDirections = routeResult => (dispatch, getState) => {
-  dispatch({
-    type: CLOSE_DIRECTIONS,
-    payload: routeResult,
-    meta: {
-      analytics: {
-        type: 'close-directions',
-      },
+export const closeDirections = routeResult => ({
+  type: CLOSE_DIRECTIONS,
+  payload: routeResult,
+  meta: {
+    analytics: {
+      type: 'close-directions',
     },
-  });
-
-  const { route } = getState().router;
-  const { params } = route;
-  const bounds = routeBounds(routeResult);
-  const margins = getVisibleMargins();
-  const { center, zoom } = mapSubview(bounds, margins);
-
-  const directionsParams = {
-    ...params,
-    lon: center[0],
-    lat: center[1],
-    zoom,
-  };
-  // TODO: extract 'navigate to other area' into its own action creator
-  dispatch(router5.navigateTo('root.directions.waypoints.at', directionsParams));
-};
+  },
+});
 
 export const viewDirections = routeResult => ({
   type: VIEW_DIRECTIONS,
@@ -711,85 +566,36 @@ export const viewDirections = routeResult => ({
   },
 });
 
-export const mapMove = (lon, lat, zoom, bounds) => (dispatch, getState) => {
-  dispatch({
-    type: MAP_MOVE,
-    payload: {
-      lon,
-      lat,
-      zoom,
-      bounds,
-    },
-    meta: {
-      analytics: {
-        type: 'map-move',
-        payload: {
-          lon,
-          lat,
-          zoom,
-          bounds,
-        },
-      },
-    },
-  });
-
-  const { router } = getState();
-  const { route } = router;
-
-  let params;
-  let routeName;
-  if (route === null) {
-    params = { lon, lat, zoom };
-    routeName = 'root.home.at';
-  } else {
-    params = { ...route.params, lon, lat, zoom };
-    routeName = route.name.endsWith('.at') ?
-      route.name :
-      `${route.name}.at`;
-  }
-
-  dispatch(router5.navigateTo(routeName, params));
-};
-
-export const viewRouteInfo = routeResult => (dispatch, getState) => {
-  dispatch({
-    type: VIEW_ROUTE_INFO,
-    payload: routeResult,
-    meta: {
-      analytics: {
-        type: 'view-route-info',
-      },
-    },
-  });
-
-  // Place route in the middle of the map. Assumed that it's half of the view for
-  // mobile
-  const { router, view } = getState();
-  const { route } = router;
-
-  const mediaType = getMediaType();
-  if (mediaType !== 'mobile') return;
-  const bounds = routeBounds(routeResult);
-  const displayMode = getDisplayMode();
-  const margins = {
-    left: displayMode === 'landscape' ? view.mapWidth / 2 : 0,
-    bottom: displayMode === 'portrait' ? view.mapHeight / 2 : 0,
-    right: 48,  // Accounts for zoom buttons
-    top: 0,
-  };
-
-  const {
-    center,
+export const mapMove = (lon, lat, zoom, bounds) => ({
+  type: MAP_MOVE,
+  payload: {
+    lon,
+    lat,
     zoom,
-  } = mapSubview(bounds, margins);
+    bounds,
+  },
+  meta: {
+    analytics: {
+      type: 'map-move',
+      payload: {
+        lon,
+        lat,
+        zoom,
+        bounds,
+      },
+    },
+  },
+});
 
-  const params = { ...route.params, lon: center[0], lat: center[1], zoom };
-  const routeName = route.name.endsWith('.at') ?
-    route.name :
-    `${route.name}.at`;
-
-  dispatch(router5.navigateTo(routeName, params));
-};
+export const viewRouteInfo = routeResult => ({
+  type: VIEW_ROUTE_INFO,
+  payload: routeResult,
+  meta: {
+    analytics: {
+      type: 'view-route-info',
+    },
+  },
+});
 
 export const resizeWindow = () => ({
   type: RESIZE_WINDOW,
