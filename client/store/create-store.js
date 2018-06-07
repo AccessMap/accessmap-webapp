@@ -12,6 +12,8 @@ import rootReducer from 'reducers';
 
 const configureStore = (router) => {
   const middlewares = [];
+  // NOTE: Order is very important for middlewares - downstream can only intercept
+  // upstream events
 
   // Thunks: async side effects
   middlewares.push(thunkMiddleware);
@@ -24,11 +26,11 @@ const configureStore = (router) => {
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-  // Analytics middleware
-  middlewares.push(createAnalyticsMiddleware());
-
   // Authentication middleware
   middlewares.push(createOpenIDMiddleware());
+
+  // Analytics middleware
+  middlewares.push(createAnalyticsMiddleware());
 
   // Router middleware
   middlewares.push(router5Middleware(router));

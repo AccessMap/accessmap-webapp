@@ -10,9 +10,14 @@ export default (state = defaults, action) => {
   switch (action.type) {
     case GOT_USER:
     case USER_LOGGED_IN:
-      return { user: action.payload };
+      return action.payload;
     case USER_LOGGED_OUT:
-      return { user: null };
+      return {
+        accessToken: null,
+        idToken: null,
+        preferredUsername: null,
+        sub: null,
+      };
     default:
       return state;
   }

@@ -101,16 +101,35 @@ export const GOT_USER = 'GOT_USER';
 // Action creators
 export const logIn = () => ({ type: LOG_IN });
 export const logOut = () => ({ type: LOG_OUT });
-export const userLoggedIn = user => ({
+export const userLoggedIn = (sub, preferredUsername, idToken, accessToken) => ({
   type: USER_LOGGED_IN,
-  payload: user,
+  payload: { sub, preferredUsername, idToken, accessToken },
+  meta: {
+    analytics: {
+      type: 'user-logged-in',
+      payload: {
+        preferredUsername,
+        sub,
+      },
+    },
+  },
 });
 export const userLoggedOut = () => ({
   type: USER_LOGGED_OUT,
+  meta: {
+    analytics: {
+      type: 'user-logged-out',
+    },
+  },
 });
-export const gotUser = user => ({
+export const gotUser = (sub, preferredUsername, idToken, accessToken) => ({
   type: GOT_USER,
-  payload: user,
+  payload: {
+    accessToken,
+    idToken,
+    preferredUsername,
+    sub,
+  },
 });
 
 export const enableAnalytics = () => ({
@@ -555,11 +574,28 @@ export const setOriginDestination = (origin, destination) => (dispatch, getState
   routeIfValid(dispatch, getState);
 };
 
-export const loadApp = () => ({ type: LOAD_APP });
+export const loadApp = () => ({
+  type: LOAD_APP,
+  meta: {
+    analytics: {
+      type: 'load-app',
+    },
+  },
+});
 
-export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
+export const loadMap = (lon, lat, zoom, bbox) => (dispatch, getState) => {
+  // NOTE: Important! LOAD_MAP analytics meta is required for our implementation of
+  // rakam js analytics.
   dispatch({
     type: LOAD_MAP,
+    payload: {
+      bounds: bbox,
+    },
+    meta: {
+      analytics: {
+        type: 'load-map',
+      },
+    },
   });
   const { router } = getState();
   const waypointsRoutes = [
@@ -584,16 +620,6 @@ export const loadMap = (lon, lat, zoom) => (dispatch, getState) => {
 export const resizeMap = (width, height) => ({
   type: RESIZE_MAP,
   payload: { width, height },
-});
-
-export const mapLoad = bounds => ({
-  type: MAP_LOAD,
-  payload: bounds,
-  meta: {
-    analytics: {
-      type: 'map-load',
-    },
-  },
 });
 
 export const swapWaypoints = (origin, destination) => (dispatch, getState) => {

@@ -138,10 +138,8 @@ class Map extends Component {
             newBounds[1][0],
             newBounds[1][1],
           ];
-          actions.mapLoad(bbox);
-
           const center = m.getCenter();
-          actions.loadMap(center.lng, center.lat, m.getZoom());
+          actions.loadMap(center.lng, center.lat, m.getZoom(), bbox);
         }}
 
         {...props}

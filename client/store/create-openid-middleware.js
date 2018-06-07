@@ -42,7 +42,13 @@ const createOpenIDMiddleware = () => {
     switch (action.type) {
       case LOG_IN:
         mgr.signinPopup({ state: genState() })
-          .then(user => next(userLoggedIn(user)));
+          .then((user) => {
+            const accessToken = user.access_token;
+            const idToken = user.id_token;
+            const { sub } = user.profile;
+            const preferredUsername = user.profile.preferred_username;
+            next(userLoggedIn(sub, preferredUsername, idToken, accessToken));
+          });
         break;
       case LOG_OUT:
         mgr.signoutPopup({ state: genState() })
@@ -61,9 +67,17 @@ const createOpenIDMiddleware = () => {
       default: {
         // Check if the user is already logged in.
         const { auth } = store.getState();
-        if (!auth.user) {
+        if (!auth) {
           mgr.getUser()
-            .then((user) => { if (user) next(gotUser(user)); });
+            .then((user) => {
+              if (user) {
+                const accessToken = user.access_token;
+                const idToken = user.id_token;
+                const { sub } = user.profile;
+                const preferredUsername = user.profile.preferred_username;
+                next(gotUser(sub, preferredUsername, idToken, accessToken));
+              }
+            });
         }
         break;
       }

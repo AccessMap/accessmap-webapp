@@ -12,9 +12,7 @@ export const defaultActivities = {
 
 export const defaultAnalytics = null;
 
-export const defaultAuth = {
-  user: null,
-};
+export const defaultAuth = null;
 
 export const defaultBrowser = {
   displayMode: 'landscape',

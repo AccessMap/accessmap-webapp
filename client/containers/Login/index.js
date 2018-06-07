@@ -18,10 +18,10 @@ import menuDown from 'icons/menu-down.svg';
 const Login = (props) => {
   const {
     actions,
-    user,
+    username,
   } = props;
 
-  if (!user) return <Button className='login' flat primary onClick={actions.logIn}>Sign in</Button>;
+  if (!username) return <Button className='login' flat primary onClick={actions.logIn}>Sign in</Button>;
 
   return (
     <DropdownMenu
@@ -68,7 +68,7 @@ const Login = (props) => {
         }
       >
         <Avatar className='user-account-avatar'>
-          {`${user[0].toUpperCase()}${user[1].toLowerCase()}`}
+          {`${username[0].toUpperCase()}${username[1].toLowerCase()}`}
         </Avatar>
       </AccessibleFakeButton>
     </DropdownMenu>
@@ -77,16 +77,16 @@ const Login = (props) => {
 
 Login.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  user: PropTypes.string,
+  username: PropTypes.string,
 };
 
 Login.defaultProps = {
-  user: null,
+  username: null,
 };
 
 const mapStateToProps = (state) => {
-  const { user } = state.auth;
-  return { user: user ? user.profile.preferred_username : null };
+  const { auth } = state;
+  return { username: auth ? auth.preferredUsername : null };
 };
 
 const mapDispatchToProps = dispatch => ({
