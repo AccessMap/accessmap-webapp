@@ -10,7 +10,7 @@ const MAXZOOM = 22;
 
 const mapSubview = (bounds, margins) => {
   const visibleBounds = getVisibleRegion(bounds, margins);
-  const map = document.getElementsByClassName('accessmap')[0];
+  const map = document.getElementsByClassName('map')[0];
 
 
   const { center, zoom } = geoViewport.viewport(

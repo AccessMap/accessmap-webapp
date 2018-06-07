@@ -4,7 +4,7 @@ import getVisibleMargins from 'utils/get-visible-margins';
 const centerInView = (lon, lat, zoom) => {
   const bounds = getBounds(lon, lat, zoom);
   const margins = getVisibleMargins();
-  const map = document.getElementsByClassName('accessmap')[0];
+  const map = document.getElementsByClassName('map')[0];
   const mapWidth = map.clientWidth;
   const mapHeight = map.clientHeight;
 

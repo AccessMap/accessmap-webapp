@@ -13,7 +13,7 @@ const getVisibleRegion = (bounds, margins) => {
    * ensures an unobscured view
    */
 
-  const map = document.getElementsByClassName('accessmap')[0];
+  const map = document.getElementsByClassName('map')[0];
   const mapWidth = map.clientWidth;
   const mapHeight = map.clientHeight;
 

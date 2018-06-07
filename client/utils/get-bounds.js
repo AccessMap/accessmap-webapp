@@ -4,7 +4,7 @@ import geoViewport from '@mapbox/geo-viewport';
 const TILESIZE = 512;
 
 const getBounds = (lon, lat, zoom) => {
-  const map = document.getElementsByClassName('accessmap')[0];
+  const map = document.getElementsByClassName('map')[0];
   return geoViewport.bounds(
     [lon, lat],
     zoom,
