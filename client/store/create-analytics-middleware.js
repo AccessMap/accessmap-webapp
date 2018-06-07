@@ -36,7 +36,7 @@ const createAnalyticsMiddleware = () => {
         default:
           break;
       }
-      if (rakam.apiKey) {
+      if (rakam.options.apiKey) {
         rakam.logEvent(type, { ...payload });
       }
     }
