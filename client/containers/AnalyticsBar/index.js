@@ -29,7 +29,7 @@ const AnalyticsBar = (props) => {
         primary
         onClick={actions.enableAnalytics}
       >
-        okay
+        Got It
       </Button>
     </Card>
   );
