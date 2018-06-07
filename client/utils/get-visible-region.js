@@ -12,7 +12,6 @@ const getVisibleRegion = (bounds, margins) => {
    * describe map-overlapping elements, create an expanded bounding box that
    * ensures an unobscured view
    */
-
   const map = document.getElementsByClassName('map')[0];
   const mapWidth = map.clientWidth;
   const mapHeight = map.clientHeight;
@@ -36,7 +35,7 @@ const getVisibleRegion = (bounds, margins) => {
    * Interpreting the bounding box in web mercator coordinates
    */
 
-  const sm = new SphericalMercator(TILESIZE);
+  const sm = new SphericalMercator({ size: TILESIZE });
   const boundsWM = sm.convert(bounds, '900913');
   const dxWM = boundsWM[2] - boundsWM[0];
   const dyWM = boundsWM[3] - boundsWM[1];

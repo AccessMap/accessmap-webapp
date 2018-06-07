@@ -789,7 +789,7 @@ export const viewRouteInfo = routeResult => (dispatch, getState) => {
     `${route.name}.at`;
 
   dispatch(router5.navigateTo(routeName, params));
-};
+}
 
 export const resizeWindow = () => ({
   type: RESIZE_WINDOW,
