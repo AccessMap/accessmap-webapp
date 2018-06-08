@@ -19,9 +19,13 @@ const TopRightButtons = (props) => {
     mediaType,
     settingProfile,
     viewingMapInfo,
+    viewingRoute,
+    viewingRouteInfo,
   } = props;
 
-  if (mediaType === 'mobile' && settingProfile) return null;
+  // Don't show the 'tour' button outside of 'standard' main and directions views
+  if (mediaType === 'mobile' &&
+      (settingProfile || viewingMapInfo || viewingRoute || viewingRouteInfo)) return null;
 
   return (
     <div className='top-right-buttons'>
@@ -33,7 +37,7 @@ const TopRightButtons = (props) => {
           mini
           secondary
           swapTheming
-          tooltipLabel='Map Legend'
+          tooltipLabel='Get Walkthrough'
           tooltipPosition='left'
           onClick={actions.enableTour}
         >
@@ -52,18 +56,24 @@ TopRightButtons.propTypes = {
   mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
   settingProfile: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
+  viewingRoute: PropTypes.bool,
+  viewingRouteInfo: PropTypes.bool,
 };
 
 TopRightButtons.defaultProps = {
   mediaType: 'desktop',
   settingProfile: false,
   viewingMapInfo: false,
+  viewingRoute: false,
+  viewingRouteInfo: false,
 };
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
   settingProfile: state.activities.settingProfile,
   viewingMapInfo: state.activities.viewingMapInfo,
+  viewingRoute: state.activities.viewingRoute,
+  viewingRouteInfo: state.activities.viewingRouteInfo,
 });
 
 const mapDispatchToProps = dispatch => ({
