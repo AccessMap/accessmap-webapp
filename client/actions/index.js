@@ -91,7 +91,16 @@ export const USER_LOGGED_IN = 'USER_LOGGED_IN';
 export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
 export const GOT_USER = 'GOT_USER';
 
+// Tour
+export const COMPLETED_TOUR = 'COMPLETED_TOUR';
+export const ENABLE_TOUR = 'ENABLE_TOUR';
+export const DISABLE_TOUR = 'DISABLE_TOUR';
+
 // Action creators
+export const completedTour = () => ({ type: COMPLETED_TOUR });
+export const disableTour = () => ({ type: DISABLE_TOUR });
+export const enableTour = () => ({ type: ENABLE_TOUR });
+
 export const logIn = () => ({ type: LOG_IN });
 export const logOut = () => ({ type: LOG_OUT });
 export const userLoggedIn = (sub, preferredUsername, idToken, accessToken) => ({

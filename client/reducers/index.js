@@ -11,9 +11,10 @@ import linkoverlay from './link-overlay';
 import log from './log';
 import map from './map';
 import profile from './profile';
-import toasts from './toasts';
 import routesettings from './route-settings';
 import route from './route';
+import toasts from './toasts';
+import tour from './tour';
 import view from './view';
 import waypoints from './waypoints';
 
@@ -34,6 +35,7 @@ export default combineReducers({
   router: router5Reducer,
   routesettings,
   toasts,
+  tour,
   view,
   waypoints,
 });

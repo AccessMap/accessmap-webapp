@@ -31,155 +31,152 @@ const MapInfoButton = (props) => {
   if (mediaType === 'mobile' && (planningTrip || settingProfile)) return null;
 
   const button = (
-    <div className='mapinfo-btn'>
-      <Button
-        floating
-        svg
-        mini
-        secondary
-        swapTheming
-        tooltipLabel='Map Legend'
-        tooltipPosition='left'
-        onClick={actions.viewMapInfo}
-      >
-        <SVGIcon use={information.url} />
-      </Button>
-    </div>
+    <Button
+      className='mapinfo-btn'
+      floating
+      svg
+      mini
+      secondary
+      swapTheming
+      tooltipLabel='Map Legend'
+      tooltipPosition='left'
+      onClick={actions.viewMapInfo}
+    >
+      <SVGIcon use={information.url} />
+    </Button>
   );
 
-  const mapInfo = (
-    <div className='mapinfo-card'>
-      <Card>
-        <Toolbar
-          title='Map legend'
-          actions={[
-            <Button
-              icon
-              onClick={actions.closeMapInfo}
-            >
-              close
-            </Button>,
-          ]}
-        />
-        <ExpansionList>
-          <ExpansionPanel label='Movement speed due to incline' footer={null}>
-            <List>
-              <ListItem
-                leftAvatar={
-                  <SidewalkIcon
-                    fill={SIDEWALK_FLAT}
-                    size={48}
+  const card = (
+    <Card className='mapinfo-card'>
+      <Toolbar
+        title='Map legend'
+        actions={[
+          <Button
+            icon
+            onClick={actions.closeMapInfo}
+          >
+            close
+          </Button>,
+        ]}
+      />
+      <ExpansionList>
+        <ExpansionPanel label='Movement speed due to incline' footer={null}>
+          <List>
+            <ListItem
+              leftAvatar={
+                <SidewalkIcon
+                  fill={SIDEWALK_FLAT}
+                  size={48}
+                />
+              }
+              primaryText='High speed (flat)'
+            />
+            <ListItem
+              leftAvatar={
+                <SidewalkIcon
+                  fill={SIDEWALK_MID}
+                  size={48}
+                />
+              }
+              primaryText='Medium speed (moderate incline)'
+            />
+            <ListItem
+              leftAvatar={
+                <SidewalkIcon
+                  fill={SIDEWALK_STEEP}
+                  size={48}
+                />
+              }
+              primaryText='Low speed (steep)'
+            />
+            <ListItem
+              leftAvatar={
+                <SVGIcon
+                  className='inaccessible-icon'
+                  viewBox={'0 0 48 12'}
+                  size={48}
+                >
+                  <path
+                    d='m2,6 46,0'
+                    stroke='#f00'
+                    strokeWidth='1'
+                    strokeDasharray='2,1'
                   />
-                }
-                primaryText='High speed (flat)'
-              />
-              <ListItem
-                leftAvatar={
-                  <SidewalkIcon
-                    fill={SIDEWALK_MID}
-                    size={48}
+                </SVGIcon>
+              }
+              primaryText='Inaccessible'
+            />
+          </List>
+        </ExpansionPanel>
+        <ExpansionPanel label='Crossings' footer={null}>
+          <List>
+            <ListItem
+              leftAvatar={
+                <SidewalkIcon
+                  fill='none'
+                  size={48}
+                />
+              }
+              primaryText='Unmarked crossing'
+            />
+            <ListItem
+              leftAvatar={
+                <SVGIcon
+                  className='sidewalk-icon'
+                  viewBox={'0 0 48 12'}
+                  size={48}
+                >
+                  <rect
+                    x='2'
+                    y='2'
+                    width='44'
+                    height='8'
+                    ry='3.44'
+                    opacity='0.97'
+                    stroke='#000'
+                    strokeWidth='.5'
+                    fill='#555'
                   />
-                }
-                primaryText='Medium speed (moderate incline)'
-              />
-              <ListItem
-                leftAvatar={
-                  <SidewalkIcon
-                    fill={SIDEWALK_STEEP}
-                    size={48}
-                  />
-                }
-                primaryText='Low speed (steep)'
-              />
-              <ListItem
-                leftAvatar={
-                  <SVGIcon
-                    className='inaccessible-icon'
-                    viewBox={'0 0 48 12'}
-                    size={48}
-                  >
-                    <path
-                      d='m2,6 46,0'
-                      stroke='#f00'
-                      strokeWidth='1'
-                      strokeDasharray='2,1'
-                    />
-                  </SVGIcon>
-                }
-                primaryText='Inaccessible'
-              />
-            </List>
-          </ExpansionPanel>
-          <ExpansionPanel label='Crossings' footer={null}>
-            <List>
-              <ListItem
-                leftAvatar={
-                  <SidewalkIcon
+                  <rect
+                    x='3'
+                    y='4'
+                    width='42'
+                    height='4'
+                    ry='3.44'
+                    opacity='0.97'
+                    stroke='#fff'
+                    strokeWidth='1.5'
                     fill='none'
-                    size={48}
                   />
-                }
-                primaryText='Unmarked crossing'
-              />
-              <ListItem
-                leftAvatar={
-                  <SVGIcon
-                    className='sidewalk-icon'
-                    viewBox={'0 0 48 12'}
-                    size={48}
-                  >
-                    <rect
-                      x='2'
-                      y='2'
-                      width='44'
-                      height='8'
-                      ry='3.44'
-                      opacity='0.97'
-                      stroke='#000'
-                      strokeWidth='.5'
-                      fill='#555'
-                    />
-                    <rect
-                      x='3'
-                      y='4'
-                      width='42'
-                      height='4'
-                      ry='3.44'
-                      opacity='0.97'
-                      stroke='#fff'
-                      strokeWidth='1.5'
-                      fill='none'
-                    />
-                  </SVGIcon>
-                }
-                primaryText='Marked crossing'
-              />
-              <ListItem
-                leftAvatar={
-                  <SVGIcon
-                    className='inaccessible-icon'
-                    viewBox={'0 0 48 12'}
-                    size={48}
-                  >
-                    <path
-                      d='m2,6 46,0'
-                      stroke='#f00'
-                      strokeWidth='1'
-                      strokeDasharray='2,1'
-                    />
-                  </SVGIcon>
-                }
-                primaryText='Inaccessible'
-              />
-            </List>
-          </ExpansionPanel>
-        </ExpansionList>
-      </Card>
-    </div>
+                </SVGIcon>
+              }
+              primaryText='Marked crossing'
+            />
+            <ListItem
+              leftAvatar={
+                <SVGIcon
+                  className='inaccessible-icon'
+                  viewBox={'0 0 48 12'}
+                  size={48}
+                >
+                  <path
+                    d='m2,6 46,0'
+                    stroke='#f00'
+                    strokeWidth='1'
+                    strokeDasharray='2,1'
+                  />
+                </SVGIcon>
+              }
+              primaryText='Inaccessible'
+            />
+          </List>
+        </ExpansionPanel>
+      </ExpansionList>
+    </Card>
   );
 
   if (viewingMapInfo) {
-    return mapInfo;
+    return card;
   }
 
   return button;

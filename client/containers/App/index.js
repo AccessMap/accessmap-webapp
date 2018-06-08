@@ -9,13 +9,14 @@ import AppDrawer from 'containers/AppDrawer';
 import FeatureCard from 'containers/FeatureCard';
 import FloatingButtons from 'containers/FloatingButtons';
 import LinkOverlay from 'containers/LinkOverlay';
-import MapInfoButton from 'containers/MapInfoButton';
 import MapOverlay from 'containers/MapOverlay';
 import OmniCard from 'containers/OmniCard';
 import RouteBottomCard from 'containers/RouteBottomCard';
 import RouteBottomSheet from 'containers/RouteBottomSheet';
 import SettingsCard from 'containers/SettingsCard';
 import Toast from 'containers/Toast';
+import TopRightButtons from 'containers/TopRightButtons';
+import Tour from 'containers/Tour';
 
 import * as AppActions from 'actions';
 
@@ -37,7 +38,7 @@ class App extends PureComponent {
       <MapOverlay>
         <OmniCard />
         <SettingsCard />
-        <MapInfoButton />
+        <TopRightButtons />
         <FloatingButtons />
         <LinkOverlay />
         <RouteBottomCard />
@@ -46,6 +47,7 @@ class App extends PureComponent {
       <Map />
       <RouteBottomSheet />
       <AppDrawer />
+      <Tour />
     </React.Fragment>
   );
 }

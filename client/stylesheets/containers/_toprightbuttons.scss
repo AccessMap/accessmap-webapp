@@ -1,0 +1,32 @@
+// Overall layout
+.top-right-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: inherit;
+
+  @media #{$md-mobile-portrait-media} {
+    position: relative;
+    margin: 0;
+    float: right;
+  }
+
+  @media #{$md-mobile-landscape-media} {
+    position: absolute;
+  }
+
+  @media #{$md-tablet-media} {
+    position: absolute;
+  }
+
+  > * {
+    margin-top: 8px;
+  }
+
+  .md-btn {
+    display: block;
+    background-color: $md-white-base;
+    float: right;
+    clear: right;
+  }
+}
