@@ -8,15 +8,18 @@
   @media #{$md-mobile-portrait-media} {
     position: relative;
     margin: 0;
+    padding-right: 0;
     float: right;
   }
 
   @media #{$md-mobile-landscape-media} {
     position: absolute;
+    padding-right: inherit;
   }
 
   @media #{$md-tablet-media} {
     position: absolute;
+    padding-right: inherit;
   }
 
   > * {
