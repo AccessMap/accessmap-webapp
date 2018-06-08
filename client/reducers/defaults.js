@@ -1,6 +1,6 @@
 import profiles from 'profiles';
 import cloneObject from 'utils/clone-object';
-import { mainTour } from 'constants/tours';
+import { mainTours } from 'constants/tours';
 
 export const defaultActivities = {
   drawerVisible: false,
@@ -51,7 +51,7 @@ export const defaultRouteSettings = {
 };
 
 export const defaultTour = {
-  tour: mainTour,
+  tours: mainTours,
   enabled: false,
 };
 

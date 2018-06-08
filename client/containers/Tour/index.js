@@ -12,7 +12,8 @@ const Tour = (props) => {
   const {
     actions,
     enabled,
-    tour,
+    mediaType,
+    tours,
   } = props;
 
   if (!enabled) return null;
@@ -20,7 +21,7 @@ const Tour = (props) => {
   return (
     <Joyride
       continuous
-      steps={tour}
+      steps={mediaType === 'mobile' ? tours.mobile : tours.desktop}
       run={enabled}
       callback={(tourState) => {
         const { action, status } = tourState;
@@ -38,7 +39,11 @@ const Tour = (props) => {
 Tour.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   enabled: PropTypes.bool,
-  tour: PropTypes.arrayOf(PropTypes.object).isRequired,
+  mediaType: PropTypes.oneOf(['mobile', 'tablet', 'desktop']),
+  tours: PropTypes.shape({
+    desktop: PropTypes.arrayOf(PropTypes.object),
+    mobile: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
 };
 
 Tour.defaultProps = {
@@ -48,12 +53,14 @@ Tour.defaultProps = {
 
 const mapStateToProps = (state) => {
   const {
+    browser,
     tour,
   } = state;
 
   return {
     enabled: tour.enabled,
-    tour: tour.tour,
+    mediaType: browser.mediaType,
+    tours: tour.tours,
   };
 };
 

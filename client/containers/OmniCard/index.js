@@ -189,7 +189,7 @@ class OmniCard extends React.PureComponent {
           }
           actions={[
             <Button
-              className='md-btn--toolbar'
+              className='directions-button md-btn--toolbar'
               key='omnicard-tripplanning--toggle'
               icon
               secondary
@@ -211,6 +211,7 @@ class OmniCard extends React.PureComponent {
     if (isMobile) {
       profileActions.push(
         <Button
+          className='edit-profile-button'
           icon
           svg
           tooltipLabel='Edit profile settings'
@@ -224,7 +225,7 @@ class OmniCard extends React.PureComponent {
         profileActions.push(
           <Button
             icon
-            className='md-fake-btn md-icon md-btn--icon md-inline-block'
+            className='trip-options-collapser md-fake-btn md-icon md-btn--icon md-inline-block'
             onClick={() => {
               if (showTripOptions) {
                 this.setState({ showTripOptions: false });
@@ -289,23 +290,22 @@ class OmniCard extends React.PureComponent {
           actions={profileActions}
         />
         {!isMobile ?
-          <CardText>
-            <UphillSlider />
-            <DownhillSlider />
-            <CurbRampsToggle />
-          </CardText> :
-          null
-        }
-        {!isMobile ?
-          <CardActions>
-            <Button
-              flat
-              primary
-              onClick={() => actions.setProfileDefault(profileName)}
-            >
-              Reset to defaults
-            </Button>
-          </CardActions> :
+          <React.Fragment>
+            <CardText className='profile-editor-desktop'>
+              <UphillSlider />
+              <DownhillSlider />
+              <CurbRampsToggle />
+            </CardText>
+            <CardActions>
+              <Button
+                flat
+                primary
+                onClick={() => actions.setProfileDefault(profileName)}
+              >
+                Reset to defaults
+              </Button>
+            </CardActions>
+          </React.Fragment> :
           null
         }
         {planningTrip ? timePicker : null}

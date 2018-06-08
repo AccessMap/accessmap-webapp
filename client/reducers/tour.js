@@ -1,23 +1,24 @@
 import { combineReducers } from 'redux';
 import { actionTypes } from 'redux-router5';
 
-import { mainTour, directionsTour } from 'constants/tours';
+import { directionsTours, mainTours } from 'constants/tours';
 import { COMPLETED_TOUR, DISABLE_TOUR, ENABLE_TOUR } from 'actions';
 
 import { defaultTour as defaults } from './defaults';
 
-const handleTour = (state = defaults.tour, action) => {
+const handleTours = (state = defaults.tours, action) => {
   switch (action.type) {
-    case actionTypes.TRANSITION_SUCCESS:
+    case actionTypes.TRANSITION_SUCCESS: {
       if (action.payload.route && action.payload.route.name) {
         if (action.payload.route.name.startsWith('root.directions')) {
-          return directionsTour;
+          return directionsTours;
         }
         if (action.payload.route.name.startsWith('root')) {
-          return mainTour;
+          return mainTours;
         }
       }
       return state;
+    }
     default:
       return state;
   }
@@ -36,6 +37,6 @@ const handleEnabled = (state = defaults.enabled, action) => {
 };
 
 export default combineReducers({
-  tour: handleTour,
+  tours: handleTours,
   enabled: handleEnabled,
 });
