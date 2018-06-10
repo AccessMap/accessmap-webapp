@@ -25,7 +25,7 @@ const TopRightButtons = (props) => {
 
   // Don't show the 'tour' button outside of 'standard' main and directions views
   if (mediaType === 'mobile' &&
-      (settingProfile || viewingMapInfo || viewingRoute || viewingRouteInfo)) return null;
+      (settingProfile || viewingRoute || viewingRouteInfo)) return null;
 
   return (
     <div className='top-right-buttons'>
