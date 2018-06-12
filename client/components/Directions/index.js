@@ -25,7 +25,7 @@ const Directions = (props) => {
     const destination = routeResult.destination.geometry.coordinates;
     const key = `step-${origin}-${destination}-${i}`;
 
-    switch (p.path_type) {
+    switch (p.way) {
       case 'sidewalk':
         return (
           <SidewalkCard
