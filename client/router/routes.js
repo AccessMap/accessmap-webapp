@@ -51,6 +51,7 @@ const decodeParams = (params) => {
 
 const routes = [{
   name: 'root',
+<<<<<<< HEAD
   path: '/?lon&lat&z',
   defaultParams: {
     lon: mapConstants.lon,
@@ -73,6 +74,9 @@ const routes = [{
 }, {
   name: 'signout',
   path: '/signout?state',
+}, {
+  name: 'emission',
+  path: 'emission?uuid',
 }];
 
 export default routes;

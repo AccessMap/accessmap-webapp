@@ -30,11 +30,11 @@ const configureStore = (router) => {
   // Authentication middleware
   middlewares.push(createOpenIDMiddleware());
 
-  // Analytics middleware
-  middlewares.push(createAnalyticsMiddleware());
-
   // Router middleware
   middlewares.push(createRouter5Middleware(router));
+
+  // Analytics middleware
+  middlewares.push(createAnalyticsMiddleware());
 
   // Logging middleware - for debug purposes
   /* eslint-disable global-require */

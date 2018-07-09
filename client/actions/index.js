@@ -94,6 +94,9 @@ export const COMPLETED_TOUR = 'COMPLETED_TOUR';
 export const ENABLE_TOUR = 'ENABLE_TOUR';
 export const DISABLE_TOUR = 'DISABLE_TOUR';
 
+// e-mission-specific
+export const INITIALIZE_EMISSION = 'INITIALIZE_EMISSION';
+
 // Action creators
 export const completedTour = () => ({ type: COMPLETED_TOUR });
 export const disableTour = () => ({ type: DISABLE_TOUR });
@@ -775,4 +778,16 @@ export const showDrawer = () => ({
 
 export const hideDrawer = () => ({
   type: HIDE_DRAWER,
+});
+
+// e-mission-specific
+export const initializeEmission = uuid => ({
+  type: INITIALIZE_EMISSION,
+  payload: uuid,
+  meta: {
+    analytics: {
+      type: 'initialize-emission',
+      payload: uuid,
+    },
+  },
 });

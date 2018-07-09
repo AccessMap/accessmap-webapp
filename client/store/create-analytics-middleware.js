@@ -10,11 +10,17 @@ const createAnalyticsMiddleware = () => {
   const middleware = analytics(({ type, payload }, state) => {
     if (state.analytics || state.analytics == null) {
       switch (type) {
-        case 'load-app':
+        case 'load-app': {
           // Initialize rakam
+          let userID;
+          if (rakam.getUserId()) {
+            userID = rakam.getUserId();
+          } else {
+            userID = state.auth ? state.auth.sub : uuid.v4();
+          }
           rakam.init(
             analyticsWriteKey,
-            state.auth ? state.auth.sub : uuid.v4(),
+            userID,
             {
               apiEndpoint: analyticsURL,
               includeUtm: true,
@@ -23,6 +29,12 @@ const createAnalyticsMiddleware = () => {
               includeReferrer: true,
             },
           );
+          break;
+        }
+        case 'initialize-emission':
+          if (payload) {
+            rakam.setUserId(payload);
+          }
           break;
         case 'user-logged-in':
           rakam.setUserId(payload.sub);
