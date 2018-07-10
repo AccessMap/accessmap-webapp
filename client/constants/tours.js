@@ -71,6 +71,11 @@ export const directionsTours = {
       content: 'Edit current travel mode',
       placement: 'right',
     },
+    {
+      target: '.timepicker',
+      content: 'Change the time and date of departure',
+      placement: 'right',
+    },
   ],
   mobile: [
     {
