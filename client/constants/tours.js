@@ -13,12 +13,12 @@ export const mainTours = {
     },
     {
       target: '.profiles-container',
-      content: 'Switch between routing profiles',
+      content: 'Switch between travel modes',
       placement: 'right',
     },
     {
       target: '.profile-editor-desktop',
-      content: 'Edit profile settings',
+      content: 'Edit current travel mode',
       placement: 'right',
     },
   ],
@@ -36,12 +36,12 @@ export const mainTours = {
     },
     {
       target: '.profiles-container',
-      content: 'Switch between routing profiles',
+      content: 'Switch between travel modes',
       placement: 'bottom',
     },
     {
       target: '.edit-profile-button',
-      content: 'Edit current routing profile',
+      content: 'Edit current travel mode',
       placement: 'bottom',
     },
   ],
@@ -63,12 +63,12 @@ export const directionsTours = {
     },
     {
       target: '.profiles-container',
-      content: 'Switch between routing profiles',
+      content: 'Switch between travel modes',
       placement: 'right',
     },
     {
       target: '.profile-editor-desktop',
-      content: 'Edit profile settings',
+      content: 'Edit current travel mode',
       placement: 'right',
     },
   ],
@@ -87,12 +87,12 @@ export const directionsTours = {
     },
     {
       target: '.profiles-container',
-      content: 'Switch between routing profiles',
+      content: 'Switch between travel modes',
       placement: 'bottom',
     },
     {
       target: '.edit-profile-button',
-      content: 'Edit current routing profile',
+      content: 'Edit current travel mode',
       placement: 'bottom',
     },
     {
