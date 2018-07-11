@@ -15,7 +15,7 @@ const Sources = () =>
       id='sidewalks'
       tileJsonSource={{
         type: 'vector',
-        url: 'mapbox://accessmap.aii7dtpk',
+        url: 'http://localhost:2015/tiles/paths/tile.json',
       }}
     />
     <Source
