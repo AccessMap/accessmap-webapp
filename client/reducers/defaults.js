@@ -56,12 +56,12 @@ export const defaultTour = {
 };
 
 export const defaultView = {
-  lon: -122.333592,
+  lon: -122.3086769,
   lastView: null,
-  lat: 47.605628,
+  lat: 47.6534864,
   mapWidth: null,
   mapHeight: null,
-  zoom: 15,
+  zoom: 15.7,
 };
 
 export const defaultWaypoints = {
