@@ -11,13 +11,17 @@ import ReactMapboxGl from 'react-mapbox-gl';
 
 import * as AppActions from 'actions';
 
-import PedestrianSource from './source-pedestrian';
+import Sources from './sources';
 
 import Crossings from './layers-crossings';
-import ElevatorPaths from './layers-elevator-paths';
+import Elevators from './layers-elevators';
+import Footways from './layers-footways';
+import Kerbs from './layers-kerbs';
+import Sidewalks from './layers-sidewalks';
+import Stairs from './layers-stairs';
+
 import Geolocation from './layers-geolocation';
 import Route from './layers-route';
-import Sidewalks from './layers-sidewalks';
 import Waypoints from './layers-waypoints';
 
 const CLICKABLE_LAYERS = [
@@ -145,12 +149,15 @@ class Map extends Component {
         {...props}
       >
 
-        <PedestrianSource />
+        <Sources />
 
+        <Stairs />
         <Crossings />
-        <ElevatorPaths />
         <Route before='crossing-click' />
         <Sidewalks />
+        <Footways />
+        <Kerbs />
+        <Elevators />
         <Waypoints />
         <Geolocation />
       </MapboxGL>

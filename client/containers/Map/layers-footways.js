@@ -40,7 +40,7 @@ const DASH_INACCESSIBLE = [
 
 const INCLINE_IDEAL = -0.0087;
 
-const Sidewalks = (props) => {
+const Footways = (props) => {
   const {
     inclineMax,
     inclineMin,
@@ -78,10 +78,10 @@ const Sidewalks = (props) => {
   return (
     <React.Fragment>
       <Layer
-        id='sidewalk-click'
+        id='footway-click'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='footways'
+        sourceLayer='footways-bbud6k'
         paint={{
           'line-width': {
             stops: [[12, 0.2], [16, 3], [22, 30]],
@@ -91,10 +91,10 @@ const Sidewalks = (props) => {
         before='bridge-street'
       />
       <Layer
-        id='sidewalk-outline'
+        id='footway-outline'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='footways'
+        sourceLayer='footways-bbud6k'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -115,7 +115,7 @@ const Sidewalks = (props) => {
         paint={{
           'line-color': '#000',
           'line-width': {
-            stops: [[14, 0.00], [20, 1]],
+            stops: [[15, 0.00], [20, 1]],
           },
           'line-opacity': {
             stops: [[13.5, 0.0], [16, 1]],
@@ -125,10 +125,10 @@ const Sidewalks = (props) => {
         before='bridge-street'
       />
       <Layer
-        id='sidewalk-inaccessible'
+        id='footway-inaccessible'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='footways'
+        sourceLayer='footways-bbud6k'
         filter={[
           'case',
           [
@@ -164,10 +164,10 @@ const Sidewalks = (props) => {
         before='bridge-street'
       />
       <Layer
-        id='sidewalk'
+        id='footway'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='footways'
+        sourceLayer='footways-bbud6k'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -212,15 +212,15 @@ const Sidewalks = (props) => {
         before='bridge-street'
       />
       <Layer
-        id='sidewalk-downhill-arrow'
+        id='footway-downhill-arrow'
         type='symbol'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='footways'
+        sourceLayer='footways-bbud6k'
         minZoom={16}
         images={[[
-          'direction-arrow-fw', directionArrow,
+          'direction-arrow', directionArrow,
         ], [
-          'direction-arrow-fw-white', directionArrowWhite,
+          'direction-arrow-white', directionArrowWhite,
         ]]}
         filter={[
           'case',
@@ -304,14 +304,14 @@ const Sidewalks = (props) => {
   );
 };
 
-Sidewalks.propTypes = {
+Footways.propTypes = {
   inclineMax: PropTypes.number.isRequired,
   inclineMin: PropTypes.number.isRequired,
   inclineUphill: PropTypes.bool,
   speed: PropTypes.number.isRequired,
 };
 
-Sidewalks.defaultProps = {
+Footways.defaultProps = {
   inclineUphill: true,
 };
 
@@ -333,4 +333,4 @@ const mapStateToProps = (state) => {
 
 export default connect(
   mapStateToProps,
-)(Sidewalks);
+)(Footways);

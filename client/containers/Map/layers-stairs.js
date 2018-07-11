@@ -1,39 +1,39 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { Layer } from 'react-mapbox-gl';
 
 
-const VISIBLE = 15;
+const VISIBLE = 13;
 
 
-const ElevatorPaths = () => (
+const Stairs = () => (
   <React.Fragment>
     <Layer
-      id='elevator-paths-click'
+      id='stairs-click'
       type='line'
-      sourceId='pedestrian'
-      sourceLayer='elevator_paths'
+      sourceId='stairs'
+      sourceLayer='stairs-adwbrt'
       paint={{
         'line-width': {
-          stops: [[12, 0.3], [16, 2], [22, 20]],
+          stops: [[12, 0.5], [16, 2], [22, 20]],
         },
         'line-opacity': 0,
       }}
+
       before='bridge-street'
     />
     <Layer
-      id='elevator-paths'
+      id='stairs'
       type='line'
-      sourceId='pedestrian'
-      sourceLayer='elevator_paths'
+      sourceId='stairs'
+      sourceLayer='stairs-adwbrt'
       paint={{
-        'line-color': '#000',
-        'line-gap-width': {
-          stops: [[12, 0.3], [16, 2], [22, 20]],
-        },
+        'line-color': '#555',
         'line-width': {
-          stops: [[12, 0.1], [16, 0.6], [22, 6]],
+          stops: [[12, 0.5], [16, 2], [22, 20]],
         },
+        'line-dasharray': [0.2, 0.2],
         'line-opacity': ['interpolate', ['linear'], ['zoom'],
           VISIBLE - 0.5, 0.0,
           VISIBLE, 1,
@@ -44,4 +44,9 @@ const ElevatorPaths = () => (
   </React.Fragment>
 );
 
-export default ElevatorPaths;
+const mapStateToProps = () => ({
+});
+
+export default connect(
+  mapStateToProps,
+)(Stairs);

@@ -21,8 +21,8 @@ const Crossings = (props) => {
       <Layer
         id='crossing-click'
         type='line'
-        sourceId='pedestrian'
-        sourceLayer='crossings'
+        sourceId='crossings'
+        sourceLayer='crossings-c1ktiy'
         paint={{
           'line-width': {
             stops: [[12, 0.5], [16, 2], [22, 20]],
@@ -35,8 +35,8 @@ const Crossings = (props) => {
       <Layer
         id='crossing-inaccessible'
         type='line'
-        sourceId='pedestrian'
-        sourceLayer='crossings'
+        sourceId='crossings'
+        sourceLayer='crossings-c1ktiy'
         filter={[
           'all',
           requireCurbRamps,
@@ -75,8 +75,8 @@ const Crossings = (props) => {
       <Layer
         id='crossing-unmarked'
         type='line'
-        sourceId='pedestrian'
-        sourceLayer='crossings'
+        sourceId='crossings'
+        sourceLayer='crossings-c1ktiy'
         filter={[
           'all',
           [
@@ -110,8 +110,8 @@ const Crossings = (props) => {
       <Layer
         id='crossing-marked-background'
         type='line'
-        sourceId='pedestrian'
-        sourceLayer='crossings'
+        sourceId='crossings'
+        sourceLayer='crossings-c1ktiy'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'all',
@@ -143,8 +143,8 @@ const Crossings = (props) => {
       <Layer
         id='crossing-marked-outline'
         type='line'
-        sourceId='pedestrian'
-        sourceLayer='crossings'
+        sourceId='crossings'
+        sourceLayer='crossings-c1ktiy'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'all',
