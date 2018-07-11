@@ -2,51 +2,23 @@ import React from 'react';
 
 import { Source } from 'react-mapbox-gl';
 
-const Sources = () =>
+const Sources = () => (
   <React.Fragment>
     <Source
-      id='crossings'
+      id='paths'
       tileJsonSource={{
         type: 'vector',
-        url: 'mapbox://accessmap.3qpntf2g',
+        url: 'http://localhost:2015/tiles/tilejson/paths.json',
       }}
     />
     <Source
-      id='sidewalks'
+      id='points'
       tileJsonSource={{
         type: 'vector',
-        url: 'http://localhost:2015/tiles/paths/tile.json',
+        url: 'http://localhost:2015/tiles/tilejson/points.json',
       }}
     />
-    <Source
-      id='footways'
-      tileJsonSource={{
-        type: 'vector',
-        url: 'mapbox://accessmap.ctv6lc9a',
-      }}
-    />
-    <Source
-      id='stairs'
-      tileJsonSource={{
-        type: 'vector',
-        url: 'mapbox://accessmap.4nm23ibk',
-      }}
-    />
-    <Source
-      id='elevators'
-      tileJsonSource={{
-        type: 'vector',
-        url: 'mapbox://accessmap.51ktwqv5',
-      }}
-    />
-    <Source
-      id='kerbs'
-      tileJsonSource={{
-        type: 'vector',
-        url: 'mapbox://accessmap.8oollirk',
-      }}
-    />
-  </React.Fragment>;
-
+  </React.Fragment>
+);
 
 export default Sources;

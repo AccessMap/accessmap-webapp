@@ -12,8 +12,8 @@ const Stairs = () => (
     <Layer
       id='stairs-click'
       type='line'
-      sourceId='stairs'
-      sourceLayer='stairs-adwbrt'
+      sourceId='paths'
+      sourceLayer='stairs'
       paint={{
         'line-width': {
           stops: [[12, 0.5], [16, 2], [22, 20]],
@@ -26,14 +26,14 @@ const Stairs = () => (
     <Layer
       id='stairs'
       type='line'
-      sourceId='stairs'
-      sourceLayer='stairs-adwbrt'
+      sourceId='paths'
+      sourceLayer='stairs'
       paint={{
         'line-color': '#555',
         'line-width': {
           stops: [[12, 0.5], [16, 2], [22, 20]],
         },
-        'line-dasharray': [0.2, 0.2],
+        'line-dasharray': [0.2, 0.4],
         'line-opacity': ['interpolate', ['linear'], ['zoom'],
           VISIBLE - 0.5, 0.0,
           VISIBLE, 1,

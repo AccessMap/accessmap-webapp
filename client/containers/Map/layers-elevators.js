@@ -16,8 +16,8 @@ const Elevators = () => (
     <Layer
       id='elevators'
       type='circle'
-      sourceId='elevators'
-      sourceLayer='elevators-49mqjn'
+      sourceId='points'
+      sourceLayer='elevators'
       paint={{
         'circle-radius': RADIUS_FUNCTION,
         'circle-color': 'blue',

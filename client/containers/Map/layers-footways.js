@@ -80,8 +80,8 @@ const Footways = (props) => {
       <Layer
         id='footway-click'
         type='line'
-        sourceId='footways'
-        sourceLayer='footways-bbud6k'
+        sourceId='paths'
+        sourceLayer='footways'
         paint={{
           'line-width': {
             stops: [[12, 0.2], [16, 3], [22, 30]],
@@ -93,8 +93,8 @@ const Footways = (props) => {
       <Layer
         id='footway-outline'
         type='line'
-        sourceId='footways'
-        sourceLayer='footways-bbud6k'
+        sourceId='paths'
+        sourceLayer='footways'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -127,8 +127,8 @@ const Footways = (props) => {
       <Layer
         id='footway-inaccessible'
         type='line'
-        sourceId='footways'
-        sourceLayer='footways-bbud6k'
+        sourceId='paths'
+        sourceLayer='footways'
         filter={[
           'case',
           [
@@ -166,8 +166,8 @@ const Footways = (props) => {
       <Layer
         id='footway'
         type='line'
-        sourceId='footways'
-        sourceLayer='footways-bbud6k'
+        sourceId='paths'
+        sourceLayer='footways'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -214,8 +214,8 @@ const Footways = (props) => {
       <Layer
         id='footway-downhill-arrow'
         type='symbol'
-        sourceId='footways'
-        sourceLayer='footways-bbud6k'
+        sourceId='paths'
+        sourceLayer='footways'
         minZoom={16}
         images={[[
           'direction-arrow', directionArrow,
@@ -299,7 +299,6 @@ const Footways = (props) => {
         }}
         before='bridge-street'
       />
-
     </React.Fragment>
   );
 };

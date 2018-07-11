@@ -6,7 +6,7 @@ import { Layer } from 'react-mapbox-gl';
 const RADIUS_FUNCTION = {
   stops: [
     [12, 2],
-    [22, 20],
+    [22, 16],
   ],
   base: 2,
 };
@@ -16,8 +16,8 @@ const Elevators = () => (
     <Layer
       id='kerbs'
       type='circle'
-      sourceId='kerbs'
-      sourceLayer='kerbs-dek2u2'
+      sourceId='points'
+      sourceLayer='kerbs'
       paint={{
         'circle-radius': RADIUS_FUNCTION,
         'circle-color': [
@@ -32,7 +32,7 @@ const Elevators = () => (
         ],
         'circle-stroke-color': 'black',
         'circle-stroke-width': {
-          stops: [[15, 0.5], [20, 2]],
+          stops: [[15, 0.5], [20, 1]],
           base: 2,
         },
         'circle-opacity': 1,

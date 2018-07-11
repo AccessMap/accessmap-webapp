@@ -80,8 +80,8 @@ const Sidewalks = (props) => {
       <Layer
         id='sidewalk-click'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='paths'
+        sourceLayer='sidewalks'
         paint={{
           'line-width': {
             stops: [[12, 0.2], [16, 3], [22, 30]],
@@ -93,8 +93,8 @@ const Sidewalks = (props) => {
       <Layer
         id='sidewalk-outline'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='paths'
+        sourceLayer='sidewalks'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -127,8 +127,8 @@ const Sidewalks = (props) => {
       <Layer
         id='sidewalk-inaccessible'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='paths'
+        sourceLayer='sidewalks'
         filter={[
           'case',
           [
@@ -166,8 +166,8 @@ const Sidewalks = (props) => {
       <Layer
         id='sidewalk'
         type='line'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='paths'
+        sourceLayer='sidewalks'
         layout={{ 'line-cap': 'round' }}
         filter={[
           'case',
@@ -214,8 +214,8 @@ const Sidewalks = (props) => {
       <Layer
         id='sidewalk-downhill-arrow'
         type='symbol'
-        sourceId='sidewalks'
-        sourceLayer='sidewalks-9sqt5n'
+        sourceId='paths'
+        sourceLayer='sidewalks'
         minZoom={16}
         images={[[
           'direction-arrow-fw', directionArrow,
@@ -299,7 +299,6 @@ const Sidewalks = (props) => {
         }}
         before='bridge-street'
       />
-
     </React.Fragment>
   );
 };

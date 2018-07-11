@@ -6,177 +6,219 @@ import { Layer } from 'react-mapbox-gl';
 
 
 const CROSSINGS_VISIBLE = 15;
-const WIDTH_INACCESSIBLE = 1;
-const DASH_INACCESSIBLE = [
-  WIDTH_INACCESSIBLE * 2,
-  WIDTH_INACCESSIBLE * 1.5,
+
+const widthExpression = [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  10, 1,
+  15, 1,
+  22, 20,
+];
+
+const widthExpressionOutline = [
+  'interpolate',
+  ['linear'],
+  ['zoom'],
+  10, 0.7,
+  15, 0.7,
+  22, 10,
 ];
 
 
-const Crossings = (props) => {
-  const { requireCurbRamps } = props;
+const Crossings = () => (
+  <React.Fragment>
+    <Layer
+      id='crossing-click'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      paint={{
+        'line-width': {
+          stops: [[12, 0.5], [16, 2], [22, 20]],
+        },
+        'line-opacity': 0,
+      }}
 
-  return (
-    <React.Fragment>
-      <Layer
-        id='crossing-click'
-        type='line'
-        sourceId='crossings'
-        sourceLayer='crossings-c1ktiy'
-        paint={{
-          'line-width': {
-            stops: [[12, 0.5], [16, 2], [22, 20]],
-          },
-          'line-opacity': 0,
-        }}
+      before='bridge-street'
+    />
+    <Layer
+      id='crossing-unmarked'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      filter={[
+        '==',
+        ['string', ['get', 'crossing']],
+        'unmarked',
+      ]}
+      paint={{
+        'line-color': '#555',
+        'line-gap-width': widthExpression,
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          CROSSINGS_VISIBLE - 0.5, 0.0,
+          CROSSINGS_VISIBLE, 1,
+        ],
+      }}
+      before='bridge-street'
+    />
+    <Layer
+      id='crossing-unknown'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      filter={[
+        '==',
+        ['typeof', ['get', 'crossing']],
+        'null',
+      ]}
+      paint={{
+        'line-color': '#555',
+        'line-gap-width': widthExpression,
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          CROSSINGS_VISIBLE - 0.5, 0.0,
+          CROSSINGS_VISIBLE, 1,
+        ],
+      }}
+      before='bridge-street'
+    />
+    <Layer
+      id='crossing-marked'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      layout={{ 'line-cap': 'round' }}
+      filter={[
+        'any',
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled;zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra;uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'traffic_signals',
+        ],
+      ]}
+      paint={{
+        'line-color': '#555',
+        'line-width': widthExpression,
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          CROSSINGS_VISIBLE - 0.5, 0.0,
+          CROSSINGS_VISIBLE, 1,
+        ],
+      }}
+      before='bridge-street'
+    />
+    <Layer
+      id='crossing-marked-white-outline'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      layout={{ 'line-cap': 'round' }}
+      filter={[
+        'any',
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled;zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra;uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'traffic_signals',
+        ],
+      ]}
+      paint={{
+        'line-color': '#fff',
+        'line-gap-width': widthExpressionOutline,
+        'line-width': { stops: [[12, 0.2], [16, 0.6], [22, 6]] },
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          CROSSINGS_VISIBLE - 0.5, 0.0,
+          CROSSINGS_VISIBLE, 1,
+        ],
+      }}
+      before='bridge-street'
+    />
+    <Layer
+      id='crossing-marked-outline'
+      type='line'
+      sourceId='paths'
+      sourceLayer='crossings'
+      layout={{ 'line-cap': 'round' }}
+      filter={[
+        'any',
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'uncontrolled;zebra',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'zebra;uncontrolled',
+        ],
+        [
+          '==',
+          ['string', ['get', 'crossing']],
+          'traffic_signals',
+        ],
+      ]}
+      paint={{
+        'line-color': '#000',
+        'line-gap-width': widthExpression,
+        'line-width': { stops: [[14, 0.00], [20, 1]] },
+        'line-opacity': ['interpolate', ['linear'], ['zoom'],
+          CROSSINGS_VISIBLE - 0.5, 0.0,
+          CROSSINGS_VISIBLE, 1,
+        ],
+      }}
+      before='bridge-street'
+    />
 
-        before='bridge-street'
-      />
-      <Layer
-        id='crossing-inaccessible'
-        type='line'
-        sourceId='crossings'
-        sourceLayer='crossings-c1ktiy'
-        filter={[
-          'all',
-          requireCurbRamps,
-          ['!',
-            ['to-boolean',
-              ['get', 'curbramps'],
-            ],
-          ],
-        ]}
-        paint={{
-          'line-color': '#ff0000',
-          'line-dasharray': {
-            stops: [
-              [12, [DASH_INACCESSIBLE[0] * 2, DASH_INACCESSIBLE[1] * 4]],
-              [14, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 2]],
-              [16, [DASH_INACCESSIBLE[0], DASH_INACCESSIBLE[1] * 1.5]],
-            ],
-          },
-          'line-width': {
-            stops: [
-              [12, WIDTH_INACCESSIBLE / 4],
-              [16, WIDTH_INACCESSIBLE],
-              [20, WIDTH_INACCESSIBLE * 4],
-            ],
-          },
-          'line-opacity': [
-            'interpolate',
-            ['linear'],
-            ['zoom'],
-            CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 1,
-          ],
-        }}
-        before='bridge-street'
-      />
-      <Layer
-        id='crossing-unmarked'
-        type='line'
-        sourceId='crossings'
-        sourceLayer='crossings-c1ktiy'
-        filter={[
-          'all',
-          [
-            'any',
-            !requireCurbRamps,
-            [
-              'to-boolean',
-              ['get', 'curbramps'],
-            ],
-          ],
-          [
-            '!',
-            [
-              'to-boolean',
-              ['get', 'marked'],
-            ],
-          ],
-        ]}
-        paint={{
-          'line-color': '#555',
-          'line-gap-width': {
-            stops: [[12, 0.5], [16, 3], [22, 30]],
-          },
-          'line-opacity': ['interpolate', ['linear'], ['zoom'],
-            CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 1,
-          ],
-        }}
-        before='bridge-street'
-      />
-      <Layer
-        id='crossing-marked-background'
-        type='line'
-        sourceId='crossings'
-        sourceLayer='crossings-c1ktiy'
-        layout={{ 'line-cap': 'round' }}
-        filter={[
-          'all',
-          [
-            'any',
-            !requireCurbRamps,
-            [
-              'to-boolean',
-              ['get', 'curbramps'],
-            ],
-          ],
-          [
-            'to-boolean',
-            ['get', 'marked'],
-          ],
-        ]}
-        paint={{
-          'line-color': '#555',
-          'line-width': {
-            stops: [[12, 0.5], [16, 3], [22, 30]],
-          },
-          'line-opacity': ['interpolate', ['linear'], ['zoom'],
-            CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 1,
-          ],
-        }}
-        before='bridge-street'
-      />
-      <Layer
-        id='crossing-marked-outline'
-        type='line'
-        sourceId='crossings'
-        sourceLayer='crossings-c1ktiy'
-        layout={{ 'line-cap': 'round' }}
-        filter={[
-          'all',
-          [
-            'any',
-            !requireCurbRamps,
-            [
-              'to-boolean',
-              ['get', 'curbramps'],
-            ],
-          ],
-          [
-            'to-boolean',
-            ['get', 'marked'],
-          ],
-        ]}
-        paint={{
-          'line-color': '#fff',
-          'line-gap-width': {
-            stops: [[12, 0.4], [16, 1.5], [22, 15]],
-          },
-          'line-width': { stops: [[12, 0.1], [16, 0.5], [22, 4]] },
-          'line-opacity': ['interpolate', ['linear'], ['zoom'],
-            CROSSINGS_VISIBLE - 0.5, 0.0,
-            CROSSINGS_VISIBLE, 1,
-          ],
-        }}
-        before='bridge-street'
-      />
-    </React.Fragment>
-  );
-};
+  </React.Fragment>
+);
 
 Crossings.propTypes = {
   requireCurbRamps: PropTypes.bool.isRequired,
