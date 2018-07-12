@@ -16,6 +16,8 @@ import Sources from './sources';
 import Crossings from './layers-crossings';
 import Elevators from './layers-elevators';
 import Footways from './layers-footways';
+import FootYes from './layers-footyes';
+import PedestrianRoads from './layers-pedestrian-roads';
 import Kerbs from './layers-kerbs';
 import Sidewalks from './layers-sidewalks';
 import Stairs from './layers-stairs';
@@ -151,13 +153,17 @@ class Map extends Component {
 
         <Sources />
 
+        <Route before='stairs-click' />
+
         <Stairs />
         <Crossings />
-        <Route before='crossing-click' />
         <Sidewalks />
         <Footways />
+        <FootYes />
+        <PedestrianRoads />
         <Kerbs />
         <Elevators />
+
         <Waypoints />
         <Geolocation />
       </MapboxGL>
