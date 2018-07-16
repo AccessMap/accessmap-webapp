@@ -103,7 +103,7 @@ export default (state = defaults, action) => {
         const {
           center,
           zoom,
-        } = mapSubview(bounds, state.mapWidth, state.mapHeight, margins);
+        } = mapSubview(bounds, margins);
 
         return {
           ...state,

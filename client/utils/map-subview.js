@@ -12,7 +12,6 @@ const mapSubview = (bounds, margins) => {
   const visibleBounds = getVisibleRegion(bounds, margins);
   const map = document.getElementsByClassName('map')[0];
 
-
   const { center, zoom } = geoViewport.viewport(
     visibleBounds,
     [map.clientWidth, map.clientHeight],
