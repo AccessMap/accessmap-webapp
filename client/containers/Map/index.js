@@ -11,7 +11,7 @@ import ReactMapboxGl from 'react-mapbox-gl';
 
 import * as AppActions from 'actions';
 
-import PedestrianSource from './source-pedestrian';
+import Sources from './sources';
 
 import Crossings from './layers-crossings';
 import ElevatorPaths from './layers-elevator-paths';
@@ -145,7 +145,7 @@ class Map extends Component {
         {...props}
       >
 
-        <PedestrianSource />
+        <Sources />
 
         <Crossings />
         <ElevatorPaths />
