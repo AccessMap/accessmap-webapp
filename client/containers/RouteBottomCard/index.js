@@ -64,7 +64,7 @@ const RouteBottomCard = (props) => {
           primary
           onClick={() => actions.viewDirections(routeResult)}
         >
-          List Directions
+          Directions
         </Button>
       </CardActions>
     </Card>

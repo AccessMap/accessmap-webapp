@@ -9,7 +9,7 @@ const DirectionsCard = (props) => {
     title,
   } = props;
 
-  const subtitle = `${Math.round(distance, 1)} meters`;
+  const subtitle = distance ? `${Math.round(distance, 1)} meters` : '';
 
   return (
     <Card
@@ -24,8 +24,12 @@ const DirectionsCard = (props) => {
 };
 
 DirectionsCard.propTypes = {
-  distance: PropTypes.number.isRequired,
+  distance: PropTypes.number,
   title: PropTypes.string.isRequired,
+};
+
+DirectionsCard.defaultProps = {
+  distance: null,
 };
 
 export default DirectionsCard;
