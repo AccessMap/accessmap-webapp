@@ -1,3 +1,7 @@
+// Shims
+// Adds Object.values, etc. Auto-calls its shim method.
+import 'es7-shim/browser';
+
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';
 import React from 'react';

@@ -5,6 +5,7 @@
   ],
   "presets": [
     ["es2015", { "modules": false }],
+    "es2017",
     "react",
     "stage-2"
   ],
