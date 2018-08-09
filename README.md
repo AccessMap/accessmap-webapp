@@ -18,4 +18,4 @@ Technology.
 Hosting of AccessMap is sponsored by Microsoft Azure.
 
 Cross-browser testing is supported by
-[![BrowserStack](./assets/browserstack.svg)](https://www.browserstack.com) (BrowserStack).
+[![BrowserStack](assets/logos/browserstack.png)](https://www.browserstack.com) (BrowserStack).
