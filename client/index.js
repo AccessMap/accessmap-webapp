@@ -1,6 +1,5 @@
-// Shims
-// Adds Object.values, etc. Auto-calls its shim method.
-import 'es7-shim/browser';
+// Polyfills and shims
+import 'polyfills';
 
 import { Provider } from 'react-redux';
 import ReactDOM from 'react-dom';

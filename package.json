@@ -66,6 +66,7 @@
     "oidc-client": "^1.5.1-beta.1",
     "opening_hours": "^3.5.0",
     "pre-commit": "^1.2.2",
+    "promise-polyfill": "^8.0.0",
     "prop-types": "^15.6.0",
     "rakam-js": "^1.0.3",
     "react": "^16.2.0",
@@ -87,6 +88,7 @@
     "svg-sprite-loader": "^3.7.3",
     "transform-loader": "^0.2.4",
     "url-loader": "^0.6.2",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "whatwg-fetch": "^2.0.4"
   }
 }
