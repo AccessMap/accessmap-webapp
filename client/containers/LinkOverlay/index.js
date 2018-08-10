@@ -125,6 +125,7 @@ const LinkOverlay = (props) => {
               buttons={(
                 <Button
                   icon
+                  svg
                   href='https://www.washington.edu/giving/make-a-gift/?page=funds&source_typ=3&source=TASKAR'
                   target='_blank'
                 >

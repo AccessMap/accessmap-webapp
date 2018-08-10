@@ -6,11 +6,14 @@ import { connect } from 'react-redux';
 import Button from 'react-md/src/js/Buttons';
 import Card, { CardActions } from 'react-md/src/js/Cards';
 import DataTable, { TableBody, TableRow, TableColumn } from 'react-md/src/js/DataTables';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 import Toolbar from 'react-md/src/js/Toolbars';
 
 import OpeningHoursTable from 'components/OpeningHoursTable';
 
 import * as AppActions from 'actions';
+
+import close from 'icons/close.svg';
 
 const SURFACE_MAP = {
   asphalt: 'Asphalt',
@@ -72,9 +75,10 @@ const FeatureCard = (props) => {
         actions={
           <Button
             icon
+            svg
             onClick={actions.clearSelectedFeatures}
           >
-            close
+            <SVGIcon use={close.url} />
           </Button>
         }
       />

@@ -10,10 +10,13 @@ import Button from 'react-md/src/js/Buttons';
 import Card, { CardText } from 'react-md/src/js/Cards';
 import { Tabs, Tab } from 'react-md/src/js/Tabs';
 import Toolbar from 'react-md/src/js/Toolbars';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 
 import CurbRampsToggle from 'containers/Settings/CurbRampsToggle';
 import DownhillSlider from 'containers/Settings/DownhillSlider';
 import UphillSlider from 'containers/Settings/UphillSlider';
+
+import close from 'icons/close.svg';
 
 const SettingsCard = (props) => {
   const {
@@ -55,12 +58,13 @@ const SettingsCard = (props) => {
         }
         actions={[
           <Button
+            icon
+            svg
             tooltipLabel='Close'
             tooltipPosition='left'
             onClick={() => actions.toggleSettingProfile(settingProfile)}
-            icon
           >
-            close
+            <SVGIcon use={close.url} />
           </Button>,
         ]}
       />

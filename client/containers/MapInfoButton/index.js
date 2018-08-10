@@ -16,6 +16,7 @@ import Toolbar from 'react-md/src/js/Toolbars';
 import SidewalkIcon from 'components/Icons/SidewalkIcon';
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from 'constants/colors';
 
+import close from 'icons/close.svg';
 import information from 'icons/information.svg';
 
 
@@ -53,9 +54,10 @@ const MapInfoButton = (props) => {
         actions={[
           <Button
             icon
+            svg
             onClick={actions.closeMapInfo}
           >
-            close
+            <SVGIcon use={close.url} />
           </Button>,
         ]}
       />

@@ -10,9 +10,12 @@ import Button from 'react-md/src/js/Buttons';
 import Drawer from 'react-md/src/js/Drawers';
 import { ListItemControl } from 'react-md/src/js/Lists';
 import { Switch } from 'react-md/src/js/SelectionControls';
+import SVGIcon from 'react-md/src/js/SVGIcons';
 import Toolbar from 'react-md/src/js/Toolbars';
 
 import AccessMapLogo from 'components/Icons/AccessMapLogo';
+
+import close from 'icons/close.svg';
 
 const AppDrawer = (props) => {
   const {
@@ -74,9 +77,10 @@ const AppDrawer = (props) => {
           actions={[
             <Button
               icon
+              svg
               onClick={actions.hideDrawer}
             >
-              close
+              <SVGIcon use={close.url} />
             </Button>,
           ]}
         />

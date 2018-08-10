@@ -32,10 +32,13 @@ import AccessMapLogo from 'components/Icons/AccessMapLogo';
 import Directions from 'components/Directions';
 import RouteInfo from 'components/RouteInfo';
 
+import chevronDown from 'icons/chevron-down.svg';
+import close from 'icons/close.svg';
 import directions from 'icons/directions.svg';
 import magnify from 'icons/magnify.svg';
 import menu from 'icons/menu.svg';
 import pencil from 'icons/pencil.svg';
+import swapVert from 'icons/swap-vert.svg';
 
 import { pointFeature, routeResult as routeResultProps } from 'prop-schema';
 
@@ -145,13 +148,14 @@ class OmniCard extends React.PureComponent {
             title={<OriginGeocoder />}
             actions={[
               <Button
-                onClick={() => actions.toggleTripPlanning(planningTrip)}
                 key='tripplanning--close'
                 icon
+                svg
+                onClick={() => actions.toggleTripPlanning(planningTrip)}
                 tooltipLabel='Close trip'
                 tooltipPosition='left'
               >
-                close
+                <SVGIcon use={close.url} />
               </Button>,
             ]}
           />
@@ -164,13 +168,14 @@ class OmniCard extends React.PureComponent {
                 className='md-btn--toolbar'
                 key='tripplanning--swap-waypoints'
                 icon
+                svg
                 tooltipLabel='Swap start and end'
                 tooltipPosition='left'
                 onClick={() => {
                   actions.swapWaypoints(origin, destination);
                 }}
               >
-                swap_vert
+                <SVGIcon use={swapVert.url} />
               </Button>,
             ]}
           />
@@ -225,6 +230,7 @@ class OmniCard extends React.PureComponent {
         profileActions.push(
           <Button
             icon
+            svg
             className='trip-options-collapser md-fake-btn md-icon md-btn--icon md-inline-block'
             onClick={() => {
               if (showTripOptions) {
@@ -239,7 +245,7 @@ class OmniCard extends React.PureComponent {
                 'md-collapser--flipped': showTripOptions,
               })}
             >
-              keyboard_arrow_down
+              <SVGIcon use={chevronDown.url} />
             </i>
           </Button>,
         );
