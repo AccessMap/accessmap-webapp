@@ -45,6 +45,10 @@ const createRouter5Middleware = (router) => {
         break;
       }
       case RECEIVE_ROUTE: {
+        // Get origin and destination data from root redux store - single source of
+        // truth and is always up-to-date after waypoint swap
+        const { origin, destination } = store.getState().waypoints;
+
         const { params } = router.getState();
         const { routeResult } = action.payload;
         if (routeResult.code !== 'Ok') break;
@@ -57,6 +61,7 @@ const createRouter5Middleware = (router) => {
           lon: center[0],
           lat: center[1],
           zoom,
+          waypoints: [origin, destination],
         };
 
         router.navigate('root.directions.waypoints.at', directionsParams);

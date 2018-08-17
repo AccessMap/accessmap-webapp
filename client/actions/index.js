@@ -495,29 +495,20 @@ export const loadApp = () => ({
   },
 });
 
-export const loadMap = (lon, lat, zoom, bbox) => (dispatch, getState) => {
-  dispatch({
-    type: LOAD_MAP,
-    payload: {
-      bounds: bbox,
-      lon,
-      lat,
-      zoom,
+export const loadMap = (lon, lat, zoom, bbox) => ({
+  type: LOAD_MAP,
+  payload: {
+    bounds: bbox,
+    lon,
+    lat,
+    zoom,
+  },
+  meta: {
+    analytics: {
+      type: 'load-map',
     },
-    meta: {
-      analytics: {
-        type: 'load-map',
-      },
-    },
-  });
-
-  // If both waypoints are set, get a route
-  const { origin, destination } = getState().waypoints;
-  if (origin && destination) {
-    routeIfValid(dispatch, getState);
-  }
-};
-
+  },
+});
 
 export const resizeMap = (width, height) => ({
   type: RESIZE_MAP,
