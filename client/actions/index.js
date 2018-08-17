@@ -77,9 +77,6 @@ export const LOAD_MAP = 'LOAD_MAP';
 export const RESIZE_MAP = 'RESIZE_MAP';
 export const RESIZE_WINDOW = 'RESIZE_WINDOW';
 
-// Logging - track map view info, but isolated to prevent infinite recursion
-export const MAP_LOAD = 'MAP_LOAD';
-
 // Drawer toggles
 export const SHOW_DRAWER = 'SHOW_DRAWER';
 export const HIDE_DRAWER = 'HIDE_DRAWER';
@@ -498,20 +495,28 @@ export const loadApp = () => ({
   },
 });
 
-export const loadMap = (lon, lat, zoom, bbox) => ({
-  type: LOAD_MAP,
-  payload: {
-    bounds: bbox,
-    lon,
-    lat,
-    zoom,
-  },
-  meta: {
-    analytics: {
-      type: 'load-map',
+export const loadMap = (lon, lat, zoom, bbox) => (dispatch, getState) => {
+  dispatch({
+    type: LOAD_MAP,
+    payload: {
+      bounds: bbox,
+      lon,
+      lat,
+      zoom,
     },
-  },
-});
+    meta: {
+      analytics: {
+        type: 'load-map',
+      },
+    },
+  });
+
+  // If both waypoints are set, get a route
+  const { origin, destination } = getState().waypoints;
+  if (origin && destination) {
+    routeIfValid(dispatch, getState);
+  }
+};
 
 
 export const resizeMap = (width, height) => ({

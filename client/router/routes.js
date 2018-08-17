@@ -60,7 +60,7 @@ const routes = [{
     children: [{
       name: 'waypoints',
       path: '/wp:waypoints',
-      deParams: params => ({ waypoints: waypointsToPath(params.waypoints) }),
+      encodeParams: params => ({ waypoints: waypointsToPath(params.waypoints) }),
       decodeParams: ({ waypoints }) => ({ waypoints: pathToWaypoints(waypoints) }),
       children: [{
         name: 'at',

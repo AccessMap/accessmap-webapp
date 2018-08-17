@@ -110,7 +110,17 @@ const createRouter5Middleware = (router) => {
             directionsParams.zoom = 16;
           }
           router.navigate('root.directions.waypoints.at', directionsParams);
+        } else {
+          // Both exist - while route is being found, zoom to include both waypoints
+          // and update url
+          // FIXME: this doesn't actually zoom to both at the moment
+          const directionsParams = {
+            ...params,
+            waypoints: [origin, action.payload],
+          };
+          router.navigate('root.directions.waypoints.at', directionsParams);
         }
+
         break;
       }
       case SET_POI: {
