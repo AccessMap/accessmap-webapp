@@ -10,10 +10,10 @@ const handleTours = (state = defaults.tours, action) => {
   switch (action.type) {
     case actionTypes.TRANSITION_SUCCESS: {
       if (action.payload.route && action.payload.route.name) {
-        if (action.payload.route.name.startsWith('root.directions')) {
+        if (action.payload.route.name === 'directions') {
           return directionsTours;
         }
-        if (action.payload.route.name.startsWith('root')) {
+        if (action.payload.route.name === 'root') {
           return mainTours;
         }
       }

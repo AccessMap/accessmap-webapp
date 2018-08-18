@@ -7,9 +7,9 @@ import App from 'containers/App';
 const Index = (props) => {
   const { routeName } = props;
   switch (routeName) {
-    case 'root.signin':
-    case 'root.silent':
-    case 'root.signout':
+    case 'signin':
+    case 'silent':
+    case 'signout':
       return null;
     default:
       return <App />;

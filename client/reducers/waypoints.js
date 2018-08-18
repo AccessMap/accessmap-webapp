@@ -2,6 +2,8 @@ import { actionTypes as router5Types } from 'redux-router5';
 
 // Action types
 import {
+  EXIT_TRIP_PLANNING,
+  PLAN_TRIP,
   SET_ORIGIN,
   SET_DESTINATION,
   SET_POI,
@@ -44,9 +46,20 @@ const handleWaypoints = (state = defaults, action) => {
         origin: action.payload.destination,
         destination: action.payload.origin,
       };
+    case PLAN_TRIP:
+      return {
+        ...state,
+        origin: state.poi || null,
+      };
+    case EXIT_TRIP_PLANNING:
+      return {
+        ...state,
+        origin: null,
+        destination: null,
+      };
     case router5Types.TRANSITION_SUCCESS: {
       if (!action.payload.route ||
-          !action.payload.route.name.startsWith('root.directions')) {
+          !action.payload.route.name === 'directions') {
         // We've exited directions mode - clear out origin/destination
         return { ...state, origin: null, destination: null };
       }

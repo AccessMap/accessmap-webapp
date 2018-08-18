@@ -56,11 +56,11 @@ const createOpenIDMiddleware = () => {
         break;
       case '@@router5/TRANSITION_SUCCESS':
         // TODO: catch errors
-        if (action.payload.route.name === 'root.signin') {
+        if (action.payload.route.name === 'signin') {
           mgr.signinPopupCallback();
-        } else if (action.payload.route.name === 'root.silent') {
+        } else if (action.payload.route.name === 'silent') {
           mgr.signinSilentCallback();
-        } else if (action.payload.route.name === 'root.signout') {
+        } else if (action.payload.route.name === 'signout') {
           mgr.signoutPopupCallback();
         }
         break;

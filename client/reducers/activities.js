@@ -8,7 +8,7 @@ import {
   RECEIVE_ROUTE,
   SET_PROFILE,
   TOGGLE_SETTING_PROFILE,
-  TOGGLE_TRIP_PLANNING,
+  EXIT_TRIP_PLANNING,
   VIEW_DIRECTIONS,
   VIEW_MAP_INFO,
   VIEW_ROUTE_INFO,
@@ -64,9 +64,9 @@ const handleViewingRoute = (state = defaults.viewingRoute, action) => {
   switch (action.type) {
     case RECEIVE_ROUTE:
       return true;
-    case TOGGLE_TRIP_PLANNING:
+    case EXIT_TRIP_PLANNING:
       // Was planning a trip, so toggling out of route view
-      return action.payload ? false : state;
+      return false;
     default:
       return state;
   }

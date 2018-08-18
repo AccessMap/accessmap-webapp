@@ -151,8 +151,8 @@ class OmniCard extends React.PureComponent {
                 key='tripplanning--close'
                 icon
                 svg
-                onClick={() => actions.toggleTripPlanning(planningTrip)}
-                tooltipLabel='Close trip'
+                onClick={actions.exitTripPlanning}
+                tooltipLabel='Exit trip planning'
                 tooltipPosition='left'
               >
                 <SVGIcon use={close.url} />
@@ -201,7 +201,7 @@ class OmniCard extends React.PureComponent {
               svg
               tooltipLabel='Plan a trip'
               tooltipPosition='left'
-              onClick={() => actions.toggleTripPlanning(planningTrip)}
+              onClick={actions.planTrip}
             >
               <SVGIcon use={directions.url} />
             </Button>,
@@ -370,7 +370,7 @@ const mapStateToProps = (state) => {
     fetchingRoute: route.fetchingRoute,
     origin: waypoints.origin,
     mediaType: browser.mediaType,
-    planningTrip: router.route && router.route.name.startsWith('root.directions'),
+    planningTrip: router.route && router.route.name === 'directions',
     profileName: currentProfile.name,
     routeResult: route.routeResult,
     selectedProfile: profile.selectedProfile,

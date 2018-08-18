@@ -201,7 +201,7 @@ MapInfoButton.defaultProps = {
 
 const mapStateToProps = state => ({
   mediaType: state.browser.mediaType,
-  planningTrip: state.router.route && state.router.route.name.startsWith('root.dir'),
+  planningTrip: state.router.route && state.router.route.name === 'directions',
   settingProfile: state.activities.settingProfile,
   viewingMapInfo: state.activities.viewingMapInfo,
 });

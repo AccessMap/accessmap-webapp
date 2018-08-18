@@ -7,15 +7,16 @@ import mapSubview from 'utils/map-subview';
 import routeBounds from 'utils/route-bounds';
 
 import {
-  TOGGLE_TRIP_PLANNING,
-  RECEIVE_ROUTE,
-  SET_ORIGIN,
-  SET_DESTINATION,
-  SET_POI,
-  LOAD_MAP,
-  SET_ZOOM,
   CLOSE_DIRECTIONS,
+  EXIT_TRIP_PLANNING,
+  LOAD_MAP,
   MAP_MOVE,
+  PLAN_TRIP,
+  RECEIVE_ROUTE,
+  SET_DESTINATION,
+  SET_ORIGIN,
+  SET_POI,
+  SET_ZOOM,
   VIEW_ROUTE_INFO,
   setOriginDestination,
 } from 'actions';
@@ -27,44 +28,43 @@ const createRouter5Middleware = (router) => {
   /* eslint-enable no-unused-vars */
     // FIXME: replace action type strings with imported constant vars
     switch (action.type) {
-      case TOGGLE_TRIP_PLANNING: {
-        const { lon, lat, zoom } = router.getState().params;
-        const { origin, poi } = store.getState().waypoints;
-        const newParams = { lon, lat, zoom };
-
-        if (action.payload.planningTrip) {
-          // No longer planning a trip - use only location params
-          router.navigate('root.home.at', newParams);
-        } else {
-          // Starting trip planning - move the POI, if it exists, into the origin slot.
-          if (!origin && poi) {
-            newParams.origin = poi;
-          }
-          router.navigate('root.directions.at', newParams);
-        }
+      case PLAN_TRIP: {
+        // When planning a trip, need to (potentially) enter directions view and
+        // update origin/destination (if necessary)
+        const { origin, destination } = store.getState().router.route.params;
+        // Starting trip planning - move the POI, if it exists, into the origin slot.
+        const params = { ...router.getState().params, waypoints: [origin, destination] };
+        router.navigate('directions', params);
+        break;
+      }
+      case EXIT_TRIP_PLANNING: {
+        const { lon, lat, z } = store.getState().router.route.params;
+        router.navigate('root', { lon, lat, z });
+        break;
+      }
+      case CLOSE_DIRECTIONS: {
+        // We need to return to the previous state. I guess the back button will do it?
+        history.go(-1);
         break;
       }
       case RECEIVE_ROUTE: {
-        // Get origin and destination data from root redux store - single source of
-        // truth and is always up-to-date after waypoint swap
+        const { routeResult } = action.payload;
         const { origin, destination } = store.getState().waypoints;
 
-        const { params } = router.getState();
-        const { routeResult } = action.payload;
         if (routeResult.code !== 'Ok') break;
         const bounds = routeBounds(routeResult);
         const margins = getVisibleMargins();
         const { center, zoom } = mapSubview(bounds, margins);
 
-        const directionsParams = {
-          ...params,
+        const params = {
+          ...router.getState().params,
           lon: center[0],
           lat: center[1],
-          zoom,
+          z: zoom,
           waypoints: [origin, destination],
         };
 
-        router.navigate('root.directions.waypoints.at', directionsParams);
+        router.navigate('directions', params);
         break;
       }
       case SET_ORIGIN: {
@@ -79,12 +79,12 @@ const createRouter5Middleware = (router) => {
             ...params,
             waypoints: [action.payload],
           };
-          if (!inView(lon, lat, params.lon, params.lat, params.zoom)) {
+          if (!inView(lon, lat, params.lon, params.lat, params.z)) {
             directionsParams.lon = action.payload.lon;
             directionsParams.lat = action.payload.lat;
-            directionsParams.zoom = 16;
+            directionsParams.z = 16;
           }
-          router.navigate('root.directions.waypoints.at', directionsParams);
+          router.navigate('directions', directionsParams);
         } else {
           // Both exist - while route is being found, zoom to include both waypoints
           // and update url
@@ -93,7 +93,7 @@ const createRouter5Middleware = (router) => {
             ...params,
             waypoints: [action.payload, destination],
           };
-          router.navigate('root.directions.waypoints.at', directionsParams);
+          router.navigate('directions', directionsParams);
         }
         break;
       }
@@ -109,12 +109,12 @@ const createRouter5Middleware = (router) => {
             ...params,
             waypoints: [action.payload],
           };
-          if (!inView(lon, lat, params.lon, params.lat, params.zoom)) {
+          if (!inView(lon, lat, params.lon, params.lat, params.z)) {
             directionsParams.lon = action.payload.lon;
             directionsParams.lat = action.payload.lat;
-            directionsParams.zoom = 16;
+            directionsParams.z = 16;
           }
-          router.navigate('root.directions.waypoints.at', directionsParams);
+          router.navigate('directions', directionsParams);
         } else {
           // Both exist - while route is being found, zoom to include both waypoints
           // and update url
@@ -123,7 +123,7 @@ const createRouter5Middleware = (router) => {
             ...params,
             waypoints: [origin, action.payload],
           };
-          router.navigate('root.directions.waypoints.at', directionsParams);
+          router.navigate('directions', directionsParams);
         }
 
         break;
@@ -131,25 +131,16 @@ const createRouter5Middleware = (router) => {
       case SET_POI: {
         const { name, params } = router.getState();
         const { lon, lat } = action.payload;
-        if (!inView(lon, lat, params.lon, params.lat, params.zoom)) {
+        if (!inView(lon, lat, params.lon, params.lat, params.z)) {
           const center = centerInView(lon, lat, 16);
           const updatedParams = { ...params, lon: center[0], lat: center[1] };
-          const routeName = name.endsWith('.at') ? name : `${name}.at`;
-          router.navigate(routeName, updatedParams);
+          router.navigate(name, updatedParams);
         }
         break;
       }
       case LOAD_MAP: {
-        // TODO: don't even need the store for 'routerState', use the router object.
         const { name, params } = router.getState();
-        const { lon, lat, zoom } = action.payload;
-        const waypointsRoutes = [
-          'root.directions.waypoints',
-          'root.directions.waypoints.at',
-        ];
-        if (name === 'root.home') {
-          router.navigate('root.home.at', { lon, lat, zoom });
-        } else if (waypointsRoutes.includes(name)) {
+        if (name === 'directions') {
           // Extract params
           const { waypoints } = params;
           if (waypoints.length > 1) {
@@ -164,32 +155,13 @@ const createRouter5Middleware = (router) => {
       }
       case SET_ZOOM: {
         const { name, params } = router.getState();
-        const routeName = name.endsWith('.at') ? name : `${name}.at`;
-        router.navigate(routeName, { ...params, zoom: action.payload });
-        break;
-      }
-      case CLOSE_DIRECTIONS: {
-        const { params } = router.getState();
-        const routeResult = action.payload;
-        const bounds = routeBounds(routeResult);
-        const margins = getVisibleMargins();
-        const { center, zoom } = mapSubview(bounds, margins);
-
-        const directionsParams = {
-          ...params,
-          lon: center[0],
-          lat: center[1],
-          zoom,
-        };
-        // TODO: extract 'navigate to other area' into its own action creator
-        router.navigate('root.directions.waypoints.at', directionsParams);
+        router.navigate(name, { ...params, z: action.payload });
         break;
       }
       case MAP_MOVE: {
         const { name, params } = router.getState();
-        const { lon, lat, zoom } = action.payload;
-        const routeName = name.endsWith('.at') ? name : `${name}.at`;
-        router.navigate(routeName, { ...params, lon, lat, zoom });
+        const { lon, lat, zoom: z } = action.payload;
+        router.navigate(name, { ...params, lon, lat, z });
         break;
       }
       case VIEW_ROUTE_INFO: {
@@ -216,8 +188,7 @@ const createRouter5Middleware = (router) => {
           zoom,
         } = mapSubview(bounds, margins);
 
-        const routeName = name.endsWith('.at') ? name : `${name}.at`;
-        router.navigate(routeName, { ...params, lon: center[0], lat: center[1], zoom });
+        router.navigate(name, { ...params, lon: center[0], lat: center[1], z: zoom });
         break;
       }
       default:

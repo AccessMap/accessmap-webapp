@@ -186,14 +186,14 @@ const mapStateToProps = (state) => {
     router,
   } = state;
 
-  const mapParams = router.route ? router.route.params : null;
+  const { lon, lat, z } = router.route.params;
 
   return {
-    lon: mapParams ? mapParams.lon : undefined,
-    lat: mapParams ? mapParams.lat : undefined,
+    lon,
+    lat,
     mediaType: browser.mediaType,
     viewingDirections: activities.viewingDirections,
-    zoom: mapParams ? mapParams.zoom : undefined,
+    zoom: z,
   };
 };
 

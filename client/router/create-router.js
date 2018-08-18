@@ -5,7 +5,7 @@ import routes from 'router/routes';
 
 const configureRouter = () => {
   const router = createRouter(routes, {
-    defaultRoute: 'index',
+    defaultRoute: 'root',
   })
     .usePlugin(browserPlugin());
 

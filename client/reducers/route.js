@@ -15,7 +15,7 @@ const handleRoute = (state = defaults.routeResult, action) => {
       return action.payload.routeResult;
     case router5Types.TRANSITION_SUCCESS:
       if (action.payload.route) {
-        return action.payload.route.name.startsWith('root.directions') ? state : null;
+        return action.payload.route.name === 'directions' ? state : null;
       }
       return state;
     default:

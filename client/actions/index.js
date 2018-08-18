@@ -16,7 +16,8 @@ export const CLOSE_LINK_OVERLAY = 'CLOSE_LINK_OVERLAY';
 // Direct activity changes
 export const VIEW_MAP_INFO = 'VIEW_MAP_INFO';
 export const CLOSE_MAP_INFO = 'CLOSE_MAP_INFO';
-export const TOGGLE_TRIP_PLANNING = 'TOGGLE_TRIP_PLANNING';
+export const PLAN_TRIP = 'PLAN_TRIP';
+export const EXIT_TRIP_PLANNING = 'EXIT_TRIP_PLANNING';
 export const TOGGLE_SETTING_PROFILE = 'TOGGLE_SETTING_PROFILE';
 
 // Routing profile settings
@@ -196,14 +197,20 @@ export const closeLinkOverlay = () => ({
   },
 });
 
-export const toggleTripPlanning = planningTrip => ({
-  type: TOGGLE_TRIP_PLANNING,
-  payload: {
-    planningTrip,
-  },
+export const planTrip = () => ({
+  type: PLAN_TRIP,
   meta: {
     analytics: {
-      type: 'toggle-trip-planning',
+      type: 'plan-trip',
+    },
+  },
+});
+
+export const exitTripPlanning = () => ({
+  type: EXIT_TRIP_PLANNING,
+  meta: {
+    analytics: {
+      type: 'exit-trip-planning',
     },
   },
 });

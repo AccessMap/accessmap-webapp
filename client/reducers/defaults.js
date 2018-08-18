@@ -18,6 +18,8 @@ export const defaultAuth = null;
 export const defaultBrowser = {
   displayMode: 'landscape',
   mediaType: null,
+  mapWidth: null,
+  mapHeight: null,
 };
 
 export const defaultGeolocation = null;
@@ -56,12 +58,8 @@ export const defaultTour = {
 };
 
 export const defaultView = {
-  lon: -122.333592,
-  lastView: null,
-  lat: 47.605628,
   mapWidth: null,
   mapHeight: null,
-  zoom: 15,
 };
 
 export const defaultWaypoints = {
