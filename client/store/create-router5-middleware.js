@@ -46,7 +46,8 @@ const createRouter5Middleware = (router) => {
         // We need to return to the previous state. I guess the back button will do it?
         history.go(-1);
         break;
-      case 'INITIALIZE_EMISSION':
+      }
+      case 'INITIALIZE_EMISSION': {
         router.navigate('root.home.at');
         break;
       }

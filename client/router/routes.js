@@ -51,7 +51,6 @@ const decodeParams = (params) => {
 
 const routes = [{
   name: 'root',
-<<<<<<< HEAD
   path: '/?lon&lat&z',
   defaultParams: {
     lon: mapConstants.lon,
