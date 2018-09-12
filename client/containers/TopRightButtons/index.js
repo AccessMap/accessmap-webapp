@@ -32,6 +32,7 @@ const TopRightButtons = (props) => {
       { !viewingMapInfo ? (
         <Button
           className='tour-btn'
+          aria-label='Walkthrough'
           floating
           svg
           mini

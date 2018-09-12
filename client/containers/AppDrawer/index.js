@@ -45,6 +45,7 @@ const AppDrawer = (props) => {
           subheader: true,
         },
         <ListItemControl
+          aria-label='Allow analytics for research use'
           key='toggle-track'
           secondaryAction={
             <Switch
@@ -76,6 +77,7 @@ const AppDrawer = (props) => {
           }
           actions={[
             <Button
+              aria-label='Close nav menu'
               icon
               svg
               onClick={actions.hideDrawer}

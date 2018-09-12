@@ -107,16 +107,9 @@ class OmniCard extends React.PureComponent {
       (
         <Toolbar
           className='omnicard--header'
-          title={
-            <div
-              className='accessmap-title'
-              key='accessmap-brand'
-            >
-              <AccessMapLogo />
-            </div>
-          }
           nav={
             <Button
+              aria-label='Main Menu'
               icon
               svg
               onClick={() => {
@@ -134,7 +127,14 @@ class OmniCard extends React.PureComponent {
             <Login />,
           ]}
         >
-          <h6 className='accessmaplogo-region'>Seattle</h6>
+          <div
+            className='accessmap-title'
+            key='accessmap-brand'
+            aria-hidden
+          >
+            <AccessMapLogo />
+            <h6 className='accessmaplogo-region'>Seattle</h6>
+          </div>
         </Toolbar>
       );
 
@@ -148,6 +148,7 @@ class OmniCard extends React.PureComponent {
             title={<OriginGeocoder />}
             actions={[
               <Button
+                aria-label='Exit trip planning'
                 key='tripplanning--close'
                 icon
                 svg
@@ -165,6 +166,7 @@ class OmniCard extends React.PureComponent {
             title={<DestinationGeocoder />}
             actions={[
               <Button
+                aria-label='Swap start and destination locations'
                 className='md-btn--toolbar'
                 key='tripplanning--swap-waypoints'
                 icon
@@ -194,6 +196,7 @@ class OmniCard extends React.PureComponent {
           }
           actions={[
             <Button
+              aria-label='Trip planning mode'
               className='directions-button md-btn--toolbar'
               key='omnicard-tripplanning--toggle'
               icon
@@ -216,6 +219,7 @@ class OmniCard extends React.PureComponent {
     if (isMobile) {
       profileActions.push(
         <Button
+          aria-label='Edit trip planning profile'
           className='edit-profile-button'
           icon
           svg
@@ -229,6 +233,7 @@ class OmniCard extends React.PureComponent {
       if (planningTrip) {
         profileActions.push(
           <Button
+            aria-label='Toggle display of trip options'
             icon
             svg
             className='trip-options-collapser md-fake-btn md-icon md-btn--icon md-inline-block'
@@ -280,7 +285,11 @@ class OmniCard extends React.PureComponent {
     );
 
     return (
-      <Card className='omnicard'>
+      <Card
+        role='complementary'
+        aria-label='main interface'
+        className='omnicard'
+      >
         { fetchingRoute ?
           <LinearProgress
             id='retrieving-route-indicator'
@@ -304,6 +313,7 @@ class OmniCard extends React.PureComponent {
             </CardText>
             <CardActions>
               <Button
+                aria-label='Reset profile to defaults'
                 flat
                 primary
                 onClick={() => actions.setProfileDefault(profileName)}

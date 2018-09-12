@@ -74,6 +74,7 @@ const FeatureCard = (props) => {
         title={title}
         actions={
           <Button
+            aria-label='Close point of interest popup'
             icon
             svg
             onClick={actions.clearSelectedFeatures}

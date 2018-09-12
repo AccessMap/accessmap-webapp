@@ -27,6 +27,7 @@ const FloatingButtons = (props) => {
     <div className='floating-buttons'>
       {(mediaType !== 'mobile') || !(planningTrip || settingProfile || viewingMapInfo) ? (
         <Button
+          aria-label='Zoom to your location'
           floating
           svg
           mini
@@ -42,6 +43,7 @@ const FloatingButtons = (props) => {
         )
       }
       <Button
+        aria-label='Zoom in'
         floating
         svg
         mini
@@ -54,6 +56,7 @@ const FloatingButtons = (props) => {
         <SVGIcon use={plus.url} />
       </Button>
       <Button
+        aria-label='Zoom out'
         floating
         svg
         mini

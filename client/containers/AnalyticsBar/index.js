@@ -25,6 +25,7 @@ const AnalyticsBar = (props) => {
       Your use of AccessMap supports academic research.
       </span>
       <Button
+        aria-label='got it'
         flat
         primary
         onClick={actions.enableAnalytics}

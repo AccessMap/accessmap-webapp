@@ -17,6 +17,7 @@ const DestinationGeocoder = (props) => {
 
   return (
     <DefaultedGeocoderAutocomplete
+      aria-label='Search for destination address'
       id='destination-geocoder'
       key='destination-geocoder'
       className='destination-geocoder md-title--toolbar'

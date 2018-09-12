@@ -38,25 +38,25 @@ const ProfileList = (props) => {
         }
       }}
       controls={[{
-        label: profileName === 'wheelchair' ? <h6>Wheelchair</h6> : '',
+        label: profileName === 'wheelchair' ? <h6 aria-hidden>Wheelchair</h6> : '',
         value: 'wheelchair',
         className: profileName === 'wheelchair' ? 'profile-selected' : '',
-        checkedRadioIcon: <SVGIcon secondary use={wheelchair.url} />,
-        uncheckedRadioIcon: <SVGIcon use={wheelchair.url} />,
+        checkedRadioIcon: <SVGIcon aria-label='manual wheelchair' secondary use={wheelchair.url} />,
+        uncheckedRadioIcon: <SVGIcon aria-label='manual wheelchair' use={wheelchair.url} />,
         inkDisabled: true,
       }, {
-        label: profileName === 'powered' ? <h6>Powered</h6> : '',
+        label: profileName === 'powered' ? <h6 aria-hidden>Powered</h6> : '',
         value: 'powered',
         className: profileName === 'powered' ? 'profile-selected' : '',
-        checkedRadioIcon: <SVGIcon secondary use={wheelchairPowered.url} />,
-        uncheckedRadioIcon: <SVGIcon use={wheelchairPowered.url} />,
+        checkedRadioIcon: <SVGIcon aria-label='powered wheelchair' secondary use={wheelchairPowered.url} />,
+        uncheckedRadioIcon: <SVGIcon aria-label='powered wheelchair' use={wheelchairPowered.url} />,
         inkDisabled: true,
       }, {
-        label: profileName === 'cane' ? <h6>Cane/Walk</h6> : '',
+        label: profileName === 'cane' ? <h6 aria-hidden>Cane/Walk</h6> : '',
         value: 'cane',
         className: profileName === 'cane' ? 'profile-selected' : '',
-        checkedRadioIcon: <SVGIcon secondary use={caneUser.url} />,
-        uncheckedRadioIcon: <SVGIcon use={caneUser.url} />,
+        checkedRadioIcon: <SVGIcon aria-label='walk or cane' secondary use={caneUser.url} />,
+        uncheckedRadioIcon: <SVGIcon aria-label='walk or cane' use={caneUser.url} />,
         inkDisabled: true,
       }]}
     />

@@ -17,6 +17,7 @@ const CurbRampsToggle = (props) => {
   return (
     <SelectionControl
       type='switch'
+      aria-label={requireCurbRamps ? 'Ignore curb ramps' : 'Require curb ramps'}
       checked={requireCurbRamps}
       id='require_curbramps'
       label='Require curb ramps'

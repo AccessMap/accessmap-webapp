@@ -35,6 +35,7 @@ class App extends PureComponent {
     <React.Fragment>
       <Toast />
       <AnalyticsBar />
+      <AppDrawer />
       <MapOverlay>
         <OmniCard />
         <SettingsCard />
@@ -46,7 +47,6 @@ class App extends PureComponent {
       </MapOverlay>
       <Map />
       <RouteBottomSheet />
-      <AppDrawer />
       <Tour />
     </React.Fragment>
   );

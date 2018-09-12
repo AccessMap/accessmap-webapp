@@ -34,6 +34,7 @@ const MapInfoButton = (props) => {
   const button = (
     <Button
       className='mapinfo-btn'
+      aria-label='Map Legend'
       floating
       svg
       mini

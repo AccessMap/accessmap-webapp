@@ -17,6 +17,7 @@ const OriginGeocoder = (props) => {
 
   return (
     <DefaultedGeocoderAutocomplete
+      aria-label='Search for start address'
       id='origin-geocoder'
       key='origin-geocoder'
       className='origin-geocoder md-title--toolbar'
