@@ -1,4 +1,4 @@
-import mapConstants from 'constants/map';
+import mapConstants from 'constants/city';
 import precisionRound from 'utils/precision-round';
 
 const encodeParams = (params) => {

@@ -6,6 +6,8 @@ import { connect } from 'react-redux';
 
 import cn from 'classnames';
 
+import cityConstants from 'constants/city';
+
 import * as AppActions from 'actions';
 
 import Button from 'react-md/src/js/Buttons';
@@ -133,7 +135,7 @@ class OmniCard extends React.PureComponent {
             aria-hidden
           >
             <AccessMapLogo />
-            <h6 className='accessmaplogo-region'>Seattle</h6>
+            <h6 className='accessmaplogo-region'>{cityConstants.name}</h6>
           </div>
         </Toolbar>
       );

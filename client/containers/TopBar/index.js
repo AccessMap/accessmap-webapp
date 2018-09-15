@@ -10,6 +10,8 @@ import { Switch } from 'react-md/src/js/SelectionControls';
 import Toolbar from 'react-md/src/js/Toolbars';
 import SVGIcon from 'react-md/src/js/SVGIcons';
 
+import cityConstants from 'constants/city';
+
 import AccessMapIcon from 'components/Icons/AccessMapIcon';
 import AccessMapLogo from 'components/Icons/AccessMapLogo';
 
@@ -99,7 +101,7 @@ const TopBar = (props) => {
       fixed
       zDepth={0}
     >
-      <h6 className='accessmaplogo-region'>Seattle</h6>
+      <h6 className='accessmaplogo-region'>{cityConstants.name}</h6>
     </Toolbar>
   );
 };
