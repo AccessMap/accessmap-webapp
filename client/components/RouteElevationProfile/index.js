@@ -24,7 +24,7 @@ const RouteElevationProfile = (props) => {
   legs.forEach((leg) => {
     leg.forEach((step) => {
       const incline = step.properties.incline || 0;
-      const height = step.properties.length * (incline / 1000);
+      const height = step.properties.length * (incline);
       totalLength += step.properties.length;
       totalHeight += height;
 

@@ -243,11 +243,12 @@ export const closeMapInfo = () => ({
   },
 });
 
-export const requestRoute = (origin, destination, params) => ({
+export const requestRoute = (origin, destination, type, params) => ({
   type: REQUEST_ROUTE,
   payload: {
     origin,
     destination,
+    type,
     params,
   },
   meta: {
@@ -256,6 +257,7 @@ export const requestRoute = (origin, destination, params) => ({
       payload: {
         origin,
         destination,
+        type,
         params,
       },
     },
@@ -296,34 +298,35 @@ export const failedRoute = (origin, destination, error) => ({
   },
 });
 
-export const fetchRoute = (origin, destination, params) => (dispatch) => {
+export const fetchRoute = (origin, destination, type, params) => (dispatch) => {
   // TODO: acquire state here rather than passing it from previous step
-  dispatch(requestRoute(origin, destination, params));
+  dispatch(requestRoute(origin, destination, type, params));
 
   const {
     inclineMax,
     inclineMin,
     requireCurbRamps,
-    speed,
-    timeStamp,
+    // speed,
+    // timeStamp,
   } = params;
 
   const routeParams = {
-    origin: [origin.lat, origin.lon].join(','),
-    destination: [destination.lat, destination.lon].join(','),
-    incline_max: inclineMax,
-    incline_min: inclineMin,
-    speed,
-    timestamp: timeStamp,
+    lon1: origin.lon,
+    lat1: origin.lat,
+    lon2: destination.lon,
+    lat2: destination.lat,
+    uphill: inclineMax,
+    downhill: Math.abs(inclineMin),
+    avoidCurbs: requireCurbRamps ? 1 : 0,
+    // timestamp: timeStamp,
   };
-  if (requireCurbRamps) routeParams.avoid = 'curbs';
 
   const esc = encodeURIComponent;
   const urlQuery = Object.keys(routeParams)
     .map(k => `${esc(k)}=${esc(routeParams[k])}`)
     .join('&');
 
-  const query = `${window.location.origin}/api/v2/route.json?${urlQuery}`;
+  const query = `${window.location.origin}/api/v1/directions/${type}.json?${urlQuery}`;
 
   fetch(query)
     .then(
@@ -359,6 +362,7 @@ const routeIfValid = (dispatch, getState) => {
     dispatch(fetchRoute(
       origin,
       destination,
+      'wheelchair',
       { inclineMax, inclineMin, requireCurbRamps, speed, timeStamp },
     ));
   }

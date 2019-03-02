@@ -193,11 +193,12 @@ module.exports = function (env) {
         },
       },
       proxy: {
-        '/api': {
+        // Replace with /api/v1 for dev of api and just /api/ for docker testing
+        '/api/v1': {
           target: process.env.API_SERVER,
           secure: false,
           changeOrigin: true,
-          pathRewrite: { '^/api': '' },
+          pathRewrite: { '^/api/v1': '' },
         },
         '/tiles': {
           target: process.env.TILE_SERVER,

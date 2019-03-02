@@ -36,9 +36,18 @@ export default (state = defaults, action) => {
           text = 'No path between those points. If you think this was in error, try placing the waypoint closer to a colored/filled-in footpath.';
           break;
         default:
-          return toasts;
+          break;
       }
-      toasts.push(text);
+      switch (action.payload.routeResult.status) {
+        case 'Failed':
+          text = 'No path found between those points.';
+          break;
+        default:
+          break;
+      }
+      if (text !== undefined) {
+        toasts.push(text);
+      }
       return toasts;
     case FAILED_ROUTE:
       switch (action.payload.error) {

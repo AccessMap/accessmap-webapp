@@ -25,6 +25,7 @@ const RouteBottomCard = (props) => {
   if (viewingDirections || viewingRouteInfo) return null;
   if (!routeResult) return null;
   if (routeResult.code !== 'Ok') return null;
+  if (routeResult.status !== 'Ok') return null;
 
   const route = routeResult.routes[0];
 

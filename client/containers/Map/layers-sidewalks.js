@@ -67,26 +67,26 @@ const Sidewalks = (props) => {
   let inclineStops;
   if (inclineUphill) {
     inclineStops = [
-      1000 * -inclineMax, SIDEWALK_STEEP,
-      1000 * -inclineUpMid, SIDEWALK_MID,
+      -inclineMax, SIDEWALK_STEEP,
+      -inclineUpMid, SIDEWALK_MID,
       0, SIDEWALK_FLAT,
-      1000 * inclineUpMid, SIDEWALK_MID,
-      1000 * inclineMax, SIDEWALK_STEEP,
+      inclineUpMid, SIDEWALK_MID,
+      inclineMax, SIDEWALK_STEEP,
     ];
   } else {
     inclineStops = [
-      1000 * inclineMin, SIDEWALK_STEEP,
-      1000 * inclineDownMid, SIDEWALK_MID,
-      1000 * INCLINE_IDEAL, SIDEWALK_FLAT,
-      1000 * -INCLINE_IDEAL, SIDEWALK_FLAT,
-      1000 * -inclineDownMid, SIDEWALK_MID,
-      1000 * -inclineMin, SIDEWALK_STEEP,
+      inclineMin, SIDEWALK_STEEP,
+      inclineDownMid, SIDEWALK_MID,
+      INCLINE_IDEAL, SIDEWALK_FLAT,
+      -INCLINE_IDEAL, SIDEWALK_FLAT,
+      -inclineDownMid, SIDEWALK_MID,
+      -inclineMin, SIDEWALK_STEEP,
     ];
   }
 
   // Set bounds for when elevations become 'too steep' on display.
-  const boundMax = inclineUphill ? 1000 * inclineMax : 1000 * -inclineMin;
-  const boundMin = inclineUphill ? 1000 * -inclineMax : 1000 * inclineMin;
+  const boundMax = inclineUphill ? inclineMax : -inclineMin;
+  const boundMin = inclineUphill ? -inclineMax : inclineMin;
 
   return (
     <React.Fragment>

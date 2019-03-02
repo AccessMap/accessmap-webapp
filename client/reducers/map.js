@@ -60,7 +60,7 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
             location: action.payload.location,
             properties: {
               description: `${feature.properties.side} of ${feature.properties.street_name}`,
-              incline: feature.properties.incline / 1000,
+              incline: feature.properties.incline,
               surface: feature.properties.surface,
               width: feature.properties.width,
             },
