@@ -65,13 +65,10 @@ module.exports = function (env) {
   return {
     devtool: isProd ? 'source-map' : 'eval',
     context: sourcePath,
-    entry: {
-      map: './index.js',
-      vendor: ['react'],
-    },
+    entry: './index.js',
     output: {
       path: staticsPath,
-      filename: '[name].bundle.js',
+      filename: 'index.bundle.js',
       publicPath: '/',
     },
     module: {
@@ -88,7 +85,7 @@ module.exports = function (env) {
         },
         {
           test: /\.css$/,
-          exclude: /node_modules/,
+          // exclude: /node_modules/,
           use: [
             'style-loader',
             'css-loader',
