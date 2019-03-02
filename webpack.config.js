@@ -18,11 +18,6 @@ module.exports = function (env) {
   const isProd = nodeEnv === 'production';
 
   const plugins = [
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: Infinity,
-      filename: 'vendor.bundle.js',
-    }),
     new Dotenv({ systemvars: true }),
     new webpack.NamedModulesPlugin(),
     new SpriteLoaderPlugin(),
@@ -194,11 +189,11 @@ module.exports = function (env) {
       },
       proxy: {
         // Replace with /api/v1 for dev of api and just /api/ for docker testing
-        '/api/v1': {
+        '/api': {
           target: process.env.API_SERVER,
           secure: false,
           changeOrigin: true,
-          pathRewrite: { '^/api/v1': '' },
+          pathRewrite: { '^/api': '' },
         },
         '/tiles': {
           target: process.env.TILE_SERVER,
