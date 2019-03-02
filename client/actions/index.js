@@ -307,7 +307,7 @@ export const fetchRoute = (origin, destination, type, params) => (dispatch) => {
     inclineMin,
     requireCurbRamps,
     // speed,
-    // timeStamp,
+    timeStamp,
   } = params;
 
   const routeParams = {
@@ -318,7 +318,7 @@ export const fetchRoute = (origin, destination, type, params) => (dispatch) => {
     uphill: inclineMax,
     downhill: Math.abs(inclineMin),
     avoidCurbs: requireCurbRamps ? 1 : 0,
-    // timestamp: timeStamp,
+    timestamp: timeStamp,
   };
 
   const esc = encodeURIComponent;
