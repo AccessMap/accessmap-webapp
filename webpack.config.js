@@ -10,7 +10,7 @@ require("dotenv").config();
 const Dotenv = require("dotenv-webpack");
 const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
-const sourcePath = path.join(__dirname, "./client");
+const sourcePath = path.join(__dirname, "./src");
 const staticsPath = path.join(__dirname, "./public");
 
 module.exports = function(env) {
@@ -117,7 +117,7 @@ module.exports = function(env) {
         },
         {
           test: /\.(woff|woff2|eot|ttf)$/,
-          loader: "file-loader?name=client/fonts/roboto/[name].[ext]"
+          loader: "file-loader?name=src/fonts/roboto/[name].[ext]"
         },
         {
           test: /\.(png|jpg|gif)$/,
@@ -162,7 +162,7 @@ module.exports = function(env) {
     },
 
     devServer: {
-      contentBase: "./client",
+      contentBase: "./src",
       historyApiFallback: {
         disableDotRule: true
       },
