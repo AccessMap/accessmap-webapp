@@ -19,6 +19,8 @@ const encodeParams = params => {
         const lon = precisionRound(w.lon, 7);
         const lat = precisionRound(w.lat, 7);
         waypoints.push([lon, lat].join("_"));
+      } else {
+        waypoints.push("")
       }
     });
     encoded.waypoints = waypoints.join("'");
