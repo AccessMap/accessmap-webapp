@@ -31,7 +31,9 @@ const configureStore = (router) => {
   middlewares.push(createOpenIDMiddleware());
 
   // Analytics middleware
-  middlewares.push(createAnalyticsMiddleware());
+  if (process.env.ANALYTICS === 'yes') {
+    middlewares.push(createAnalyticsMiddleware());
+  }
 
   // Router middleware
   middlewares.push(createRouter5Middleware(router));

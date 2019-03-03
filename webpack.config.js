@@ -85,6 +85,8 @@ module.exports = function (env) {
         },
         {
           test: /\.css$/,
+          // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
+          // a css module
           // exclude: /node_modules/,
           use: [
             'style-loader',
@@ -198,12 +200,12 @@ module.exports = function (env) {
           changeOrigin: true,
           pathRewrite: { '^/tiles': '' },
         },
-        '/analytics': {
+        '/analytics': process.env.ANALYTICS === 'yes' ? {
           target: process.env.ANALYTICS_SERVER,
           secure: false,
           changeOrigin: true,
           pathRewrite: { '^/analytics': '' },
-        },
+        } : null,
       },
     },
   };
