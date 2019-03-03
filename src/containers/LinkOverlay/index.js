@@ -22,8 +22,8 @@ import heart from "icons/heart.svg";
 import school from "icons/school.svg";
 import twitter from "icons/twitter.svg";
 
-import uwesciencelogo from "../../images/uwescience.jpg";
-import wsdotlogo from "../../images/wsdot.png";
+import uwesciencelogo from "images/uwescience.jpg";
+import wsdotlogo from "images/wsdot.png";
 
 const ContentRow = props => (
   <TableRow className="content-entry" selectable={false}>

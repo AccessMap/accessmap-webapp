@@ -2,7 +2,7 @@ import { combineReducers } from "redux";
 
 import { SET_DATE, SET_TIME } from "actions";
 
-import { defaultRouteSettings as defaults } from "./defaults";
+import { defaultRouteSettings as defaults } from "reducers/defaults";
 
 const handleDateTime = (state = defaults.dateTime, action) => {
   const date = new Date(state);

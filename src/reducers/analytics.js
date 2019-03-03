@@ -1,6 +1,6 @@
 import { ENABLE_ANALYTICS, DISABLE_ANALYTICS } from "actions";
 
-import { defaultAnalytics as defaults } from "./defaults";
+import { defaultAnalytics as defaults } from "reducers/defaults";
 
 export default (state = defaults, action) => {
   switch (action.type) {

@@ -4,7 +4,7 @@ import {
   CLOSE_LINK_OVERLAY
 } from "actions";
 
-import { defaultLinkOverlay as defaults } from "./defaults";
+import { defaultLinkOverlay as defaults } from "reducers/defaults";
 
 export default (state = defaults, action) => {
   switch (action.type) {

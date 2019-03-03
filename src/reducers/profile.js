@@ -17,7 +17,7 @@ import {
   TOGGLE_CURBRAMPS
 } from "actions";
 
-import { defaultProfile as defaults } from "./defaults";
+import { defaultProfile as defaults } from "reducers/defaults";
 
 const modes = {
   DOWNHILL: "DOWNHILL",

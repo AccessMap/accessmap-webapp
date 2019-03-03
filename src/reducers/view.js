@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { RESIZE_MAP } from "actions";
 
 // Default actions
-import { defaultView as defaults } from "./defaults";
+import { defaultView as defaults } from "reducers/defaults";
 
 const handleMapHeight = (state = defaults.mapHeight, action) => {
   switch (action.type) {

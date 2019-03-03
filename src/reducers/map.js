@@ -15,7 +15,7 @@ import {
   OPEN_UPHILL_PREFERENCES
 } from "actions";
 
-import { defaultMap } from "./defaults";
+import { defaultMap } from "reducers/defaults";
 
 const handleInclineUphill = (state = defaultMap.inclineUphill, action) => {
   switch (action.type) {

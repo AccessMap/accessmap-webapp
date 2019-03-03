@@ -14,7 +14,7 @@ import {
   VIEW_ROUTE_INFO
 } from "actions";
 
-import { defaultActivities as defaults } from "./defaults";
+import { defaultActivities as defaults } from "reducers/defaults";
 
 const handleDrawerVisible = (state = defaults.drawerVisible, action) => {
   switch (action.type) {

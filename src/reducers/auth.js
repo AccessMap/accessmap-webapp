@@ -1,6 +1,6 @@
 import { GOT_USER, USER_LOGGED_IN, USER_LOGGED_OUT } from "actions";
 
-import { defaultAuth as defaults } from "./defaults";
+import { defaultAuth as defaults } from "reducers/defaults";
 
 export default (state = defaults, action) => {
   switch (action.type) {

@@ -3,7 +3,7 @@ import { actionTypes as router5Types } from "redux-router5";
 
 import { FAILED_ROUTE, RECEIVE_ROUTE, REQUEST_ROUTE } from "actions";
 
-import { defaultRoute as defaults } from "./defaults";
+import { defaultRoute as defaults } from "reducers/defaults";
 
 const handleRoute = (state = defaults.routeResult, action) => {
   switch (action.type) {

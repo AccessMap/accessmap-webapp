@@ -1,6 +1,6 @@
 // Note: using geo-viewport from a pull request that allows decimal zooms
 import geoViewport from "@mapbox/geo-viewport";
-import getVisibleRegion from "./get-visible-region";
+import getVisibleRegion from "utils/get-visible-region";
 
 // Size of map tiles, in pixels
 const TILESIZE = 512;

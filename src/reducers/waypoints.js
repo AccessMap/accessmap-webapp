@@ -12,7 +12,7 @@ import {
 } from "actions";
 
 // Default actions
-import { defaultWaypoints as defaults } from "./defaults";
+import { defaultWaypoints as defaults } from "reducers/defaults";
 
 const handleWaypoints = (state = defaults, action) => {
   switch (action.type) {

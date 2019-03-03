@@ -4,7 +4,7 @@ import { actionTypes } from "redux-router5";
 import { directionsTours, mainTours } from "constants/tours";
 import { COMPLETED_TOUR, DISABLE_TOUR, ENABLE_TOUR } from "actions";
 
-import { defaultTour as defaults } from "./defaults";
+import { defaultTour as defaults } from "reducers/defaults";
 
 const handleTours = (state = defaults.tours, action) => {
   switch (action.type) {

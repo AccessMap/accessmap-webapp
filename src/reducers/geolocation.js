@@ -4,7 +4,7 @@ import {
   NO_GEOLOCATION
 } from "actions";
 
-import { defaultGeolocation as defaults } from "./defaults";
+import { defaultGeolocation as defaults } from "reducers/defaults";
 
 export default (state = defaults, action) => {
   switch (action.type) {

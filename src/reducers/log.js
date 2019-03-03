@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { LOAD_MAP, MAP_MOVE } from "actions";
 
 // Default actions
-import { defaultLog as defaults } from "./defaults";
+import { defaultLog as defaults } from "reducers/defaults";
 
 const handleBounds = (state = defaults.bounds, action) => {
   switch (action.type) {

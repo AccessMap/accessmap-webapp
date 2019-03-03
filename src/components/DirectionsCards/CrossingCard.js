@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import DirectionsCard from "./DirectionsCard";
+import DirectionsCard from "components/DirectionsCards/DirectionsCard";
 
 const CrossingCard = props => {
   const { distance, streetName } = props;

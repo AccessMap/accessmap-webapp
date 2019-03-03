@@ -7,7 +7,7 @@ import getDisplayMode from "utils/display-mode";
 import { LOAD_APP, RESIZE_MAP, RESIZE_WINDOW } from "actions";
 
 // Default actions
-import { defaultBrowser as defaults } from "./defaults";
+import { defaultBrowser as defaults } from "reducers/defaults";
 
 const handleMediaType = (state = defaults.mediaType, action) => {
   switch (action.type) {

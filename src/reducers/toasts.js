@@ -1,6 +1,6 @@
 import { ADD_TOAST, FAILED_ROUTE, POP_TOAST, RECEIVE_ROUTE } from "actions";
 
-import { defaultToasts as defaults } from "./defaults";
+import { defaultToasts as defaults } from "reducers/defaults";
 
 export default (state = defaults, action) => {
   const toasts = state.slice();

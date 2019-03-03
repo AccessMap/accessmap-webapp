@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import GeocoderAutocomplete from "./GeocoderAutocomplete";
+import GeocoderAutocomplete from "components/GeocoderAutocomplete/GeocoderAutocomplete";
 
 export default class DefaultedGeocoderAutocomplete extends React.PureComponent {
   constructor(props) {
