@@ -119,7 +119,7 @@ class OmniCard extends React.PureComponent {
               <SVGIcon use={menu.url} />
             </Button>
           }
-          actions={[<Login />]}
+          actions={[<Login key="login-button" />]}
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
             <AccessMapLogo />

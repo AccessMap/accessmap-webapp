@@ -40,13 +40,14 @@ const TopBar = props => {
         </div>
       }
       actions={[
-        <Button flat primary onClick={actions.clickAboutLink}>
+        <Button key="about-button" flat primary onClick={actions.clickAboutLink}>
           About
         </Button>,
-        <Button flat primary onClick={actions.clickContactLink}>
+        <Button key="contact-button" flat primary onClick={actions.clickContactLink}>
           Contact
         </Button>,
         <MenuButton
+          key="extra-settings"
           id="extra-settings"
           icon
           anchor={{

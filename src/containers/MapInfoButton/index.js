@@ -52,7 +52,7 @@ const MapInfoButton = props => {
       <Toolbar
         title="Map legend"
         actions={[
-          <Button icon svg onClick={actions.closeMapInfo}>
+          <Button key="close-map-legend-button" icon svg onClick={actions.closeMapInfo}>
             <SVGIcon use={close.url} />
           </Button>
         ]}

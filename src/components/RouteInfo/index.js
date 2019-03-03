@@ -32,7 +32,7 @@ const RouteInfo = props => {
       <Toolbar
         title="Trip Information"
         actions={[
-          <Button icon onClick={onClose}>
+          <Button key="close-trip-info-button" icon onClick={onClose}>
             close
           </Button>
         ]}

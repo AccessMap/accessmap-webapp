@@ -53,6 +53,7 @@ const SettingsCard = props => {
         }
         actions={[
           <Button
+            key="close-profile-settings-button"
             aria-label="close profile settings"
             icon
             svg

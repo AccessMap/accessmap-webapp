@@ -1,34 +1,17 @@
-extends:
-  eslint-config-airbnb
-
-parser:
-  babel-eslint
-
-settings:
-  ecmascript: 6
-
-ecmaFeatures:
-  jsx: true
-  modules: true
-  destructuring: true
-  classes: true
-  forOf: true
-  blockBindings: true
-  arrowFunctions: true
-
-env:
-  browser: true
-
-rules:
-  indent: 2
-  func-style: 0
-  func-names: 0
-  comma-dangle: 2
-  no-console: 0
-  no-param-reassign: 0
-  linebreak-style: 0
-  import/no-extraneous-dependencies: 0
-  import/no-unresolved: 0
-  import/extensions: 0
-  jsx-quotes: [2, "prefer-single"]
-  react/jsx-filename-extension: 0
+{
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "prettier"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module"
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  }
+}

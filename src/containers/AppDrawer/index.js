@@ -74,6 +74,7 @@ const AppDrawer = props => {
           }
           actions={[
             <Button
+              key="close-nav-menu-button"
               aria-label="Close nav menu"
               icon
               svg

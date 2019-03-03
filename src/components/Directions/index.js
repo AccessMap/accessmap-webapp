@@ -63,7 +63,7 @@ const Directions = props => {
       <Toolbar
         title="Directions"
         actions={[
-          <Button icon onClick={onClose}>
+          <Button key="directions-close-button" icon onClick={onClose}>
             close
           </Button>
         ]}
