@@ -3,6 +3,7 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
     "prettier"
   ],
   "parser": "babel-eslint",
@@ -14,5 +15,8 @@
     "es6": true,
     "browser": true,
     "node": true
+  },
+  "settings": {
+    "import/resolver": "webpack"
   }
 }
