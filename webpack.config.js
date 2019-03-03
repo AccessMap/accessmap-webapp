@@ -1,26 +1,27 @@
-const webpack = require('webpack');
-const path = require('path');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const webpack = require("webpack");
+const path = require("path");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 // Used to pass .env to webpack config process.env
-require('dotenv').config();
+require("dotenv").config();
 
 /* Plugins */
 // Used to pass .env to client JS that gets bundled
-const Dotenv = require('dotenv-webpack');
-const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
+const Dotenv = require("dotenv-webpack");
+const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
-const sourcePath = path.join(__dirname, './client');
-const staticsPath = path.join(__dirname, './public');
+const sourcePath = path.join(__dirname, "./client");
+const staticsPath = path.join(__dirname, "./public");
 
-module.exports = function (env) {
-  const nodeEnv = env && env.prod ? 'production' : 'development';
+module.exports = function(env) {
+  const nodeEnv = env && env.prod ? "production" : "development";
   const isProfile = env && env.profile;
-  const isProd = nodeEnv === 'production';
+  const isProd = nodeEnv === "production";
 
   const plugins = [
     new Dotenv({ systemvars: true }),
     new webpack.NamedModulesPlugin(),
-    new SpriteLoaderPlugin(),
+    new SpriteLoaderPlugin()
   ];
 
   if (isProfile) {
@@ -31,7 +32,7 @@ module.exports = function (env) {
     plugins.push(
       new webpack.LoaderOptionsPlugin({
         minimize: true,
-        debug: false,
+        debug: false
       }),
       new webpack.optimize.UglifyJsPlugin({
         compress: {
@@ -45,31 +46,31 @@ module.exports = function (env) {
           dead_code: true,
           evaluate: true,
           if_return: true,
-          join_vars: true,
+          join_vars: true
         },
         output: {
-          comments: false,
-        },
-      }),
+          comments: false
+        }
+      })
     );
   } else {
     plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.LoaderOptionsPlugin({
         minimize: false,
-        debug: true,
-      }),
+        debug: true
+      })
     );
   }
 
   return {
-    devtool: isProd ? 'source-map' : 'eval',
+    devtool: isProd ? "source-map" : "eval",
     context: sourcePath,
-    entry: './index.js',
+    entry: "./index.js",
     output: {
       path: staticsPath,
-      filename: 'index.bundle.js',
-      publicPath: '/',
+      filename: "index.bundle.js",
+      publicPath: "/"
     },
     module: {
       rules: [
@@ -77,76 +78,73 @@ module.exports = function (env) {
           test: /\.html$/,
           exclude: /node_modules/,
           use: {
-            loader: 'file-loader',
+            loader: "file-loader",
             query: {
-              name: '[name].[ext]',
-            },
-          },
+              name: "[name].[ext]"
+            }
+          }
         },
         {
           test: /\.css$/,
           // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
           // a css module
           // exclude: /node_modules/,
-          use: [
-            'style-loader',
-            'css-loader',
-          ],
+          use: ["style-loader", "css-loader"]
         },
         {
           test: /\.(js|jsx)$/,
           exclude: /node_modules\/(?!react-md)/,
           use: {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              babelrc: true,
-            },
-          },
+              babelrc: true
+            }
+          }
         },
         {
           test: /\.scss$/,
-          loaders: ['style-loader', 'css-loader', 'sass-loader'],
+          loaders: ["style-loader", "css-loader", "sass-loader"]
         },
         {
           test: /\.svg$/,
           use: {
-            loader: 'svg-sprite-loader',
+            loader: "svg-sprite-loader",
             options: {
               extract: true,
-              spriteFilename: 'icon-sprites.[hash:0].svg',
-            },
-          },
+              spriteFilename: "icon-sprites.[hash:0].svg"
+            }
+          }
         },
         {
           test: /\.(woff|woff2|eot|ttf)$/,
-          loader: 'file-loader?name=client/fonts/roboto/[name].[ext]',
+          loader: "file-loader?name=client/fonts/roboto/[name].[ext]"
         },
         {
           test: /\.(png|jpg|gif)$/,
           use: {
-            loader: 'url-loader',
-            options: { limit: 8192 },
-          },
-        },
-      ],
+            loader: "url-loader",
+            options: { limit: 8192 }
+          }
+        }
+      ]
     },
 
     resolve: {
       extensions: [
-        '.webpack-loader.js',
-        '.web-loader.js',
-        '.loader.js',
-        '.js',
-        '.jsx',
+        ".webpack-loader.js",
+        ".web-loader.js",
+        ".loader.js",
+        ".js",
+        ".jsx"
       ],
       modules: [
         sourcePath,
-        'node_modules',
-        path.resolve(__dirname, 'node_modules'),
+        "node_modules",
+        path.resolve(__dirname, "node_modules")
       ],
       alias: {
-        'rakam-js$': 'rakam-js/rakam.js',
-      },
+        "rakam-js$": "rakam-js/rakam.js"
+      }
     },
 
     plugins,
@@ -154,19 +152,19 @@ module.exports = function (env) {
     performance: isProd && {
       maxAssetSize: 100,
       maxEntrypointSize: 300,
-      hints: 'warning',
+      hints: "warning"
     },
 
     stats: {
       colors: {
-        green: '\u001b[32m',
-      },
+        green: "\u001b[32m"
+      }
     },
 
     devServer: {
-      contentBase: './client',
+      contentBase: "./client",
       historyApiFallback: {
-        disableDotRule: true,
+        disableDotRule: true
       },
       port: 3000,
       compress: isProd,
@@ -183,30 +181,33 @@ module.exports = function (env) {
         version: false,
         warnings: true,
         colors: {
-          green: '\u001b[32m',
-        },
+          green: "\u001b[32m"
+        }
       },
       proxy: {
         // Replace with /api/v1 for dev of api and just /api/ for docker testing
-        '/api': {
+        "/api": {
           target: process.env.API_SERVER,
           secure: false,
           changeOrigin: true,
-          pathRewrite: { '^/api': '' },
+          pathRewrite: { "^/api": "" }
         },
-        '/tiles': {
+        "/tiles": {
           target: process.env.TILE_SERVER,
           secure: false,
           changeOrigin: true,
-          pathRewrite: { '^/tiles': '' },
+          pathRewrite: { "^/tiles": "" }
         },
-        '/analytics': process.env.ANALYTICS === 'yes' ? {
-          target: process.env.ANALYTICS_SERVER,
-          secure: false,
-          changeOrigin: true,
-          pathRewrite: { '^/analytics': '' },
-        } : null,
-      },
-    },
+        "/analytics":
+          process.env.ANALYTICS === "yes"
+            ? {
+                target: process.env.ANALYTICS_SERVER,
+                secure: false,
+                changeOrigin: true,
+                pathRewrite: { "^/analytics": "" }
+              }
+            : null
+      }
+    }
   };
 };
