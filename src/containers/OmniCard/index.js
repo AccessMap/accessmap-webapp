@@ -24,7 +24,7 @@ import ProfileList from "containers/ProfileList";
 
 import Login from "containers/Login";
 
-import CurbRampsToggle from "containers/Settings/CurbRampsToggle";
+import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 
@@ -296,7 +296,7 @@ class OmniCard extends React.PureComponent {
             <CardText className="profile-editor-desktop">
               <UphillSlider />
               <DownhillSlider />
-              <CurbRampsToggle />
+              <AvoidCurbsToggle />
             </CardText>
             <CardActions>
               <Button

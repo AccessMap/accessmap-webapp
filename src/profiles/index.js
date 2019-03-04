@@ -5,7 +5,7 @@ export default {
     speed: 0.8,
     inclineMax: 0.08,
     inclineMin: -0.1,
-    requireCurbRamps: true
+    avoidCurbs: true
   },
   powered: {
     name: "powered",
@@ -13,7 +13,7 @@ export default {
     speed: 2,
     inclineMax: 0.12,
     inclineMin: -0.12,
-    requireCurbRamps: true
+    avoidCurbs: true
   },
   cane: {
     name: "cane",
@@ -21,6 +21,6 @@ export default {
     speed: 1,
     inclineMax: 0.14,
     inclineMin: -0.14,
-    requireCurbRamps: false
+    avoidCurbs: false
   }
 };

@@ -8,25 +8,25 @@ import * as AppActions from "actions";
 
 import SelectionControl from "react-md/src/js/SelectionControls";
 
-const CurbRampsToggle = props => {
-  const { actions, requireCurbRamps } = props;
+const AvoidCurbsToggle = props => {
+  const { actions, avoidCurbs } = props;
 
   return (
     <SelectionControl
       type="switch"
-      aria-label={requireCurbRamps ? "Ignore curb ramps" : "Require curb ramps"}
-      checked={requireCurbRamps}
+      aria-label={avoidCurbs ? "Ignore curb ramps" : "Require curb ramps"}
+      checked={avoidCurbs}
       id="require_curbramps"
-      label="Require curb ramps"
+      label="Avoid raised curbs"
       name="require_curbramps_toggle"
       onChange={actions.toggleCurbRamps}
     />
   );
 };
 
-CurbRampsToggle.propTypes = {
+AvoidCurbsToggle.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  requireCurbRamps: PropTypes.bool.isRequired
+  avoidCurbs: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
@@ -35,7 +35,7 @@ const mapStateToProps = state => {
   const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    requireCurbRamps: currentProfile.requireCurbRamps
+    avoidCurbs: currentProfile.avoidCurbs
   };
 };
 
@@ -46,4 +46,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(CurbRampsToggle);
+)(AvoidCurbsToggle);

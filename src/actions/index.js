@@ -305,7 +305,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
   const {
     inclineMax,
     inclineMin,
-    requireCurbRamps,
+    avoidCurbs,
     // speed,
     timeStamp
   } = params;
@@ -317,7 +317,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     lat2: destination.lat,
     uphill: inclineMax,
     downhill: Math.abs(inclineMin),
-    avoidCurbs: requireCurbRamps ? 1 : 0,
+    avoidCurbs: avoidCurbs ? 1 : 0,
     timestamp: timeStamp
   };
 
@@ -348,7 +348,7 @@ const routeIfValid = (dispatch, getState) => {
   const {
     inclineMax,
     inclineMin,
-    requireCurbRamps,
+    avoidCurbs,
     speed
   } = state.profile.profiles[state.profile.selectedProfile];
 
@@ -359,7 +359,7 @@ const routeIfValid = (dispatch, getState) => {
       fetchRoute(origin, destination, "wheelchair", {
         inclineMax,
         inclineMin,
-        requireCurbRamps,
+        avoidCurbs,
         speed,
         timeStamp
       })

@@ -17,7 +17,7 @@ const UphillSlider = props => {
     <Slider
       discrete
       id="uphill-slider"
-      label={`Avoid uphill steepness above ${uphillPercent}%`}
+      label={`Maximum uphill steepness: ${uphillPercent}%`}
       defaultValue={uphillPercent}
       min={4}
       max={15}

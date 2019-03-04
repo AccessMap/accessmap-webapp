@@ -9,7 +9,7 @@ const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 2, WIDTH_INACCESSIBLE * 1.5];
 
 const Crossings = props => {
-  const { requireCurbRamps } = props;
+  const { avoidCurbs } = props;
 
   return (
     <React.Fragment>
@@ -33,7 +33,7 @@ const Crossings = props => {
         sourceLayer="crossings"
         filter={[
           "all",
-          requireCurbRamps,
+          avoidCurbs,
           ["!", ["to-boolean", ["get", "curbramps"]]]
         ]}
         paint={{
@@ -71,7 +71,7 @@ const Crossings = props => {
         sourceLayer="crossings"
         filter={[
           "all",
-          ["any", !requireCurbRamps, ["to-boolean", ["get", "curbramps"]]],
+          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
           ["!", ["to-boolean", ["get", "marked"]]]
         ]}
         paint={{
@@ -99,7 +99,7 @@ const Crossings = props => {
         layout={{ "line-cap": "round" }}
         filter={[
           "all",
-          ["any", !requireCurbRamps, ["to-boolean", ["get", "curbramps"]]],
+          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
           ["to-boolean", ["get", "marked"]]
         ]}
         paint={{
@@ -127,7 +127,7 @@ const Crossings = props => {
         layout={{ "line-cap": "round" }}
         filter={[
           "all",
-          ["any", !requireCurbRamps, ["to-boolean", ["get", "curbramps"]]],
+          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
           ["to-boolean", ["get", "marked"]]
         ]}
         paint={{
@@ -153,7 +153,7 @@ const Crossings = props => {
 };
 
 Crossings.propTypes = {
-  requireCurbRamps: PropTypes.bool.isRequired
+  avoidCurbs: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
@@ -162,7 +162,7 @@ const mapStateToProps = state => {
   const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    requireCurbRamps: currentProfile.requireCurbRamps
+    avoidCurbs: currentProfile.avoidCurbs
   };
 };
 

@@ -117,8 +117,8 @@ const handleRoutingProfile = (state = defaults, action) => {
         profiles
       };
     case TOGGLE_CURBRAMPS: {
-      const newState = !profiles[state.selectedProfile].requireCurbRamps;
-      profiles[state.selectedProfile].requireCurbRamps = newState;
+      const newState = !profiles[state.selectedProfile].avoidCurbs;
+      profiles[state.selectedProfile].avoidCurbs = newState;
       return {
         ...state,
         profiles

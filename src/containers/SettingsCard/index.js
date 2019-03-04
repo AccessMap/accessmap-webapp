@@ -12,7 +12,7 @@ import { Tabs, Tab } from "react-md/src/js/Tabs";
 import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
-import CurbRampsToggle from "containers/Settings/CurbRampsToggle";
+import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 
@@ -32,7 +32,7 @@ const SettingsCard = props => {
       settingsComponent = <DownhillSlider />;
       break;
     case "OTHER":
-      settingsComponent = <CurbRampsToggle />;
+      settingsComponent = <AvoidCurbsToggle />;
       break;
     default:
       settingsComponent = <UphillSlider />;
