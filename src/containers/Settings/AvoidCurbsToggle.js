@@ -17,7 +17,7 @@ const AvoidCurbsToggle = props => {
       aria-label={avoidCurbs ? "Ignore curb ramps" : "Require curb ramps"}
       checked={avoidCurbs}
       id="require_curbramps"
-      label="Avoid raised curbs"
+      label={props.label || "Avoid raised curbs"}
       name="require_curbramps_toggle"
       onChange={actions.toggleCurbRamps}
     />
@@ -26,7 +26,12 @@ const AvoidCurbsToggle = props => {
 
 AvoidCurbsToggle.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  avoidCurbs: PropTypes.bool.isRequired
+  avoidCurbs: PropTypes.bool.isRequired,
+  label: PropTypes.string
+};
+
+AvoidCurbsToggle.defaultProps = {
+  label: null,
 };
 
 const mapStateToProps = state => {

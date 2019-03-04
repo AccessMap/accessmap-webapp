@@ -296,7 +296,8 @@ class OmniCard extends React.PureComponent {
             <CardText className="profile-editor-desktop">
               <UphillSlider />
               <DownhillSlider />
-              <AvoidCurbsToggle />
+              Avoid barriers:
+              <AvoidCurbsToggle label="Raised curbs" />
             </CardText>
             <CardActions>
               <Button
