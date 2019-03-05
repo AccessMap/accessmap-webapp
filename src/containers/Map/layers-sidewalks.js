@@ -18,24 +18,36 @@ const EARTH_RADIUS = 6378137;
 const LAT = 47.6;
 const TILESIZE = 512;
 
-const pixelsPerMeter = zoom => {
-  const scale = 2 ** zoom;
-  const worldSize = TILESIZE * scale;
-  const rest =
-    2 * Math.PI * EARTH_RADIUS * Math.abs(Math.cos(LAT * (Math.PI / 180)));
-  return worldSize / rest;
-};
+// const pixelsPerMeter = zoom => {
+//   const scale = 2 ** zoom;
+//   const worldSize = TILESIZE * scale;
+//   const rest =
+//     2 * Math.PI * EARTH_RADIUS * Math.abs(Math.cos(LAT * (Math.PI / 180)));
+//   return worldSize / rest;
+// };
+//
+// const setWidthAtZoom = (width, zoom) => d => width * 2 ** (d - (zoom - 1));
 
-const setWidthAtZoom = (width, zoom) => d => width * 2 ** (d - (zoom - 1));
+// const widthExpression = ["interpolate", ["linear"], ["zoom"]].concat(
+//   [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
+//     .map(d => {
+//       if (d < 17) return [d, setWidthAtZoom(3, 16)(d)];
+//       return [d, ["*", pixelsPerMeter(d), ["max", ["get", "width"], 0.5]]];
+//     })
+//     .reduce((a, d) => a.concat(d))
+// );
 
-const wayWidthExpression = ["interpolate", ["linear"], ["zoom"]].concat(
-  [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
-    .map(d => {
-      if (d < 17) return [d, setWidthAtZoom(3, 16)(d)];
-      return [d, ["*", pixelsPerMeter(d), ["max", ["get", "width"], 0.5]]];
-    })
-    .reduce((a, d) => a.concat(d))
-);
+const widthExpression = [
+  "interpolate",
+  ["linear"],
+  ["zoom"],
+  10,
+  0.1,
+  16,
+  3,
+  20,
+  24
+];
 
 const directionArrow = new Image();
 directionArrow.src = directionArrowURL;
@@ -142,7 +154,7 @@ const Sidewalks = props => {
           "line-opacity": {
             stops: [[13.5, 0.0], [16, 1]]
           },
-          "line-gap-width": wayWidthExpression
+          "line-gap-width": widthExpression
         }}
         before="bridge-street"
       />
@@ -210,7 +222,7 @@ const Sidewalks = props => {
               ...inclineStops
             ]
           ],
-          "line-width": wayWidthExpression
+          "line-width": widthExpression
         }}
         before="bridge-street"
       />
