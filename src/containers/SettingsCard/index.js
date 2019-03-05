@@ -31,7 +31,7 @@ const SettingsCard = props => {
     case "DOWNHILL":
       settingsComponent = <DownhillSlider />;
       break;
-    case "OTHER":
+    case "BARRIERS":
       settingsComponent = <AvoidCurbsToggle />;
       break;
     default:
@@ -77,7 +77,7 @@ const SettingsCard = props => {
               actions.openDownhillPreferences();
               break;
             case 2:
-              actions.openOtherPreferences();
+              actions.openBarriersPreferences();
               break;
             default:
               actions.openUphillPreferences();
@@ -86,7 +86,7 @@ const SettingsCard = props => {
       >
         <Tab id="tab-uphill" label="Uphill" />
         <Tab id="tab-downhill" label="Downhill" />
-        <Tab id="tab-other" label="Other" />
+        <Tab id="tab-barriers" label="Barriers" />
       </Tabs>
       <CardText>{settingsComponent}</CardText>
     </Card>
@@ -96,7 +96,7 @@ const SettingsCard = props => {
 SettingsCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
-  editorMode: PropTypes.oneOf(["UPHILL", "DOWNHILL", "OTHER", null]),
+  editorMode: PropTypes.oneOf(["UPHILL", "DOWNHILL", "BARRIERS", null]),
   profileName: PropTypes.string.isRequired,
   settingProfile: PropTypes.bool
 };

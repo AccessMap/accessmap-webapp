@@ -35,7 +35,7 @@ export const OPEN_PREFERENCES = "OPEN_PREFERENCES";
 export const CLOSE_PREFERENCES = "CLOSE_PREFERENCES";
 export const OPEN_UPHILL_PREFERENCES = "OPEN_UPHILL_PREFERENCES";
 export const OPEN_DOWNHILL_PREFERENCES = "OPEN_DOWNHILL_PREFERENCES";
-export const OPEN_OTHER_PREFERENCES = "OPEN_OTHER_PREFERENCES";
+export const OPEN_BARRIERS_PREFERENCES = "OPEN_BARRIERS_PREFERENCES";
 
 // Trip planning options
 export const SET_DATE = "SET_DATE";
@@ -760,11 +760,11 @@ export const openDownhillPreferences = () => ({
   }
 });
 
-export const openOtherPreferences = () => ({
-  type: OPEN_OTHER_PREFERENCES,
+export const openBarriersPreferences = () => ({
+  type: OPEN_BARRIERS_PREFERENCES,
   meta: {
     analytics: {
-      type: "open-other-preferences"
+      type: "open-barriers-preferences"
     }
   }
 });

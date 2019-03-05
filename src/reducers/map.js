@@ -10,7 +10,7 @@ import {
   MOUSE_OVER_DOWNHILL,
   MOUSE_OUT_DOWNHILL,
   OPEN_DOWNHILL_PREFERENCES,
-  OPEN_OTHER_PREFERENCES,
+  OPEN_BARRIERS_PREFERENCES,
   OPEN_PREFERENCES,
   OPEN_UPHILL_PREFERENCES
 } from "actions";
@@ -26,7 +26,7 @@ const handleInclineUphill = (state = defaultMap.inclineUphill, action) => {
     case MOUSE_OUT_DOWNHILL:
     case OPEN_PREFERENCES:
     case OPEN_UPHILL_PREFERENCES:
-    case OPEN_OTHER_PREFERENCES:
+    case OPEN_BARRIERS_PREFERENCES:
       return true;
     default:
       return state;

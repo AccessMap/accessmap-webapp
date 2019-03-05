@@ -6,7 +6,7 @@ import {
   MOUSE_OUT_DOWNHILL,
   MOUSE_OVER_DOWNHILL,
   OPEN_DOWNHILL_PREFERENCES,
-  OPEN_OTHER_PREFERENCES,
+  OPEN_BARRIERS_PREFERENCES,
   OPEN_PREFERENCES,
   OPEN_UPHILL_PREFERENCES,
   SET_INCLINE_MAX,
@@ -22,7 +22,7 @@ import { defaultProfile as defaults } from "reducers/defaults";
 const modes = {
   DOWNHILL: "DOWNHILL",
   UPHILL: "UPHILL",
-  OTHER: "OTHER",
+  BARRIERS: "BARRIERS",
   NONE: null
 };
 
@@ -43,10 +43,10 @@ const handleRoutingProfile = (state = defaults, action) => {
         ...state,
         editorMode: modes.UPHILL
       };
-    case OPEN_OTHER_PREFERENCES:
+    case OPEN_BARRIERS_PREFERENCES:
       return {
         ...state,
-        editorMode: modes.OTHER
+        editorMode: modes.BARRIERS
       };
     case CLOSE_PREFERENCES:
       return {
