@@ -2,17 +2,21 @@ import { DIVISOR, INCLINE_IDEAL } from "constants/routing";
 
 const findK = (g, m, n) => Math.log(n) / Math.abs(g - m);
 
-const inclineCost = (incline, inclineMax, inclineMin, speedMax) => {
+const estimateSpeed = (incline, inclineMax, inclineMin, speedMax) => {
   // Tobler's hiking function
   const tobler = (B, k, g, m) => B * Math.exp(-k * Math.abs(g - m));
-
   const inclineBound = incline > INCLINE_IDEAL ? inclineMax : inclineMin;
-
   const k = findK(inclineBound, INCLINE_IDEAL, DIVISOR);
   const speed = tobler(speedMax, k, incline, INCLINE_IDEAL);
-  const pace = 1 / speed;
+  return speed;
+};
 
-  return pace;
+const uphillSpeed = (incline, inclineMax, inclineMin, speedMax) => {
+  return estimateSpeed(Math.abs(incline), inclineMax, inclineMin, speedMax);
+};
+
+const downhillSpeed = (incline, inclineMax, inclineMin, speedMax) => {
+  return estimateSpeed(-Math.abs(incline), inclineMax, inclineMin, speedMax);
 };
 
 const inclineFromSpeed = (speed, inclineMax, inclineMin, speedMax, up) => {
@@ -28,4 +32,4 @@ const inclineFromSpeed = (speed, inclineMax, inclineMin, speedMax, up) => {
   return -1 * (Math.log(speed / B) / -k - m);
 };
 
-export { inclineCost, inclineFromSpeed };
+export { estimateSpeed, inclineFromSpeed, uphillSpeed, downhillSpeed };

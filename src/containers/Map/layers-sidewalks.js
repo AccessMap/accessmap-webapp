@@ -4,9 +4,11 @@ import { connect } from "react-redux";
 
 import { Layer } from "react-mapbox-gl";
 
-import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "constants/colors";
+import { INCLINE_IDEAL } from "constants/routing";
+import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "colors";
+import { uphillColorMap, downhillColorMap } from "colors";
 import { defaultProfiles } from "profiles";
-import { inclineFromSpeed } from "profiles/cost-function";
+// import { uphillSpeed, downhillSpeed } from "profiles/cost-function";
 
 // TODO: put the code for this icon in its own module
 /* eslint-disable import/no-webpack-loader-syntax */
@@ -44,7 +46,7 @@ const widthExpression = [
   10,
   0.1,
   16,
-  3,
+  5,
   20,
   24
 ];
@@ -62,56 +64,35 @@ directionArrowWhite.width = 24;
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 4, WIDTH_INACCESSIBLE * 1.5];
 
-const INCLINE_IDEAL = -0.0087;
-
 const Sidewalks = props => {
   const { inclineMax, inclineMin, speed, inclineUphill } = props;
 
-  const inclineDownMid = inclineFromSpeed(
-    speed / 2,
-    inclineMax,
-    inclineMin,
-    speed,
-    false
-  );
-  const inclineUpMid = inclineFromSpeed(
-    speed / 2,
-    inclineMax,
-    inclineMin,
-    speed,
-    true
-  );
+  // Pick an odd number so that equal amount on each side of 0
+  const nSamples = 15;
+  // Scaled from -1 to 1
+  const nSide = parseInt(nSamples / 2);
+  // TODO: center at ideal incline instead of 0?
+  const range = [...Array(nSamples).keys()].map(d => (d - nSide) / nSide);
 
-  let inclineStops;
+  let inclineSamples;
+  let colorMap;
+  let estimatedSpeeds;
   if (inclineUphill) {
-    inclineStops = [
-      -inclineMax,
-      SIDEWALK_STEEP,
-      -inclineUpMid,
-      SIDEWALK_MID,
-      0,
-      SIDEWALK_FLAT,
-      inclineUpMid,
-      SIDEWALK_MID,
-      inclineMax,
-      SIDEWALK_STEEP
-    ];
+    // Scaled 0 -> inclineMax
+    inclineSamples = range.map(d => d * inclineMax);
+    colorMap = uphillColorMap(inclineMax, inclineMin, speed);
   } else {
-    inclineStops = [
-      inclineMin,
-      SIDEWALK_STEEP,
-      inclineDownMid,
-      SIDEWALK_MID,
-      INCLINE_IDEAL,
-      SIDEWALK_FLAT,
-      -INCLINE_IDEAL,
-      SIDEWALK_FLAT,
-      -inclineDownMid,
-      SIDEWALK_MID,
-      -inclineMin,
-      SIDEWALK_STEEP
-    ];
+    // Scaled 0 -> inclineMin
+    inclineSamples = range.map(d => d * -inclineMin);
+    colorMap = downhillColorMap(inclineMax, inclineMin, speed);
   }
+
+  const inclineStops = [];
+  inclineSamples.map(d => {
+    const color = colorMap(d);
+    inclineStops.push(d);
+    inclineStops.push(color.hex());
+  });
 
   // Set bounds for when elevations become 'too steep' on display.
   const boundMax = inclineUphill ? inclineMax : -inclineMin;

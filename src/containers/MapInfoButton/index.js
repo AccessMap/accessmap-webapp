@@ -14,7 +14,7 @@ import SVGIcon from "react-md/src/js/SVGIcons";
 import Toolbar from "react-md/src/js/Toolbars";
 
 import SidewalkIcon from "components/Icons/SidewalkIcon";
-import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "constants/colors";
+import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "colors";
 
 import close from "icons/close.svg";
 import information from "icons/information.svg";
