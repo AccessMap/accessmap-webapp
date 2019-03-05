@@ -1,4 +1,4 @@
-import profiles from "profiles";
+import { customProfile as customProfileDefault } from "profiles";
 import cloneObject from "utils/clone-object";
 import { mainTours } from "constants/tours";
 
@@ -36,8 +36,9 @@ export const defaultMap = {
 };
 
 export const defaultProfile = {
-  profiles: Object.values(cloneObject(profiles)),
-  selectedProfile: 0,
+  filter: ["Wheelchair", "Powered", "Cane", "Custom"],
+  custom: cloneObject(customProfileDefault),
+  selected: "Wheelchair",
   editorMode: "UPHILL"
 };
 

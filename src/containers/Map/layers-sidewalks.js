@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Layer } from "react-mapbox-gl";
 
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "constants/colors";
+import { defaultProfiles } from "profiles";
 import { inclineFromSpeed } from "profiles/cost-function";
 
 // TODO: put the code for this icon in its own module
@@ -309,7 +310,10 @@ Sidewalks.defaultProps = {
 const mapStateToProps = state => {
   const { map, profile } = state;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const currentProfile =
+    profile.selected === "Custom"
+      ? profile.custom
+      : defaultProfiles[profile.selected];
 
   return {
     inclineMax: currentProfile.inclineMax,

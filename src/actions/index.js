@@ -1,4 +1,5 @@
 // Action types
+import { defaultProfiles } from "profiles";
 
 // Analytics settings
 export const ENABLE_ANALYTICS = "ENABLE_ANALYTICS";
@@ -25,7 +26,6 @@ export const SET_SPEED = "SET_SPEED";
 export const SET_INCLINE_MAX = "SET_INCLINE_MAX";
 export const SET_INCLINE_MIN = "SET_INCLINE_MIN";
 export const SET_PROFILE = "SET_PROFILE";
-export const SET_PROFILE_DEFAULT = "SET_PROFILE_DEFAULT";
 export const TOGGLE_CURBRAMPS = "TOGGLE_CURBRAMPS";
 
 // Settings modes - mostly used for mouseover view changes
@@ -345,12 +345,14 @@ const routeIfValid = (dispatch, getState) => {
   const state = getState();
   const { origin, destination } = state.waypoints;
 
-  const {
-    inclineMax,
-    inclineMin,
-    avoidCurbs,
-    speed
-  } = state.profile.profiles[state.profile.selectedProfile];
+  let profile;
+  if (state.profile.selected === "Custom") {
+    profile = state.profile.custom;
+  } else {
+    profile = defaultProfiles[state.profile.selected];
+  }
+
+  const { inclineMax, inclineMin, avoidCurbs, speed } = profile;
 
   const timeStamp = state.routesettings.dateTime;
 
@@ -418,22 +420,6 @@ export const setProfile = profile => (dispatch, getState) => {
     meta: {
       analytics: {
         type: "set-profile",
-        payload: {
-          profile
-        }
-      }
-    }
-  });
-  routeIfValid(dispatch, getState);
-};
-
-export const setProfileDefault = profile => (dispatch, getState) => {
-  dispatch({
-    type: SET_PROFILE_DEFAULT,
-    payload: profile,
-    meta: {
-      analytics: {
-        type: "set-profile-default",
         payload: {
           profile
         }

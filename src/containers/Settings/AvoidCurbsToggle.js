@@ -8,6 +8,8 @@ import * as AppActions from "actions";
 
 import SelectionControl from "react-md/src/js/SelectionControls";
 
+import { defaultProfiles } from "profiles";
+
 const AvoidCurbsToggle = props => {
   const { actions, avoidCurbs, disabled } = props;
 
@@ -33,17 +35,19 @@ AvoidCurbsToggle.propTypes = {
 };
 
 AvoidCurbsToggle.defaultProps = {
-  label: null,
+  label: null
 };
 
 const mapStateToProps = state => {
   const { profile } = state;
+  const { selected } = profile;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const selectedProfile =
+    selected === "Custom" ? profile.custom : defaultProfiles[selected];
 
   return {
-    avoidCurbs: currentProfile.avoidCurbs,
-    disabled: currentProfile.name !== "Custom"
+    avoidCurbs: selectedProfile.avoidCurbs,
+    disabled: selected !== "Custom"
   };
 };
 

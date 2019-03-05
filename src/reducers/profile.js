@@ -1,4 +1,5 @@
-import profileDefaults from "profiles";
+import { combineReducers } from "redux";
+
 import cloneObject from "utils/clone-object";
 
 import {
@@ -26,112 +27,70 @@ const modes = {
   NONE: null
 };
 
-const handleRoutingProfile = (state = defaults, action) => {
-  const profiles = state.profiles;
-
+const handleEditorMode = (state = defaults.editorMode, action) => {
   switch (action.type) {
     case MOUSE_OVER_DOWNHILL:
     case OPEN_DOWNHILL_PREFERENCES:
-      return {
-        ...state,
-        editorMode: modes.DOWNHILL
-      };
+      return modes.DOWNHILL;
     case MOUSE_OUT_DOWNHILL:
     case OPEN_PREFERENCES:
     case OPEN_UPHILL_PREFERENCES:
-      return {
-        ...state,
-        editorMode: modes.UPHILL
-      };
+      return modes.UPHILL;
     case OPEN_BARRIERS_PREFERENCES:
-      return {
-        ...state,
-        editorMode: modes.BARRIERS
-      };
+      return modes.BARRIERS;
     case CLOSE_PREFERENCES:
+      return modes.NONE;
+    default:
+      return state;
+  }
+};
+
+const handleCustom = (state = defaults.custom, action) => {
+  switch (action.type) {
+    case SET_INCLINE_MAX:
       return {
         ...state,
-        editorMode: modes.NONE
+        inclineMax: action.payload
       };
-    case SET_PROFILE:
-      switch (action.payload) {
-        case "Wheelchair":
-          return {
-            ...state,
-            selectedProfile: 0
-          };
-        case "Powered":
-          return {
-            ...state,
-            selectedProfile: 1
-          };
-        case "Cane":
-          return {
-            ...state,
-            selectedProfile: 2
-          };
-        // TODO: this is where we'd search for custom profiles
-        case "Custom":
-          return {
-            ...state,
-            selectedProfile: 3
-          }
-        default:
-          return state;
-      }
-    // case SET_PROFILE_DEFAULT:
-    //   switch (action.payload) {
-    //     case "wheelchair":
-    //       profiles[0] = cloneObject(profileDefaults.wheelchair);
-    //       return {
-    //         ...state,
-    //         profiles
-    //       };
-    //     case "powered":
-    //       profiles[1] = cloneObject(profileDefaults.powered);
-    //       return {
-    //         ...state,
-    //         profiles
-    //       };
-    //     case "cane":
-    //       profiles[2] = cloneObject(profileDefaults.cane);
-    //       return {
-    //         ...state,
-    //         profiles
-    //       };
-    //     // TODO: this is where we'd search for custom profiles
-    //     default:
-    //       return state;
-    //   }
+    case SET_INCLINE_MIN:
+      return {
+        ...state,
+        inclineMin: action.payload
+      };
+    case TOGGLE_CURBRAMPS:
+      return {
+        ...state,
+        avoidCurbs: !state.avoidCurbs
+      };
     // case SET_SPEED:
     //   profiles[state.selectedProfile].speed = action.payload;
     //   return {
     //     ...state,
     //     profiles
     //   };
-    case SET_INCLINE_MAX:
-      profiles[3].inclineMax = action.payload;
-      return {
-        ...state,
-        profiles
-      };
-    case SET_INCLINE_MIN:
-      profiles[3].inclineMin = action.payload;
-      return {
-        ...state,
-        profiles
-      };
-    case TOGGLE_CURBRAMPS: {
-      const newState = !profiles[3].avoidCurbs;
-      profiles[3].avoidCurbs = newState;
-      return {
-        ...state,
-        profiles
-      };
-    }
     default:
       return state;
   }
 };
 
-export default handleRoutingProfile;
+const handleSelected = (state = defaults.selected, action) => {
+  switch (action.type) {
+    case SET_PROFILE:
+      // TODO: check for validity? How do we recover from errors here?
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const handleFilter = (state = defaults.filter, action) => {
+  // TODO: use this for logged-in mode + filtering. Allow favorites, etc.
+  return state;
+};
+
+export default combineReducers({
+  custom: handleCustom,
+  editorMode: handleEditorMode,
+  selected: handleSelected,
+  filter: handleFilter
+});

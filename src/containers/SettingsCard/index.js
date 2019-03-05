@@ -18,6 +18,8 @@ import UphillSlider from "containers/Settings/UphillSlider";
 
 import close from "icons/close.svg";
 
+import { defaultProfiles } from "profiles";
+
 const SettingsCard = props => {
   const { actions, mediaType, profileName, editorMode, settingProfile } = props;
 
@@ -100,12 +102,10 @@ SettingsCard.defaultProps = {
 const mapStateToProps = state => {
   const { activities, browser, profile } = state;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
-
   return {
     mediaType: browser.mediaType,
     editorMode: profile.editorMode,
-    profileName: currentProfile.name,
+    profileName: profile.selected,
     settingProfile: activities.settingProfile
   };
 };

@@ -8,6 +8,8 @@ import * as AppActions from "actions";
 
 import Slider from "react-md/src/js/Sliders";
 
+import { defaultProfiles } from "profiles";
+
 const UphillSlider = props => {
   const { actions, disabled, inclineMax } = props;
 
@@ -38,12 +40,14 @@ UphillSlider.propTypes = {
 
 const mapStateToProps = state => {
   const { profile } = state;
+  const { selected } = profile;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const selectedProfile =
+    selected === "Custom" ? profile.custom : defaultProfiles[selected];
 
   return {
-    disabled: currentProfile.name !== "Custom",
-    inclineMax: currentProfile.inclineMax
+    disabled: selected !== "Custom",
+    inclineMax: selectedProfile.inclineMax
   };
 };
 

@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { Layer } from "react-mapbox-gl";
 
+import { defaultProfiles } from "profiles";
+
 const CROSSINGS_VISIBLE = 15;
 const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 2, WIDTH_INACCESSIBLE * 1.5];
@@ -159,7 +161,10 @@ Crossings.propTypes = {
 const mapStateToProps = state => {
   const { profile } = state;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const currentProfile =
+    profile.selected === "Custom"
+      ? profile.custom
+      : defaultProfiles[profile.selected];
 
   return {
     avoidCurbs: currentProfile.avoidCurbs

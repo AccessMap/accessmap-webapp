@@ -40,6 +40,8 @@ import menu from "icons/menu.svg";
 import pencil from "icons/pencil.svg";
 import swapVert from "icons/swap-vert.svg";
 
+import { defaultProfiles } from "profiles";
+
 import { pointFeature, routeResult as routeResultProps } from "prop-schema";
 
 class OmniCard extends React.PureComponent {
@@ -60,8 +62,8 @@ class OmniCard extends React.PureComponent {
       mediaType,
       origin,
       planningTrip,
-      profileName,
       routeResult,
+      selectedProfile,
       settingProfile,
       viewingDirections,
       viewingMapInfo,
@@ -206,7 +208,7 @@ class OmniCard extends React.PureComponent {
     const profileActions = [];
 
     if (isMobile) {
-      if (profileName === "Custom") {
+      if (selectedProfile === "Custom") {
         profileActions.push(
           <Button
             aria-label="Edit trip planning profile"
@@ -216,10 +218,10 @@ class OmniCard extends React.PureComponent {
             tooltipLabel="Edit profile settings"
             tooltipPosition="left"
             onClick={() => actions.toggleSettingProfile(settingProfile)}
-            >
+          >
             <SVGIcon use={pencil.url} />
-            </Button>
-          );
+          </Button>
+        );
       }
       if (planningTrip) {
         profileActions.push(
@@ -318,7 +320,7 @@ OmniCard.propTypes = {
   origin: pointFeature({ name: PropTypes.string }),
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
   planningTrip: PropTypes.bool,
-  profileName: PropTypes.string.isRequired,
+  selectedProfile: PropTypes.string.isRequired,
   routeResult: routeResultProps,
   settingProfile: PropTypes.bool,
   viewingDirections: PropTypes.bool,
@@ -350,7 +352,10 @@ const mapStateToProps = state => {
     waypoints
   } = state;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const currentProfile =
+    profile.selected === "Custom"
+      ? profile.custom
+      : defaultProfiles[profile.selected];
 
   return {
     dateTime: routesettings.dateTime,
@@ -360,9 +365,8 @@ const mapStateToProps = state => {
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: router.route && router.route.name === "directions",
-    profileName: currentProfile.name,
     routeResult: route.routeResult,
-    selectedProfile: profile.selectedProfile,
+    selectedProfile: profile.selected,
     settingProfile: activities.settingProfile,
     viewingDirections: activities.viewingDirections,
     viewingMapInfo: activities.viewingMapInfo,

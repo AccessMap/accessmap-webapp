@@ -15,16 +15,18 @@ import wheelchairIcon from "icons/wheelchair.svg";
 import wheelchairPoweredIcon from "icons/wheelchair-powered.svg";
 import personPinIcon from "icons/person-pin.svg";
 const icons = {
-   "cane-user": caneIcon,
-   "wheelchair": wheelchairIcon,
-   "wheelchair-powered": wheelchairPoweredIcon,
-   "person-pin": personPinIcon,
+  "cane-user": caneIcon,
+  wheelchair: wheelchairIcon,
+  "wheelchair-powered": wheelchairPoweredIcon,
+  "person-pin": personPinIcon
 };
 
-import profiles from "profiles";
+import { defaultProfiles } from "profiles";
 
 const ProfileList = props => {
-  const { actions, profileName } = props;
+  const { actions, selected, profiles } = props;
+
+  const selectedProfile = profiles[selected];
 
   return (
     <SelectionControlGroup
@@ -33,7 +35,7 @@ const ProfileList = props => {
       name="routing-profile-selector"
       type="radio"
       controlClassName="md-inline-block"
-      defaultValue={profileName}
+      defaultValue={selectedProfile.name}
       onChange={(d, e) => {
         if (e.type === "change") {
           actions.setProfile(d);
@@ -45,10 +47,11 @@ const ProfileList = props => {
       }}
       controls={Object.keys(profiles).map(profileKey => {
         let profile = profiles[profileKey];
+        let isSelected = selected === profileKey;
         return {
-          label: profileName === profile.name ? (<h6 aria-hidden>{profile.name}</h6>) : "",
-          value: profile.name,
-          className: profileName === profile.name ? "profile-selected" : "",
+          label: isSelected ? <h6 aria-hidden>{profileKey}</h6> : "",
+          value: profileKey,
+          className: isSelected ? "profile-selected" : "",
           checkedRadioIcon: (
             <SVGIcon
               aria-label={profile.label}
@@ -57,10 +60,7 @@ const ProfileList = props => {
             />
           ),
           uncheckedRadioIcon: (
-            <SVGIcon
-              aria-label={profile.label}
-              use={icons[profile.icon].url}
-            />
+            <SVGIcon aria-label={profile.label} use={icons[profile.icon].url} />
           ),
           inkDisabled: true
         };
@@ -71,16 +71,21 @@ const ProfileList = props => {
 
 ProfileList.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  profileName: PropTypes.string.isRequired
+  selected: PropTypes.string.isRequired,
+  profiles: PropTypes.shape().isRequired
 };
 
 const mapStateToProps = state => {
   const { profile } = state;
 
-  const currentProfile = profile.profiles[profile.selectedProfile];
+  const profiles = {
+    ...defaultProfiles,
+    Custom: profile.custom
+  };
 
   return {
-    profileName: currentProfile.name
+    profiles,
+    selected: profile.selected
   };
 };
 

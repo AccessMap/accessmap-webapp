@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
+import { createStore, applyMiddleware, combineReducers } from "redux";
 
 import thunkMiddleware from "redux-thunk";
 import { createMigrate, persistReducer } from "redux-persist";
@@ -23,8 +23,8 @@ const configureStore = router => {
   const persistConfig = {
     key: "root",
     storage,
+    whitelist: ["analytics"],
     version: 0,
-    whitelist: ["analytics", "profile"],
     migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);

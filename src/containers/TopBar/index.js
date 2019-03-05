@@ -40,10 +40,20 @@ const TopBar = props => {
         </div>
       }
       actions={[
-        <Button key="about-button" flat primary onClick={actions.clickAboutLink}>
+        <Button
+          key="about-button"
+          flat
+          primary
+          onClick={actions.clickAboutLink}
+        >
           About
         </Button>,
-        <Button key="contact-button" flat primary onClick={actions.clickContactLink}>
+        <Button
+          key="contact-button"
+          flat
+          primary
+          onClick={actions.clickContactLink}
+        >
           Contact
         </Button>,
         <MenuButton
