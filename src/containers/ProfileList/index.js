@@ -9,9 +9,19 @@ import * as AppActions from "actions";
 import { SelectionControlGroup } from "react-md/src/js/SelectionControls";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
-import caneUser from "icons/cane-user.svg";
-import wheelchair from "icons/wheelchair.svg";
-import wheelchairPowered from "icons/wheelchair-powered.svg";
+// TODO: place in separate data module
+import caneIcon from "icons/cane-user.svg";
+import wheelchairIcon from "icons/wheelchair.svg";
+import wheelchairPoweredIcon from "icons/wheelchair-powered.svg";
+import personPinIcon from "icons/person-pin.svg";
+const icons = {
+   "cane-user": caneIcon,
+   "wheelchair": wheelchairIcon,
+   "wheelchair-powered": wheelchairPoweredIcon,
+   "person-pin": personPinIcon,
+};
+
+import profiles from "profiles";
 
 const ProfileList = props => {
   const { actions, profileName } = props;
@@ -33,56 +43,28 @@ const ProfileList = props => {
           actions.setProfile(d);
         }
       }}
-      controls={[
-        {
-          label:
-            profileName === "wheelchair" ? <h6 aria-hidden>Wheelchair</h6> : "",
-          value: "wheelchair",
-          className: profileName === "wheelchair" ? "profile-selected" : "",
+      controls={Object.keys(profiles).map(profileKey => {
+        let profile = profiles[profileKey];
+        return {
+          label: profileName === profile.name ? (<h6 aria-hidden>{profile.name}</h6>) : "",
+          value: profile.name,
+          className: profileName === profile.name ? "profile-selected" : "",
           checkedRadioIcon: (
             <SVGIcon
-              aria-label="manual wheelchair"
+              aria-label={profile.label}
               secondary
-              use={wheelchair.url}
-            />
-          ),
-          uncheckedRadioIcon: (
-            <SVGIcon aria-label="manual wheelchair" use={wheelchair.url} />
-          ),
-          inkDisabled: true
-        },
-        {
-          label: profileName === "powered" ? <h6 aria-hidden>Powered</h6> : "",
-          value: "powered",
-          className: profileName === "powered" ? "profile-selected" : "",
-          checkedRadioIcon: (
-            <SVGIcon
-              aria-label="powered wheelchair"
-              secondary
-              use={wheelchairPowered.url}
+              use={icons[profile.icon].url}
             />
           ),
           uncheckedRadioIcon: (
             <SVGIcon
-              aria-label="powered wheelchair"
-              use={wheelchairPowered.url}
+              aria-label={profile.label}
+              use={icons[profile.icon].url}
             />
           ),
           inkDisabled: true
-        },
-        {
-          label: profileName === "cane" ? <h6 aria-hidden>Cane/Walk</h6> : "",
-          value: "cane",
-          className: profileName === "cane" ? "profile-selected" : "",
-          checkedRadioIcon: (
-            <SVGIcon aria-label="walk or cane" secondary use={caneUser.url} />
-          ),
-          uncheckedRadioIcon: (
-            <SVGIcon aria-label="walk or cane" use={caneUser.url} />
-          ),
-          inkDisabled: true
-        }
-      ]}
+        };
+      })}
     />
   );
 };

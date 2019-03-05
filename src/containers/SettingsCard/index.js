@@ -41,16 +41,6 @@ const SettingsCard = props => {
   return (
     <Card className="settings-card">
       <Toolbar
-        nav={
-          <Button
-            aria-label="reset profile to default settings"
-            flat
-            primary
-            onClick={() => actions.setProfileDefault(profileName)}
-          >
-            Reset to defaults
-          </Button>
-        }
         actions={[
           <Button
             key="close-profile-settings-button"

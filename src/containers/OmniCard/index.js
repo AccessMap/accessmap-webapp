@@ -206,19 +206,21 @@ class OmniCard extends React.PureComponent {
     const profileActions = [];
 
     if (isMobile) {
-      profileActions.push(
-        <Button
-          aria-label="Edit trip planning profile"
-          className="edit-profile-button"
-          icon
-          svg
-          tooltipLabel="Edit profile settings"
-          tooltipPosition="left"
-          onClick={() => actions.toggleSettingProfile(settingProfile)}
-        >
-          <SVGIcon use={pencil.url} />
-        </Button>
-      );
+      if (profileName === "Custom") {
+        profileActions.push(
+          <Button
+            aria-label="Edit trip planning profile"
+            className="edit-profile-button"
+            icon
+            svg
+            tooltipLabel="Edit profile settings"
+            tooltipPosition="left"
+            onClick={() => actions.toggleSettingProfile(settingProfile)}
+            >
+            <SVGIcon use={pencil.url} />
+            </Button>
+          );
+      }
       if (planningTrip) {
         profileActions.push(
           <Button
@@ -299,16 +301,6 @@ class OmniCard extends React.PureComponent {
               Avoid barriers:
               <AvoidCurbsToggle label="Raised curbs" />
             </CardText>
-            <CardActions>
-              <Button
-                aria-label="Reset profile to defaults"
-                flat
-                primary
-                onClick={() => actions.setProfileDefault(profileName)}
-              >
-                Reset to defaults
-              </Button>
-            </CardActions>
           </React.Fragment>
         ) : null}
         {planningTrip ? timePicker : null}

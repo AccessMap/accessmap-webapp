@@ -55,70 +55,75 @@ const handleRoutingProfile = (state = defaults, action) => {
       };
     case SET_PROFILE:
       switch (action.payload) {
-        case "wheelchair":
+        case "Wheelchair":
           return {
             ...state,
             selectedProfile: 0
           };
-        case "powered":
+        case "Powered":
           return {
             ...state,
             selectedProfile: 1
           };
-        case "cane":
+        case "Cane":
           return {
             ...state,
             selectedProfile: 2
           };
         // TODO: this is where we'd search for custom profiles
+        case "Custom":
+          return {
+            ...state,
+            selectedProfile: 3
+          }
         default:
           return state;
       }
-    case SET_PROFILE_DEFAULT:
-      switch (action.payload) {
-        case "wheelchair":
-          profiles[0] = cloneObject(profileDefaults.wheelchair);
-          return {
-            ...state,
-            profiles
-          };
-        case "powered":
-          profiles[1] = cloneObject(profileDefaults.powered);
-          return {
-            ...state,
-            profiles
-          };
-        case "cane":
-          profiles[2] = cloneObject(profileDefaults.cane);
-          return {
-            ...state,
-            profiles
-          };
-        // TODO: this is where we'd search for custom profiles
-        default:
-          return state;
-      }
-    case SET_SPEED:
-      profiles[state.selectedProfile].speed = action.payload;
-      return {
-        ...state,
-        profiles
-      };
+    // case SET_PROFILE_DEFAULT:
+    //   switch (action.payload) {
+    //     case "wheelchair":
+    //       profiles[0] = cloneObject(profileDefaults.wheelchair);
+    //       return {
+    //         ...state,
+    //         profiles
+    //       };
+    //     case "powered":
+    //       profiles[1] = cloneObject(profileDefaults.powered);
+    //       return {
+    //         ...state,
+    //         profiles
+    //       };
+    //     case "cane":
+    //       profiles[2] = cloneObject(profileDefaults.cane);
+    //       return {
+    //         ...state,
+    //         profiles
+    //       };
+    //     // TODO: this is where we'd search for custom profiles
+    //     default:
+    //       return state;
+    //   }
+    // case SET_SPEED:
+    //   profiles[state.selectedProfile].speed = action.payload;
+    //   return {
+    //     ...state,
+    //     profiles
+    //   };
     case SET_INCLINE_MAX:
-      profiles[state.selectedProfile].inclineMax = action.payload;
+      profiles[3].inclineMax = action.payload;
       return {
         ...state,
         profiles
       };
     case SET_INCLINE_MIN:
-      profiles[state.selectedProfile].inclineMin = action.payload;
+      profiles[3].inclineMin = action.payload;
       return {
         ...state,
         profiles
       };
     case TOGGLE_CURBRAMPS: {
-      const newState = !profiles[state.selectedProfile].avoidCurbs;
-      profiles[state.selectedProfile].avoidCurbs = newState;
+      const newState = !profiles[3].avoidCurbs;
+      profiles[3].avoidCurbs = newState;
       return {
         ...state,
         profiles

@@ -9,10 +9,11 @@ import * as AppActions from "actions";
 import SelectionControl from "react-md/src/js/SelectionControls";
 
 const AvoidCurbsToggle = props => {
-  const { actions, avoidCurbs } = props;
+  const { actions, avoidCurbs, disabled } = props;
 
   return (
     <SelectionControl
+      disabled={disabled}
       type="switch"
       aria-label={avoidCurbs ? "Ignore curb ramps" : "Require curb ramps"}
       checked={avoidCurbs}
@@ -27,6 +28,7 @@ const AvoidCurbsToggle = props => {
 AvoidCurbsToggle.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   avoidCurbs: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool,
   label: PropTypes.string
 };
 
@@ -40,7 +42,8 @@ const mapStateToProps = state => {
   const currentProfile = profile.profiles[profile.selectedProfile];
 
   return {
-    avoidCurbs: currentProfile.avoidCurbs
+    avoidCurbs: currentProfile.avoidCurbs,
+    disabled: currentProfile.name !== "Custom"
   };
 };
 

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from "redux";
 
 import thunkMiddleware from "redux-thunk";
-import { persistReducer } from "redux-persist";
+import { createMigrate, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { reduxPlugin as router5ReduxPlugin } from "redux-router5";
 
@@ -23,7 +23,9 @@ const configureStore = router => {
   const persistConfig = {
     key: "root",
     storage,
-    whitelist: ["analytics", "profile"]
+    version: 0,
+    whitelist: ["analytics", "profile"],
+    migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
   };
   const persistedReducer = persistReducer(persistConfig, rootReducer);
 
