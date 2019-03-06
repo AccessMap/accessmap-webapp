@@ -17,6 +17,7 @@ import {
   SET_ORIGIN,
   SET_POI,
   SET_ZOOM,
+  RECEIVE_GEOLOCATION,
   VIEW_ROUTE_INFO,
   setOriginDestination
 } from "actions";
@@ -133,6 +134,16 @@ const createRouter5Middleware = router => {
       case SET_POI: {
         const { name, params } = router.getState();
         const { lon, lat } = action.payload;
+        if (!inView(lon, lat, params.lon, params.lat, params.z)) {
+          const center = centerInView(lon, lat, 16);
+          const updatedParams = { ...params, lon: center[0], lat: center[1] };
+          router.navigate(name, updatedParams);
+        }
+        break;
+      }
+      case RECEIVE_GEOLOCATION: {
+        const { name, params } = router.getState();
+        const [lon, lat] = action.payload.coordinates;
         if (!inView(lon, lat, params.lon, params.lat, params.z)) {
           const center = centerInView(lon, lat, 16);
           const updatedParams = { ...params, lon: center[0], lat: center[1] };
