@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 
 import { Layer } from "react-mapbox-gl";
 
+import { getCurrentProfile } from "selectors";
+
 import { INCLINE_IDEAL } from "constants/routing";
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "colors";
 import { uphillColorMap, downhillColorMap } from "colors";
@@ -301,12 +303,9 @@ Sidewalks.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { map, profile } = state;
+  const { map } = state;
 
-  const currentProfile =
-    profile.selected === "Custom"
-      ? profile.custom
-      : defaultProfiles[profile.selected];
+  const currentProfile = getCurrentProfile(state);
 
   return {
     inclineMax: currentProfile.inclineMax,

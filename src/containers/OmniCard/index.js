@@ -352,11 +352,6 @@ const mapStateToProps = state => {
     waypoints
   } = state;
 
-  const currentProfile =
-    profile.selected === "Custom"
-      ? profile.custom
-      : defaultProfiles[profile.selected];
-
   return {
     dateTime: routesettings.dateTime,
     destination: waypoints.destination,

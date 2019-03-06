@@ -5,10 +5,9 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import * as AppActions from "actions";
+import { getCurrentProfile } from "selectors";
 
 import Slider from "react-md/src/js/Sliders";
-
-import { defaultProfiles } from "profiles";
 
 const UphillSlider = props => {
   const { actions, disabled, inclineMax } = props;
@@ -38,18 +37,10 @@ UphillSlider.propTypes = {
   inclineMax: PropTypes.number.isRequired
 };
 
-const mapStateToProps = state => {
-  const { profile } = state;
-  const { selected } = profile;
-
-  const selectedProfile =
-    selected === "Custom" ? profile.custom : defaultProfiles[selected];
-
-  return {
-    disabled: selected !== "Custom",
-    inclineMax: selectedProfile.inclineMax
-  };
-};
+const mapStateToProps = state => ({
+  disabled: state.profile.selected !== "Custom",
+  inclineMax: getCurrentProfile(state).inclineMax
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)

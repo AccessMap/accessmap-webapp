@@ -6,9 +6,9 @@ import { connect } from "react-redux";
 
 import * as AppActions from "actions";
 
-import SelectionControl from "react-md/src/js/SelectionControls";
+import { getCurrentProfile } from "selectors";
 
-import { defaultProfiles } from "profiles";
+import SelectionControl from "react-md/src/js/SelectionControls";
 
 const AvoidCurbsToggle = props => {
   const { actions, avoidCurbs, disabled } = props;
@@ -38,18 +38,10 @@ AvoidCurbsToggle.defaultProps = {
   label: null
 };
 
-const mapStateToProps = state => {
-  const { profile } = state;
-  const { selected } = profile;
-
-  const selectedProfile =
-    selected === "Custom" ? profile.custom : defaultProfiles[selected];
-
-  return {
-    avoidCurbs: selectedProfile.avoidCurbs,
-    disabled: selected !== "Custom"
-  };
-};
+const mapStateToProps = state => ({
+  avoidCurbs: getCurrentProfile(state).avoidCurbs,
+  disabled: state.profile.selected !== "Custom"
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)

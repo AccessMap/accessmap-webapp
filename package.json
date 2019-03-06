@@ -93,6 +93,7 @@
     "redux-persist": "^5.10.0",
     "redux-router5": "^6.0.5",
     "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
     "router5": "^6.6.3",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^2.0.4"
