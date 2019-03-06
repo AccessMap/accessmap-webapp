@@ -16,6 +16,7 @@ const DownhillSlider = props => {
 
   return (
     <Slider
+      className="downhill-slider"
       disabled={disabled}
       discrete
       id="downhill-slider"
