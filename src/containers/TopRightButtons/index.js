@@ -11,7 +11,7 @@ import SVGIcon from "react-md/src/js/SVGIcons";
 
 import MapLegend from "containers/MapLegend";
 
-import helpCircle from "icons/help-circle.svg";
+import information from "icons/information.svg";
 
 const TopRightButtons = props => {
   const {
@@ -35,17 +35,17 @@ const TopRightButtons = props => {
       {!viewingMapInfo ? (
         <Button
           className="tour-btn"
-          aria-label="Walkthrough"
+          aria-label="Take a tour"
           floating
           svg
           mini
           secondary
           swapTheming
-          tooltipLabel="Get Walkthrough"
+          tooltipLabel="Take a tour"
           tooltipPosition="left"
           onClick={actions.enableTour}
         >
-          <SVGIcon use={helpCircle.url} />
+          <SVGIcon use={information.url} />
         </Button>
       ) : null}
       <MapLegend />
