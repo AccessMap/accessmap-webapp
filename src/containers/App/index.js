@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
+import * as AppActions from "actions";
+
 import Map from "containers/Map";
 import AnalyticsBar from "containers/AnalyticsBar";
 import AppDrawer from "containers/AppDrawer";
 import FeatureCard from "containers/FeatureCard";
 import FloatingButtons from "containers/FloatingButtons";
+import Legend from "containers/Legend";
 import LinkOverlay from "containers/LinkOverlay";
 import MapOverlay from "containers/MapOverlay";
 import OmniCard from "containers/OmniCard";
@@ -17,8 +20,6 @@ import SettingsCard from "containers/SettingsCard";
 import Toast from "containers/Toast";
 import TopRightButtons from "containers/TopRightButtons";
 import Tour from "containers/Tour";
-
-import * as AppActions from "actions";
 
 class App extends PureComponent {
   componentDidMount = () => {
@@ -43,6 +44,7 @@ class App extends PureComponent {
         <LinkOverlay />
         <RouteBottomCard />
         <FeatureCard />
+        <Legend />
       </MapOverlay>
       <Map />
       <RouteBottomSheet />

@@ -67,8 +67,12 @@ $breakpoints: (
 $base-url: '/assets/' !default;
 
 
+// Constant layout properties
+$omnipadding: 8px;
+
 /// OmniCard widths, when hard-coded
 $omnicard-mobile-portrait-width: 100%;
 $omnicard-mobile-landscape-width: 320px;
 $omnicard-tablet-width: 384px;
 $omnicard-desktop-width: 384px;
+
