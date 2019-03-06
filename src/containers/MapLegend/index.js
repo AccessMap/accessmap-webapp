@@ -17,9 +17,9 @@ import SidewalkIcon from "components/Icons/SidewalkIcon";
 import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "colors";
 
 import close from "icons/close.svg";
-import information from "icons/information.svg";
+import mapLegend from "icons/map-legend.svg";
 
-const MapInfoButton = props => {
+const MapLegend = props => {
   const {
     actions,
     mediaType,
@@ -43,7 +43,7 @@ const MapInfoButton = props => {
       tooltipPosition="left"
       onClick={actions.viewMapInfo}
     >
-      <SVGIcon use={information.url} />
+      <SVGIcon use={mapLegend.url} />
     </Button>
   );
 
@@ -165,7 +165,7 @@ const MapInfoButton = props => {
   return button;
 };
 
-MapInfoButton.propTypes = {
+MapLegend.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   mediaType: PropTypes.string,
   planningTrip: PropTypes.bool,
@@ -173,7 +173,7 @@ MapInfoButton.propTypes = {
   viewingMapInfo: PropTypes.bool
 };
 
-MapInfoButton.defaultProps = {
+MapLegend.defaultProps = {
   mediaType: "desktop",
   planningTrip: false,
   settingProfile: false,
@@ -194,4 +194,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MapInfoButton);
+)(MapLegend);

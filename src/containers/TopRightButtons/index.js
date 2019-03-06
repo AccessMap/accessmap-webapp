@@ -9,7 +9,7 @@ import * as AppActions from "actions";
 import Button from "react-md/src/js/Buttons";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
-import MapInfoButton from "containers/MapInfoButton";
+import MapLegend from "containers/MapLegend";
 
 import helpCircle from "icons/help-circle.svg";
 
@@ -48,7 +48,7 @@ const TopRightButtons = props => {
           <SVGIcon use={helpCircle.url} />
         </Button>
       ) : null}
-      <MapInfoButton />
+      <MapLegend />
     </div>
   );
 };
