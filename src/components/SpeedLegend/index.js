@@ -48,6 +48,21 @@ const SpeedLegend = props => {
             borderWidth: "1.5px"
           }}
         />
+        {inclines.map((d, i) => (
+          <div
+            style={{
+              position: "absolute",
+              left: `calc((100% / ${n}) * ${i} + (100% / ${n} / 2))`,
+              top: "10px",
+              fontSize: "10pt",
+              textAlign: "center"
+            }}
+          >
+            <div style={{ position: "relative", left: "-50%" }}>
+              {parseInt(i)}
+            </div>
+          </div>
+        ))}
         {coloredCells.map((c, i) => (
           <div
             key={`legend-incline-cell-${c}`}
@@ -63,15 +78,25 @@ const SpeedLegend = props => {
           />
         ))}
       </div>
-      <div className="legend-speed-labels">
-        <div className="legend-speed-downhill">
-          {`${(0 * 100).toFixed(1)} %`}
-        </div>
-        <div className="legend-speed-short-description">
-          {"Difficulty at incline"}
-        </div>
-        <div className="legend-speed-uphill">
-          {`${(xMax * 100).toFixed(1)} %`}
+      <div
+        className="legend-speed-label"
+        style={{
+          display: "absolute",
+          left: 0
+        }}
+      >
+        <div style={{ position: "absolute", left: "50%" }}>
+          <div
+            className="legend-speed-short-description"
+            style={{
+              position: "relative",
+              top: "6px",
+              left: "-50%",
+              fontSize: "10pt"
+            }}
+          >
+            {"Steepness (incline %)"}
+          </div>
         </div>
       </div>
     </div>
