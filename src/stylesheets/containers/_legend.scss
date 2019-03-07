@@ -54,17 +54,8 @@ $floating-buttons-width: 56px;
       height: 40px;
     }
 
-
-
     .legend-speed-cell-container {
       height: 16px;
-
-      .legend-speed-cell {
-        display: inline-block;
-        height: 8px;
-        // 100% /n where n = number of points at which legend is evaluated
-        width: (100% / 15);
-      }
     }
 
     .legend-speed-downhill,

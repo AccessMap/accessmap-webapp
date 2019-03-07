@@ -27,28 +27,38 @@ const SpeedLegend = props => {
 
   // TODO: draw with SVG for consistent behavior between browsers?
 
+  // FIXME: Place this CSS as importable scss so that modularization is easier - should
+  // be able to override in stylesheets section!
+
   return (
     <div className="legend-speed">
       <div className="legend-speed-cell-container">
-        {coloredCells.map(c => (
+        <hr
+          className="legend-speed-disabled-cell"
+          style={{
+            position: "absolute",
+            left: 0,
+            top: "-1px",
+            height: 0,
+            width: "100%",
+            backgroundColor: "transparent",
+            border: "0 none",
+            borderTop: "dashed",
+            borderColor: "red",
+            borderWidth: "1.5px"
+          }}
+        />
+        {coloredCells.map((c, i) => (
           <div
             key={`legend-incline-cell-${c}`}
             className="legend-speed-cell"
-            style={{ backgroundColor: c }}
-          />
-        ))}
-        {disabledCells.map(d => (
-          <hr
-            key={`legend-incline-cell-${d}`}
-            className="legend-speed-cell"
             style={{
-              verticalAlign: "middle",
-              backgroundColor: "transparent",
-              border: "0 none",
-              height: 0,
-              borderTop: "dashed",
-              borderColor: "red",
-              borderWidth: "1.5px"
+              backgroundColor: c,
+              position: "absolute",
+              left: `calc((100% / ${n}) * ${i})`,
+              top: "4px",
+              width: `calc(100% / ${n})`,
+              height: "8px"
             }}
           />
         ))}
