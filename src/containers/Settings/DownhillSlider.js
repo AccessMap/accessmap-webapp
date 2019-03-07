@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import cn from "classnames";
 
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -16,7 +17,7 @@ const DownhillSlider = props => {
 
   return (
     <Slider
-      className="downhill-slider"
+      className={cn("downhill-slider", { editable: !disabled })}
       disabled={disabled}
       discrete
       id="downhill-slider"

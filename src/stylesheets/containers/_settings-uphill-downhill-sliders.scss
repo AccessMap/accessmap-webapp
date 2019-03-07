@@ -1,0 +1,19 @@
+// Overall layout
+.uphill-slider.editable, .downhill-slider.editable {
+  .md-slider-track {
+    border-bottom: dashed;
+    border-width: 1.5px;
+    border-color: red;
+    background-color: transparent;
+    height: 2.5px;
+
+    .md-slider-track-fill {
+      height: 3px;
+      background: linear-gradient(to right, #ff774d, #ffff76, #91ff72);
+      border: solid;
+      border-width: 1px;
+      border-radius: 5px;
+      border-color: rgba(0, 0, 0, 0.2);
+    }
+  }
+}
