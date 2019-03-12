@@ -1,5 +1,6 @@
 // Action types
 import { defaultProfiles } from "profiles";
+import { saveProfile } from "utils/api";
 
 // Analytics settings
 export const ENABLE_ANALYTICS = "ENABLE_ANALYTICS";
@@ -23,10 +24,27 @@ export const TOGGLE_SETTING_PROFILE = "TOGGLE_SETTING_PROFILE";
 
 // Routing profile settings
 export const SET_SPEED = "SET_SPEED";
-export const SET_INCLINE_MAX = "SET_INCLINE_MAX";
-export const SET_INCLINE_MIN = "SET_INCLINE_MIN";
-export const SET_PROFILE = "SET_PROFILE";
+export const SET_UPHILL_MAX = "SET_UPHILL_MAX";
+export const SET_DOWNHILL_MAX = "SET_DOWNHILL_MAX";
 export const TOGGLE_CURBRAMPS = "TOGGLE_CURBRAMPS";
+export const SELECT_PROFILE = "SELECT_PROFILE";
+export const FETCH_PROFILE_REQUEST = "FETCH_PROFILE_REQUEST";
+export const FETCH_PROFILE_FAILURE = "FETCH_PROFILE_FAILURE";
+export const FETCH_PROFILE_SUCCESS = "FETCH_PROFILE_SUCCESS";
+export const NO_SAVED_PROFILES = "NO_SAVED_PROFILES";
+export const SAVE_PROFILE_REQUEST = "SAVE_PROFILE_REQUEST";
+export const SAVE_PROFILE_FAILURE = "SAVE_PROFILE_FAILURE";
+export const SAVE_PROFILE_SUCCESS = "SAVE_PROFILE_SUCCESS";
+
+// Auth and user profile settings
+export const FETCH_USER_PROFILE_REQUEST = "FETCH_USER_PROFILE_REQUEST";
+export const FETCH_USER_PROFILE_FAILURE = "FETCH_USER_PROFILE_FAILURE";
+export const FETCH_USER_PROFILE_SUCCESS = "FETCH_USER_PROFILE_SUCCESS";
+export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
+export const REFRESH_TOKEN_FAILURE = "REFRESH_TOKEN_FAILURE";
+export const REFRESH_TOKEN_SUCCESS = "REFRESH_TOKEN_SUCCESS";
+export const CLOSE_SIGNUP_PROMPT = "CLOSE_SIGNUP_PROMP";
+export const OPEN_SIGNUP_PROMPT = "OPEN_SIGNUP_PROMPT";
 
 // Settings modes - mostly used for mouseover view changes
 export const MOUSE_OVER_DOWNHILL = "MOUSE_OVER_DOWNHILL";
@@ -83,11 +101,14 @@ export const SHOW_DRAWER = "SHOW_DRAWER";
 export const HIDE_DRAWER = "HIDE_DRAWER";
 
 // Authentication
+export const AUTHENTICATION_REQUEST = "AUTHENTICATION_REQUEST";
+export const RECEIVED_CREDENTIALS = "RECEIVED_CREDENTIALS";
+export const RECEIVED_JWT = "RECEIVED_CREDENTIALS";
+export const AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
+export const AUTHENTICATION_FAILURE = "AUTHENTICATION_FAILURE";
+
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
-export const USER_LOGGED_IN = "USER_LOGGED_IN";
-export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
-export const GOT_USER = "GOT_USER";
 
 // Tour
 export const COMPLETED_TOUR = "COMPLETED_TOUR";
@@ -99,38 +120,42 @@ export const completedTour = () => ({ type: COMPLETED_TOUR });
 export const disableTour = () => ({ type: DISABLE_TOUR });
 export const enableTour = () => ({ type: ENABLE_TOUR });
 
-export const logIn = () => ({ type: LOG_IN });
+export const authenticationRequest = () => ({ type: AUTHENTICATION_REQUEST });
+export const receivedCredentials = (token, token_secret) => ({
+  type: RECEIVED_CREDENTIALS,
+  payload: { token, token_secret },
+  meta: {
+    analytics: {
+      type: "user-received-credentials"
+    }
+  }
+});
+export const receivedJWT = jwt => ({
+  type: RECEIVED_JWT,
+  payload: { jwt },
+  meta: {
+    analytics: {
+      type: "user-received-jwt"
+    }
+  }
+});
+export const authenticationSuccess = () => ({ type: AUTHENTICATION_SUCCESS });
+export const authenticationFailure = message => ({
+  type: AUTHENTICATION_FAILURE,
+  payload: { message }
+});
+
+export const logIn = (accessToken, refreshToken) => ({
+  type: LOG_IN,
+  payload: { accessToken, refreshToken },
+  meta: {
+    analytics: {
+      type: "log-in",
+      payload: { accessToken, refreshToken }
+    }
+  }
+});
 export const logOut = () => ({ type: LOG_OUT });
-export const userLoggedIn = (sub, preferredUsername, idToken, accessToken) => ({
-  type: USER_LOGGED_IN,
-  payload: { sub, preferredUsername, idToken, accessToken },
-  meta: {
-    analytics: {
-      type: "user-logged-in",
-      payload: {
-        preferredUsername,
-        sub
-      }
-    }
-  }
-});
-export const userLoggedOut = () => ({
-  type: USER_LOGGED_OUT,
-  meta: {
-    analytics: {
-      type: "user-logged-out"
-    }
-  }
-});
-export const gotUser = (sub, preferredUsername, idToken, accessToken) => ({
-  type: GOT_USER,
-  payload: {
-    accessToken,
-    idToken,
-    preferredUsername,
-    sub
-  }
-});
 
 export const enableAnalytics = () => ({
   type: ENABLE_ANALYTICS,
@@ -303,8 +328,8 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
   dispatch(requestRoute(origin, destination, type, params));
 
   const {
-    inclineMax,
-    inclineMin,
+    uphillMax,
+    downhillMax,
     avoidCurbs,
     // speed,
     timeStamp
@@ -315,8 +340,8 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     lat1: origin.lat,
     lon2: destination.lon,
     lat2: destination.lat,
-    uphill: inclineMax,
-    downhill: Math.abs(inclineMin),
+    uphill: uphillMax,
+    downhill: Math.abs(downhillMax),
     avoidCurbs: avoidCurbs ? 1 : 0,
     timestamp: timeStamp
   };
@@ -352,15 +377,15 @@ const routeIfValid = (dispatch, getState) => {
     profile = defaultProfiles[state.profile.selected];
   }
 
-  const { inclineMax, inclineMin, avoidCurbs, speed } = profile;
+  const { uphillMax, downhillMax, avoidCurbs, speed } = profile;
 
   const timeStamp = state.routesettings.dateTime;
 
   if (origin !== null && destination !== null) {
     dispatch(
       fetchRoute(origin, destination, "wheelchair", {
-        inclineMax,
-        inclineMin,
+        uphillMax,
+        downhillMax,
         avoidCurbs,
         speed,
         timeStamp
@@ -381,13 +406,13 @@ export const toggleCurbRamps = () => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
-export const setInclineMax = value => (dispatch, getState) => {
+export const setUphillMax = value => (dispatch, getState) => {
   dispatch({
-    type: SET_INCLINE_MAX,
+    type: SET_UPHILL_MAX,
     payload: value,
     meta: {
       analytics: {
-        type: "set-incline-max",
+        type: "set-uphill-max",
         payload: {
           value
         }
@@ -397,13 +422,13 @@ export const setInclineMax = value => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
-export const setInclineMin = value => (dispatch, getState) => {
+export const setDownhillMax = value => (dispatch, getState) => {
   dispatch({
-    type: SET_INCLINE_MIN,
+    type: SET_DOWNHILL_MAX,
     payload: value,
     meta: {
       analytics: {
-        type: "set-incline-min",
+        type: "set-downhill-max",
         payload: {
           value
         }
@@ -413,9 +438,9 @@ export const setInclineMin = value => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
-export const setProfile = profile => (dispatch, getState) => {
+export const selectProfile = profile => (dispatch, getState) => {
   dispatch({
-    type: SET_PROFILE,
+    type: SELECT_PROFILE,
     payload: profile,
     meta: {
       analytics: {
@@ -428,6 +453,167 @@ export const setProfile = profile => (dispatch, getState) => {
   });
   routeIfValid(dispatch, getState);
 };
+
+export const fetchProfileRequest = () => ({
+  type: FETCH_PROFILE_REQUEST,
+  meta: {
+    analaytics: {
+      type: "fetch-profile-request"
+    }
+  }
+});
+
+export const fetchProfileFailure = err => ({
+  type: FETCH_PROFILE_FAILURE,
+  payload: err,
+  meta: {
+    analytics: {
+      type: "fetch-profile-failure",
+      payload: err
+    }
+  }
+});
+
+export const fetchProfileSuccess = profile => ({
+  type: FETCH_PROFILE_SUCCESS,
+  payload: profile,
+  meta: {
+    analytics: {
+      type: "fetch-profile-success",
+      paylaod: profile
+    }
+  }
+});
+
+export const noSavedProfiles = () => ({
+  type: NO_SAVED_PROFILES,
+  meta: {
+    analytics: {
+      type: "no-saved-profiles"
+    }
+  }
+});
+
+export const saveProfileRequest = () => (dispatch, getState) => {
+  const { auth, profile } = getState();
+  const customProfile = profile.custom;
+  dispatch({
+    type: SAVE_PROFILE_REQUEST,
+    payload: {
+      uphillMax: customProfile.uphillMax,
+      downhillMax: customProfile.downhillMax,
+      avoidCurbs: customProfile.avoidCurbs
+    },
+    meta: {
+      analytics: {
+        type: "save-profile-request",
+        payload: customProfile
+      }
+    }
+  });
+
+  saveProfile(customProfile, auth.accessToken, err => {
+    if (err) {
+      dispatch(saveProfileFailure(err));
+    } else {
+      dispatch(saveProfileSuccess());
+    }
+  });
+};
+
+export const saveProfileFailure = err => ({
+  type: SAVE_PROFILE_FAILURE,
+  payload: err,
+  meta: {
+    analytics: {
+      type: "save-profile-failure",
+      payload: err
+    }
+  }
+});
+
+export const saveProfileSuccess = () => ({
+  type: SAVE_PROFILE_SUCCESS,
+  meta: {
+    analytics: {
+      type: "save-profile-success"
+    }
+  }
+});
+
+export const refreshTokenRequest = () => ({
+  type: REFRESH_TOKEN_REQUEST,
+  meta: {
+    analytics: {
+      type: "refresh-token-request"
+    }
+  }
+});
+
+export const refreshTokenFailure = () => ({
+  type: REFRESH_TOKEN_FAILURE,
+  meta: {
+    analytics: {
+      type: "refresh-token-failure"
+    }
+  }
+});
+
+export const refreshTokenSuccess = refreshToken => ({
+  type: REFRESH_TOKEN_SUCCESS,
+  payload: { refreshToken },
+  meta: {
+    analytics: {
+      type: "refresh-token-success",
+      payload: { refreshToken }
+    }
+  }
+});
+
+export const closeSignupPrompt = () => ({
+  type: CLOSE_SIGNUP_PROMPT,
+  meta: {
+    analytics: {
+      type: "close-signup-prompt"
+    }
+  }
+});
+
+export const openSignupPrompt = () => ({
+  type: OPEN_SIGNUP_PROMPT,
+  meta: {
+    analytics: {
+      type: "open-signup-prompt"
+    }
+  }
+});
+
+export const fetchUserProfileRequest = () => ({
+  type: FETCH_USER_PROFILE_REQUEST,
+  meta: {
+    analytics: {
+      type: "fetch-user-profile-request"
+    }
+  }
+});
+
+export const fetchUserProfileFailure = () => ({
+  type: FETCH_USER_PROFILE_FAILURE,
+  meta: {
+    analytics: {
+      type: "fetch-user-profile-failure"
+    }
+  }
+});
+
+export const fetchUserProfileSuccess = () => ({
+  type: FETCH_USER_PROFILE_SUCCESS,
+  meta: {
+    analytics: {
+      type: "fetch-user-profile-success"
+    }
+  }
+});
 
 export const setOrigin = (lon, lat, name) => (dispatch, getState) => {
   dispatch({

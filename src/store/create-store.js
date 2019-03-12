@@ -6,10 +6,10 @@ import storage from "redux-persist/lib/storage";
 import { reduxPlugin as router5ReduxPlugin } from "redux-router5";
 
 import createAnalyticsMiddleware from "store/create-analytics-middleware";
-import createOpenIDMiddleware from "store/create-openid-middleware";
+import createAuthMiddleware from "store/create-auth-middleware";
 import createRouter5Middleware from "store/create-router5-middleware";
 
-import rootReducer from "reducers";
+import rootReducerObject from "reducers";
 
 const configureStore = router => {
   const middlewares = [];
@@ -19,18 +19,32 @@ const configureStore = router => {
   // Thunks: async side effects
   middlewares.push(thunkMiddleware);
 
-  // Persist (on client side) anlytics and routing profile info
-  const persistConfig = {
-    key: "root",
+  // Persist (on client side) certain pieces of data
+  const analyticsPersistConfig = {
+    key: "analytics",
     storage,
-    whitelist: ["analytics"],
     version: 0,
     migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
   };
-  const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+  const authPersistConfig = {
+    key: "auth",
+    storage,
+    version: 0,
+    migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
+  };
+
+  const persistedReducer = combineReducers({
+    ...rootReducerObject,
+    analytics: persistReducer(
+      analyticsPersistConfig,
+      rootReducerObject.analytics
+    ),
+    auth: persistReducer(authPersistConfig, rootReducerObject.auth)
+  });
 
   // Authentication middleware
-  middlewares.push(createOpenIDMiddleware());
+  middlewares.push(createAuthMiddleware());
 
   // Analytics middleware
   if (process.env.ANALYTICS === "yes") {

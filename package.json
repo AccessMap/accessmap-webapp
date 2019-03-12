@@ -70,12 +70,12 @@
     "es7-shim": "^6.0.0",
     "i18next-client": "^1.11.4",
     "intl": "^1.2.5",
+    "jwt-decode": "^2.2.0",
     "lodash.throttle": "^4.1.1",
     "mapbox": "^1.0.0-beta9",
     "mapbox-gl": "^0.52.0",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
-    "oidc-client": "^1.6.1",
     "opening_hours": "^3.5.0",
     "promise-polyfill": "^8.1.0",
     "prop-types": "^15.6.0",
@@ -95,6 +95,7 @@
     "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "router5": "^6.6.3",
+    "router5-plugin-browser": "^7.0.2",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^2.0.4"
   }

@@ -15,11 +15,16 @@ import SVGIcon from "react-md/src/js/SVGIcons";
 import menuDown from "icons/menu-down.svg";
 
 const Login = props => {
-  const { actions, username } = props;
+  const { actions, isLoggedIn, username } = props;
 
-  if (!username)
+  if (!isLoggedIn)
     return (
-      <Button className="login" flat primary onClick={actions.logIn}>
+      <Button
+        className="login"
+        flat
+        primary
+        onClick={actions.authenticationRequest}
+      >
         Sign in
       </Button>
     );
@@ -77,6 +82,7 @@ const Login = props => {
 
 Login.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   username: PropTypes.string
 };
 
@@ -86,7 +92,10 @@ Login.defaultProps = {
 
 const mapStateToProps = state => {
   const { auth } = state;
-  return { username: auth ? auth.preferredUsername : null };
+  return {
+    isLoggedIn: auth.isLoggedIn,
+    username: auth.displayName
+  };
 };
 
 const mapDispatchToProps = dispatch => ({

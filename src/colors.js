@@ -21,17 +21,17 @@ const colorFromSpeed = (speed, maxSpeed) => {
   return inclineColorScale(relativeSpeed);
 };
 
-const uphillColorMap = (maxUphill, maxDownhill, speedMax) => {
+const uphillColorMap = (uphillMax, downhillMax, speedMax) => {
   const colorMap = incline => {
-    const speed = uphillSpeed(incline, maxUphill, maxDownhill, speedMax);
+    const speed = uphillSpeed(incline, uphillMax, downhillMax, speedMax);
     return colorFromSpeed(speed, speedMax);
   };
   return colorMap;
 };
 
-const downhillColorMap = (maxUphill, maxDownhill, speedMax) => {
+const downhillColorMap = (uphillMax, downhillMax, speedMax) => {
   const colorMap = incline => {
-    const speed = downhillSpeed(incline, maxUphill, maxDownhill, speedMax);
+    const speed = downhillSpeed(incline, uphillMax, downhillMax, speedMax);
     return colorFromSpeed(speed, speedMax);
   };
   return colorMap;

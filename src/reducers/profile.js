@@ -1,20 +1,18 @@
 import { combineReducers } from "redux";
 
-import cloneObject from "utils/clone-object";
-
 import {
   CLOSE_PREFERENCES,
+  FETCH_PROFILE_SUCCESS,
   MOUSE_OUT_DOWNHILL,
   MOUSE_OVER_DOWNHILL,
   OPEN_DOWNHILL_PREFERENCES,
   OPEN_BARRIERS_PREFERENCES,
   OPEN_PREFERENCES,
   OPEN_UPHILL_PREFERENCES,
-  SET_INCLINE_MAX,
-  SET_INCLINE_MIN,
-  SET_PROFILE,
-  SET_PROFILE_DEFAULT,
-  SET_SPEED,
+  NO_SAVED_PROFILES,
+  SET_UPHILL_MAX,
+  SET_DOWNHILL_MAX,
+  SELECT_PROFILE,
   TOGGLE_CURBRAMPS
 } from "actions";
 
@@ -47,15 +45,20 @@ const handleEditorMode = (state = defaults.editorMode, action) => {
 
 const handleCustom = (state = defaults.custom, action) => {
   switch (action.type) {
-    case SET_INCLINE_MAX:
+    case FETCH_PROFILE_SUCCESS:
       return {
         ...state,
-        inclineMax: action.payload
+        ...action.payload
       };
-    case SET_INCLINE_MIN:
+    case SET_UPHILL_MAX:
       return {
         ...state,
-        inclineMin: action.payload
+        uphillMax: action.payload
+      };
+    case SET_DOWNHILL_MAX:
+      return {
+        ...state,
+        downhillMax: action.payload
       };
     case TOGGLE_CURBRAMPS:
       return {
@@ -68,6 +71,7 @@ const handleCustom = (state = defaults.custom, action) => {
     //     ...state,
     //     profiles
     //   };
+    case NO_SAVED_PROFILES:
     default:
       return state;
   }
@@ -75,7 +79,7 @@ const handleCustom = (state = defaults.custom, action) => {
 
 const handleSelected = (state = defaults.selected, action) => {
   switch (action.type) {
-    case SET_PROFILE:
+    case SELECT_PROFILE:
       // TODO: check for validity? How do we recover from errors here?
       return action.payload;
     default:
@@ -83,7 +87,7 @@ const handleSelected = (state = defaults.selected, action) => {
   }
 };
 
-const handleFilter = (state = defaults.filter, action) => {
+const handleFilter = (state = defaults.filter) => {
   // TODO: use this for logged-in mode + filtering. Allow favorites, etc.
   return state;
 };

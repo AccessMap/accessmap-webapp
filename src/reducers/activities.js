@@ -1,14 +1,16 @@
 import { combineReducers } from "redux";
 
 import {
-  HIDE_DRAWER,
+  EXIT_TRIP_PLANNING,
   CLOSE_MAP_INFO,
   CLOSE_DIRECTIONS,
-  SHOW_DRAWER,
+  CLOSE_SIGNUP_PROMPT,
+  HIDE_DRAWER,
+  OPEN_SIGNUP_PROMPT,
   RECEIVE_ROUTE,
-  SET_PROFILE,
+  SELECT_PROFILE,
+  SHOW_DRAWER,
   TOGGLE_SETTING_PROFILE,
-  EXIT_TRIP_PLANNING,
   VIEW_DIRECTIONS,
   VIEW_MAP_INFO,
   VIEW_ROUTE_INFO
@@ -27,9 +29,20 @@ const handleDrawerVisible = (state = defaults.drawerVisible, action) => {
   }
 };
 
+const handlePromptingSignup = (state = defaults.promptingSignup, action) => {
+  switch (action.type) {
+    case OPEN_SIGNUP_PROMPT:
+      return true;
+    case CLOSE_SIGNUP_PROMPT:
+      return false;
+    default:
+      return state;
+  }
+};
+
 const handleSettingProfile = (state = defaults.settingProfile, action) => {
   switch (action.type) {
-    case SET_PROFILE:
+    case SELECT_PROFILE:
       return action.payload === "custom";
     case TOGGLE_SETTING_PROFILE:
       return !action.payload;
@@ -88,6 +101,7 @@ const handleViewingRouteInfo = (state = defaults.viewingRouteInfo, action) => {
 
 export default combineReducers({
   drawerVisible: handleDrawerVisible,
+  promptingSignup: handlePromptingSignup,
   settingProfile: handleSettingProfile,
   viewingDirections: handleViewingDirections,
   viewingMapInfo: handleViewingMapInfo,

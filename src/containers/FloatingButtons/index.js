@@ -92,7 +92,7 @@ const mapStateToProps = state => ({
   planningTrip: state.router.route && state.router.route.name === "directions",
   settingProfile: state.activities.settingProfile,
   viewingMapInfo: state.activities.viewingMapInfo,
-  zoom: state.router.route.params.z
+  zoom: state.router.route.params.z || 15
 });
 
 const mapDispatchToProps = dispatch => ({

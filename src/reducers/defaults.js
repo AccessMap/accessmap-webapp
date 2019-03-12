@@ -4,6 +4,7 @@ import { mainTours } from "constants/tours";
 
 export const defaultActivities = {
   drawerVisible: false,
+  promptingSignup: false,
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,
@@ -11,9 +12,17 @@ export const defaultActivities = {
   viewingRouteInfo: false
 };
 
-export const defaultAnalytics = null;
+export const defaultAnalytics = {
+  enabled: true
+};
 
-export const defaultAuth = null;
+export const defaultAuth = {
+  accessToken: null,
+  displayName: null,
+  isLoggedIn: false,
+  refreshToken: null,
+  sub: null
+};
 
 export const defaultBrowser = {
   displayMode: "landscape",

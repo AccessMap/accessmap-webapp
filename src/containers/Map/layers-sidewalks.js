@@ -6,11 +6,7 @@ import { Layer } from "react-mapbox-gl";
 
 import { getCurrentProfile } from "selectors";
 
-import { INCLINE_IDEAL } from "constants/routing";
-import { SIDEWALK_FLAT, SIDEWALK_MID, SIDEWALK_STEEP } from "colors";
 import { uphillColorMap, downhillColorMap } from "colors";
-import { defaultProfiles } from "profiles";
-// import { uphillSpeed, downhillSpeed } from "profiles/cost-function";
 
 // TODO: put the code for this icon in its own module
 /* eslint-disable import/no-webpack-loader-syntax */
@@ -18,9 +14,9 @@ import directionArrowURL from "!file-loader!images/direction-arrow.png";
 import directionArrowWhiteURL from "!file-loader!images/direction-arrow-white.png";
 /* eslint-enable import/no-webpack-loader-syntax */
 
-const EARTH_RADIUS = 6378137;
-const LAT = 47.6;
-const TILESIZE = 512;
+// const EARTH_RADIUS = 6378137;
+// const LAT = 47.6;
+// const TILESIZE = 512;
 
 // const pixelsPerMeter = zoom => {
 //   const scale = 2 ** zoom;
@@ -67,7 +63,7 @@ const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 4, WIDTH_INACCESSIBLE * 1.5];
 
 const Sidewalks = props => {
-  const { inclineMax, inclineMin, speed, inclineUphill } = props;
+  const { uphillMax, downhillMax, speed, inclineUphill } = props;
 
   // Pick an odd number so that equal amount on each side of 0
   const nSamples = 15;
@@ -78,15 +74,14 @@ const Sidewalks = props => {
 
   let inclineSamples;
   let colorMap;
-  let estimatedSpeeds;
   if (inclineUphill) {
-    // Scaled 0 -> inclineMax
-    inclineSamples = range.map(d => d * inclineMax);
-    colorMap = uphillColorMap(inclineMax, inclineMin, speed);
+    // Scaled 0 -> uphillMax
+    inclineSamples = range.map(d => d * uphillMax);
+    colorMap = uphillColorMap(uphillMax, downhillMax, speed);
   } else {
-    // Scaled 0 -> inclineMin
-    inclineSamples = range.map(d => d * -inclineMin);
-    colorMap = downhillColorMap(inclineMax, inclineMin, speed);
+    // Scaled 0 -> downhillMax
+    inclineSamples = range.map(d => d * -downhillMax);
+    colorMap = downhillColorMap(uphillMax, downhillMax, speed);
   }
 
   const inclineStops = [];
@@ -97,8 +92,8 @@ const Sidewalks = props => {
   });
 
   // Set bounds for when elevations become 'too steep' on display.
-  const boundMax = inclineUphill ? inclineMax : -inclineMin;
-  const boundMin = inclineUphill ? -inclineMax : inclineMin;
+  const boundMax = inclineUphill ? uphillMax : -downhillMax;
+  const boundMin = inclineUphill ? -uphillMax : downhillMax;
 
   return (
     <React.Fragment>
@@ -292,8 +287,8 @@ const Sidewalks = props => {
 };
 
 Sidewalks.propTypes = {
-  inclineMax: PropTypes.number.isRequired,
-  inclineMin: PropTypes.number.isRequired,
+  uphillMax: PropTypes.number.isRequired,
+  downhillMax: PropTypes.number.isRequired,
   inclineUphill: PropTypes.bool,
   speed: PropTypes.number.isRequired
 };
@@ -308,8 +303,8 @@ const mapStateToProps = state => {
   const currentProfile = getCurrentProfile(state);
 
   return {
-    inclineMax: currentProfile.inclineMax,
-    inclineMin: currentProfile.inclineMin,
+    uphillMax: currentProfile.uphillMax,
+    downhillMax: currentProfile.downhillMax,
     speed: currentProfile.speed,
     inclineUphill: map.inclineUphill
   };

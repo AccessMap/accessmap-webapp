@@ -10,7 +10,7 @@ import { getCurrentProfile } from "selectors";
 import SpeedLegend from "components/SpeedLegend";
 
 const Legend = props => {
-  const { isDownhill, maxUphill, maxDownhill, maxSpeed } = props;
+  const { isDownhill, uphillMax, downhillMax, maxSpeed } = props;
 
   return (
     <div className="legend">
@@ -18,8 +18,8 @@ const Legend = props => {
         <SpeedLegend
           n={15}
           isDownhill={isDownhill}
-          maxUphill={maxUphill}
-          maxDownhill={maxDownhill}
+          uphillMax={uphillMax}
+          downhillMax={downhillMax}
           maxSpeed={maxSpeed}
         />
       </Card>
@@ -29,8 +29,8 @@ const Legend = props => {
 
 Legend.propTypes = {
   isDownhill: PropTypes.bool.isRequired,
-  maxUphill: PropTypes.number.isRequired,
-  maxDownhill: PropTypes.number.isRequired,
+  uphillMax: PropTypes.number.isRequired,
+  downhillMax: PropTypes.number.isRequired,
   maxSpeed: PropTypes.number.isRequired
 };
 
@@ -38,8 +38,8 @@ const mapStateToProps = state => {
   const currentProfile = getCurrentProfile(state);
   return {
     isDownhill: state.profile.editorMode == "DOWNHILL",
-    maxUphill: currentProfile.inclineMax,
-    maxDownhill: currentProfile.inclineMin,
+    uphillMax: currentProfile.uphillMax,
+    downhillMax: currentProfile.downhillMax,
     maxSpeed: currentProfile.speed
   };
 };

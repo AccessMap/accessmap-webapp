@@ -4,14 +4,14 @@ import PropTypes from "prop-types";
 import { uphillColorMap, downhillColorMap } from "colors";
 
 const SpeedLegend = props => {
-  const { isDownhill, n, maxUphill, maxDownhill, maxSpeed } = props;
+  const { isDownhill, n, uphillMax, downhillMax, maxSpeed } = props;
 
   const colorMapFactory = isDownhill ? downhillColorMap : uphillColorMap;
-  const limit = isDownhill ? -1 * maxDownhill : maxUphill;
-  const colorMap = colorMapFactory(maxUphill, maxDownhill, maxSpeed);
+  const limit = isDownhill ? -1 * downhillMax : uphillMax;
+  const colorMap = colorMapFactory(uphillMax, downhillMax, maxSpeed);
 
   const xMax = 0.15;
-  // const xMax = isDownhill ? maxDownhill : maxUphill;
+  // const xMax = isDownhill ? downhillMax : uphillMax;
 
   const inclines = [...Array(n).keys()].map(d => xMax * (d / n));
 
@@ -50,6 +50,7 @@ const SpeedLegend = props => {
         />
         {inclines.map((d, i) => (
           <div
+            key={`legend-incline-label-${d}`}
             style={{
               position: "absolute",
               left: `calc((100% / ${n}) * ${i} + (100% / ${n} / 2))`,
@@ -106,8 +107,8 @@ const SpeedLegend = props => {
 SpeedLegend.propTypes = {
   isDownhill: PropTypes.bool,
   n: PropTypes.number,
-  maxUphill: PropTypes.number.isRequired,
-  maxDownhill: PropTypes.number.isRequired,
+  uphillMax: PropTypes.number.isRequired,
+  downhillMax: PropTypes.number.isRequired,
   maxSpeed: PropTypes.number.isRequired
 };
 

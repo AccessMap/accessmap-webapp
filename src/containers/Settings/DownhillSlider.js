@@ -11,9 +11,9 @@ import { getCurrentProfile } from "selectors";
 import Slider from "react-md/src/js/Sliders";
 
 const DownhillSlider = props => {
-  const { actions, disabled, inclineMin } = props;
+  const { actions, disabled, downhillMax } = props;
 
-  const downhillPercent = +(-inclineMin * 100).toFixed(1);
+  const downhillPercent = +(-downhillMax * 100).toFixed(1);
 
   return (
     <Slider
@@ -27,7 +27,7 @@ const DownhillSlider = props => {
       max={15}
       step={0.5}
       valuePrecision={1}
-      onChange={d => actions.setInclineMin(-d / 100)}
+      onChange={d => actions.setDownhillMax(-d / 100)}
       onMouseEnter={actions.mouseOverDownhill}
       onMouseLeave={actions.mouseOutDownhill}
       value={downhillPercent}
@@ -38,12 +38,12 @@ const DownhillSlider = props => {
 DownhillSlider.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   disabled: PropTypes.bool,
-  inclineMin: PropTypes.number.isRequired
+  downhillMax: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => ({
   disabled: state.profile.selected !== "Custom",
-  inclineMin: getCurrentProfile(state).inclineMin
+  downhillMax: getCurrentProfile(state).downhillMax
 });
 
 const mapDispatchToProps = dispatch => ({

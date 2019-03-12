@@ -10,6 +10,7 @@ import {
   CLOSE_DIRECTIONS,
   EXIT_TRIP_PLANNING,
   LOAD_MAP,
+  LOG_IN,
   MAP_MOVE,
   PLAN_TRIP,
   RECEIVE_ROUTE,
@@ -26,8 +27,12 @@ const createRouter5Middleware = router => {
   /* eslint-disable no-unused-vars */
   const middleware = store => next => action => {
     /* eslint-enable no-unused-vars */
-    // FIXME: replace action type strings with imported constant vars
     switch (action.type) {
+      case LOG_IN: {
+        // TODO: retrieve history and/or param state and redirect to last known one.
+        router.navigate("root");
+        break;
+      }
       case PLAN_TRIP: {
         // When planning a trip, need to (potentially) enter directions view and
         // update origin/destination (if necessary)

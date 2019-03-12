@@ -9,7 +9,7 @@ import cn from "classnames";
 import * as AppActions from "actions";
 
 import Button from "react-md/src/js/Buttons";
-import Card, { CardActions, CardText } from "react-md/src/js/Cards";
+import Card, { CardText } from "react-md/src/js/Cards";
 import Collapse from "react-md/src/js/Helpers/Collapse";
 import { DatePicker, TimePicker } from "react-md/src/js/Pickers";
 import { LinearProgress } from "react-md/src/js/Progress";
@@ -30,6 +30,7 @@ import UphillSlider from "containers/Settings/UphillSlider";
 
 import AccessMapLogo from "components/Icons/AccessMapLogo";
 import Directions from "components/Directions";
+import ProfileSaveButton from "components/ProfileSaveButton";
 import RouteInfo from "components/RouteInfo";
 
 import chevronDown from "icons/chevron-down.svg";
@@ -39,8 +40,6 @@ import magnify from "icons/magnify.svg";
 import menu from "icons/menu.svg";
 import pencil from "icons/pencil.svg";
 import swapVert from "icons/swap-vert.svg";
-
-import { defaultProfiles } from "profiles";
 
 import { pointFeature, routeResult as routeResultProps } from "prop-schema";
 
@@ -59,6 +58,7 @@ class OmniCard extends React.PureComponent {
       destination,
       drawerVisible,
       fetchingRoute,
+      isLoggedIn,
       mediaType,
       origin,
       planningTrip,
@@ -249,7 +249,6 @@ class OmniCard extends React.PureComponent {
         );
       }
     }
-
     const date = new Date(dateTime);
 
     const timePicker = (
@@ -302,6 +301,17 @@ class OmniCard extends React.PureComponent {
               <DownhillSlider />
               Avoid barriers:
               <AvoidCurbsToggle label="Raised curbs" />
+              {selectedProfile === "Custom" && (
+                <ProfileSaveButton
+                  onClick={() => {
+                    if (isLoggedIn) {
+                      actions.saveProfileRequest();
+                    } else {
+                      actions.openSignupPrompt();
+                    }
+                  }}
+                />
+              )}
             </CardText>
           </React.Fragment>
         ) : null}
@@ -317,6 +327,7 @@ OmniCard.propTypes = {
   destination: pointFeature({ name: PropTypes.string }),
   drawerVisible: PropTypes.bool.isRequired,
   fetchingRoute: PropTypes.bool,
+  isLoggedIn: PropTypes.bool.isRequired,
   origin: pointFeature({ name: PropTypes.string }),
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
   planningTrip: PropTypes.bool,
@@ -344,6 +355,7 @@ OmniCard.defaultProps = {
 const mapStateToProps = state => {
   const {
     activities,
+    auth,
     browser,
     profile,
     route,
@@ -357,6 +369,7 @@ const mapStateToProps = state => {
     destination: waypoints.destination,
     drawerVisible: activities.drawerVisible,
     fetchingRoute: route.fetchingRoute,
+    isLoggedIn: auth.isLoggedIn,
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: router.route && router.route.name === "directions",

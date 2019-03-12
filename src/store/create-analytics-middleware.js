@@ -8,7 +8,7 @@ const createAnalyticsMiddleware = () => {
   const analyticsWriteKey = process.env.ANALYTICS_KEY;
 
   const middleware = analytics(({ type, payload }, state) => {
-    if (state.analytics || state.analytics == null) {
+    if (state.analytics.enabled) {
       switch (type) {
         case "load-app":
           // Initialize rakam

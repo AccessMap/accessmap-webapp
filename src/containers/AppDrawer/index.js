@@ -18,7 +18,7 @@ import AccessMapLogo from "components/Icons/AccessMapLogo";
 import close from "icons/close.svg";
 
 const AppDrawer = props => {
-  const { actions, drawerVisible } = props;
+  const { actions, analyticsEnabled, drawerVisible } = props;
 
   return (
     <Drawer
@@ -53,7 +53,7 @@ const AppDrawer = props => {
               name="track"
               label="Research use"
               labelBefore
-              defaultChecked
+              checked={analyticsEnabled}
               onChange={checked => {
                 if (checked) {
                   actions.enableAnalytics();
@@ -91,10 +91,12 @@ const AppDrawer = props => {
 
 AppDrawer.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  analyticsEnabled: PropTypes.bool.isRequired,
   drawerVisible: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
+  analyticsEnabled: state.analytics.enabled !== false,
   drawerVisible: state.activities.drawerVisible
 });
 

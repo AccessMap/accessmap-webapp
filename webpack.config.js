@@ -192,6 +192,12 @@ module.exports = function(env) {
           changeOrigin: true,
           pathRewrite: { "^/api": "" }
         },
+        "/api/directions": {
+          target: path.join(process.env.ROUTING_SERVER, "directions"),
+          secure: false,
+          changeOrigin: true,
+          pathRewrite: { "^/api": "" }
+        },
         "/tiles": {
           target: process.env.TILE_SERVER,
           secure: false,

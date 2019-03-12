@@ -16,12 +16,19 @@ import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 
+import ProfileSaveButton from "components/ProfileSaveButton";
+
 import close from "icons/close.svg";
 
-import { defaultProfiles } from "profiles";
-
 const SettingsCard = props => {
-  const { actions, mediaType, profileName, editorMode, settingProfile } = props;
+  const {
+    actions,
+    editorMode,
+    isLoggedIn,
+    mediaType,
+    selectedProfile,
+    settingProfile
+  } = props;
 
   if (mediaType !== "mobile" || !settingProfile) return null;
 
@@ -40,10 +47,26 @@ const SettingsCard = props => {
       settingsComponent = <UphillSlider />;
   }
 
+  let saveButton = null;
+  if (selectedProfile === "Custom") {
+    saveButton = (
+      <ProfileSaveButton
+        onClick={() => {
+          if (isLoggedIn) {
+            actions.saveProfileRequest();
+          } else {
+            actions.openSignupPrompt();
+          }
+        }}
+      />
+    );
+  }
+
   return (
     <Card className="settings-card">
       <Toolbar
         actions={[
+          saveButton,
           <Button
             key="close-profile-settings-button"
             aria-label="close profile settings"
@@ -87,9 +110,10 @@ const SettingsCard = props => {
 
 SettingsCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
   editorMode: PropTypes.oneOf(["UPHILL", "DOWNHILL", "BARRIERS", null]),
-  profileName: PropTypes.string.isRequired,
+  selectedProfile: PropTypes.string.isRequired,
   settingProfile: PropTypes.bool
 };
 
@@ -100,12 +124,13 @@ SettingsCard.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { activities, browser, profile } = state;
+  const { activities, auth, browser, profile } = state;
 
   return {
+    isLoggedIn: auth.isLoggedIn,
     mediaType: browser.mediaType,
     editorMode: profile.editorMode,
-    profileName: profile.selected,
+    selectedProfile: profile.selected,
     settingProfile: activities.settingProfile
   };
 };

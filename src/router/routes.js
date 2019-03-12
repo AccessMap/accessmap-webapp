@@ -41,10 +41,16 @@ const decodeParams = params => {
     decoded.z = precisionRound(params.z, 7);
   }
   if (params.waypoints) {
-    const waypoints = params.waypoints.split("'").map(w => {
-      const coords = w.split("_").map(c => precisionRound(c, 7));
-      return { lon: coords[0], lat: coords[1] };
-    });
+    let waypoints = [];
+    for (let w of params.waypoints) {
+      if (w.length === 0) {
+        waypoints = null;
+        break;
+      } else {
+        const coords = w.split("_").map(c => precisionRound(c, 7));
+        waypoints.push({ lon: coords[0], lat: coords[1] });
+      }
+    }
     decoded.waypoints = waypoints;
   }
 
@@ -76,6 +82,10 @@ const routes = [
   {
     name: "silent",
     path: "/silent"
+  },
+  {
+    name: "login_callback",
+    path: "/login_callback?access_token&refresh_token"
   },
   {
     name: "signout",

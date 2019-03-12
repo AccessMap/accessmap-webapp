@@ -5,9 +5,9 @@ import { defaultAnalytics as defaults } from "reducers/defaults";
 export default (state = defaults, action) => {
   switch (action.type) {
     case ENABLE_ANALYTICS:
-      return true;
+      return { enabled: true };
     case DISABLE_ANALYTICS:
-      return false;
+      return { enabled: false };
     default:
       return state;
   }

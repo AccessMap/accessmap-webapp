@@ -24,13 +24,21 @@ const router = createRouter();
 const store = createStore(router);
 const persistor = createPersistor(store);
 
-router.start(() => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Index />
-      </PersistGate>
-    </Provider>,
-    document.getElementById("root")
-  );
-});
+// NOTE: It is very, very important that the router starts after the persistor,
+// otherwise they fight with one another - props from routes will be canceled out
+// during persistor rehydration
+
+ReactDOM.render(
+  <Provider store={store}>
+    <PersistGate
+      loading={null}
+      persistor={persistor}
+      onBeforeLift={() => {
+        router.start();
+      }}
+    >
+      <Index />
+    </PersistGate>
+  </Provider>,
+  document.getElementById("root")
+);

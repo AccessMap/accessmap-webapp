@@ -17,6 +17,7 @@ import OmniCard from "containers/OmniCard";
 import RouteBottomCard from "containers/RouteBottomCard";
 import RouteBottomSheet from "containers/RouteBottomSheet";
 import SettingsCard from "containers/SettingsCard";
+import SignupPrompt from "containers/SignupPrompt";
 import Toast from "containers/Toast";
 import TopRightButtons from "containers/TopRightButtons";
 import Tour from "containers/Tour";
@@ -37,6 +38,7 @@ class App extends PureComponent {
       <AnalyticsBar />
       <AppDrawer />
       <MapOverlay>
+        <Legend />
         <OmniCard />
         <SettingsCard />
         <TopRightButtons />
@@ -44,11 +46,11 @@ class App extends PureComponent {
         <LinkOverlay />
         <RouteBottomCard />
         <FeatureCard />
-        <Legend />
       </MapOverlay>
       <Map />
       <RouteBottomSheet />
       <Tour />
+      <SignupPrompt />
     </React.Fragment>
   );
 }

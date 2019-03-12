@@ -9,9 +9,9 @@ import Card from "react-md/src/js/Cards";
 import * as AppActions from "actions";
 
 const AnalyticsBar = props => {
-  const { actions, analytics } = props;
+  const { actions, analyticsStatus } = props;
 
-  if (analytics !== null) return null;
+  if (analyticsStatus !== null) return null;
 
   return (
     <Card className="analyticsbar">
@@ -30,20 +30,16 @@ const AnalyticsBar = props => {
 
 AnalyticsBar.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  analytics: PropTypes.bool
+  analyticsStatus: PropTypes.bool
 };
 
 AnalyticsBar.defaultProps = {
   analytics: null
 };
 
-const mapStateToProps = state => {
-  const { analytics } = state;
-
-  return {
-    analytics
-  };
-};
+const mapStateToProps = state => ({
+  analyticsStatus: state.analytics.enabled
+});
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)

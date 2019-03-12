@@ -38,7 +38,7 @@ const ProfileList = props => {
       defaultValue={selectedProfile.name}
       onChange={(d, e) => {
         if (e.type === "change") {
-          actions.setProfile(d);
+          actions.selectProfile(d);
         } else if (e.type === "keydown") {
           // This is improper navigation - arrow keys + space is better. But
           // either this never worked for react-md or it broke at some point...

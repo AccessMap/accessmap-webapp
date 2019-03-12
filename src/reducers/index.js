@@ -1,5 +1,3 @@
-import { combineReducers } from "redux";
-
 import { router5Reducer } from "redux-router5";
 
 import activities from "./activities";
@@ -21,7 +19,7 @@ import waypoints from "./waypoints";
 /**
  * Routing to be implemented
  */
-export default combineReducers({
+export default {
   activities,
   analytics,
   auth,
@@ -38,4 +36,4 @@ export default combineReducers({
   tour,
   view,
   waypoints
-});
+};

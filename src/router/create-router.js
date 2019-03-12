@@ -1,12 +1,14 @@
 import createRouter from "router5";
-import browserPlugin from "router5/plugins/browser";
+import browserPlugin from "router5-plugin-browser";
 
 import routes from "router/routes";
 
 const configureRouter = () => {
   const router = createRouter(routes, {
     defaultRoute: "root"
-  }).usePlugin(browserPlugin());
+  });
+
+  router.usePlugin(browserPlugin());
 
   return router;
 };
