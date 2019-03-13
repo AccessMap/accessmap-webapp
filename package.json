@@ -12,8 +12,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
     "profile": "export $(cat .env | xargs) && cross-env NODE_ENV=production webpack --env.prod=true --env.profile=true",
-    "prod": "cross-env NODE_ENV=production webpack --env.prod=true",
-    "build": "cross-env NODE_ENV=production webpack --env.prod=true",
+    "prod": "cross-env webpack --mode=production --env.prod=true",
+    "build": "npm run prod",
     "pretty": "prettier --write \"src/**/*.js\"",
     "lint": "eslint ./src -f table || true",
     "lintandskip": "eslint ./src -f table"
