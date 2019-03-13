@@ -480,7 +480,7 @@ export const fetchProfileSuccess = profile => ({
   meta: {
     analytics: {
       type: "fetch-profile-success",
-      paylaod: profile
+      payload: profile
     }
   }
 });
