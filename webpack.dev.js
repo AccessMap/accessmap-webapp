@@ -1,12 +1,11 @@
-const webpack = require("webpack");
-const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const dotenv = require("dotenv");
+const merge = require("webpack-merge");
+const url = require("url");
+const webpack = require("webpack");
 
 // Insert definitions from .env into process.env
 dotenv.config()
-
-const path = require("path");
 
 module.exports = merge(common, {
   devtool: "inline-source-map",
@@ -49,17 +48,29 @@ module.exports = merge(common, {
     },
     proxy: {
       // Replace with /api/v1 for dev of api and just /api/ for docker testing
-      "/api": {
-        target: process.env.API_SERVER,
+      "/api/v1/auth": {
+        target: url.resolve(process.env.API_SERVER, "auth"),
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api": "" }
+        pathRewrite: { "^/api/v1/auth": "" }
       },
-      "/api/directions": {
-        target: process.env.ROUTERING_SERVER && path.join(process.env.ROUTING_SERVER, "directions"),
+      "/api/v1/profiles": {
+        target: url.resolve(process.env.API_SERVER, "profiles"),
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api": "" }
+        pathRewrite: { "^/api/v1/profiles": "" }
+      },
+      "/api/v1/user": {
+        target: url.resolve(process.env.API_SERVER, "user"),
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: { "^/api/v1/user": "" }
+      },
+      "/api/v1/routing": {
+        target: process.env.ROUTING_SERVER && process.env.ROUTING_SERVER,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: { "^/api/v1/routing": "" }
       },
       "/tiles": {
         target: process.env.TILE_SERVER,

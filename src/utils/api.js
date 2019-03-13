@@ -2,7 +2,7 @@
 // TODO: promisify
 export const loadUser = (accessToken, callback) => {
   // Retrieve user's profile
-  fetch("/api/user/profile", {
+  fetch("/api/v1/user/profile", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${accessToken}`
@@ -23,7 +23,7 @@ export const loadUser = (accessToken, callback) => {
 // Load a user's routing profile
 export const loadProfile = (jwt, callback) => {
   // Retrieve user's profile
-  fetch("/api/profiles", {
+  fetch("/api/v1/profiles", {
     method: "GET",
     headers: {
       Authorization: `Bearer ${jwt}`
@@ -41,7 +41,7 @@ export const loadProfile = (jwt, callback) => {
 
 export const saveProfile = (profile, accessToken, callback) => {
   // Retrieve user's profile
-  fetch("/api/profiles", {
+  fetch("/api/v1/profiles", {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -64,7 +64,7 @@ export const saveProfile = (profile, accessToken, callback) => {
 };
 
 export const refresh = (refreshToken, callback) => {
-  fetch("/api/auth/refresh", {
+  fetch("/api/v1/auth/refresh", {
     method: "POST",
     headers: {
       Authorization: `Bearer  ${refreshToken}`

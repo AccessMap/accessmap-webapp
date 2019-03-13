@@ -73,7 +73,7 @@ const createAuthMiddleware = () => {
         break;
       }
       case AUTHENTICATION_REQUEST:
-        window.location = "/api/auth/login";
+        window.location = "/api/v1/auth/login";
         break;
       case LOG_OUT:
         // TODO: logout doesn't really do anything - just clears internal data. User

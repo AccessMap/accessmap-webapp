@@ -353,7 +353,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
 
   const query = `${
     window.location.origin
-  }/api/v1/directions/${type}.json?${urlQuery}`;
+  }/api/v1/routing/directions/${type}.json?${urlQuery}`;
 
   fetch(query)
     .then(response => {
