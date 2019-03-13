@@ -10,7 +10,6 @@ import * as AppActions from "actions";
 
 import Button from "react-md/src/js/Buttons";
 import Card, { CardText } from "react-md/src/js/Cards";
-import Collapse from "react-md/src/js/Helpers/Collapse";
 import { LinearProgress } from "react-md/src/js/Progress";
 import SVGIcon from "react-md/src/js/SVGIcons";
 import Toolbar from "react-md/src/js/Toolbars";
@@ -335,7 +334,6 @@ const mapStateToProps = state => {
     profile,
     route,
     router,
-    routesettings,
     waypoints
   } = state;
 

@@ -17,7 +17,9 @@ export default class GeocoderAutocomplete extends Component {
       return;
     }
 
+    /* eslint-disable no-undef */
     const mapboxClient = new MapboxClient(MAPBOX_TOKEN);
+    /* eslint-enable no-undef */
     const geocoderOptions = { country: "us" };
 
     if (this.props.proximity) {

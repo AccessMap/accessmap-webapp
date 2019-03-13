@@ -11,17 +11,15 @@ const createAnalyticsMiddleware = () => {
       switch (type) {
         case "load-app":
           // Initialize rakam
-          rakam.init(
-            ANALYTICS_KEY,
-            state.auth ? state.auth.sub : uuid.v4(),
-            {
-              apiEndpoint: analyticsURL,
-              includeUtm: true,
-              trackClicks: true,
-              trackForms: true,
-              includeReferrer: true
-            }
-          );
+          /* eslint-disable no-undef */
+          rakam.init(ANALYTICS_KEY, state.auth ? state.auth.sub : uuid.v4(), {
+          /* eslint-enable no-undef */
+            apiEndpoint: analyticsURL,
+            includeUtm: true,
+            trackClicks: true,
+            trackForms: true,
+            includeReferrer: true
+          });
           break;
         case "user-logged-in":
           rakam.setUserId(payload.sub);

@@ -27,7 +27,9 @@ const CLICKABLE_LAYERS = [
 ];
 
 const MapboxGL = ReactMapboxGl({
+  /* eslint-disable no-undef */
   accessToken: MAPBOX_TOKEN,
+  /* eslint-enable no-undef */
   minZoom: 10,
   maxZoom: 20,
   bearing: [0],
