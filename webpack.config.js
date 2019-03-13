@@ -179,7 +179,7 @@ module.exports = function(env) {
           pathRewrite: { "^/api": "" }
         },
         "/api/directions": {
-          target: path.join(process.env.ROUTING_SERVER, "directions"),
+          target: process.env.ROUTERING_SERVER && path.join(process.env.ROUTING_SERVER, "directions"),
           secure: false,
           changeOrigin: true,
           pathRewrite: { "^/api": "" }
