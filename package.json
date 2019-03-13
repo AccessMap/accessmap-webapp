@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack-dev-server",
-    "profile": "cross-env NODE_ENV=production webpack --env.prod=true --env.profile=true",
+    "profile": "export $(cat .env | xargs) && cross-env NODE_ENV=production webpack --env.prod=true --env.profile=true",
     "prod": "cross-env NODE_ENV=production webpack --env.prod=true",
     "build": "cross-env NODE_ENV=production webpack --env.prod=true",
     "pretty": "prettier --write \"src/**/*.js\"",
