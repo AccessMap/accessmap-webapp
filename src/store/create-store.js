@@ -47,7 +47,7 @@ const configureStore = router => {
   middlewares.push(createAuthMiddleware());
 
   // Analytics middleware
-  if (process.env.ANALYTICS === "yes") {
+  if (ANALYTICS === "yes") {
     middlewares.push(createAnalyticsMiddleware());
   }
 
@@ -56,7 +56,7 @@ const configureStore = router => {
 
   // Logging middleware - for debug purposes
   /* eslint-disable global-require */
-  if (process.env.NODE_ENV !== "production") {
+  if (NODE_ENV === "development") {
     const { logger } = require("redux-logger");
     middlewares.push(logger);
   }

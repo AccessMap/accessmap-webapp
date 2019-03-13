@@ -5,8 +5,6 @@ import Autocomplete from "react-md/src/js/Autocompletes";
 import MapboxClient from "mapbox/lib/services/geocoding";
 import throttle from "lodash.throttle";
 
-const API_KEY = process.env.MAPBOX_TOKEN;
-
 export default class GeocoderAutocomplete extends Component {
   state = {
     places: [],
@@ -19,7 +17,7 @@ export default class GeocoderAutocomplete extends Component {
       return;
     }
 
-    const mapboxClient = new MapboxClient(API_KEY);
+    const mapboxClient = new MapboxClient(MAPBOX_TOKEN);
     const geocoderOptions = { country: "us" };
 
     if (this.props.proximity) {

@@ -5,7 +5,6 @@ import uuid from "uuid";
 const createAnalyticsMiddleware = () => {
   // Rakam Analytics
   const analyticsURL = `//${window.location.host}/analytics`;
-  const analyticsWriteKey = process.env.ANALYTICS_KEY;
 
   const middleware = analytics(({ type, payload }, state) => {
     if (state.analytics.enabled) {
@@ -13,7 +12,7 @@ const createAnalyticsMiddleware = () => {
         case "load-app":
           // Initialize rakam
           rakam.init(
-            analyticsWriteKey,
+            ANALYTICS_KEY,
             state.auth ? state.auth.sub : uuid.v4(),
             {
               apiEndpoint: analyticsURL,
