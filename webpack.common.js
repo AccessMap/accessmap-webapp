@@ -73,7 +73,7 @@ module.exports = {
       ".jsx"
     ],
     modules: [
-      path.join(__dirname, "./src"),
+      path.resolve("./src"),
       "node_modules",
       path.resolve(__dirname, "node_modules")
     ],
