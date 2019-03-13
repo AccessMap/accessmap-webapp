@@ -11,7 +11,6 @@ import * as AppActions from "actions";
 import Button from "react-md/src/js/Buttons";
 import Card, { CardText } from "react-md/src/js/Cards";
 import Collapse from "react-md/src/js/Helpers/Collapse";
-import { DatePicker, TimePicker } from "react-md/src/js/Pickers";
 import { LinearProgress } from "react-md/src/js/Progress";
 import SVGIcon from "react-md/src/js/SVGIcons";
 import Toolbar from "react-md/src/js/Toolbars";
@@ -27,6 +26,8 @@ import Login from "containers/Login";
 import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
+
+import TimePicker from "containers/TimePicker";
 
 import AccessMapLogo from "components/Icons/AccessMapLogo";
 import Directions from "components/Directions";
@@ -54,7 +55,6 @@ class OmniCard extends React.PureComponent {
   render() {
     const {
       actions,
-      dateTime,
       destination,
       drawerVisible,
       fetchingRoute,
@@ -249,31 +249,6 @@ class OmniCard extends React.PureComponent {
         );
       }
     }
-    const date = new Date(dateTime);
-
-    const timePicker = (
-      <Collapse collapsed={isMobile && !showTripOptions}>
-        <CardText className="timepicker">
-          <DatePicker
-            id="date-picker"
-            defaultValue={date}
-            fullWidth={false}
-            pickerStyle={{ zIndex: 100 }}
-            onChange={(s, d) => {
-              actions.setDate(d.getFullYear(), d.getMonth(), d.getDate());
-            }}
-          />
-          <TimePicker
-            id="time-picker"
-            autoOk
-            hoverMode
-            defaultValue={date}
-            fullWidth={false}
-            onChange={(s, d) => actions.setTime(d.getHours(), d.getMinutes())}
-          />
-        </CardText>
-      </Collapse>
-    );
 
     return (
       <Card
@@ -315,7 +290,7 @@ class OmniCard extends React.PureComponent {
             </CardText>
           </React.Fragment>
         ) : null}
-        {planningTrip ? timePicker : null}
+        {planningTrip ? <TimePicker showTripOptions={showTripOptions} /> : null}
       </Card>
     );
   }
@@ -323,7 +298,6 @@ class OmniCard extends React.PureComponent {
 
 OmniCard.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
-  dateTime: PropTypes.number.isRequired,
   destination: pointFeature({ name: PropTypes.string }),
   drawerVisible: PropTypes.bool.isRequired,
   fetchingRoute: PropTypes.bool,
@@ -365,7 +339,6 @@ const mapStateToProps = state => {
   } = state;
 
   return {
-    dateTime: routesettings.dateTime,
     destination: waypoints.destination,
     drawerVisible: activities.drawerVisible,
     fetchingRoute: route.fetchingRoute,
