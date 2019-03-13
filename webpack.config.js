@@ -16,9 +16,8 @@ const sourcePath = path.join(__dirname, "./src");
 const staticsPath = path.join(__dirname, "./public");
 
 module.exports = function(env) {
-  const nodeEnv = env && env.prod ? "production" : "development";
   const isProfile = env && env.profile;
-  const isProd = nodeEnv === "production";
+  const isProd = process.env.NODE_ENV == "production";
 
   const plugins = [
     new webpack.NamedModulesPlugin(),
