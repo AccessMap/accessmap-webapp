@@ -3,7 +3,9 @@ const path = require("path");
 const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
   .BundleAnalyzerPlugin;
 // Used to pass .env to webpack config process.env
-require("dotenv").config();
+// require("dotenv").config();
+// FIXME: Check for required environmental variables and give useful message if they
+// are missing. Creates an awkard "path" error right now.
 
 /* Plugins */
 // Used to pass .env to client JS that gets bundled
@@ -19,7 +21,6 @@ module.exports = function(env) {
   const isProd = nodeEnv === "production";
 
   const plugins = [
-    new Dotenv({ systemvars: true }),
     new webpack.NamedModulesPlugin(),
     new SpriteLoaderPlugin()
   ];
@@ -33,28 +34,11 @@ module.exports = function(env) {
       new webpack.LoaderOptionsPlugin({
         minimize: true,
         debug: false
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        compress: {
-          drop_console: true,
-          warnings: false,
-          screw_ie8: true,
-          conditionals: true,
-          unused: true,
-          comparisons: true,
-          sequences: true,
-          dead_code: true,
-          evaluate: true,
-          if_return: true,
-          join_vars: true
-        },
-        output: {
-          comments: false
-        }
       })
     );
   } else {
     plugins.push(
+      Dotenv({ systemvars: true }),
       new webpack.HotModuleReplacementPlugin(),
       new webpack.LoaderOptionsPlugin({
         minimize: false,
@@ -71,6 +55,9 @@ module.exports = function(env) {
       path: staticsPath,
       filename: "index.bundle.js",
       publicPath: "/"
+    },
+    optimization: {
+      minimize: isProd
     },
     module: {
       rules: [
@@ -128,7 +115,6 @@ module.exports = function(env) {
         }
       ]
     },
-
     resolve: {
       extensions: [
         ".webpack-loader.js",
