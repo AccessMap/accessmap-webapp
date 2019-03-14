@@ -9,7 +9,7 @@ module.exports = merge(common, {
   },
   plugins: [
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      NODE_ENV: JSON.stringify("production"),
       MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
       API_SERVER: JSON.stringify(process.env.API_SERVER),
       ROUTING_SERVER: JSON.stringify(process.env.ROUTING_SERVER),
@@ -22,5 +22,5 @@ module.exports = merge(common, {
       minimize: true,
       debug: false
     })
-  ],
+  ]
 });

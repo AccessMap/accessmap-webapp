@@ -5,14 +5,14 @@ const url = require("url");
 const webpack = require("webpack");
 
 // Insert definitions from .env into process.env
-dotenv.config()
+dotenv.config();
 
 module.exports = merge(common, {
   devtool: "inline-source-map",
   mode: "development",
   plugins: [
     new webpack.DefinePlugin({
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+      NODE_ENV: JSON.stringify("development"),
       MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
       API_SERVER: JSON.stringify(process.env.API_SERVER),
       ROUTING_SERVER: JSON.stringify(process.env.ROUTING_SERVER),
