@@ -103,6 +103,6 @@
     "router5": "^6.6.3",
     "router5-plugin-browser": "^7.0.2",
     "uuid": "^3.2.1",
-    "whatwg-fetch": "^2.0.4"
+    "whatwg-fetch": "^3.0.0"
   }
 }
