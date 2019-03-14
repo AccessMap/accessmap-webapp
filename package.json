@@ -64,9 +64,9 @@
   "dependencies": {
     "@mapbox/geo-viewport": "^0.4.0",
     "@mapbox/sphericalmercator": "^1.1.0",
-    "@turf/bbox": "^4.7.3",
-    "@turf/bbox-polygon": "4.7.3",
-    "@turf/inside": "^4.7.3",
+    "@turf/bbox": "^6.0.1",
+    "@turf/bbox-polygon": "^6.0.1",
+    "@turf/boolean-point-in-polygon": "^6.0.1",
     "chroma-js": "^1.4.1",
     "es7-shim": "^6.0.0",
     "i18next-client": "^1.11.4",
