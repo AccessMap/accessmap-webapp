@@ -7,7 +7,12 @@ module.exports = function(api) {
   ];
 
   const presets = [
-    require("@babel/preset-env"),
+    [
+      "@babel/preset-env",
+      {
+        useBuiltIns: "entry"
+      }
+    ],
     require("@babel/preset-react")
   ];
 
