@@ -2,6 +2,8 @@ import mapConstants from "constants/map";
 import precisionRound from "utils/precision-round";
 
 const encodeParams = params => {
+  // TODO: Use separate functions for directions mode vs others, put lon/lat/z in its
+  // own function
   const encoded = {};
   if (params.lon) {
     encoded.lon = precisionRound(params.lon, 7);
@@ -42,7 +44,8 @@ const decodeParams = params => {
   }
   if (params.waypoints) {
     let waypoints = [];
-    for (let w of params.waypoints) {
+    const waypointsArr = params.waypoints.split("'");
+    for (let w of waypointsArr) {
       if (w.length === 0) {
         waypoints = null;
         break;
@@ -71,7 +74,7 @@ const routes = [
   },
   {
     name: "directions",
-    path: "/dir:waypoints?lon&lat&z",
+    path: "/dir/:waypoints?lon&lat&z",
     encodeParams,
     decodeParams
   },
