@@ -49,7 +49,7 @@ const configureStore = router => {
   // Analytics middleware
   /* eslint-disable no-undef */
   if (ANALYTICS === "yes") {
-  /* eslint-enable no-undef */
+    /* eslint-enable no-undef */
     middlewares.push(createAnalyticsMiddleware());
   }
 
@@ -60,7 +60,7 @@ const configureStore = router => {
   /* eslint-disable global-require */
   /* eslint-disable no-undef */
   if (NODE_ENV === "development") {
-  /* eslint-enable no-undef */
+    /* eslint-enable no-undef */
     const { logger } = require("redux-logger");
     middlewares.push(logger);
   }

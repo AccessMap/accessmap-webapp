@@ -13,7 +13,7 @@ const createAnalyticsMiddleware = () => {
           // Initialize rakam
           /* eslint-disable no-undef */
           rakam.init(ANALYTICS_KEY, state.auth ? state.auth.sub : uuid.v4(), {
-          /* eslint-enable no-undef */
+            /* eslint-enable no-undef */
             apiEndpoint: analyticsURL,
             includeUtm: true,
             trackClicks: true,
