@@ -103,9 +103,7 @@ const Sidewalks = props => {
         sourceId="pedestrian"
         sourceLayer="sidewalks"
         paint={{
-          "line-width": {
-            stops: [[12, 0.2], [16, 3], [22, 30]]
-          },
+          "line-width": widthExpression,
           "line-opacity": 0
         }}
         before="bridge-street"

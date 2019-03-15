@@ -13,6 +13,10 @@ const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 2, WIDTH_INACCESSIBLE * 1.5];
 const Crossings = props => {
   const { avoidCurbs } = props;
 
+  const widthExpression = {
+    stops: [[12, 0.5], [16, 3], [22, 30]]
+  };
+
   return (
     <React.Fragment>
       <Layer
@@ -21,9 +25,7 @@ const Crossings = props => {
         sourceId="pedestrian"
         sourceLayer="crossings"
         paint={{
-          "line-width": {
-            stops: [[12, 0.5], [16, 2], [22, 20]]
-          },
+          "line-width": widthExpression,
           "line-opacity": 0
         }}
         before="bridge-street"
@@ -78,9 +80,7 @@ const Crossings = props => {
         ]}
         paint={{
           "line-color": "#555",
-          "line-gap-width": {
-            stops: [[12, 0.5], [16, 3], [22, 30]]
-          },
+          "line-gap-width": widthExpression,
           "line-opacity": [
             "interpolate",
             ["linear"],
@@ -106,9 +106,7 @@ const Crossings = props => {
         ]}
         paint={{
           "line-color": "#555",
-          "line-width": {
-            stops: [[12, 0.5], [16, 3], [22, 30]]
-          },
+          "line-width": widthExpression,
           "line-opacity": [
             "interpolate",
             ["linear"],
