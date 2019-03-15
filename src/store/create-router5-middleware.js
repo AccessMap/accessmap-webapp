@@ -40,7 +40,7 @@ const createRouter5Middleware = router => {
         // Starting trip planning - move the POI, if it exists, into the origin slot.
         const params = {
           ...router.getState().params,
-          waypoints: [origin, destination]
+          wp: [origin, destination]
         };
         router.navigate("directions", params);
         break;
@@ -69,7 +69,7 @@ const createRouter5Middleware = router => {
           lon: center[0],
           lat: center[1],
           z: zoom,
-          waypoints: [origin, destination]
+          wp: [origin, destination]
         };
 
         router.navigate("directions", params);
@@ -85,7 +85,7 @@ const createRouter5Middleware = router => {
           // Zoom to origin if no destination is set
           const directionsParams = {
             ...params,
-            waypoints: [action.payload]
+            wp: [action.payload]
           };
           if (!inView(lon, lat, params.lon, params.lat, params.z)) {
             directionsParams.lon = action.payload.lon;
@@ -99,7 +99,7 @@ const createRouter5Middleware = router => {
           // FIXME: this doesn't actually zoom to both at the moment
           const directionsParams = {
             ...params,
-            waypoints: [action.payload, destination]
+            wp: [action.payload, destination]
           };
           router.navigate("directions", directionsParams);
         }
@@ -115,7 +115,7 @@ const createRouter5Middleware = router => {
           // Zoom to origin if no destination is set and it's out of view
           const directionsParams = {
             ...params,
-            waypoints: [action.payload]
+            wp: [action.payload]
           };
           if (!inView(lon, lat, params.lon, params.lat, params.z)) {
             directionsParams.lon = action.payload.lon;
@@ -129,7 +129,7 @@ const createRouter5Middleware = router => {
           // FIXME: this doesn't actually zoom to both at the moment
           const directionsParams = {
             ...params,
-            waypoints: [origin, action.payload]
+            wp: [origin, action.payload]
           };
           router.navigate("directions", directionsParams);
         }
@@ -160,11 +160,11 @@ const createRouter5Middleware = router => {
         const { name, params } = router.getState();
         if (name === "directions") {
           // Extract params
-          const { waypoints } = params;
-          if (waypoints.length > 1) {
-            const origin = waypoints[0];
+          const { wp } = params;
+          if (wp.length > 1) {
+            const origin = wp[0];
             origin.name = [origin.lat, origin.lon].join(", ");
-            const destination = waypoints[1];
+            const destination = wp[1];
             destination.name = [destination.lat, destination.lon].join(", ");
             store.dispatch(setOriginDestination(origin, destination));
           }

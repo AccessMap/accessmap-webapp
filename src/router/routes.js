@@ -14,9 +14,9 @@ const encodeParams = params => {
   if (params.z) {
     encoded.z = precisionRound(params.z, 2);
   }
-  if (params.waypoints) {
+  if (params.wp) {
     const waypoints = [];
-    params.waypoints.forEach(w => {
+    params.wp.forEach(w => {
       if (w) {
         const lon = precisionRound(w.lon, 7);
         const lat = precisionRound(w.lat, 7);
@@ -25,7 +25,7 @@ const encodeParams = params => {
         waypoints.push("");
       }
     });
-    encoded.waypoints = waypoints.join("'");
+    encoded.wp = waypoints.join("'");
   }
 
   return encoded;
@@ -42,9 +42,9 @@ const decodeParams = params => {
   if (params.z) {
     decoded.z = precisionRound(params.z, 7);
   }
-  if (params.waypoints) {
+  if (params.wp) {
     let waypoints = [];
-    const waypointsArr = params.waypoints.split("'");
+    const waypointsArr = params.wp.split("'");
     for (let w of waypointsArr) {
       if (w.length === 0) {
         waypoints = null;
@@ -54,13 +54,17 @@ const decodeParams = params => {
         waypoints.push({ lon: coords[0], lat: coords[1] });
       }
     }
-    decoded.waypoints = waypoints;
+    decoded.wp = waypoints;
   }
 
   return decoded;
 };
 
 const routes = [
+  {
+    name: "404",
+    path: "/404"
+  },
   {
     name: "root",
     path: "/?lon&lat&z",
@@ -74,7 +78,7 @@ const routes = [
   },
   {
     name: "directions",
-    path: "/dir/:waypoints?lon&lat&z",
+    path: "/dir?wp&lon&lat&z",
     encodeParams,
     decodeParams
   },

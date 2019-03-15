@@ -5,7 +5,7 @@ import routes from "router/routes";
 
 const configureRouter = () => {
   const router = createRouter(routes, {
-    defaultRoute: "root"
+    defaultRoute: "404"
   });
 
   router.usePlugin(browserPlugin());

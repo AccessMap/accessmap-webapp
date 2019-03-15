@@ -1,16 +1,15 @@
 const webpack = require("webpack");
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: "index.bundle.js",
+    filename: "index.bundle.js"
   },
-  plugins: [
-    new SpriteLoaderPlugin()
-  ],
+  plugins: [new MiniCssExtractPlugin(), new SpriteLoaderPlugin()],
   module: {
     rules: [
       {
@@ -28,7 +27,11 @@ module.exports = {
         // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
         // a css module
         // exclude: /node_modules/,
-        use: ["style-loader", "css-loader"]
+        use: [
+          // "style-loader",
+          MiniCssExtractPlugin.loader,
+          "css-loader"
+        ]
       },
       {
         test: /\.(js|jsx)$/,
@@ -42,7 +45,12 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
+        loaders: [
+          MiniCssExtractPlugin.loader,
+          // "style-loader",
+          "css-loader",
+          "sass-loader"
+        ]
       },
       {
         test: /\.(woff|woff2|eot|ttf)$/,

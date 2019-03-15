@@ -7,7 +7,6 @@ import React from "react";
 import { PersistGate } from "redux-persist/integration/react";
 
 import "./stylesheets/main.scss";
-import "./fonts/index.css";
 import "./index.html";
 
 // Note: order matters here (at least with webpack as of 2017-05-22).
