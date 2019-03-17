@@ -40,6 +40,8 @@ export const defaultLog = {
 };
 
 export const defaultMap = {
+  maxBounds: null,
+  defaultCenter: null,
   inclineUphill: true,
   selectedFeature: null
 };

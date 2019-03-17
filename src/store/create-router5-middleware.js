@@ -12,6 +12,7 @@ import {
   LOAD_MAP,
   LOG_IN,
   MAP_MOVE,
+  MAP_TILEJSON_SUCCESS,
   PLAN_TRIP,
   RECEIVE_ROUTE,
   SET_DESTINATION,
@@ -155,6 +156,11 @@ const createRouter5Middleware = router => {
           router.navigate(name, updatedParams);
         }
         break;
+      }
+      case MAP_TILEJSON_SUCCESS: {
+        // Map has loaded a new (or initial) tileJSON, which dictates view of the map.
+        const { lon, lat, zoom } = action.payload;
+        router.navigate("root", { lon, lat, z: zoom });
       }
       case LOAD_MAP: {
         const { name, params } = router.getState();

@@ -1,6 +1,7 @@
 // Action types
 import { defaultProfiles } from "profiles";
 import { saveProfile } from "utils/api";
+import { initMap } from "utils/init-map";
 
 // Analytics settings
 export const ENABLE_ANALYTICS = "ENABLE_ANALYTICS";
@@ -95,6 +96,11 @@ export const LOAD_APP = "LOAD_APP";
 export const LOAD_MAP = "LOAD_MAP";
 export const RESIZE_MAP = "RESIZE_MAP";
 export const RESIZE_WINDOW = "RESIZE_WINDOW";
+
+// Map initialization
+export const MAP_TILEJSON_REQUEST = "MAP_TILEJSON_REQUEST";
+export const MAP_TILEJSON_SUCCESS = "MAP_TILEJSON_SUCCESS";
+export const MAP_TILEJSON_FAILURE = "MAP_TILEJSON_FAILURE";
 
 // Drawer toggles
 export const SHOW_DRAWER = "SHOW_DRAWER";
@@ -667,16 +673,59 @@ export const setOriginDestination = (origin, destination) => (
   routeIfValid(dispatch, getState);
 };
 
-export const loadApp = () => ({
-  // NOTE: Important! LOAD_APP analytics meta is required for our implementation of
-  // rakam js analytics.
-  type: LOAD_APP,
+export const mapTileJSONRequest = () => ({
+  type: MAP_TILEJSON_REQUEST,
   meta: {
     analytics: {
-      type: "load-app"
+      type: "map-tilejson-request"
     }
   }
 });
+
+export const mapTileJSONSuccess = (bounds, center) => ({
+  type: MAP_TILEJSON_SUCCESS,
+  payload: {
+    lon: center[0],
+    lat: center[1],
+    zoom: center[2],
+    bounds: bounds
+  },
+  meta: {
+    analytics: {
+      type: "map-tilejson-success"
+    }
+  }
+});
+
+export const mapTileJSONFailure = () => ({
+  type: MAP_TILEJSON_FAILURE,
+  meta: {
+    analytics: {
+      type: "map-tilejson-failure"
+    }
+  }
+});
+
+export const loadApp = () => (dispatch, getstate) => {
+  dispatch({
+    // NOTE: Important! LOAD_APP analytics meta is required for our implementation of
+    // rakam js analytics.
+    type: LOAD_APP,
+    meta: {
+      analytics: {
+        type: "load-app"
+      }
+    }
+  });
+  dispatch(mapTileJSONRequest());
+  initMap((err, bounds, center) => {
+    if (err) {
+      dispatch(mapTileJSONFailure());
+    } else {
+      dispatch(mapTileJSONSuccess(bounds, center));
+    }
+  });
+};
 
 export const loadMap = (lon, lat, zoom, bbox) => ({
   type: LOAD_MAP,
