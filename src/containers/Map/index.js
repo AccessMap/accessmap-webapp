@@ -15,6 +15,7 @@ import Sources from "./sources";
 
 import Crossings from "./layers-crossings";
 import Geolocation from "./layers-geolocation";
+import ElevatorPaths from "./layers-elevator-paths";
 import Route from "./layers-route";
 import Sidewalks from "./layers-sidewalks";
 import Waypoints from "./layers-waypoints";
@@ -151,6 +152,7 @@ class Map extends Component {
       >
         <Sources />
 
+        <ElevatorPaths />
         <Crossings />
         <Route before="crossing-click" />
         <Sidewalks />

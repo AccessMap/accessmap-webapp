@@ -61,7 +61,16 @@ const FeatureCard = props => {
 
   const { properties } = selectedFeature;
 
-  const { curbramps, crossing, footway, incline, indoor, surface } = properties;
+  const {
+    curbramps,
+    crossing,
+    description,
+    footway,
+    incline,
+    indoor,
+    opening_hours,
+    surface
+  } = properties;
 
   // What kind of feature is it?
   const featureType = getFeatureType(properties);
@@ -105,6 +114,15 @@ const FeatureCard = props => {
       />
       <DataTable className="feature-card-body" plain>
         <TableBody>
+          {description !== undefined ? (
+            <ContentRow label="Description" content={description} />
+          ) : null}
+          {opening_hours !== undefined ? (
+            <ContentRow
+              label="Open Hours"
+              content={<OpeningHoursTable openingHours={opening_hours} />}
+            />
+          ) : null}
           {curbramps !== undefined ? (
             <ContentRow label="Curbramps" content={curbramps ? "Yes" : "No"} />
           ) : null}
