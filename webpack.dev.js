@@ -48,23 +48,11 @@ module.exports = merge(common, {
     },
     proxy: {
       // Replace with /api/v1 for dev of api and just /api/ for docker testing
-      "/api/v1/auth": {
-        target: url.resolve(process.env.API_SERVER, "auth"),
+      "/api/v1": {
+        target: process.env.API_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api/v1/auth": "" }
-      },
-      "/api/v1/profiles": {
-        target: url.resolve(process.env.API_SERVER, "profiles"),
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/api/v1/profiles": "" }
-      },
-      "/api/v1/user": {
-        target: url.resolve(process.env.API_SERVER, "user"),
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/api/v1/user": "" }
+        pathRewrite: { "^/api/v1": "" }
       },
       "/api/v1/routing": {
         target: process.env.ROUTING_SERVER && process.env.ROUTING_SERVER,
