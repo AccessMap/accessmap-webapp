@@ -6,7 +6,7 @@ import Card, { CardTitle } from "react-md/src/js/Cards";
 const DirectionsCard = props => {
   const { distance, title } = props;
 
-  const subtitle = distance ? `${Math.round(distance, 1)} meters` : "";
+  const subtitle = distance ? `${distance.toFixed(1)} meters` : "";
 
   return (
     <Card className="directions--step">

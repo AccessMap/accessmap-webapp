@@ -28,8 +28,8 @@ const RouteBottomCard = props => {
 
   const route = routeResult.routes[0];
 
-  const distance = Math.round(route.distance, 0);
-  const duration = Math.round(route.duration / 60, 0);
+  const distance = route.distance.toFixed(0);
+  const duration = (route.duration / 60).toFixed(0);
 
   return (
     <Card className="route-bottom-card">

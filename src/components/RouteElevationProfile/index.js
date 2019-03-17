@@ -60,10 +60,10 @@ const RouteElevationProfile = props => {
           .join(" ")}
       />
       <text x={w - marginRight} y={6} fontSize={6}>
-        {Math.round(maxHeight, 1)}
+        {maxHeight.toFixed(1)}
       </text>
       <text x={w - marginRight} y={h - marginBottom} fontSize={6}>
-        {Math.round(minHeight, 1)}
+        {minHeight.toFixed(1)}
       </text>
       <text
         x={w - 8}
@@ -80,7 +80,7 @@ const RouteElevationProfile = props => {
         {0}
       </text>
       <text x={w - marginRight - 8} y={h} fontSize={6}>
-        {Math.round(totalLength, 1)}
+        {totalLength.toFixed(1)}
       </text>
       <text
         x={Math.floor((w - marginRight) / 2)}

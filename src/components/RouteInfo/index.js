@@ -15,13 +15,13 @@ const RouteInfo = props => {
 
   const route = routeResult.routes[0];
   const distance = route.distance;
-  const duration = Math.round(route.duration / 60, 0);
+  const duration = (route.duration / 60).toFixed(0);
 
   let uphillMax = 0;
   let downhillMax = 0;
   route.legs.forEach(leg => {
     leg.forEach(step => {
-      const incline = step.properties.incline / 10 || 0;
+      const incline = step.properties.incline || 0;
       uphillMax = Math.max(incline, uphillMax);
       downhillMax = Math.min(incline, downhillMax);
     });
@@ -41,7 +41,7 @@ const RouteInfo = props => {
         <RouteElevationProfile route={routeResult.routes[0]} />
         <List>
           <ListItem
-            primaryText={`${distance} meters`}
+            primaryText={`${distance.toFixed(1)} meters`}
             secondaryText="Total distance"
           />
           <ListItem
@@ -51,11 +51,11 @@ const RouteInfo = props => {
             secondaryText="Estimated time"
           />
           <ListItem
-            primaryText={`${uphillMax} %`}
+            primaryText={`${uphillMax * 100} %`}
             secondaryText="Steepest uphill incline"
           />
           <ListItem
-            primaryText={`${Math.abs(downhillMax)} %`}
+            primaryText={`${Math.abs(downhillMax * 100)} %`}
             secondaryText="Steepest downhill incline"
           />
         </List>
