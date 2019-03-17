@@ -38,30 +38,55 @@ ContentRow.propTypes = {
   content: PropTypes.oneOfType([PropTypes.node, PropTypes.string]).isRequired
 };
 
+const getFeatureType = properties => {
+  // Check if it's a footway
+  if (properties.hasOwnProperty("footway")) {
+    switch (properties.footway) {
+      case "sidewalk":
+        return "Sidewalk";
+      case "crossing":
+        return "Crossing";
+      default:
+        return "Footway";
+    }
+  }
+  return null;
+};
+
 const FeatureCard = props => {
   const { actions, selectedFeature } = props;
 
   if (!selectedFeature) return null;
   if (!selectedFeature.properties) selectedFeature.properties = {};
 
-  const {
-    curbramps,
-    description,
-    indoor,
-    incline,
-    marked,
-    openingHours,
-    surface,
-    via,
-    width
-  } = selectedFeature.properties;
+  const { properties } = selectedFeature;
 
-  const title = selectedFeature.layerName
-    ? selectedFeature.layerName
-    : [
-        selectedFeature.location[1].toFixed(6),
-        selectedFeature.location[0].toFixed(6)
-      ].join(", ");
+  const { curbramps, crossing, footway, incline, indoor, surface } = properties;
+
+  // What kind of feature is it?
+  const featureType = getFeatureType(properties);
+
+  const title =
+    featureType ||
+    [
+      selectedFeature.location[1].toFixed(6),
+      selectedFeature.location[0].toFixed(6)
+    ].join(", ");
+
+  let markedCrossing;
+  if (featureType === "Crossing") {
+    switch (crossing) {
+      case "marked":
+        markedCrossing = "Yes";
+        break;
+      case "unmarked":
+        markedCrossing = "No";
+        break;
+      default:
+        markedCrossing = "Unknown";
+        break;
+    }
+  }
 
   return (
     <Card className="feature-card md-cell md-cell--4">
@@ -80,17 +105,11 @@ const FeatureCard = props => {
       />
       <DataTable className="feature-card-body" plain>
         <TableBody>
-          {description !== undefined ? (
-            <ContentRow label="Description" content={description} />
-          ) : null}
           {curbramps !== undefined ? (
-            <ContentRow label="Curb ramps" content={curbramps ? "Yes" : "No"} />
+            <ContentRow label="Curbramps" content={curbramps ? "Yes" : "No"} />
           ) : null}
-          {marked !== undefined ? (
-            <ContentRow
-              label="Marked crosswalk"
-              content={marked ? "Yes" : "No"}
-            />
+          {markedCrossing ? (
+            <ContentRow label="Marked crosswalk" content={markedCrossing} />
           ) : null}
           {incline !== undefined ? (
             <ContentRow
@@ -101,18 +120,8 @@ const FeatureCard = props => {
           {surface !== undefined ? (
             <ContentRow label="Surface" content={SURFACE_MAP[surface]} />
           ) : null}
-          {width !== undefined ? (
-            <ContentRow label="Width" content={`${width.toFixed(1)} meters`} />
-          ) : null}
           {indoor !== undefined ? (
             <ContentRow label="Indoor" content={indoor ? "Yes" : "No"} />
-          ) : null}
-          {via !== undefined ? <ContentRow label="Via" content={via} /> : null}
-          {openingHours !== undefined ? (
-            <ContentRow
-              label="Open Hours"
-              content={<OpeningHoursTable openingHours={openingHours} />}
-            />
           ) : null}
         </TableBody>
       </DataTable>

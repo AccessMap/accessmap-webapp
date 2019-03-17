@@ -5,10 +5,10 @@ import { Source } from "react-mapbox-gl";
 const Sources = () => (
   <React.Fragment>
     <Source
-      id="pedestrian"
+      id="accessmap"
       tileJsonSource={{
         type: "vector",
-        url: "/tiles/tilejson/pedestrian.json"
+        url: "/tiles/tilejson/accessmap.json"
       }}
     />
   </React.Fragment>

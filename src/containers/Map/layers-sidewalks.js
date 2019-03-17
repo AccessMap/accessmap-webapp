@@ -14,41 +14,6 @@ import directionArrowURL from "!file-loader!images/direction-arrow.png";
 import directionArrowWhiteURL from "!file-loader!images/direction-arrow-white.png";
 /* eslint-enable import/no-webpack-loader-syntax */
 
-// const EARTH_RADIUS = 6378137;
-// const LAT = 47.6;
-// const TILESIZE = 512;
-
-// const pixelsPerMeter = zoom => {
-//   const scale = 2 ** zoom;
-//   const worldSize = TILESIZE * scale;
-//   const rest =
-//     2 * Math.PI * EARTH_RADIUS * Math.abs(Math.cos(LAT * (Math.PI / 180)));
-//   return worldSize / rest;
-// };
-//
-// const setWidthAtZoom = (width, zoom) => d => width * 2 ** (d - (zoom - 1));
-
-// const widthExpression = ["interpolate", ["linear"], ["zoom"]].concat(
-//   [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22]
-//     .map(d => {
-//       if (d < 17) return [d, setWidthAtZoom(3, 16)(d)];
-//       return [d, ["*", pixelsPerMeter(d), ["max", ["get", "width"], 0.5]]];
-//     })
-//     .reduce((a, d) => a.concat(d))
-// );
-
-const widthExpression = [
-  "interpolate",
-  ["linear"],
-  ["zoom"],
-  10,
-  0.1,
-  16,
-  5,
-  20,
-  24
-];
-
 const directionArrow = new Image();
 directionArrow.src = directionArrowURL;
 directionArrow.height = 48;
@@ -95,13 +60,49 @@ const Sidewalks = props => {
   const boundMax = inclineUphill ? uphillMax : -downhillMax;
   const boundMin = inclineUphill ? -uphillMax : downhillMax;
 
+  // Expressions
+  const widthExpression = [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    10,
+    0.1,
+    16,
+    5,
+    20,
+    24
+  ];
+
+  const isSidewalkExpression = ["==", ["get", "footway"], "sidewalk"];
+
+  const accessibleExpression = [
+    "case",
+    [">", ["to-number", ["get", "incline"]], boundMax],
+    false,
+    ["<", ["to-number", ["get", "incline"]], boundMin],
+    false,
+    true
+  ];
+
+  const accessibleSidewalkExpression = [
+    "all",
+    isSidewalkExpression,
+    accessibleExpression
+  ];
+  const inaccessibleSidewalkExpression = [
+    "all",
+    isSidewalkExpression,
+    ["!", accessibleExpression]
+  ];
+
   return (
     <React.Fragment>
       <Layer
         id="sidewalk-click"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="sidewalks"
+        sourceId="accessmap"
+        sourceLayer="transportation"
+        filter={accessibleSidewalkExpression}
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
@@ -111,17 +112,10 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-outline"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="sidewalks"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={[
-          "case",
-          [">", ["to-number", ["get", "incline"]], boundMax],
-          false,
-          ["<", ["to-number", ["get", "incline"]], boundMin],
-          false,
-          true
-        ]}
+        filter={accessibleSidewalkExpression}
         paint={{
           "line-color": "#000",
           "line-width": {
@@ -137,16 +131,9 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-inaccessible"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="sidewalks"
-        filter={[
-          "case",
-          [">", ["to-number", ["get", "incline"]], boundMax],
-          true,
-          ["<", ["to-number", ["get", "incline"]], boundMin],
-          true,
-          false
-        ]}
+        sourceId="accessmap"
+        sourceLayer="transportation"
+        filter={inaccessibleSidewalkExpression}
         paint={{
           "line-color": "#ff0000",
           "line-dasharray": {
@@ -173,17 +160,10 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="sidewalks"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={[
-          "case",
-          [">", ["to-number", ["get", "incline"]], boundMax],
-          false,
-          ["<", ["to-number", ["get", "incline"]], boundMin],
-          false,
-          true
-        ]}
+        filter={accessibleSidewalkExpression}
         paint={{
           "line-color": [
             "case",
@@ -205,21 +185,14 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-downhill-arrow"
         type="symbol"
-        sourceId="pedestrian"
-        sourceLayer="sidewalks"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         minZoom={16}
         images={[
           ["direction-arrow", directionArrow],
           ["direction-arrow-white", directionArrowWhite]
         ]}
-        filter={[
-          "case",
-          [">", ["to-number", ["get", "incline"]], boundMax],
-          false,
-          ["<", ["to-number", ["get", "incline"]], boundMin],
-          false,
-          true
-        ]}
+        filter={accessibleSidewalkExpression}
         layout={{
           "icon-allow-overlap": true,
           "icon-ignore-placement": true,

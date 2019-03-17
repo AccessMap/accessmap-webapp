@@ -51,47 +51,13 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
           properties: null
         };
       }
-      // If it's a special map feature, add extra info
-      switch (feature.layer["source-layer"]) {
-        case "sidewalks":
-          return {
-            layer: "sidewalk",
-            layerName: "Sidewalk",
-            location: action.payload.location,
-            properties: {
-              description: `${feature.properties.side} of ${
-                feature.properties.street_name
-              }`,
-              incline: feature.properties.incline,
-              surface: feature.properties.surface,
-              width: feature.properties.width
-            }
-          };
-        case "crossings":
-          return {
-            layer: "crossing",
-            layerName: "Street Crossing",
-            location: action.payload.location,
-            properties: {
-              curbramps: feature.properties.curbramps,
-              marked: feature.properties.marked
-            }
-          };
-        case "elevator_paths": {
-          return {
-            layer: "elevator_paths",
-            layerName: "Elevator path",
-            location: action.payload.location,
-            properties: {
-              indoor: feature.properties.indoor,
-              openingHours: feature.properties.opening_hours,
-              via: feature.properties.via
-            }
-          };
-        }
-        default:
-          return null;
-      }
+
+      return {
+        layerId: feature.layer.id,
+        sourceLayer: feature.layer["source-layer"],
+        location: action.payload.location,
+        properties: feature.properties
+      };
     }
     case CLEAR_SELECTED_FEATURES: {
       return null;

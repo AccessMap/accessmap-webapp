@@ -17,13 +17,36 @@ const Crossings = props => {
     stops: [[12, 0.5], [16, 3], [22, 30]]
   };
 
+  const isCrossingExpression = ["==", ["get", "footway"], "crossing"];
+
+  const inaccessibleExpression = [
+    "all",
+    isCrossingExpression,
+    avoidCurbs,
+    ["!", ["to-boolean", ["get", "curbramps"]]]
+  ];
+
+  const markedExpression = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["==", ["get", "crossing"], "marked"]
+  ];
+
+  const notnecessarilymarkedExpression = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["any", ["==", ["get", "crossing"], "unmarked"], ["!", ["has", "crossing"]]]
+  ];
+
   return (
     <React.Fragment>
       <Layer
         id="crossing-click"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="crossings"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
@@ -33,13 +56,9 @@ const Crossings = props => {
       <Layer
         id="crossing-inaccessible"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="crossings"
-        filter={[
-          "all",
-          avoidCurbs,
-          ["!", ["to-boolean", ["get", "curbramps"]]]
-        ]}
+        sourceId="accessmap"
+        sourceLayer="transportation"
+        filter={inaccessibleExpression}
         paint={{
           "line-color": "#ff0000",
           "line-dasharray": {
@@ -71,13 +90,9 @@ const Crossings = props => {
       <Layer
         id="crossing-unmarked"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="crossings"
-        filter={[
-          "all",
-          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
-          ["!", ["to-boolean", ["get", "marked"]]]
-        ]}
+        sourceId="accessmap"
+        sourceLayer="transportation"
+        filter={notnecessarilymarkedExpression}
         paint={{
           "line-color": "#555",
           "line-gap-width": widthExpression,
@@ -96,14 +111,10 @@ const Crossings = props => {
       <Layer
         id="crossing-marked-background"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="crossings"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={[
-          "all",
-          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
-          ["to-boolean", ["get", "marked"]]
-        ]}
+        filter={markedExpression}
         paint={{
           "line-color": "#555",
           "line-width": widthExpression,
@@ -122,14 +133,10 @@ const Crossings = props => {
       <Layer
         id="crossing-marked-outline"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="crossings"
+        sourceId="accessmap"
+        sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={[
-          "all",
-          ["any", !avoidCurbs, ["to-boolean", ["get", "curbramps"]]],
-          ["to-boolean", ["get", "marked"]]
-        ]}
+        filter={markedExpression}
         paint={{
           "line-color": "#fff",
           "line-gap-width": {
