@@ -19,6 +19,7 @@ import ElevatorPaths from "./layers-elevator-paths";
 import Route from "./layers-route";
 import Sidewalks from "./layers-sidewalks";
 import Waypoints from "./layers-waypoints";
+import AreasServed from "./layers-areas-served";
 
 const CLICKABLE_LAYERS = [
   "crossing-click",
@@ -150,6 +151,7 @@ class Map extends Component {
       >
         <Sources />
 
+        <AreasServed />
         <ElevatorPaths />
         <Crossings />
         <Route before="crossing-click" />

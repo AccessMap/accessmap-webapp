@@ -45,7 +45,7 @@ const Crossings = props => {
       <Layer
         id="crossing-click"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         paint={{
           "line-width": widthExpression,
@@ -56,7 +56,7 @@ const Crossings = props => {
       <Layer
         id="crossing-inaccessible"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={inaccessibleExpression}
         paint={{
@@ -90,7 +90,7 @@ const Crossings = props => {
       <Layer
         id="crossing-unmarked"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={notnecessarilymarkedExpression}
         paint={{
@@ -111,7 +111,7 @@ const Crossings = props => {
       <Layer
         id="crossing-marked-background"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
         filter={markedExpression}
@@ -133,7 +133,7 @@ const Crossings = props => {
       <Layer
         id="crossing-marked-outline"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
         filter={markedExpression}

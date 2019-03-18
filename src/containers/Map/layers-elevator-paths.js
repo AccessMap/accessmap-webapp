@@ -20,7 +20,7 @@ const ElevatorPaths = () => {
       <Layer
         id="elevator-paths-click"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={elevatorPathFilter}
         paint={{
@@ -32,7 +32,7 @@ const ElevatorPaths = () => {
       <Layer
         id="elevator-paths"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={elevatorPathFilter}
         paint={{

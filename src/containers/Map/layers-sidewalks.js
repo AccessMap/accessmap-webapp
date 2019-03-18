@@ -100,7 +100,7 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-click"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={accessibleSidewalkExpression}
         paint={{
@@ -112,7 +112,7 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-outline"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
         filter={accessibleSidewalkExpression}
@@ -131,7 +131,7 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-inaccessible"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         filter={inaccessibleSidewalkExpression}
         paint={{
@@ -160,7 +160,7 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk"
         type="line"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
         filter={accessibleSidewalkExpression}
@@ -185,7 +185,7 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-downhill-arrow"
         type="symbol"
-        sourceId="accessmap"
+        sourceId="pedestrian"
         sourceLayer="transportation"
         minZoom={16}
         images={[
