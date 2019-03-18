@@ -31,7 +31,7 @@ const MapboxGL = ReactMapboxGl({
   /* eslint-disable no-undef */
   accessToken: MAPBOX_TOKEN,
   /* eslint-enable no-undef */
-  minZoom: 8,
+  minZoom: 6,
   maxZoom: 20,
   bearing: [0],
   pitch: [0]
@@ -104,6 +104,7 @@ class Map extends Component {
           this.mapEl = el;
         }}
         center={[lon, lat]}
+        maxBounds={mapConstants.bounds}
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}

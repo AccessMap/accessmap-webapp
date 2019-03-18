@@ -718,11 +718,11 @@ export const loadApp = () => (dispatch, getstate) => {
     }
   });
   dispatch(mapTileJSONRequest());
-  initMap((err, bounds, center) => {
+  initMap((err, bounds) => {
     if (err) {
       dispatch(mapTileJSONFailure());
     } else {
-      dispatch(mapTileJSONSuccess(bounds, center));
+      dispatch(mapTileJSONSuccess(bounds));
     }
   });
 };
