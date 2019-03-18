@@ -30,7 +30,7 @@ const MapboxGL = ReactMapboxGl({
   /* eslint-disable no-undef */
   accessToken: MAPBOX_TOKEN,
   /* eslint-enable no-undef */
-  minZoom: 10,
+  minZoom: 8,
   maxZoom: 20,
   bearing: [0],
   pitch: [0]
@@ -86,7 +86,6 @@ class Map extends Component {
       actions,
       lon,
       lat,
-      maxBounds,
       mediaType,
       viewingDirections,
       zoom,
@@ -107,7 +106,6 @@ class Map extends Component {
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}
-        maxBounds={maxBounds}
         /* eslint-disable react/style-prop-object */
         style="mapbox://styles/accessmap/cjglbmftk00202tqmpidtfxk3"
         /* eslint-enable react/style-prop-object */
@@ -179,25 +177,19 @@ Map.propTypes = {
 Map.defaultProps = {
   lon: mapConstants.lon,
   lat: mapConstants.lat,
-  maxBounds: mapConstants.bounds,
   mediaType: "mobile",
   viewingDirections: false,
   zoom: mapConstants.zoom
 };
 
 const mapStateToProps = state => {
-  const { activities, browser, map, router } = state;
+  const { activities, browser, router } = state;
 
   const { lon, lat, z } = router.route.params;
-  let { maxBounds } = map;
-  if (maxBounds === undefined) {
-    maxBounds = mapConstants.bounds;
-  }
 
   return {
     lon,
     lat,
-    maxBounds,
     mediaType: browser.mediaType,
     viewingDirections: activities.viewingDirections,
     zoom: z
