@@ -26,7 +26,7 @@ const handleRegion = (state = defaultMap.region, action) => {
     case SELECT_REGION: {
       let region;
       for (let feature of regions.features) {
-        if (feature.properties.name === action.payload) {
+        if (feature.properties.key === action.payload) {
           region = feature;
           break;
         }

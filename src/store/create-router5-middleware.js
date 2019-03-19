@@ -39,13 +39,13 @@ const createRouter5Middleware = router => {
       case SELECT_REGION: {
         let region;
         for (let feature of regions.features) {
-          if (feature.properties.name === action.payload) {
+          if (feature.properties.key === action.payload) {
             region = feature;
             break;
           }
         }
-        console.log(region.properties);
         router.navigate("root", {
+          region: region.properties.key,
           lon: region.properties.lon,
           lat: region.properties.lat,
           z: region.properties.zoom
@@ -175,13 +175,6 @@ const createRouter5Middleware = router => {
         }
         break;
       }
-      /*
-      case MAP_TILEJSON_SUCCESS: {
-        // Map has loaded a new (or initial) tileJSON, which dictates view of the map.
-        const { lon, lat, zoom } = action.payload;
-        router.navigate("root", { lon, lat, z: zoom });
-      }
-      */
       case LOAD_MAP: {
         const { name, params } = router.getState();
         if (name === "directions") {

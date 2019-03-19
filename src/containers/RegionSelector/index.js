@@ -13,6 +13,11 @@ import regions from "constants/regions";
 const RegionSelector = props => {
   const { actions, visible } = props;
 
+  const sortedRegions = [...regions.features];
+  sortedRegions.sort((a, b) => {
+    return a.properties.name > b.properties.name ? 1 : -1;
+  });
+
   return (
     <DialogContainer
       id="region-selections-container"
@@ -28,11 +33,11 @@ const RegionSelector = props => {
       ]}
     >
       <List>
-        {regions.features.map(f => (
+        {sortedRegions.map(f => (
           <ListItem
             key={`region-select-button-${f.properties.name}`}
             primaryText={f.properties.name}
-            onClick={() => actions.selectRegion(f.properties.name)}
+            onClick={() => actions.selectRegion(f.properties.key)}
           />
         ))}
       </List>

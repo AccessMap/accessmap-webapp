@@ -57,45 +57,31 @@
 
     .accessmap-title {
       @media #{$md-mobile-portrait-media} {
-        margin-left: 8px;
+        margin-left: 0px;
+        margin-right: 8px;
       }
       @media #{$md-mobile-landscape-media} {
-        margin-left: 4px;
+        margin-left: 0px;
+        margin-right: 4px;
       }
       @media #{$md-tablet-media} {
-        margin-left: 20px;
+        margin-left: 4px;
+        margin-right: 8px;
       }
     }
 
     .accessmapicon {
-        width: 32px;
-        height: 32px;
+      width: 32px;
+      height: 32px;
     }
 
     .accessmaplogo {
-        width: 128px;
-        height: 32px;
-    }
-
-    .accessmaplogo-region {
-      position: absolute;
-      top: 0;
-      margin-bottom: auto;
-      margin-left: 4px;
-      @media #{$md-mobile-portrait-media} {
-        margin-top: 16px;
-      }
-      @media #{$md-mobile-landscape-media} {
-        margin-top: 16px;
-      }
-      @media #{$md-tablet-media} {
-        margin-top: 24px;
-      }
-
+      width: 128px;
+      height: 32px;
     }
 
     .accessmapicon-primary,
-    .accessmaplogo-primary, {
+    .accessmaplogo-primary {
       fill: $md-primary-color;
     }
 
@@ -104,12 +90,71 @@
       fill: $md-secondary-color;
     }
 
+    .accessmaplogo-region {
+      position: absolute;
+      @media #{$md-mobile-portrait-media} {
+        top: 20px;
+        left: 74px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        top: 20px;
+        left: 74px;
+      }
+      @media #{$md-tablet-media} {
+        top: 20px;
+        left: 74px;
+      }
+    }
+
+    .region-selection-open-button {
+      // margin-bottom: auto;
+      @media #{$md-mobile-portrait-media} {
+        height: 40px;
+        padding-top: 0;
+        padding-bottom: 0;
+        padding-left: 0;
+        padding-right: 0;
+        min-width: 64px;
+        margin-left: 0px;
+        margin-top: 6px;
+      }
+      @media #{$md-mobile-landscape-media} {
+        padding-left: 0;
+        padding-right: 0;
+        margin-left: 0px;
+        margin-top: 0px;
+        min-width: 64px;
+        width: 64px;
+      }
+      @media #{$md-tablet-media} {
+        height: 48px;
+        margin-left: 4px;
+        margin-top: 8px;
+      }
+    }
+
+    .md-toolbar--action-left.md-btn {
+      margin-left: 0px;
+      @media #{$md-tablet-media} {
+        margin-left: 4px;
+      }
+    }
+
+    .md-cell--right {
+      @media #{$md-mobile-landscape-media} {
+        margin-left: 8px;
+      }
+    }
+
     .md-toolbar--action-right .md-btn {
       @media #{$md-mobile-portrait-media} {
         margin-top: 8px;
       }
       @media #{$md-mobile-landscape-media} {
+        padding-left: 0;
+        padding-right: 0;
         margin-top: 8px;
+        min-width: 48px;
       }
       @media #{$md-tablet-media} {
         margin-top: 16px;
@@ -183,7 +228,6 @@
         margin-bottom: 16px;
         margin-left: 8px;
       }
-
     }
 
     .md-autocomplete-list {

@@ -14,6 +14,8 @@ import { LinearProgress } from "react-md/src/js/Progress";
 import SVGIcon from "react-md/src/js/SVGIcons";
 import Toolbar from "react-md/src/js/Toolbars";
 
+import regions from "constants/regions";
+
 import DestinationGeocoder from "containers/Geocoders/DestinationGeocoder";
 import OriginGeocoder from "containers/Geocoders/OriginGeocoder";
 import SearchGeocoder from "containers/Geocoders/SearchGeocoder";
@@ -61,6 +63,7 @@ class OmniCard extends React.PureComponent {
       mediaType,
       origin,
       planningTrip,
+      regionName,
       routeResult,
       selectedProfile,
       settingProfile,
@@ -124,11 +127,14 @@ class OmniCard extends React.PureComponent {
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
             <AccessMapLogo />
-            {/*
-            <h6 className="accessmaplogo-region">Seattle</h6>
-            */}
+            <h6 className="accessmaplogo-region">{regionName}</h6>
           </div>
-          <Button flat secondary onClick={actions.openRegionSelections}>
+          <Button
+            className="region-selection-open-button"
+            flat
+            primary
+            onClick={actions.openRegionSelections}
+          >
             Change Region
           </Button>
         </Toolbar>
@@ -340,11 +346,20 @@ const mapStateToProps = state => {
     activities,
     auth,
     browser,
+    map,
     profile,
     route,
     router,
     waypoints
   } = state;
+
+  let regionName;
+  for (let feature of regions.features) {
+    if (feature.properties.key === router.route.params.region) {
+      regionName = feature.properties.name;
+      break;
+    }
+  }
 
   return {
     destination: waypoints.destination,
@@ -354,6 +369,7 @@ const mapStateToProps = state => {
     origin: waypoints.origin,
     mediaType: browser.mediaType,
     planningTrip: router.route && router.route.name === "directions",
+    regionName: regionName,
     routeResult: route.routeResult,
     selectedProfile: profile.selected,
     settingProfile: activities.settingProfile,

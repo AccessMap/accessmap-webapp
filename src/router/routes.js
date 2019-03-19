@@ -9,6 +9,9 @@ const encodeParams = params => {
   // TODO: Use separate functions for directions mode vs others, put lon/lat/z in its
   // own function
   const encoded = {};
+  if (params.region) {
+    encoded.region = params.region;
+  }
   if (params.lon) {
     encoded.lon = precisionRound(params.lon, 7);
   }
@@ -37,6 +40,9 @@ const encodeParams = params => {
 
 const decodeParams = params => {
   const decoded = {};
+  if (params.region) {
+    decoded.region = params.region;
+  }
   if (params.lon) {
     decoded.lon = precisionRound(params.lon, 7);
   }
@@ -71,8 +77,9 @@ const routes = [
   },
   {
     name: "root",
-    path: "/?lon&lat&z",
+    path: "/?region&lon&lat&z",
     defaultParams: {
+      region: defaultRegion.properties.key,
       lon: defaultRegion.properties.lon,
       lat: defaultRegion.properties.lat,
       z: defaultRegion.properties.zoom

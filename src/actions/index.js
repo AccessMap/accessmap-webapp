@@ -694,13 +694,13 @@ export const setOriginDestination = (origin, destination) => (
   routeIfValid(dispatch, getState);
 };
 
-export const selectRegion = regionName => ({
+export const selectRegion = regionKey => ({
   type: SELECT_REGION,
-  payload: regionName,
+  payload: regionKey,
   meta: {
     analytics: {
       type: "map-tilejson-request",
-      payload: regionName
+      payload: regionKey
     }
   }
 });
