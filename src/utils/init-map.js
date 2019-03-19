@@ -2,7 +2,7 @@
 // TODO: promisify
 export const initMap = callback => {
   // Retrieve map info from the expected tileJSON
-  fetch("/tiles/tilejson/areas_served.json", {
+  fetch("/tiles/tilejson/regions.json", {
     method: "GET"
   })
     .then(response => {

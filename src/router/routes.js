@@ -1,10 +1,10 @@
-import areasServed from "constants/areas-served";
+import regions from "constants/regions";
 import mapConstants from "constants/map";
 import precisionRound from "utils/precision-round";
 
-// Default area is the first one - Seattle right now.
+// Default region is the first one - Seattle right now.
 // TODO: make this configurable via the URL, e.g. ?region=""?
-const defaultArea = areasServed.features[0];
+const defaultRegion = regions.features[0];
 
 const encodeParams = params => {
   // TODO: Use separate functions for directions mode vs others, put lon/lat/z in its
@@ -74,9 +74,9 @@ const routes = [
     name: "root",
     path: "/?lon&lat&z",
     defaultParams: {
-      lon: defaultArea.properties.lon,
-      lat: defaultArea.properties.lat,
-      z: defaultArea.properties.zoom
+      lon: defaultRegion.properties.lon,
+      lat: defaultRegion.properties.lat,
+      z: defaultRegion.properties.zoom
     },
     encodeParams,
     decodeParams

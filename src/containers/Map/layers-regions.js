@@ -4,14 +4,14 @@ import { connect } from "react-redux";
 
 import { Layer } from "react-mapbox-gl";
 
-const AreasServed = props => {
+const Regions = props => {
   return (
     <React.Fragment>
       <Layer
-        id="areas_served-fill-outline"
+        id="regions-outline"
         type="line"
-        sourceId="areas_served"
-        sourceLayer="areas"
+        sourceId="regions"
+        sourceLayer="region"
         paint={{
           "line-color": "#000",
           "line-opacity": 0.9,
@@ -26,4 +26,4 @@ const AreasServed = props => {
 
 const mapStateToProps = () => ({});
 
-export default connect(mapStateToProps)(AreasServed);
+export default connect(mapStateToProps)(Regions);

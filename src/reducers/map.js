@@ -13,28 +13,16 @@ import {
   OPEN_DOWNHILL_PREFERENCES,
   OPEN_BARRIERS_PREFERENCES,
   OPEN_PREFERENCES,
-  OPEN_UPHILL_PREFERENCES
+  OPEN_UPHILL_PREFERENCES,
+  SELECT_REGION
 } from "actions";
 
 import { defaultMap } from "reducers/defaults";
 
-const handleMaxBounds = (state = defaultMap.maxBounds, action) => {
+const handleRegionName = (state = defaultMap.regionName, action) => {
   switch (action.type) {
-    case MAP_TILEJSON_SUCCESS:
-      return action.payload.bounds;
-    default:
-      return state;
-  }
-};
-
-const handleDefaultCenter = (state = defaultMap.defaultCenter, action) => {
-  switch (action.type) {
-    case MAP_TILEJSON_SUCCESS:
-      return {
-        lon: action.payload.lon,
-        lat: action.payload.lat,
-        zoom: action.payload.zoom
-      };
+    case SELECT_REGION:
+      return action.payload;
     default:
       return state;
   }
@@ -95,8 +83,7 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
 };
 
 export default combineReducers({
-  maxBounds: handleMaxBounds,
-  defaultCenter: handleDefaultCenter,
+  regionName: handleRegionName,
   inclineUphill: handleInclineUphill,
   selectedFeature: handleSelectedFeature
 });

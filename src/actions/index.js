@@ -98,6 +98,7 @@ export const RESIZE_MAP = "RESIZE_MAP";
 export const RESIZE_WINDOW = "RESIZE_WINDOW";
 
 // Map initialization
+export const SELECT_REGION = "SELECT_REGION";
 export const MAP_TILEJSON_REQUEST = "MAP_TILEJSON_REQUEST";
 export const MAP_TILEJSON_SUCCESS = "MAP_TILEJSON_SUCCESS";
 export const MAP_TILEJSON_FAILURE = "MAP_TILEJSON_FAILURE";
@@ -672,6 +673,17 @@ export const setOriginDestination = (origin, destination) => (
   });
   routeIfValid(dispatch, getState);
 };
+
+export const selectRegion = regionName => ({
+  type: SELECT_REGION,
+  payload: { regionName },
+  meta: {
+    analytics: {
+      type: "map-tilejson-request",
+      payload: { regionName }
+    }
+  }
+});
 
 export const mapTileJSONRequest = () => ({
   type: MAP_TILEJSON_REQUEST,

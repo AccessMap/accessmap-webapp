@@ -12,10 +12,10 @@ const Sources = () => (
       }}
     />
     <Source
-      id="areas_served"
+      id="regions"
       tileJsonSource={{
         type: "vector",
-        url: "/tiles/tilejson/areas_served.json"
+        url: "/tiles/tilejson/regions.json"
       }}
     />
   </React.Fragment>

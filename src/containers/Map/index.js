@@ -4,6 +4,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import mapConstants from "constants/map";
+import regions from "constants/regions";
 
 import cn from "classnames";
 
@@ -19,7 +20,7 @@ import ElevatorPaths from "./layers-elevator-paths";
 import Route from "./layers-route";
 import Sidewalks from "./layers-sidewalks";
 import Waypoints from "./layers-waypoints";
-import AreasServed from "./layers-areas-served";
+import Regions from "./layers-regions";
 
 const CLICKABLE_LAYERS = [
   "crossing-click",
@@ -87,6 +88,7 @@ class Map extends Component {
       actions,
       lon,
       lat,
+      maxBounds,
       mediaType,
       viewingDirections,
       zoom,
@@ -104,7 +106,7 @@ class Map extends Component {
           this.mapEl = el;
         }}
         center={[lon, lat]}
-        maxBounds={mapConstants.bounds}
+        maxBounds={maxBounds}
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}
@@ -152,7 +154,7 @@ class Map extends Component {
       >
         <Sources />
 
-        <AreasServed />
+        <Regions />
         <ElevatorPaths />
         <Crossings />
         <Route before="crossing-click" />
@@ -186,13 +188,29 @@ Map.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { activities, browser, router } = state;
+  const { activities, browser, map, router } = state;
 
   const { lon, lat, z } = router.route.params;
+
+  let region;
+  for (let feature of regions.features) {
+    if (feature.properties.name === map.regionName) {
+      region = feature;
+      break;
+    }
+  }
+
+  const maxBounds = region.properties.bounds;
+  // Increase maxBounds so that map can be centered on edge of view.
+  maxBounds[0] -= 1.0;
+  maxBounds[2] += 1.0;
+  maxBounds[1] -= 0.5;
+  maxBounds[3] += 0.5;
 
   return {
     lon,
     lat,
+    maxBounds: maxBounds,
     mediaType: browser.mediaType,
     viewingDirections: activities.viewingDirections,
     zoom: z

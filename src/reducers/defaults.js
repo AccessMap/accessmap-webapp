@@ -40,8 +40,7 @@ export const defaultLog = {
 };
 
 export const defaultMap = {
-  maxBounds: null,
-  defaultCenter: null,
+  regionName: "Seattle",
   inclineUphill: true,
   selectedFeature: null
 };
