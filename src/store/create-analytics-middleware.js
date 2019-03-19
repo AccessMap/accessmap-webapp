@@ -1,4 +1,5 @@
 import analytics from "redux-analytics";
+import jwtDecode from "jwt-decode";
 import rakam from "rakam-js";
 import uuid from "uuid";
 
@@ -21,8 +22,8 @@ const createAnalyticsMiddleware = () => {
             includeReferrer: true
           });
           break;
-        case "user-logged-in":
-          rakam.setUserId(payload.sub);
+        case "log-in":
+          rakam.setUserId(jwtDecode(payload.accessToken).user_claims.sub);
           rakam.setSuperProperties(
             {
               user_preferred_username: payload.preferredUsername
@@ -30,7 +31,7 @@ const createAnalyticsMiddleware = () => {
             true
           );
           break;
-        case "user-logged-out":
+        case "log-out":
           rakam.setUserId(uuid.v4());
           break;
         default:
