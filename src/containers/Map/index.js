@@ -154,9 +154,9 @@ class Map extends Component {
         <Sources />
 
         <Regions />
-        <ElevatorPaths />
-        <Crossings />
         <Route before="crossing-click" />
+        <Crossings />
+        <ElevatorPaths />
         <Sidewalks />
         <Waypoints />
         <Geolocation />
