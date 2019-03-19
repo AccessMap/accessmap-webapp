@@ -40,11 +40,13 @@ export default class DefaultedGeocoderAutocomplete extends React.PureComponent {
 }
 
 DefaultedGeocoderAutocomplete.propTypes = {
+  bbox: PropTypes.arrayOf(PropTypes.number),
   defaultValue: PropTypes.string,
   onChange: PropTypes.func
 };
 
 DefaultedGeocoderAutocomplete.defaultProps = {
+  bbox: null,
   defaultValue: null,
   onChange: null
 };

@@ -9,7 +9,7 @@ import * as AppActions from "actions";
 import { DefaultedGeocoderAutocomplete } from "components/GeocoderAutocomplete";
 
 const OriginGeocoder = props => {
-  const { actions, center, originName } = props;
+  const { actions, bbox, center, originName } = props;
 
   return (
     <DefaultedGeocoderAutocomplete
@@ -18,6 +18,7 @@ const OriginGeocoder = props => {
       key="origin-geocoder"
       className="origin-geocoder md-title--toolbar"
       listClassName="toolbar-origin__list"
+      bbox={bbox}
       block
       placeholder="Start address"
       onAutocomplete={(label, index, data) => {
@@ -32,20 +33,23 @@ const OriginGeocoder = props => {
 
 OriginGeocoder.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
+  bbox: PropTypes.arrayOf(PropTypes.number),
   center: PropTypes.arrayOf(PropTypes.number).isRequired,
   originName: PropTypes.string
 };
 
 OriginGeocoder.defaultProps = {
+  bbox: null,
   originName: null
 };
 
 const mapStateToProps = state => {
-  const { router, waypoints } = state;
+  const { map, router, waypoints } = state;
 
   const { lon, lat } = router.route.params;
 
   return {
+    bbox: map.region.properties.bounds,
     center: [lon, lat],
     originName: waypoints.origin ? waypoints.origin.name : null
   };

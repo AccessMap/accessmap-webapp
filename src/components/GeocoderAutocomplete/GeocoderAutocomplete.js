@@ -31,12 +31,7 @@ export default class GeocoderAutocomplete extends Component {
 
     // Seattle bounding box - should derive a little more systematically,
     // eventually
-    geocoderOptions.bbox = [
-      -122.43791813067659,
-      47.471620665946823,
-      -122.22065507703849,
-      47.75814927864544
-    ];
+    geocoderOptions.bbox = this.props.bbox;
 
     mapboxClient.geocodeForward(value, geocoderOptions).then(results => {
       this.setState({
@@ -58,7 +53,7 @@ export default class GeocoderAutocomplete extends Component {
   };
 
   render() {
-    const { onAutocomplete, ...otherProps } = this.props;
+    const { onAutocomplete, bbox, ...otherProps } = this.props;
 
     const { places } = this.state;
 
@@ -76,12 +71,14 @@ export default class GeocoderAutocomplete extends Component {
 }
 
 GeocoderAutocomplete.propTypes = {
+  bbox: PropTypes.arrayOf(PropTypes.number),
   onAutocomplete: PropTypes.func,
   onChange: PropTypes.func,
   proximity: PropTypes.arrayOf(PropTypes.number)
 };
 
 GeocoderAutocomplete.defaultProps = {
+  bbox: null,
   onAutocomplete: null,
   onChange: null,
   proximity: null
