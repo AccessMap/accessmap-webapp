@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import regions from "constants/regions";
-
 import cn from "classnames";
 
 import ReactMapboxGl from "react-mapbox-gl";
 
 import * as AppActions from "actions";
+
+import mapConstants from "constants/map";
+import regions from "constants/regions";
 
 import Sources from "./sources";
 
@@ -87,7 +88,6 @@ class Map extends Component {
       actions,
       lon,
       lat,
-      maxBounds,
       mediaType,
       viewingDirections,
       zoom,
@@ -105,7 +105,7 @@ class Map extends Component {
           this.mapEl = el;
         }}
         center={[lon, lat]}
-        maxBounds={maxBounds}
+        maxBounds={mapConstants.bounds}
         zoom={[zoom]}
         bearing={[0]}
         pitch={[0]}
@@ -173,7 +173,6 @@ Map.propTypes = {
   /* eslint-enable react/require-default-props */
   lon: PropTypes.number,
   lat: PropTypes.number,
-  maxBounds: PropTypes.arrayOf(PropTypes.number),
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
   viewingDirections: PropTypes.bool,
   zoom: PropTypes.number
@@ -188,22 +187,13 @@ Map.defaultProps = {
 };
 
 const mapStateToProps = state => {
-  const { activities, browser, map, router } = state;
+  const { activities, browser, router } = state;
 
   const { lon, lat, z } = router.route.params;
-
-  const { region } = map;
-  const maxBounds = region.properties.bounds;
-  // Increase maxBounds so that map can be centered on edge of view.
-  maxBounds[0] -= 1.0;
-  maxBounds[2] += 1.0;
-  maxBounds[1] -= 0.5;
-  maxBounds[3] += 0.5;
 
   return {
     lon,
     lat,
-    maxBounds: maxBounds,
     mediaType: browser.mediaType,
     viewingDirections: activities.viewingDirections,
     zoom: z
