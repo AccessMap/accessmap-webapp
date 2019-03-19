@@ -2,8 +2,6 @@ import { combineReducers } from "redux";
 
 import regions from "constants/regions";
 
-console.log(regions);
-
 import {
   CLOSE_PREFERENCES,
   CLEAR_SELECTED_FEATURES,

@@ -14,6 +14,7 @@ import Legend from "containers/Legend";
 import LinkOverlay from "containers/LinkOverlay";
 import MapOverlay from "containers/MapOverlay";
 import OmniCard from "containers/OmniCard";
+import RegionSelector from "containers/RegionSelector";
 import RouteBottomCard from "containers/RouteBottomCard";
 import RouteBottomSheet from "containers/RouteBottomSheet";
 import SettingsCard from "containers/SettingsCard";
@@ -51,6 +52,7 @@ class App extends PureComponent {
       <RouteBottomSheet />
       <Tour />
       <SignupPrompt />
+      <RegionSelector />
     </React.Fragment>
   );
 }

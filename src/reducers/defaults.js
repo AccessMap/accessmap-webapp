@@ -6,6 +6,7 @@ import regions from "constants/regions";
 export const defaultActivities = {
   drawerVisible: false,
   promptingSignup: false,
+  selectingRegion: false,
   settingProfile: false,
   viewingDirections: false,
   viewingMapInfo: false,

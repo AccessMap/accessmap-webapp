@@ -124,8 +124,13 @@ class OmniCard extends React.PureComponent {
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
             <AccessMapLogo />
+            {/*
             <h6 className="accessmaplogo-region">Seattle</h6>
+            */}
           </div>
+          <Button flat secondary onClick={actions.openRegionSelections}>
+            Change Region
+          </Button>
         </Toolbar>
       );
 

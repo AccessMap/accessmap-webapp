@@ -4,11 +4,14 @@ import {
   EXIT_TRIP_PLANNING,
   CLOSE_MAP_INFO,
   CLOSE_DIRECTIONS,
+  CLOSE_REGION_SELECTIONS,
   CLOSE_SIGNUP_PROMPT,
   HIDE_DRAWER,
+  OPEN_REGION_SELECTIONS,
   OPEN_SIGNUP_PROMPT,
   RECEIVE_ROUTE,
   SELECT_PROFILE,
+  SELECT_REGION,
   SHOW_DRAWER,
   TOGGLE_SETTING_PROFILE,
   VIEW_DIRECTIONS,
@@ -34,6 +37,19 @@ const handlePromptingSignup = (state = defaults.promptingSignup, action) => {
     case OPEN_SIGNUP_PROMPT:
       return true;
     case CLOSE_SIGNUP_PROMPT:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const handleSelectingRegion = (state = defaults.selectingRegion, action) => {
+  switch (action.type) {
+    case OPEN_REGION_SELECTIONS:
+      return true;
+    case CLOSE_REGION_SELECTIONS:
+      return false;
+    case SELECT_REGION:
       return false;
     default:
       return state;
@@ -102,6 +118,7 @@ const handleViewingRouteInfo = (state = defaults.viewingRouteInfo, action) => {
 export default combineReducers({
   drawerVisible: handleDrawerVisible,
   promptingSignup: handlePromptingSignup,
+  selectingRegion: handleSelectingRegion,
   settingProfile: handleSettingProfile,
   viewingDirections: handleViewingDirections,
   viewingMapInfo: handleViewingMapInfo,

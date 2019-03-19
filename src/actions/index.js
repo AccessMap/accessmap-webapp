@@ -22,6 +22,8 @@ export const CLOSE_MAP_INFO = "CLOSE_MAP_INFO";
 export const PLAN_TRIP = "PLAN_TRIP";
 export const EXIT_TRIP_PLANNING = "EXIT_TRIP_PLANNING";
 export const TOGGLE_SETTING_PROFILE = "TOGGLE_SETTING_PROFILE";
+export const OPEN_REGION_SELECTIONS = "OPEN_REGION_SELECTIONS";
+export const CLOSE_REGION_SELECTIONS = "CLOSE_REGION_SELECTIONS";
 
 // Routing profile settings
 export const SET_SPEED = "SET_SPEED";
@@ -253,6 +255,24 @@ export const toggleSettingProfile = displayed => ({
   meta: {
     analytics: {
       type: "toggle-setting-profile"
+    }
+  }
+});
+
+export const openRegionSelections = () => ({
+  type: OPEN_REGION_SELECTIONS,
+  meta: {
+    analytics: {
+      type: "open-region-selections"
+    }
+  }
+});
+
+export const closeRegionSelections = () => ({
+  type: CLOSE_REGION_SELECTIONS,
+  meta: {
+    analytics: {
+      type: "close-region-selections"
     }
   }
 });
@@ -676,11 +696,11 @@ export const setOriginDestination = (origin, destination) => (
 
 export const selectRegion = regionName => ({
   type: SELECT_REGION,
-  payload: { regionName },
+  payload: regionName,
   meta: {
     analytics: {
       type: "map-tilejson-request",
-      payload: { regionName }
+      payload: regionName
     }
   }
 });

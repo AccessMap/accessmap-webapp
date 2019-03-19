@@ -5,6 +5,7 @@ import getVisibleMargins from "utils/get-visible-margins";
 import inView from "utils/in-view";
 import mapSubview from "utils/map-subview";
 import routeBounds from "utils/route-bounds";
+import regions from "constants/regions";
 
 import {
   CLOSE_DIRECTIONS,
@@ -15,6 +16,7 @@ import {
   //  MAP_TILEJSON_SUCCESS,
   PLAN_TRIP,
   RECEIVE_ROUTE,
+  SELECT_REGION,
   SET_DESTINATION,
   SET_ORIGIN,
   SET_POI,
@@ -32,6 +34,22 @@ const createRouter5Middleware = router => {
       case LOG_IN: {
         // TODO: retrieve history and/or param state and redirect to last known one.
         router.navigate("root");
+        break;
+      }
+      case SELECT_REGION: {
+        let region;
+        for (let feature of regions.features) {
+          if (feature.properties.name === action.payload) {
+            region = feature;
+            break;
+          }
+        }
+        console.log(region.properties);
+        router.navigate("root", {
+          lon: region.properties.lon,
+          lat: region.properties.lat,
+          z: region.properties.zoom
+        });
         break;
       }
       case PLAN_TRIP: {
