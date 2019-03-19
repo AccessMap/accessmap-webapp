@@ -1,5 +1,4 @@
 import regions from "constants/regions";
-import mapConstants from "constants/map";
 import precisionRound from "utils/precision-round";
 
 // Default region is the first one - Seattle right now.

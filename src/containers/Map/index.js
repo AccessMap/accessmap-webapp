@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import mapConstants from "constants/map";
 import regions from "constants/regions";
 
 import cn from "classnames";
@@ -174,17 +173,18 @@ Map.propTypes = {
   /* eslint-enable react/require-default-props */
   lon: PropTypes.number,
   lat: PropTypes.number,
+  maxBounds: PropTypes.arrayOf(PropTypes.number),
   mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
   viewingDirections: PropTypes.bool,
   zoom: PropTypes.number
 };
 
 Map.defaultProps = {
-  lon: mapConstants.lon,
-  lat: mapConstants.lat,
+  lon: regions.features[0].properties.lon,
+  lat: regions.features[0].properties.lat,
   mediaType: "mobile",
   viewingDirections: false,
-  zoom: mapConstants.zoom
+  zoom: regions.features[0].properties.zoom
 };
 
 const mapStateToProps = state => {
@@ -192,14 +192,7 @@ const mapStateToProps = state => {
 
   const { lon, lat, z } = router.route.params;
 
-  let region;
-  for (let feature of regions.features) {
-    if (feature.properties.name === map.regionName) {
-      region = feature;
-      break;
-    }
-  }
-
+  const { region } = map;
   const maxBounds = region.properties.bounds;
   // Increase maxBounds so that map can be centered on edge of view.
   maxBounds[0] -= 1.0;

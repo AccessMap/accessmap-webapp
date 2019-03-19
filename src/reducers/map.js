@@ -1,5 +1,9 @@
 import { combineReducers } from "redux";
 
+import regions from "constants/regions";
+
+console.log(regions);
+
 import {
   CLOSE_PREFERENCES,
   CLEAR_SELECTED_FEATURES,
@@ -19,10 +23,21 @@ import {
 
 import { defaultMap } from "reducers/defaults";
 
-const handleRegionName = (state = defaultMap.regionName, action) => {
+const handleRegion = (state = defaultMap.region, action) => {
   switch (action.type) {
-    case SELECT_REGION:
-      return action.payload;
+    case SELECT_REGION: {
+      let region;
+      for (let feature of regions.features) {
+        if (feature.properties.name === action.payload) {
+          region = feature;
+          break;
+        }
+      }
+      if (region === undefined) {
+        region = regions.features[0];
+      }
+      return region;
+    }
     default:
       return state;
   }
@@ -83,7 +98,7 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
 };
 
 export default combineReducers({
-  regionName: handleRegionName,
+  region: handleRegion,
   inclineUphill: handleInclineUphill,
   selectedFeature: handleSelectedFeature
 });
