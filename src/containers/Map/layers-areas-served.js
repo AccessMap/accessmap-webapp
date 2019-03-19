@@ -15,8 +15,8 @@ const AreasServed = props => {
         paint={{
           "line-color": "#000",
           "line-opacity": 0.9,
-          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 3, 22, 20],
-          "line-blur": ["interpolate", ["linear"], ["zoom"], 8, 1, 22, 20]
+          "line-width": ["interpolate", ["linear"], ["zoom"], 8, 2, 22, 20],
+          "line-blur": ["interpolate", ["linear"], ["zoom"], 8, 0.5, 22, 10]
         }}
         before="bridge-street"
       />
