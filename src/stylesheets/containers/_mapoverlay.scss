@@ -10,13 +10,13 @@
 
   &.routeview {
     position: absolute;
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       // The height of the two toolbars
       height: calc(100% - 2 * #{$md-toolbar-mobile-portrait-height} - 8px);
       width: 100%;
     }
 
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       height: 100%;
       width: 100%;
       right: 0;
@@ -25,12 +25,12 @@
 
   &.directions {
     position: absolute;
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       height: 50%;
       width: 100%;
     }
 
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       height: 100%;
       width: 50%;
       right: 0;

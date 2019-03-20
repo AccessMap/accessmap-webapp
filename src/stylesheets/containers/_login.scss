@@ -2,19 +2,19 @@
   .user-account-avatar {
     background: $md-secondary-color;
 
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       height: 32px;
       width: 32px;
       margin-top: 4px;
     }
 
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       height: 32px;
       width: 32px;
       margin-top: 4px;
     }
 
-    @media #{$md-tablet-media} {
+    @media #{$tablet-media} {
       height: 32px;
       width: 32px;
       margin-top: 16px;

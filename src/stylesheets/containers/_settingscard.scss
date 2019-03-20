@@ -5,7 +5,7 @@
   top: 0;
   left: 0;
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     width: 320px;
   }
 
@@ -20,7 +20,7 @@
   }
 
   // Globalish settings for height between mobile / tablet
-  @media only screen and (max-width: #{$md-tablet-min-width}) {
+  @media only screen and (max-width: #{$tablet-min-width}) {
     // Mobile portrait mode: screen real estate is at a premium
 
     // Shrink toolbars

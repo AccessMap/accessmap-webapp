@@ -2,17 +2,15 @@
 // This file contains all application-wide Sass variables.
 // -----------------------------------------------------------------------------
 
-
-
-
-
 /// Regular font family
 /// @type List
-$text-font-stack: 'Roboto', 'Open Sans', 'Helvetica Neue Light', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif !default;
+$text-font-stack: "Roboto", "Open Sans", "Helvetica Neue Light",
+  "Helvetica Neue", "Helvetica", "Arial", sans-serif !default;
 
 /// Code (monospace) font family
 /// @type List
-$code-font-stack: 'Courier New', 'DejaVu Sans Mono', 'Bitstream Vera Sans Mono', 'Monaco', monospace !default;
+$code-font-stack: "Courier New", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
+  "Monaco", monospace !default;
 
 /// Copy text color
 /// @type Color
@@ -34,38 +32,40 @@ $mid-grey: rgb(153, 153, 153) !default;
 /// @type Color
 $dark-grey: rgb(68, 68, 68) !default;
 
-
-
-
-
 /// Container's maximum width
 /// @type Length
 $max-width: 1180px !default;
-
-
-
-
 
 /// Breakpoints map
 /// @prop {String} keys - Keys are identifiers mapped to a given length
 /// @prop {Map} values - Values are actual breakpoints expressed in pixels
 $breakpoints: (
-  'small': 320px,
-  'medium': 768px,
-  'large': 1024px,
+  "small": 320px,
+  "medium": 768px,
+  "large": 1024px
 ) !default;
-
-
-
-
-
 
 /// Relative or absolute URL where all assets are served from
 /// @type String
 /// @example scss - When using a CDN
 ///   $base-url: 'http://cdn.example.com/assets/';
-$base-url: '/assets/' !default;
+$base-url: "/assets/" !default;
 
+// Responsive layout variables
+$mobile-min-width: 360px;
+$tablet-min-width: 824px;
+$desktop-min-width: 1024px;
+
+$portrait-media: "(orientation: portrait)" !default;
+$landscape-media: "(orientation: landscape)" !default;
+
+$mobile-media: "screen and (min-width: #{$mobile-min-width})" !default;
+$mobile-portrait-media: "screen and (min-width: #{$mobile-min-width}) and #{$portrait-media}" !default;
+$mobile-landscape-media: "screen and (min-width: #{$mobile-min-width}) and #{$landscape-media}" !default;
+$tablet-media: "screen and (min-width: #{$tablet-min-width})" !default;
+$tablet-portrait-media: "screen and (min-width: #{$tablet-min-width}) and #{$portrait-media}" !default;
+$tablet-landscape-media: "screen and (min-width: #{$tablet-min-width}) and #{$landscape-media}" !default;
+$desktop-media: "screen and (min-width: #{$desktop-min-width})" !default;
 
 // Constant layout properties
 $omnipadding: 8px;
@@ -75,4 +75,3 @@ $omnicard-mobile-portrait-width: 100%;
 $omnicard-mobile-landscape-width: 320px;
 $omnicard-tablet-width: 384px;
 $omnicard-desktop-width: 384px;
-

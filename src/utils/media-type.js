@@ -1,7 +1,4 @@
-import {
-  TABLET_MIN_WIDTH,
-  DESKTOP_MIN_WIDTH
-} from "react-md/src/js/constants/media";
+import { TABLET_MIN_WIDTH, DESKTOP_MIN_WIDTH } from "constants/media";
 
 const mediaType = () => {
   const matchDesktop = window.matchMedia(`

@@ -7,13 +7,13 @@
   }
 
   .accessmapicon {
-      width: 32px;
-      height: 32px;
+    width: 32px;
+    height: 32px;
   }
 
   .accessmaplogo {
-      width: 160px;
-      height: 40px;
+    width: 160px;
+    height: 40px;
   }
 
   .accessmaplogo-region {
@@ -23,7 +23,7 @@
   }
 
   .accessmapicon-primary,
-  .accessmaplogo-primary, {
+  .accessmaplogo-primary {
     fill: #0d47a1;
   }
 
@@ -41,7 +41,7 @@
     }
   }
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     .accessmap-title > * {
       margin-top: 12px;
     }
@@ -66,7 +66,7 @@
       top: $md-toolbar-mobile-portrait-height;
     }
   }
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     .accessmap-title > * {
       margin-top: 8px;
     }
@@ -82,7 +82,7 @@
     }
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     .analytics-dialog {
       margin-left: 25%;
       margin-right: 25%;

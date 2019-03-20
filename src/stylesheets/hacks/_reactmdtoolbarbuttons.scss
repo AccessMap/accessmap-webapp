@@ -1,14 +1,14 @@
 .md-toolbar .md-btn--toolbar {
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     margin-top: 4px;
   }
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     margin-top: 0px;
   }
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     margin-top: 8px;
   }
-  @media #{$md-desktop-media} {
+  @media #{$desktop-media} {
     margin-top: 12px;
   }
 }

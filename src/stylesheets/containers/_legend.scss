@@ -7,11 +7,11 @@ $floating-buttons-width: 56px;
   width: 512px;
   margin-bottom: 32px;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     width: calc(100% - 2 * #{$omnipadding} - #{$floating-buttons-width});
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     width: $omnicard-mobile-landscape-width;
     left: 0;
     right: 0;
@@ -19,16 +19,20 @@ $floating-buttons-width: 56px;
     margin-right: auto;
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     left: $omnicard-tablet-width + 2 * $omnipadding;
-    width: calc(100% - #{$omnicard-tablet-width} - #{$floating-buttons-width} - 2 * #{$omnipadding});
+    width: calc(
+      100% - #{$omnicard-tablet-width} - #{$floating-buttons-width} - 2 * #{$omnipadding}
+    );
   }
 
-  @media #{$md-desktop-media} {
+  @media #{$desktop-media} {
     margin-left: 0;
     margin-right: 0;
     left: $omnicard-desktop-width + 2 * $omnipadding;
-    width: calc(100% - #{$omnicard-desktop-width} - #{$floating-buttons-width} - 2 * #{$omnipadding});
+    width: calc(
+      100% - #{$omnicard-desktop-width} - #{$floating-buttons-width} - 2 * #{$omnipadding}
+    );
   }
 
   // margin-bottom: 8px;
@@ -39,19 +43,19 @@ $floating-buttons-width: 56px;
     width: calc(100% - 16px);
     margin: 0 auto;
 
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       height: 40px;
     }
 
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       height: 40px;
     }
 
-    @media #{$md-tablet-media} {
+    @media #{$tablet-media} {
       height: 40px;
     }
 
-    @media #{$md-desktop-media} {
+    @media #{$desktop-media} {
       height: 40px;
     }
 

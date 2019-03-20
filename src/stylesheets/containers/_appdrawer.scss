@@ -1,24 +1,24 @@
 .appdrawer {
   .accessmap-title > * {
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       margin-top: 4px;
     }
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       margin-top: 4px;
     }
-    @media #{$md-tablet-media} {
+    @media #{$tablet-media} {
       margin-top: 12px;
     }
   }
 
   .accessmapicon {
-      width: 32px;
-      height: 32px;
+    width: 32px;
+    height: 32px;
   }
 
   .accessmaplogo {
-      width: 160px;
-      height: 40px;
+    width: 160px;
+    height: 40px;
   }
 
   .accessmaplogo-region {
@@ -28,7 +28,7 @@
   }
 
   .accessmapicon-primary,
-  .accessmaplogo-primary, {
+  .accessmaplogo-primary {
     fill: $md-primary-color;
   }
 

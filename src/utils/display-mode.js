@@ -1,5 +1,5 @@
 const displayMode = () => {
-  const portrait = window.matchMedia("(max-aspect-ratio: 13/9)").matches;
+  const portrait = window.matchMedia("(orientation: portrait)").matches;
   return portrait ? "portrait" : "landscape";
 };
 

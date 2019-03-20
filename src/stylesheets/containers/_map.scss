@@ -13,14 +13,14 @@
   -ms-user-select: none;
   user-select: none;
 
-/*
+  /*
   &.directions {
-    @media #{$md-mobile-portrait-media} {
+    @media #{$mobile-portrait-media} {
       height: 50%;
       width: 100%;
     }
 
-    @media #{$md-mobile-landscape-media} {
+    @media #{$mobile-landscape-media} {
       height: 100%;
       width: 50%;
       right: 0;

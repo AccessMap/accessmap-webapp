@@ -7,22 +7,22 @@
   margin: 0 auto;
   overflow: hidden;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     margin-bottom: 8px;
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     bottom: 0;
     height: 100%;
     width: 50%;
     margin-bottom: 0px;
     margin-left: 0;
-    &.md-card{
+    &.md-card {
       z-index: 6;
     }
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     left: $omnicard-tablet-width + 8px;
     bottom: 8px;
     height: auto;

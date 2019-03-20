@@ -2,13 +2,13 @@
   z-index: 4;
   position: absolute;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     bottom: 0;
     height: 50%;
     width: 100%;
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     position: fixed;
     padding: inherit;
     height: 100%;

@@ -7,21 +7,21 @@
 
   z-index: 5;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     width: $omnicard-mobile-portrait-width;
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     max-width: 50%;
     width: $omnicard-mobile-landscape-width;
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     width: $omnicard-tablet-width;
     height: 100%;
   }
 
-  @media #{$md-desktop-media} {
+  @media #{$desktop-media} {
     width: $omnicard-desktop-width;
     height: 100%;
   }
@@ -44,27 +44,27 @@
   .omnicard--header {
     .accessmap-title > * {
       display: inline-block;
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         margin-top: 8px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         margin-top: 8px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         margin-top: 16px;
       }
     }
 
     .accessmap-title {
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         margin-left: 0px;
         margin-right: 8px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         margin-left: 0px;
         margin-right: 4px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         margin-left: 4px;
         margin-right: 8px;
       }
@@ -92,15 +92,15 @@
 
     .accessmaplogo-region {
       position: absolute;
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         top: 20px;
         left: 74px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         top: 20px;
         left: 74px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         top: 20px;
         left: 74px;
       }
@@ -108,7 +108,7 @@
 
     .region-selection-open-button {
       // margin-bottom: auto;
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         height: 40px;
         padding-top: 0;
         padding-bottom: 0;
@@ -118,7 +118,7 @@
         margin-left: 0px;
         margin-top: 6px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         padding-left: 0;
         padding-right: 0;
         margin-left: 0px;
@@ -126,7 +126,7 @@
         min-width: 64px;
         width: 64px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         height: 48px;
         margin-left: 4px;
         margin-top: 8px;
@@ -135,28 +135,28 @@
 
     .md-toolbar--action-left.md-btn {
       margin-left: 0px;
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         margin-left: 4px;
       }
     }
 
     .md-cell--right {
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         margin-left: 8px;
       }
     }
 
     .md-toolbar--action-right .md-btn {
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         margin-top: 8px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         padding-left: 0;
         padding-right: 0;
         margin-top: 8px;
         min-width: 48px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         margin-top: 16px;
       }
     }
@@ -170,20 +170,20 @@
       margin-left: 8px;
       text-align: center;
       width: 24px;
-      @media #{$md-desktop-media} {
+      @media #{$desktop-media} {
         width: 20px;
       }
     }
 
     .search-icon {
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         margin-left: 16px;
       }
-      @media #{$md-desktop-media} {
+      @media #{$desktop-media} {
         margin-left: 16px;
       }
     }
@@ -204,24 +204,24 @@
         font-weight: $md-font-regular;
       }
 
-      @media #{$md-mobile-portrait-media} {
+      @media #{$mobile-portrait-media} {
         width: calc(100% - 96px);
         height: 32px;
         margin: 8px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         width: calc(100% - 96px);
         height: 32px;
         margin: 8px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         width: calc(100% - 128px);
         height: 32px;
         margin-top: 16px;
         margin-bottom: 16px;
         margin-left: 8px;
       }
-      @media #{$md-desktop-media} {
+      @media #{$desktop-media} {
         width: calc(100% - 112px);
         height: 32px;
         margin-top: 16px;
@@ -231,13 +231,13 @@
     }
 
     .md-autocomplete-list {
-      @media #{$md-mobile-media} {
+      @media #{$mobile-media} {
         width: 256px;
       }
-      @media #{$md-mobile-landscape-media} {
+      @media #{$mobile-landscape-media} {
         width: 352px;
       }
-      @media #{$md-tablet-media} {
+      @media #{$tablet-media} {
         width: auto;
       }
       .md-list-item .md-list-tile {
@@ -283,7 +283,7 @@
   }
 
   // Globalish settings for height between mobile / tablet
-  @media only screen and (max-width: #{$md-tablet-min-width}) {
+  @media only screen and (max-width: #{$tablet-min-width}) {
     // Mobile portrait mode: screen real estate is at a premium
 
     // Shrink toolbars

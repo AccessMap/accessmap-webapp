@@ -2,19 +2,19 @@
   top: 0;
   right: 0;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     position: relative;
     margin: 0;
     float: right;
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     position: absolute;
     margin-top: 8px;
     margin-right: 8px;
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     position: absolute;
     margin-top: 8px;
     margin-right: 8px;
@@ -29,17 +29,17 @@
   top: 0;
   right: 0;
 
-  @media #{$md-mobile-portrait-media} {
+  @media #{$mobile-portrait-media} {
     padding: 0;
     position: relative;
   }
 
-  @media #{$md-mobile-landscape-media} {
+  @media #{$mobile-landscape-media} {
     padding: inherit;
     position: absolute;
   }
 
-  @media #{$md-tablet-media} {
+  @media #{$tablet-media} {
     padding: inherit;
     position: absolute;
   }

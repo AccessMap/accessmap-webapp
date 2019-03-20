@@ -1,4 +1,4 @@
-$only-mobile: 'screen and (max-width: #{$md-tablet-min-width})' !default;
+$only-mobile: "screen and (max-width: #{$tablet-min-width})" !default;
 
 // Overall layout
 .link-overlay > .md-dialog {
