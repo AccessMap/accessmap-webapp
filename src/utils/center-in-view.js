@@ -24,7 +24,7 @@ const centerInView = (lon, lat, zoom) => {
 
   const lat2 = lat + dlat;
 
-  return [lon2, lat2];
+  return { lon: lon2, lat: lat2 };
 };
 
 export default centerInView;
