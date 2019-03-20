@@ -102,36 +102,45 @@
       }
       @media #{$tablet-media} {
         top: 20px;
+        left: 82px;
+      }
+      @media #{$desktop-media} {
+        top: 20px;
         left: 74px;
       }
     }
 
-    .region-selection-open-button {
-      // margin-bottom: auto;
-      @media #{$mobile-portrait-media} {
-        height: 40px;
-        padding-top: 0;
-        padding-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
-        min-width: 64px;
-        margin-left: 0px;
-        margin-top: 6px;
-      }
-      @media #{$mobile-landscape-media} {
-        padding-left: 0;
-        padding-right: 0;
-        margin-left: 0px;
-        margin-top: 0px;
-        min-width: 64px;
-        width: 64px;
-      }
-      @media #{$tablet-media} {
-        height: 48px;
-        margin-left: 4px;
-        margin-top: 8px;
-      }
-    }
+    // .region-selection-open-button {
+    //   // margin-bottom: auto;
+    //   @media #{$mobile-portrait-media} {
+    //     height: 40px;
+    //     width: 64px;
+    //     min-width: 64px;
+    //     padding-top: 0;
+    //     padding-bottom: 0;
+    //     padding-left: 0;
+    //     padding-right: 0;
+    //     margin-left: 0px;
+    //     margin-top: 6px;
+    //   }
+    //   @media #{$mobile-landscape-media} {
+    //     height: 40px;
+    //     width: 64px;
+    //     min-width: 64px;
+    //     padding-left: 0;
+    //     padding-right: 0;
+    //     margin-left: 0px;
+    //     margin-top: 0px;
+    //   }
+    //   @media #{$tablet-media} {
+    //     height: 48px;
+    //     width: 80px;
+    //     padding-left: 16px;
+    //     padding-right: 16px;
+    //     margin-left: 4px;
+    //     margin-top: 8px;
+    //   }
+    // }
 
     .md-toolbar--action-left.md-btn {
       margin-left: 0px;
@@ -140,23 +149,33 @@
       }
     }
 
-    .md-cell--right {
-      @media #{$mobile-landscape-media} {
-        margin-left: 8px;
-      }
-    }
+    // .md-cell--right {
+    //   @media #{$mobile-landscape-media} {
+    //     margin-left: 8px;
+    //   }
+    // }
 
     .md-toolbar--action-right .md-btn {
       @media #{$mobile-portrait-media} {
+        width: 80px;
+        min-width: 80px;
         margin-top: 8px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 0px;
       }
       @media #{$mobile-landscape-media} {
-        padding-left: 0;
-        padding-right: 0;
+        width: 64px;
+        min-width: 64px;
         margin-top: 8px;
-        min-width: 48px;
+        padding-left: 8px;
+        padding-right: 8px;
+        padding-top: 0px;
       }
       @media #{$tablet-media} {
+        width: auto;
+        min-width: auto;
+        max-width: 96px;
         margin-top: 16px;
       }
     }
@@ -251,6 +270,9 @@
     padding-left: 8px;
 
     .profiles-container {
+      #profile-radio-selector-group-label {
+        margin-bottom: 0;
+      }
       padding: 0;
 
       span h6 {

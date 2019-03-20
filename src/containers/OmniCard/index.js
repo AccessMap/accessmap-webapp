@@ -123,20 +123,22 @@ class OmniCard extends React.PureComponent {
               <SVGIcon use={menu.url} />
             </Button>
           }
-          actions={[<Login key="login-button" />]}
+          actions={[
+            <Button
+              className="region-selection-open-button"
+              flat
+              primary
+              onClick={actions.openRegionSelections}
+            >
+              Change Region
+            </Button>,
+            <Login key="login-button" />
+          ]}
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
             <AccessMapLogo />
             <h6 className="accessmaplogo-region">{regionName}</h6>
           </div>
-          <Button
-            className="region-selection-open-button"
-            flat
-            primary
-            onClick={actions.openRegionSelections}
-          >
-            Change Region
-          </Button>
         </Toolbar>
       );
 
