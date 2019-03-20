@@ -23,7 +23,7 @@ const createAnalyticsMiddleware = () => {
           });
           break;
         case "log-in":
-          rakam.setUserId(jwtDecode(payload.accessToken).user_claims.sub);
+          rakam.setUserId(jwtDecode(payload.accessToken).sub);
           rakam.setSuperProperties(
             {
               user_preferred_username: payload.preferredUsername
