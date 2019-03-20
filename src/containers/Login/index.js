@@ -35,26 +35,6 @@ const Login = props => {
       className="login"
       menuItems={[
         {
-          primaryText: "",
-          children: [
-            <a
-              className="account-link"
-              key="account-menu-link"
-              style={{
-                position: "absolute",
-                left: 0,
-                width: "100%",
-                overflow: "hidden"
-              }}
-              href="https://accounts.open-to-all.com/auth/realms/OpenToAll/account/"
-            >
-              <div style={{ paddingLeft: 16 }} className="md-tile-content">
-                <div className="md-tile-text--primary md-text">Account</div>
-              </div>
-            </a>
-          ]
-        },
-        {
           primaryText: "Sign Out",
           onClick: actions.logOut
         }
