@@ -32,6 +32,7 @@ const ProfileList = props => {
     <SelectionControlGroup
       className="profiles-container"
       id="profile-radio-selector"
+      label={<p hidden>Routing Profiles</p>}
       name="routing-profile-selector"
       type="radio"
       controlClassName="md-inline-block"
@@ -49,7 +50,11 @@ const ProfileList = props => {
         let profile = profiles[profileKey];
         let isSelected = selected === profileKey;
         return {
-          label: isSelected ? <h6 aria-hidden>{profileKey}</h6> : "",
+          label: isSelected ? (
+            <h6>{profileKey}</h6>
+          ) : (
+            <p hidden>{profileKey}</p>
+          ),
           value: profileKey,
           className: isSelected ? "profile-selected" : "",
           checkedRadioIcon: (
