@@ -53,7 +53,7 @@ export default class GeocoderAutocomplete extends Component {
   };
 
   render() {
-    const { onAutocomplete, bbox, ...otherProps } = this.props;
+    const { onAutocomplete, ...otherProps } = this.props;
 
     const { places } = this.state;
 

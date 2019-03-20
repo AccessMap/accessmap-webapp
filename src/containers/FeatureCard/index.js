@@ -65,7 +65,6 @@ const FeatureCard = props => {
     curbramps,
     crossing,
     description,
-    footway,
     incline,
     indoor,
     opening_hours,

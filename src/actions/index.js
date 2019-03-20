@@ -701,18 +701,16 @@ export const selectRegion = regionKey => ({
   }
 });
 
-export const loadApp = () => (dispatch, getstate) => {
-  dispatch({
-    // NOTE: Important! LOAD_APP analytics meta is required for our implementation of
-    // rakam js analytics.
-    type: LOAD_APP,
-    meta: {
-      analytics: {
-        type: "load-app"
-      }
+export const loadApp = () => ({
+  // NOTE: Important! LOAD_APP analytics meta is required for our implementation of
+  // rakam js analytics.
+  type: LOAD_APP,
+  meta: {
+    analytics: {
+      type: "load-app"
     }
-  });
-};
+  }
+});
 
 export const loadMap = (lon, lat, zoom, bbox) => ({
   type: LOAD_MAP,

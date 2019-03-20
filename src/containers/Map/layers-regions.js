@@ -1,10 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Layer } from "react-mapbox-gl";
 
-const Regions = props => {
+const Regions = () => {
   return (
     <React.Fragment>
       <Layer

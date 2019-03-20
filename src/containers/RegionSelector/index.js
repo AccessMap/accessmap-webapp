@@ -46,6 +46,7 @@ const RegionSelector = props => {
 };
 
 RegionSelector.propTypes = {
+  actions: PropTypes.objectOf(PropTypes.func).isRequired,
   visible: PropTypes.bool.isRequired
 };
 
