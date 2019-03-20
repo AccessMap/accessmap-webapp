@@ -11,6 +11,7 @@ const ProfileSaveButton = props => {
 
   return (
     <Button
+      className="save-profile-button"
       raised
       secondary
       iconEl={<SVGIcon use={sync.url} />}

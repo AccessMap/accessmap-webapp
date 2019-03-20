@@ -269,6 +269,10 @@
   }
 
   // Profile editing section
+  .profile-editor-desktop > * {
+    margin-bottom: 8px;
+  }
+
   .md-slider-track-fill,
   .md-slider-thumb--on {
     background: $md-secondary-color;

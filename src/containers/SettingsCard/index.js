@@ -7,7 +7,7 @@ import { connect } from "react-redux";
 import * as AppActions from "actions";
 
 import Button from "react-md/src/js/Buttons";
-import Card, { CardText } from "react-md/src/js/Cards";
+import Card, { CardActions, CardText } from "react-md/src/js/Cards";
 import { Tabs, Tab } from "react-md/src/js/Tabs";
 import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
@@ -66,7 +66,6 @@ const SettingsCard = props => {
     <Card className="settings-card">
       <Toolbar
         actions={[
-          saveButton,
           <Button
             key="close-profile-settings-button"
             aria-label="close profile settings"
@@ -104,6 +103,7 @@ const SettingsCard = props => {
         <Tab id="tab-barriers" label="Barriers" />
       </Tabs>
       <CardText>{settingsComponent}</CardText>
+      <CardActions>{saveButton}</CardActions>
     </Card>
   );
 };
