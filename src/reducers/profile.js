@@ -9,6 +9,7 @@ import {
   OPEN_BARRIERS_PREFERENCES,
   OPEN_PREFERENCES,
   OPEN_UPHILL_PREFERENCES,
+  LOG_IN,
   NO_SAVED_PROFILES,
   SET_UPHILL_MAX,
   SET_DOWNHILL_MAX,
@@ -82,6 +83,10 @@ const handleSelected = (state = defaults.selected, action) => {
     case SELECT_PROFILE:
       // TODO: check for validity? How do we recover from errors here?
       return action.payload;
+    case LOG_IN:
+    case FETCH_PROFILE_SUCCESS:
+    case NO_SAVED_PROFILES:
+      return "Custom";
     default:
       return state;
   }
