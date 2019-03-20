@@ -1,7 +1,6 @@
 // Action types
 import { defaultProfiles } from "profiles";
 import { saveProfile } from "utils/api";
-import { initMap } from "utils/init-map";
 
 // Analytics settings
 export const ENABLE_ANALYTICS = "ENABLE_ANALYTICS";
@@ -101,9 +100,6 @@ export const RESIZE_WINDOW = "RESIZE_WINDOW";
 
 // Map initialization
 export const SELECT_REGION = "SELECT_REGION";
-export const MAP_TILEJSON_REQUEST = "MAP_TILEJSON_REQUEST";
-export const MAP_TILEJSON_SUCCESS = "MAP_TILEJSON_SUCCESS";
-export const MAP_TILEJSON_FAILURE = "MAP_TILEJSON_FAILURE";
 
 // Drawer toggles
 export const SHOW_DRAWER = "SHOW_DRAWER";
@@ -699,41 +695,8 @@ export const selectRegion = regionKey => ({
   payload: regionKey,
   meta: {
     analytics: {
-      type: "map-tilejson-request",
+      type: "select-region",
       payload: regionKey
-    }
-  }
-});
-
-export const mapTileJSONRequest = () => ({
-  type: MAP_TILEJSON_REQUEST,
-  meta: {
-    analytics: {
-      type: "map-tilejson-request"
-    }
-  }
-});
-
-export const mapTileJSONSuccess = (bounds, center) => ({
-  type: MAP_TILEJSON_SUCCESS,
-  payload: {
-    lon: center[0],
-    lat: center[1],
-    zoom: center[2],
-    bounds: bounds
-  },
-  meta: {
-    analytics: {
-      type: "map-tilejson-success"
-    }
-  }
-});
-
-export const mapTileJSONFailure = () => ({
-  type: MAP_TILEJSON_FAILURE,
-  meta: {
-    analytics: {
-      type: "map-tilejson-failure"
     }
   }
 });
@@ -747,14 +710,6 @@ export const loadApp = () => (dispatch, getstate) => {
       analytics: {
         type: "load-app"
       }
-    }
-  });
-  dispatch(mapTileJSONRequest());
-  initMap((err, bounds) => {
-    if (err) {
-      dispatch(mapTileJSONFailure());
-    } else {
-      dispatch(mapTileJSONSuccess(bounds));
     }
   });
 };
