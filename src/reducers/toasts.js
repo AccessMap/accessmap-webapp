@@ -1,4 +1,13 @@
-import { ADD_TOAST, FAILED_ROUTE, POP_TOAST, RECEIVE_ROUTE } from "actions";
+import {
+  ADD_TOAST,
+  FAILED_ROUTE,
+  POP_TOAST,
+  LOG_IN,
+  LOG_OUT,
+  RECEIVE_ROUTE,
+  SAVE_PROFILE_SUCCESS,
+  SAVE_PROFILE_FAILURE
+} from "actions";
 
 import { defaultToasts as defaults } from "reducers/defaults";
 
@@ -11,6 +20,18 @@ export default (state = defaults, action) => {
       return toasts;
     case POP_TOAST:
       toasts.shift();
+      return toasts;
+    case LOG_IN:
+      toasts.push("You have been logged in.");
+      return toasts;
+    case LOG_OUT:
+      toasts.push("You have been logged out.");
+      return toasts;
+    case SAVE_PROFILE_SUCCESS:
+      toasts.push("Profile saved!");
+      return toasts;
+    case SAVE_PROFILE_FAILURE:
+      toasts.push("Failed to save profile. Try again or contact us.");
       return toasts;
     case RECEIVE_ROUTE:
       switch (action.payload.routeResult.code) {
