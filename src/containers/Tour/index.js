@@ -6,17 +6,22 @@ import { connect } from "react-redux";
 
 import Joyride from "react-joyride";
 
+import { mainTour, mobileDirectionsTour } from "constants/tours";
+
 import * as AppActions from "actions";
 
 const Tour = props => {
-  const { actions, enabled, mediaType, tours } = props;
+  const { actions, enabled, mediaType, planningTrip } = props;
 
+  if (mediaType === null) return null;
   if (!enabled) return null;
+  const tour =
+    mediaType === "mobile" && planningTrip ? mobileDirectionsTour : mainTour;
 
   return (
     <Joyride
       continuous
-      steps={mediaType === "mobile" ? tours.mobile : tours.desktop}
+      steps={tour}
       run={enabled}
       callback={tourState => {
         const { action, status } = tourState;
@@ -34,26 +39,23 @@ const Tour = props => {
 Tour.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   enabled: PropTypes.bool,
-  mediaType: PropTypes.oneOf(["mobile", "tablet", "desktop"]),
-  tours: PropTypes.shape({
-    desktop: PropTypes.arrayOf(PropTypes.object),
-    mobile: PropTypes.arrayOf(PropTypes.object)
-  }).isRequired
+  mediaType: PropTypes.string,
+  viewingDirections: PropTypes.bool.isRequired
 };
 
 Tour.defaultProps = {
-  mediaType: "desktop",
-  enabled: false
+  enabled: false,
+  mediaType: null
 };
 
 const mapStateToProps = state => {
-  const { browser, tour } = state;
+  const { enabled } = state.tour;
+  const { mediaType } = state.browser;
+  const planningTrip =
+    state.router.route && state.router.route.name === "directions";
+  const { viewingDirections } = state.activities;
 
-  return {
-    enabled: tour.enabled,
-    mediaType: browser.mediaType,
-    tours: tour.tours
-  };
+  return { enabled, mediaType, planningTrip, viewingDirections };
 };
 
 const mapDispatchToProps = dispatch => ({

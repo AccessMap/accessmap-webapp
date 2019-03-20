@@ -109,6 +109,7 @@ class OmniCard extends React.PureComponent {
           className="omnicard--header"
           nav={
             <Button
+              id="main-menu"
               aria-label="Main Menu"
               icon
               svg

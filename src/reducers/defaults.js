@@ -1,6 +1,5 @@
 import { customProfile as customProfileDefault } from "profiles";
 import cloneObject from "utils/clone-object";
-import { mainTours } from "constants/tours";
 import regions from "constants/regions";
 
 export const defaultActivities = {
@@ -66,7 +65,6 @@ export const defaultRouteSettings = {
 };
 
 export const defaultTour = {
-  tours: mainTours,
   enabled: false
 };
 
