@@ -38,6 +38,7 @@ const RouteInfo = props => {
         ]}
       />
       <CardText className="route-info--contents">
+        <h4>Experienced elevation gain</h4>
         <RouteElevationProfile route={routeResult.routes[0]} />
         <List>
           <ListItem
