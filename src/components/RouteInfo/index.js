@@ -51,11 +51,11 @@ const RouteInfo = props => {
             secondaryText="Estimated time"
           />
           <ListItem
-            primaryText={`${uphillMax * 100} %`}
+            primaryText={`${(uphillMax * 100).toFixed(1)} %`}
             secondaryText="Steepest uphill incline"
           />
           <ListItem
-            primaryText={`${Math.abs(downhillMax * 100)} %`}
+            primaryText={`${Math.abs(downhillMax * 100).toFixed(1)} %`}
             secondaryText="Steepest downhill incline"
           />
         </List>
