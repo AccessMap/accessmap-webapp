@@ -5,18 +5,15 @@ import Button from "react-md/src/js/Buttons";
 import { CardText } from "react-md/src/js/Cards";
 import Toolbar from "react-md/src/js/Toolbars";
 
-import {
-  CrossingCard,
-  ElevatorPathCard,
-  SidewalkCard
-} from "components/DirectionsCards";
+import DirectionsCard from "components/DirectionsCard";
 
 import { routeResult as routeResultProps } from "prop-schema";
 
 const Directions = props => {
   const { onClose, routeResult } = props;
 
-  const stepsData = routeResult.routes[0].legs[0];
+  // const stepsData = routeResult.routes[0].legs[0];
+  const stepsData = routeResult.routes[0].segments.features;
   const steps = stepsData.map((d, i) => {
     // Transform raw data into ListItems
     // TODO: create a dedicated 'directions step' component
@@ -26,33 +23,40 @@ const Directions = props => {
     const destination = routeResult.destination.geometry.coordinates;
     const key = `step-${origin}-${destination}-${i}`;
 
-    switch (p.way) {
-      case "sidewalk":
-        return (
-          <SidewalkCard
-            key={key}
-            distance={p.length}
-            streetName={p.street_name}
-            streetSide={p.side}
-          />
-        );
-      case "crossing":
-        return (
-          <CrossingCard
-            key={key}
-            distance={p.length}
-            streetName={p.street_name}
-          />
-        );
-      case "elevator_path":
-        return (
-          <ElevatorPathCard
-            key={key}
-            distance={p.length}
-            indoor={p.indoor}
-            via={p.via}
-          />
-        );
+    switch (p.subclass) {
+      case "footway":
+        switch (p.footway) {
+          case "sidewalk":
+            return (
+              <DirectionsCard
+                key={key}
+                distance={p.length}
+                title="Use the sidewalk"
+                subtitle={p.description}
+              />
+            );
+          case "crossing":
+            return (
+              <DirectionsCard
+                key={key}
+                distance={p.length}
+                title="Cross the street"
+                subtitle={p.description}
+              />
+            );
+          default:
+            if (p.elevator) {
+              return (
+                <DirectionsCard
+                  key={key}
+                  distance={p.length}
+                  title={`Use ${p.indoor ? "indoor" : "outdoor"} elevator`}
+                  subtitle={p.description}
+                />
+              );
+            }
+            return null;
+        }
       default:
         return null;
     }
