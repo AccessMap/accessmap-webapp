@@ -44,7 +44,6 @@ const createRouter5Middleware = router => {
           }
         }
         const { key, lon, lat, zoom } = region.properties;
-        const { lon2, lat2 } = centerInView(lon, lat, zoom);
         router.navigate("root", {
           region: key,
           lon,

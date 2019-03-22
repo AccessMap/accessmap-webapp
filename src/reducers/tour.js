@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { actionTypes } from "redux-router5";
 
 import { COMPLETED_TOUR, DISABLE_TOUR, ENABLE_TOUR } from "actions";
 

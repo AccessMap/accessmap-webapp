@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 
 import * as AppActions from "actions";
 
-import { SelectionControlGroup } from "react-md/src/js/SelectionControls";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
 // TODO: place in separate data module
@@ -60,6 +59,7 @@ class ProfileIconButton extends React.Component {
           })}
           aria-checked={isSelected}
           role="radio"
+          taxIndex={isSelected ? 0 : -1}
           onClick={onClick}
           onMouseEnter={this._handleOnMouseEnter}
           onMouseLeave={this._handleOnMouseLeave}
@@ -82,10 +82,16 @@ class ProfileIconButton extends React.Component {
   }
 }
 
+ProfileIconButton.propTypes = {
+  icon: PropTypes.node.isRequired,
+  isSelected: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
+  profileKey: PropTypes.string.isRequired
+};
+
 const ProfileList = props => {
   const { actions, selected, profiles } = props;
-
-  const selectedProfile = profiles[selected];
 
   return (
     <div

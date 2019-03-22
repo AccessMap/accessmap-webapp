@@ -40,12 +40,14 @@ Tour.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   enabled: PropTypes.bool,
   mediaType: PropTypes.string,
+  planningTrip: PropTypes.bool,
   viewingDirections: PropTypes.bool.isRequired
 };
 
 Tour.defaultProps = {
   enabled: false,
-  mediaType: null
+  mediaType: null,
+  planningTrip: false
 };
 
 const mapStateToProps = state => {

@@ -126,6 +126,7 @@ class OmniCard extends React.PureComponent {
           }
           actions={[
             <Button
+              key="region-open-button"
               className="region-selection-open-button"
               flat
               primary
