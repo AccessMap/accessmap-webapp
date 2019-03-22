@@ -37,7 +37,7 @@ const MapLegend = props => {
       floating
       svg
       mini
-      secondary
+      primary
       swapTheming
       tooltipLabel="Map Legend"
       tooltipPosition="left"

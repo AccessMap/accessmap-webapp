@@ -204,7 +204,7 @@ class OmniCard extends React.PureComponent {
               className="directions-button md-btn--toolbar"
               key="omnicard-tripplanning--toggle"
               icon
-              secondary
+              primary
               svg
               tooltipLabel="Plan a trip"
               tooltipPosition="left"

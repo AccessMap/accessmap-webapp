@@ -22,7 +22,7 @@ const SignupPrompt = props => {
       <p className="md-color--secondary-text">
         Sign in (or create an account) to save profiles.
       </p>
-      <Button raised secondary onClick={actions.closeSignupPrompt}>
+      <Button raised primary onClick={actions.closeSignupPrompt}>
         OK
       </Button>
     </DialogContainer>

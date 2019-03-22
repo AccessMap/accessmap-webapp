@@ -13,7 +13,7 @@ const ProfileSaveButton = props => {
     <Button
       className="save-profile-button"
       raised
-      secondary
+      primary
       iconEl={<SVGIcon use={sync.url} />}
       onClick={onClick}
     >

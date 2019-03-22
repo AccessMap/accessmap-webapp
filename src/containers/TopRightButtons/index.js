@@ -39,7 +39,7 @@ const TopRightButtons = props => {
           floating
           svg
           mini
-          secondary
+          primary
           swapTheming
           tooltipLabel="Take a tour"
           tooltipPosition="left"

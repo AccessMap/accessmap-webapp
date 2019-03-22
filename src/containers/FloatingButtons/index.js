@@ -32,7 +32,7 @@ const FloatingButtons = props => {
           floating
           svg
           mini
-          secondary
+          primary
           swapTheming
           tooltipLabel="Zoom to your location"
           tooltipPosition="left"
@@ -46,7 +46,7 @@ const FloatingButtons = props => {
         floating
         svg
         mini
-        secondary
+        primary
         swapTheming
         tooltipLabel="Zoom in"
         tooltipPosition="left"
@@ -59,7 +59,7 @@ const FloatingButtons = props => {
         floating
         svg
         mini
-        secondary
+        primary
         swapTheming
         tooltipLabel="Zoom out"
         tooltipPosition="left"

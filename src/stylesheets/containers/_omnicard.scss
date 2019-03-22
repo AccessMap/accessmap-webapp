@@ -325,6 +325,44 @@ $tablet-toolbar-text-button-height: 32px;
     }
   }
 
+  .profile-list {
+    @media #{$mobile-portrait-media} {
+      height: 32px;
+      margin-top: ($mobile-portrait-toolbar-height - 32px) / 2;
+      margin-bottom: ($mobile-portrait-toolbar-height - 32px) / 2;
+    }
+    @media #{$mobile-landscape-media} {
+      height: 32px;
+      margin-top: ($mobile-landscape-toolbar-height - 32px) / 2;
+      margin-bottom: ($mobile-landscape-toolbar-height - 32px) / 2;
+    }
+    @media #{$tablet-media} {
+      height: 32px;
+      margin-top: ($tablet-toolbar-height - 32px) / 2;
+      margin-bottom: ($tablet-toolbar-height - 32px) / 2;
+    }
+
+    .profile-btn-container {
+      .icon-container {
+        padding-left: 0;
+        padding-right: 0;
+
+        @media #{$mobile-portrait-media} {
+          padding-top: (32px - $mobile-icon-height) / 2;
+          padding-bottom: (32px - $mobile-icon-height) / 2;
+        }
+        @media #{$mobile-landscape-media} {
+          padding-top: (32px - $mobile-icon-height) / 2;
+          padding-bottom: (32px - $mobile-icon-height) / 2;
+        }
+        @media #{$tablet-media} {
+          padding-top: (32px - $tablet-icon-height) / 2;
+          padding-bottom: (32px - $tablet-icon-height) / 2;
+        }
+      }
+    }
+  }
+
   // Profile editing section
   .profile-editor-desktop > * {
     margin-bottom: 8px;

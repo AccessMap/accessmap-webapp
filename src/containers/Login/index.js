@@ -22,7 +22,7 @@ const Login = props => {
       <Button
         className="login"
         raised
-        secondary
+        primary
         onClick={actions.authenticationRequest}
       >
         Sign in

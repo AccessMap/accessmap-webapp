@@ -45,7 +45,7 @@ const RouteBottomCard = props => {
         <Button
           className="route-bottom-card--button"
           raised
-          secondary
+          primary
           onClick={() => actions.viewRouteInfo(routeResult)}
         >
           Trip info

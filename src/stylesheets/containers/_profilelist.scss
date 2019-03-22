@@ -1,0 +1,47 @@
+// Profile list container styles
+
+.profile-list {
+  height: 40px;
+  .profile-btn-container {
+    display: inline-block;
+    border-radius: 16px;
+    height: 100%;
+    width: unset;
+    padding-left: 0;
+    padding-right: 8px;
+
+    &.selected {
+      background: $md-primary-color;
+
+      .profile-icon {
+        color: white;
+      }
+
+      .profile-selected-label {
+        color: white;
+      }
+
+      .md-ink-container {
+        background: none;
+      }
+    }
+
+    .md-btn.md-btn--icon {
+      padding: 0;
+      width: unset;
+      height: unset;
+
+      .icon-container {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    .profile-selected-label {
+      display: inline-block;
+      margin-top: 4px;
+      vertical-align: top;
+    }
+  }
+}

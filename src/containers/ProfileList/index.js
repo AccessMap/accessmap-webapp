@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import cn from "classnames";
+
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -14,6 +16,12 @@ import caneIcon from "icons/cane-user.svg";
 import wheelchairIcon from "icons/wheelchair.svg";
 import wheelchairPoweredIcon from "icons/wheelchair-powered.svg";
 import personPinIcon from "icons/person-pin.svg";
+
+const LEFT = 37;
+const UP = 38;
+const RIGHT = 39;
+const DOWN = 40;
+
 const icons = {
   "cane-user": caneIcon,
   wheelchair: wheelchairIcon,
@@ -23,54 +31,110 @@ const icons = {
 
 import { defaultProfiles } from "profiles";
 
+class ProfileIconButton extends React.Component {
+  state = {
+    hover: false
+  };
+
+  _handleOnMouseEnter = () => {
+    this.setState({ hover: true });
+  };
+
+  _handleOnMouseLeave = () => {
+    this.setState({ hover: false });
+  };
+
+  render() {
+    const { icon, isSelected, label, onClick, profileKey } = this.props;
+    const { hover } = this.state;
+
+    return (
+      <div
+        className={cn("profile-btn-container", {
+          selected: isSelected
+        })}
+      >
+        <button
+          className={cn("md-btn md-btn--icon md-pointer--hover", {
+            "md-btn--hover": hover
+          })}
+          aria-checked={isSelected}
+          role="radio"
+          onClick={onClick}
+          onMouseEnter={this._handleOnMouseEnter}
+          onMouseLeave={this._handleOnMouseLeave}
+        >
+          <div className="icon-container">
+            <SVGIcon
+              className={cn("profile-icon", {
+                selected: isSelected
+              })}
+              aria-label={label}
+              use={icon.url}
+            />
+          </div>
+          {isSelected ? (
+            <h6 className="profile-selected-label">{profileKey}</h6>
+          ) : null}
+        </button>
+      </div>
+    );
+  }
+}
+
 const ProfileList = props => {
   const { actions, selected, profiles } = props;
 
   const selectedProfile = profiles[selected];
 
   return (
-    <SelectionControlGroup
-      className="profiles-container"
-      id="profile-radio-selector"
-      label={<p hidden>Routing Profiles</p>}
-      name="routing-profile-selector"
-      type="radio"
-      controlClassName="md-inline-block"
-      defaultValue={selectedProfile.name}
-      onChange={(d, e) => {
-        if (e.type === "change") {
-          actions.selectProfile(d);
-        } else if (e.type === "keydown") {
-          // This is improper navigation - arrow keys + space is better. But
-          // either this never worked for react-md or it broke at some point...
-          actions.setProfile(d);
+    <div
+      className="profile-list"
+      role="radiogroup"
+      onKeyDown={e => {
+        const key = e.which || e.keyCode;
+        const increment = key === DOWN || key === RIGHT;
+        const decrement = key === UP || key === LEFT;
+        if (!increment && !decrement) return;
+
+        e.preventDefault();
+
+        let selectedIndex;
+        let i = 0;
+        // So messy
+        for (let profileKey of Object.keys(profiles)) {
+          if (profileKey === selected) {
+            selectedIndex = i;
+            break;
+          }
+          i += 1;
         }
+
+        let newIndex = increment ? selectedIndex + 1 : selectedIndex - 1;
+        if (newIndex < 0) {
+          newIndex = profiles.length;
+        }
+
+        actions.selectProfile(Object.keys(profiles)[newIndex]);
       }}
-      controls={Object.keys(profiles).map(profileKey => {
-        let profile = profiles[profileKey];
-        let isSelected = selected === profileKey;
-        return {
-          label: isSelected ? (
-            <h6>{profileKey}</h6>
-          ) : (
-            <p hidden>{profileKey}</p>
-          ),
-          value: profileKey,
-          className: isSelected ? "profile-selected" : "",
-          checkedRadioIcon: (
-            <SVGIcon
-              aria-label={profile.label}
-              secondary
-              use={icons[profile.icon].url}
-            />
-          ),
-          uncheckedRadioIcon: (
-            <SVGIcon aria-label={profile.label} use={icons[profile.icon].url} />
-          ),
-          inkDisabled: true
-        };
+    >
+      {Object.keys(profiles).map(profileKey => {
+        const profile = profiles[profileKey];
+        const isSelected = profileKey === selected;
+        return (
+          <ProfileIconButton
+            key={`profile-icon-button-${profileKey}`}
+            isSelected={isSelected}
+            onClick={() => {
+              actions.selectProfile(profileKey);
+            }}
+            profileKey={profileKey}
+            label={profile.label}
+            icon={icons[profile.icon]}
+          />
+        );
       })}
-    />
+    </div>
   );
 };
 
