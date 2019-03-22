@@ -44,10 +44,11 @@ const createRouter5Middleware = router => {
           }
         }
         const { key, lon, lat, zoom } = region.properties;
+        const center = centerInView(lon, lat, zoom);
         router.navigate("root", {
           region: key,
-          lon,
-          lat,
+          lon: center.lon,
+          lat: center.lat,
           z: zoom
         });
         break;
@@ -159,8 +160,8 @@ const createRouter5Middleware = router => {
         const { name, params } = router.getState();
         const { lon, lat } = action.payload;
         if (!inView(lon, lat, params.lon, params.lat, params.z)) {
-          const { lon2, lat2 } = centerInView(lon, lat, 16);
-          const updatedParams = { ...params, lon: lon2, lat: lat2 };
+          const center = centerInView(lon, lat, 16);
+          const updatedParams = { ...params, lon: center.lon, lat: center.lat };
           router.navigate(name, updatedParams);
         }
         break;
@@ -169,8 +170,8 @@ const createRouter5Middleware = router => {
         const { name, params } = router.getState();
         const [lon, lat] = action.payload.coordinates;
         if (!inView(lon, lat, params.lon, params.lat, params.z)) {
-          const { lon2, lat2 } = centerInView(lon, lat, 16);
-          const updatedParams = { ...params, lon: lon2, lat: lat2 };
+          const center = centerInView(lon, lat, 16);
+          const updatedParams = { ...params, lon: center.lon, lat: center.lat };
           router.navigate(name, updatedParams);
         }
         break;
