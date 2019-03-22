@@ -138,8 +138,8 @@
         ],
         "key": "wa.bellingham",
         "name": "Bellingham",
-        "lon": -122.48921,
-        "lat": 48.75253,
+        "lon": -122.478,
+        "lat": 48.751,
         "zoom": 13.5
       }
     }
