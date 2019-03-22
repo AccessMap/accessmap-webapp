@@ -53,9 +53,6 @@ class ProfileIconButton extends React.Component {
           selected: isSelected
         })}
         role="radio"
-        tabIndex={isSelected ? 0 : -1}
-        aria-checked={isSelected}
-        aria-label={label}
       >
         <button
           className={cn("md-btn md-btn--icon md-pointer--hover", {
@@ -64,6 +61,9 @@ class ProfileIconButton extends React.Component {
           onClick={onClick}
           onMouseEnter={this._handleOnMouseEnter}
           onMouseLeave={this._handleOnMouseLeave}
+          tabIndex={isSelected ? 0 : -1}
+          aria-checked={isSelected}
+          aria-label={label}
         >
           <div className="icon-container">
             <SVGIcon
