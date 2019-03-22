@@ -67,11 +67,15 @@ $tablet-portrait-media: "screen and (min-width: #{$tablet-min-width}) and #{$por
 $tablet-landscape-media: "screen and (min-width: #{$tablet-min-width}) and #{$landscape-media}" !default;
 $desktop-media: "screen and (min-width: #{$desktop-min-width})" !default;
 
+$mobile-portrait-toolbar-height: 48px;
+$mobile-landscape-toolbar-height: 40px;
+$tablet-toolbar-height: 64px;
+
 // Constant layout properties
 $omnipadding: 8px;
 
 /// OmniCard widths, when hard-coded
 $omnicard-mobile-portrait-width: 100%;
-$omnicard-mobile-landscape-width: 320px;
+$omnicard-mobile-landscape-width: 340px;
 $omnicard-tablet-width: 384px;
 $omnicard-desktop-width: 384px;

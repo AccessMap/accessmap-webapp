@@ -21,8 +21,8 @@ const Login = props => {
     return (
       <Button
         className="login"
-        flat
-        primary
+        raised
+        secondary
         onClick={actions.authenticationRequest}
       >
         Sign in

@@ -1,4 +1,14 @@
 // Overall layout
+$mobile-toolbar-margin: 4px;
+$tablet-toolbar-margin: 12px;
+
+$mobile-icon-height: 24px;
+$tablet-icon-height: 20px;
+
+$mobile-portrait-toolbar-text-button-height: 32px;
+$mobile-landscape-toolbar-text-button-height: 24px;
+$tablet-toolbar-text-button-height: 32px;
+
 .omnicard {
   position: relative;
   margin-bottom: 8px;
@@ -12,7 +22,6 @@
   }
 
   @media #{$mobile-landscape-media} {
-    max-width: 50%;
     width: $omnicard-mobile-landscape-width;
   }
 
@@ -40,236 +49,262 @@
     margin-bottom: 8px;
   }
 
-  // Header
-  .omnicard--header {
-    .accessmap-title > * {
-      display: inline-block;
+  // Toolbars
+  .md-toolbar {
+    // Toolbar's own attributes
+    @media #{$mobile-portrait-media} {
+      height: $mobile-portrait-toolbar-height;
+    }
+    @media #{$mobile-landscape-media} {
+      height: $mobile-landscape-toolbar-height;
+    }
+    @media #{$tablet-media} {
+      height: $tablet-toolbar-height;
+    }
+
+    // Left actions (menu / nav)
+    .md-toolbar--action-left.md-btn--toolbar {
       @media #{$mobile-portrait-media} {
-        margin-top: 8px;
+        width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+        height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+        padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+          $mobile-toolbar-margin;
       }
       @media #{$mobile-landscape-media} {
-        margin-top: 8px;
+        width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+        height: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+        padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2 -
+          $mobile-toolbar-margin;
+        margin-top: 4px;
       }
       @media #{$tablet-media} {
-        margin-top: 16px;
+        width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+        height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+        padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+          $tablet-toolbar-margin;
+        margin-top: 12px;
+      }
+
+      &.toolbar-left-icon {
+        @media #{$mobile-portrait-media} {
+          min-width: $mobile-portrait-toolbar-height - 2 *
+            $mobile-toolbar-margin;
+          width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+          height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+          padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+            $mobile-toolbar-margin;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        @media #{$mobile-landscape-media} {
+          min-width: $mobile-landscape-toolbar-height - 2 *
+            $mobile-toolbar-margin;
+          width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+          height: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+          padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2 -
+            $mobile-toolbar-margin;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+        @media #{$tablet-media} {
+          min-width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+          width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+          height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+          padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+            $tablet-toolbar-margin;
+          padding-top: 0;
+          padding-bottom: 0;
+        }
       }
     }
 
+    // Title / Logo
     .accessmap-title {
-      @media #{$mobile-portrait-media} {
-        margin-left: 0px;
-        margin-right: 8px;
-      }
-      @media #{$mobile-landscape-media} {
-        margin-left: 0px;
-        margin-right: 4px;
-      }
-      @media #{$tablet-media} {
-        margin-left: 4px;
-        margin-right: 8px;
+      .accessmaplogo {
+        margin-left: 8px;
+        @media #{$mobile-portrait-media} {
+          width: 96px;
+          height: 24px;
+          margin-top: ($mobile-portrait-toolbar-height - 24px) / 2;
+        }
+        @media #{$mobile-landscape-media} {
+          width: 96px;
+          height: 24px;
+          margin-top: ($mobile-landscape-toolbar-height - 24px) / 2;
+        }
+        @media #{$tablet-media} {
+          width: 112px;
+          height: 28px;
+          margin-top: ($tablet-toolbar-height - 28px) / 2;
+          margin-left: 8px;
+        }
+
+        .accessmaplogo-primary {
+          fill: $md-primary-color;
+        }
+
+        .accessmaplogo-secondary {
+          fill: $md-secondary-color;
+        }
       }
     }
 
-    .accessmapicon {
-      width: 32px;
+    // Geocoders
+    .md-autocomplete-container {
       height: 32px;
-    }
-
-    .accessmaplogo {
-      width: 128px;
-      height: 32px;
-    }
-
-    .accessmapicon-primary,
-    .accessmaplogo-primary {
-      fill: $md-primary-color;
-    }
-
-    .accessmapicon-secondary,
-    .accessmaplogo-secondary {
-      fill: $md-secondary-color;
-    }
-
-    .accessmaplogo-region {
-      position: absolute;
-      @media #{$mobile-portrait-media} {
-        top: 20px;
-        left: 74px;
-      }
-      @media #{$mobile-landscape-media} {
-        top: 20px;
-        left: 74px;
-      }
-      @media #{$tablet-media} {
-        top: 20px;
-        left: 82px;
-      }
-      @media #{$desktop-media} {
-        top: 20px;
-        left: 74px;
-      }
-    }
-
-    // .region-selection-open-button {
-    //   // margin-bottom: auto;
-    //   @media #{$mobile-portrait-media} {
-    //     height: 40px;
-    //     width: 64px;
-    //     min-width: 64px;
-    //     padding-top: 0;
-    //     padding-bottom: 0;
-    //     padding-left: 0;
-    //     padding-right: 0;
-    //     margin-left: 0px;
-    //     margin-top: 6px;
-    //   }
-    //   @media #{$mobile-landscape-media} {
-    //     height: 40px;
-    //     width: 64px;
-    //     min-width: 64px;
-    //     padding-left: 0;
-    //     padding-right: 0;
-    //     margin-left: 0px;
-    //     margin-top: 0px;
-    //   }
-    //   @media #{$tablet-media} {
-    //     height: 48px;
-    //     width: 80px;
-    //     padding-left: 16px;
-    //     padding-right: 16px;
-    //     margin-left: 4px;
-    //     margin-top: 8px;
-    //   }
-    // }
-
-    .md-toolbar--action-left.md-btn {
-      margin-left: 0px;
-      @media #{$tablet-media} {
-        margin-left: 4px;
-      }
-    }
-
-    // .md-cell--right {
-    //   @media #{$mobile-landscape-media} {
-    //     margin-left: 8px;
-    //   }
-    // }
-
-    .md-toolbar--action-right .md-btn {
-      @media #{$mobile-portrait-media} {
-        width: 80px;
-        min-width: 80px;
-        margin-top: 8px;
-        padding-left: 8px;
-        padding-right: 8px;
-        padding-top: 0px;
-      }
-      @media #{$mobile-landscape-media} {
-        width: 64px;
-        min-width: 64px;
-        margin-top: 8px;
-        padding-left: 8px;
-        padding-right: 8px;
-        padding-top: 0px;
-      }
-      @media #{$tablet-media} {
-        width: auto;
-        min-width: auto;
-        max-width: 96px;
-        margin-top: 16px;
-      }
-    }
-  }
-
-  // Autocompletes (geocoders)
-  .geocoder-toolbar {
-    .md-toolbar--action-left {
       margin-top: auto;
       margin-bottom: auto;
       margin-left: 8px;
-      text-align: center;
-      width: 24px;
-      @media #{$desktop-media} {
-        width: 20px;
+      .md-autocomplete {
+        border: 1px solid #e6e6e6;
+        border-radius: 2px;
+        background-color: #f6f6f6;
+        input {
+          padding-left: 8px;
+        }
       }
     }
 
-    .search-icon {
-      @media #{$mobile-portrait-media} {
-      }
-      @media #{$mobile-landscape-media} {
-      }
-      @media #{$tablet-media} {
-        margin-left: 16px;
-      }
-      @media #{$desktop-media} {
-        margin-left: 16px;
-      }
-    }
-
-    .md-toolbar--title {
-      margin-left: 8px;
-    }
-
-    .md-autocomplete-container {
-      width: calc(100% - 96px);
-      padding-left: 8px;
-      height: 30px;
-      border-radius: 2px;
-      background-color: #f6f6f6;
-      margin-left: 8px;
-
-      .md-tile-text--primary {
-        font-weight: $md-font-regular;
-      }
-
-      @media #{$mobile-portrait-media} {
-        width: calc(100% - 96px);
-        height: 32px;
-        margin: 8px;
-      }
-      @media #{$mobile-landscape-media} {
-        width: calc(100% - 96px);
-        height: 32px;
-        margin: 8px;
-      }
-      @media #{$tablet-media} {
-        width: calc(100% - 128px);
-        height: 32px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        margin-left: 8px;
-      }
-      @media #{$desktop-media} {
-        width: calc(100% - 112px);
-        height: 32px;
-        margin-top: 16px;
-        margin-bottom: 16px;
-        margin-left: 8px;
-      }
-    }
-
-    .md-autocomplete-list {
-      @media #{$mobile-media} {
-        width: 256px;
-      }
-      @media #{$mobile-landscape-media} {
-        width: 352px;
-      }
-      @media #{$tablet-media} {
-        width: auto;
-      }
-      .md-list-item .md-list-tile {
-        padding-left: 16px;
+    // Right actions
+    .md-toolbar--action-right {
+      // This button needs to be obvious - give it an outline
+      .md-btn {
+        &.md-btn--text {
+          @media #{$mobile-portrait-media} {
+            min-width: 0;
+            height: $mobile-portrait-toolbar-text-button-height;
+            margin-top: (
+                $mobile-portrait-toolbar-height -
+                  $mobile-portrait-toolbar-text-button-height
+              ) / 2;
+            margin-bottom: (
+                $mobile-portrait-toolbar-height -
+                  $mobile-portrait-toolbar-text-button-height
+              ) / 2;
+            margin-left: 4px;
+            margin-right: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+          }
+          @media #{$mobile-landscape-media} {
+            min-width: 0;
+            height: $mobile-landscape-toolbar-text-button-height;
+            margin-top: (
+                $mobile-landscape-toolbar-height -
+                  $mobile-landscape-toolbar-text-button-height
+              ) / 2;
+            margin-bottom: (
+                $mobile-landscape-toolbar-height -
+                  $mobile-landscape-toolbar-text-button-height
+              ) / 2;
+            margin-left: 4px;
+            margin-right: 4px;
+            padding-left: 8px;
+            padding-right: 8px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+          }
+          @media #{$tablet-media} {
+            margin-top: (
+                $tablet-toolbar-height - $tablet-toolbar-text-button-height
+              ) / 2;
+            margin-bottom: (
+                $tablet-toolbar-height - $tablet-toolbar-text-button-height
+              ) / 2;
+            margin-left: 4px;
+            margin-right: 4px;
+            padding-left: 16px;
+            padding-right: 16px;
+            height: $tablet-toolbar-text-button-height;
+          }
+        }
+        &.md-btn--icon {
+          @media #{$mobile-portrait-media} {
+            width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+            height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+            padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+              $mobile-toolbar-margin;
+            margin-left: 4px;
+            margin-right: 4px;
+          }
+          @media #{$mobile-landscape-media} {
+            width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+            height: $mobile-landscape-toolbar-height - 2 *
+              $mobile-toolbar-margin;
+            padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) /
+              2 - $mobile-toolbar-margin;
+            margin-top: 4px;
+            margin-left: 4px;
+            margin-right: 4px;
+          }
+          @media #{$tablet-media} {
+            width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+            height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+            padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+              $tablet-toolbar-margin;
+            margin-top: 12px;
+          }
+        }
+        &.region-selection-open-button {
+          border: 1px solid $md-primary-color;
+        }
       }
     }
   }
 
   // Profile options
   .profiles-toolbar {
+    @media #{$mobile-portrait-media} {
+      margin-left: 0;
+    }
+
+    @media #{$mobile-landscape-media} {
+      margin-left: 0;
+    }
+
+    @media #{$tablet-media} {
+      margin-left: 8px;
+    }
+
     padding-left: 8px;
 
     .profiles-container {
+      .md-selection-control-container {
+        @media #{$mobile-portrait-media} {
+          height: $mobile-portrait-toolbar-height - 4px;
+        }
+
+        @media #{$mobile-landscape-media} {
+          height: $mobile-landscape-toolbar-height - 4px;
+        }
+
+        @media #{$tablet-media} {
+          padding-top: 8px;
+          padding-bottom: 0;
+          height: 48px;
+        }
+      }
+
+      .md-selection-control-toggle.md-btn--icon {
+        @media #{$mobile-portrait-media} {
+          width: $mobile-portrait-toolbar-height;
+          height: $mobile-portrait-toolbar-height;
+          padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2;
+        }
+
+        @media #{$mobile-landscape-media} {
+          width: $mobile-landscape-toolbar-height;
+          height: $mobile-landscape-toolbar-height;
+          padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2;
+        }
+
+        @media #{$tablet-media} {
+          width: 48px;
+          height: 48px;
+          padding: (48px - $mobile-icon-height) / 2;
+        }
+      }
+
       #profile-radio-selector-group-label {
         margin-bottom: 0;
       }
@@ -285,7 +320,7 @@
       }
 
       .profile-selected {
-        border-bottom: 3px solid $md-secondary-color;
+        border-bottom: 4px solid $md-secondary-color;
       }
     }
   }
@@ -302,48 +337,6 @@
 
   .md-slider-thumb--discrete-on::after {
     border-top-color: $md-secondary-color;
-  }
-
-  // Globalish settings for height between mobile / tablet
-  @media only screen and (max-width: #{$tablet-min-width}) {
-    // Mobile portrait mode: screen real estate is at a premium
-
-    // Shrink toolbars
-    @include react-md-toolbars-mobile-landscape;
-    // Move buttons in toolbars to compensate
-    .md-toolbar .md-btn--toolbar {
-      &.md-btn--icon {
-        margin-top: 0;
-      }
-      &.md-btn--flat {
-        margin-top: 8px;
-      }
-    }
-
-    // Shrink padding on CardText elements
-    .timepicker {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    // Shrink icon padding in profile selector, make bottom border on card.
-    .profiles-container {
-      .md-btn--icon {
-        padding-top: 8px;
-        padding-bottom: 8px;
-        height: 40px;
-      }
-
-      .md-selection-control-toggle {
-        padding-right: 4px;
-        padding-left: 0;
-        width: auto;
-      }
-
-      .md-selection-control-container + .md-selection-control-container {
-        margin-left: 4px;
-      }
-    }
   }
 
   .timepicker {

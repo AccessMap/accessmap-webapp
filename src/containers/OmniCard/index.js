@@ -38,7 +38,7 @@ import RouteInfo from "components/RouteInfo";
 import chevronDown from "icons/chevron-down.svg";
 import close from "icons/close.svg";
 import directions from "icons/directions.svg";
-import magnify from "icons/magnify.svg";
+import search from "icons/search.svg";
 import menu from "icons/menu.svg";
 import pencil from "icons/pencil.svg";
 import swapVert from "icons/swap-vert.svg";
@@ -131,14 +131,13 @@ class OmniCard extends React.PureComponent {
               primary
               onClick={actions.openRegionSelections}
             >
-              Change Region
+              {regionName}
             </Button>,
             <Login key="login-button" />
           ]}
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
             <AccessMapLogo />
-            <h6 className="accessmaplogo-region">{regionName}</h6>
           </div>
         </Toolbar>
       );
@@ -149,7 +148,7 @@ class OmniCard extends React.PureComponent {
         <React.Fragment>
           <Toolbar
             className="geocoder-toolbar"
-            nav={<div>A</div>}
+            nav={<div className="geocoder-waypoint-label">A</div>}
             title={<OriginGeocoder />}
             actions={[
               <Button
@@ -167,7 +166,7 @@ class OmniCard extends React.PureComponent {
           />
           <Toolbar
             className="geocoder-toolbar"
-            nav={<div>B</div>}
+            nav={<div className="geocoder-waypoint-label">B</div>}
             title={<DestinationGeocoder />}
             actions={[
               <Button
@@ -195,8 +194,8 @@ class OmniCard extends React.PureComponent {
           title={<SearchGeocoder />}
           nav={
             <SVGIcon
-              className={cn("md-btn--toolbar search-icon")}
-              use={magnify.url}
+              className={cn("md-btn--toolbar toolbar-left-icon")}
+              use={search.url}
             />
           }
           actions={[
