@@ -4,6 +4,7 @@ import { actionTypes as router5Types } from "redux-router5";
 import {
   EXIT_TRIP_PLANNING,
   PLAN_TRIP,
+  SELECT_REGION,
   SET_ORIGIN,
   SET_DESTINATION,
   SET_POI,
@@ -16,6 +17,12 @@ import { defaultWaypoints as defaults } from "reducers/defaults";
 
 const handleWaypoints = (state = defaults, action) => {
   switch (action.type) {
+    case SELECT_REGION:
+      return {
+        poi: null,
+        origin: null,
+        destination: null
+      };
     case SET_POI:
       return {
         ...state,

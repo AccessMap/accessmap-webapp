@@ -22,6 +22,18 @@ import { defaultMap } from "reducers/defaults";
 
 const handleRegion = (state = defaultMap.region, action) => {
   switch (action.type) {
+    case "@@router5/TRANSITION_SUCCESS": {
+      if (["root", "directions"].includes(action.payload.route.name)) {
+        if (action.payload.route.params.region !== undefined) {
+          for (let feature of regions.features) {
+            if (feature.properties.key === action.payload.route.params.region) {
+              return feature;
+            }
+          }
+        }
+      }
+      return state;
+    }
     case SELECT_REGION: {
       let region;
       for (let feature of regions.features) {
