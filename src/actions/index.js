@@ -550,7 +550,9 @@ export const saveProfileFailure = err => ({
   meta: {
     analytics: {
       type: "save-profile-failure",
-      payload: err
+      payload: {
+        err: err.toString()
+      }
     }
   }
 });
@@ -696,7 +698,9 @@ export const selectRegion = regionKey => ({
   meta: {
     analytics: {
       type: "select-region",
-      payload: regionKey
+      payload: {
+        regionKey
+      }
     }
   }
 });
