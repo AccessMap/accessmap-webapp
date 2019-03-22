@@ -114,8 +114,9 @@ const ProfileList = props => {
 
         let selectedIndex;
         let i = 0;
+        const profileKeys = Object.keys(profiles);
         // So messy
-        for (let profileKey of Object.keys(profiles)) {
+        for (let profileKey of profileKeys) {
           if (profileKey === selected) {
             selectedIndex = i;
             break;
@@ -124,8 +125,8 @@ const ProfileList = props => {
         }
 
         let newIndex = increment ? selectedIndex + 1 : selectedIndex - 1;
-        if (newIndex < 0) {
-          newIndex = profiles.length;
+        if (newIndex < 0 || newIndex >= profileKeys.length) {
+          return;
         }
 
         actions.selectProfile(Object.keys(profiles)[newIndex]);
