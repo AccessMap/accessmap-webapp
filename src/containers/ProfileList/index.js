@@ -44,7 +44,7 @@ class ProfileIconButton extends React.Component {
   };
 
   render() {
-    const { icon, isSelected, label, onClick, profileKey } = this.props;
+    const { iconURL, isSelected, label, onClick, profileKey } = this.props;
     const { hover } = this.state;
 
     return (
@@ -52,14 +52,15 @@ class ProfileIconButton extends React.Component {
         className={cn("profile-btn-container", {
           selected: isSelected
         })}
+        role="radio"
+        tabIndex={isSelected ? 0 : -1}
+        aria-checked={isSelected}
+        aria-label={label}
       >
         <button
           className={cn("md-btn md-btn--icon md-pointer--hover", {
             "md-btn--hover": hover
           })}
-          aria-checked={isSelected}
-          role="radio"
-          taxIndex={isSelected ? 0 : -1}
           onClick={onClick}
           onMouseEnter={this._handleOnMouseEnter}
           onMouseLeave={this._handleOnMouseLeave}
@@ -69,8 +70,7 @@ class ProfileIconButton extends React.Component {
               className={cn("profile-icon", {
                 selected: isSelected
               })}
-              aria-label={label}
-              use={icon.url}
+              use={iconURL}
             />
           </div>
           {isSelected ? (
@@ -83,7 +83,7 @@ class ProfileIconButton extends React.Component {
 }
 
 ProfileIconButton.propTypes = {
-  icon: PropTypes.node.isRequired,
+  iconURL: PropTypes.string.isRequired,
   isSelected: PropTypes.bool.isRequired,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
@@ -93,10 +93,17 @@ ProfileIconButton.propTypes = {
 const ProfileList = props => {
   const { actions, selected, profiles } = props;
 
+  /* eslint-disable jsx-a11y/interactive-supports-focus */
+  // NOTE: eslint a11y check disabled here because it wants the radiogroup div to be
+  // focusable - it is presumably wanting to see the children of role="radiogroup" and
+  // see tabIndex="0" somewhere, but it can't do it because the children aren't
+  // hard-coded.
+  // TODO: maybe adding tabIndex=* in the .map scope would help the linter?
   return (
     <div
       className="profile-list"
       role="radiogroup"
+      label="Select a profile"
       onKeyDown={e => {
         const key = e.which || e.keyCode;
         const increment = key === DOWN || key === RIGHT;
@@ -136,12 +143,13 @@ const ProfileList = props => {
             }}
             profileKey={profileKey}
             label={profile.label}
-            icon={icons[profile.icon]}
+            iconURL={icons[profile.icon].url}
           />
         );
       })}
     </div>
   );
+  /* eslint-enable jsx-a11y/interactive-supports-focus */
 };
 
 ProfileList.propTypes = {
