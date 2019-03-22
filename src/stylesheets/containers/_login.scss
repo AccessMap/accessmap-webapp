@@ -1,23 +1,35 @@
 .login {
+  @media #{$mobile-portrait-media} {
+    margin-top: (48px - 32px) / 2;
+    margin-bottom: (48px - 32px) / 2;
+  }
+
+  @media #{$mobile-landscape-media} {
+    margin-top: (40px - 32px) / 2;
+    margin-bottom: (40px - 32px) / 2;
+  }
+
+  @media #{$tablet-media} {
+    margin-top: (64px - 32px) / 2;
+    margin-bottom: (64px - 32px) / 2;
+  }
+
   .user-account-avatar {
-    background: $md-secondary-color;
+    background: $md-primary-color;
 
     @media #{$mobile-portrait-media} {
       height: 32px;
       width: 32px;
-      margin-top: 4px;
     }
 
     @media #{$mobile-landscape-media} {
       height: 32px;
       width: 32px;
-      margin-top: 4px;
     }
 
     @media #{$tablet-media} {
       height: 32px;
       width: 32px;
-      margin-top: 16px;
     }
 
     .md-avatar-content {
