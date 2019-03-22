@@ -350,6 +350,7 @@ const mapStateToProps = state => {
     activities,
     auth,
     browser,
+    map,
     profile,
     route,
     router,
@@ -362,6 +363,14 @@ const mapStateToProps = state => {
       regionName = feature.properties.name;
       break;
     }
+  }
+  // FIXME: This is a hack due to weirdness in the auth vs. routing middlewares and
+  // their need to communicate with one another + have side-effects. After logging in,
+  // two route transitions compete with one another for determining the router URL
+  // state (not sure why, everything else works fine) and the region is *not* set after
+  // logging in.
+  if (regionName === undefined) {
+    regionName = map.region.properties.name;
   }
 
   return {
