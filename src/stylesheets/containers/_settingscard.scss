@@ -1,0 +1,42 @@
+// Overall layout
+.settings-card {
+  position: relative;
+  margin-bottom: 8px;
+  top: 0;
+  left: 0;
+
+  @media #{$mobile-landscape-media} {
+    width: 320px;
+  }
+
+  // Profile editing section
+  .md-slider-track-fill,
+  .md-slider-thumb--on {
+    background: $md-secondary-color;
+  }
+
+  .md-slider-thumb--discrete-on::after {
+    border-top-color: $md-secondary-color;
+  }
+
+  // Globalish settings for height between mobile / tablet
+  @media only screen and (max-width: #{$tablet-min-width}) {
+    // Mobile portrait mode: screen real estate is at a premium
+
+    // Shrink toolbars
+    @include react-md-toolbars-mobile-landscape;
+    // Move buttons in toolbars to compensate
+    .md-toolbar .md-btn--toolbar {
+      &.md-btn--icon {
+        margin-top: 0;
+      }
+      &.md-btn--flat {
+        margin-top: 8px;
+      }
+    }
+  }
+
+  .md-dialog-footer--card {
+    justify-content: flex-end;
+  }
+}

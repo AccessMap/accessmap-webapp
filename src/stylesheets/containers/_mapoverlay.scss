@@ -1,0 +1,39 @@
+.map-overlay {
+  position: relative;
+  padding: 8px;
+  padding-bottom: 32px;
+  height: 100%;
+
+  > * {
+    z-index: 4;
+  }
+
+  &.routeview {
+    position: absolute;
+    @media #{$mobile-portrait-media} {
+      // The height of the two toolbars
+      height: calc(100% - 2 * #{$md-toolbar-mobile-portrait-height} - 8px);
+      width: 100%;
+    }
+
+    @media #{$mobile-landscape-media} {
+      height: 100%;
+      width: 100%;
+      right: 0;
+    }
+  }
+
+  &.directions {
+    position: absolute;
+    @media #{$mobile-portrait-media} {
+      height: 50%;
+      width: 100%;
+    }
+
+    @media #{$mobile-landscape-media} {
+      height: 100%;
+      width: 50%;
+      right: 0;
+    }
+  }
+}

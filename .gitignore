@@ -5,5 +5,7 @@ static
 *.log*
 _nogit
 *.swp
+public
 
+.env
 set_envs.sh

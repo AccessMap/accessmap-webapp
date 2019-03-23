@@ -1,0 +1,18 @@
+// Overall layout
+.floating-buttons {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  padding: inherit;
+
+  > * {
+    margin-top: 8px;
+  }
+
+  .md-btn {
+    display: block;
+    background-color: $md-white-base;
+    float: right;
+    clear: right;
+  }
+}

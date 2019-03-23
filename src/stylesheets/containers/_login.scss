@@ -1,0 +1,48 @@
+.login {
+  @media #{$mobile-portrait-media} {
+    margin-top: (48px - 32px) / 2;
+    margin-bottom: (48px - 32px) / 2;
+  }
+
+  @media #{$mobile-landscape-media} {
+    margin-top: (40px - 32px) / 2;
+    margin-bottom: (40px - 32px) / 2;
+  }
+
+  @media #{$tablet-media} {
+    margin-top: (64px - 32px) / 2;
+    margin-bottom: (64px - 32px) / 2;
+  }
+
+  .user-account-avatar {
+    background: $md-primary-color;
+
+    @media #{$mobile-portrait-media} {
+      height: 32px;
+      width: 32px;
+    }
+
+    @media #{$mobile-landscape-media} {
+      height: 32px;
+      width: 32px;
+    }
+
+    @media #{$tablet-media} {
+      height: 32px;
+      width: 32px;
+    }
+
+    .md-avatar-content {
+      font-size: 20px;
+    }
+  }
+
+  .menu-down {
+    padding-left: 0;
+    margin-top: auto;
+  }
+
+  .account-link:hover {
+    text-decoration: none;
+  }
+}

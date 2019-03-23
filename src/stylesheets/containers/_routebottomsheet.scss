@@ -1,0 +1,48 @@
+.route-bottom-sheet {
+  z-index: 4;
+  position: absolute;
+
+  @media #{$mobile-portrait-media} {
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+  }
+
+  @media #{$mobile-landscape-media} {
+    position: fixed;
+    padding: inherit;
+    height: 100%;
+    width: 50%;
+    top: 0;
+    left: 0;
+  }
+
+  > .md-background--card {
+    height: 100%;
+  }
+
+  .directions--steps {
+    height: 90%;
+    overflow: auto;
+  }
+
+  .directions--step {
+    margin-bottom: 8px;
+  }
+
+  .route-info--contents {
+    height: 90%;
+    overflow: auto;
+  }
+
+  .route-elevation-profile {
+    width: 100%;
+    height: auto;
+
+    path {
+      stroke: #ffaa00;
+      stroke-width: 1;
+      fill: none;
+    }
+  }
+}

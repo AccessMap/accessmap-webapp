@@ -1,0 +1,43 @@
+.feature-card {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8px;
+  margin: 0 auto;
+  overflow: hidden;
+
+  @media #{$mobile-portrait-media} {
+    margin-bottom: 8px;
+  }
+
+  @media #{$mobile-landscape-media} {
+    bottom: 0;
+    height: 100%;
+    width: 50%;
+    margin-bottom: 0px;
+    margin-left: 0;
+    &.md-card {
+      z-index: 6;
+    }
+  }
+
+  @media #{$tablet-media} {
+    left: $omnicard-tablet-width + 8px;
+    bottom: 8px;
+    height: auto;
+    width: calc(33% - 16px);
+    margin-left: auto;
+    margin-bottom: 0px;
+  }
+
+  .md-list-tile {
+    display: flex;
+  }
+
+  .feature-card-body {
+    tbody .md-table-row:not(:last-child) {
+      border-bottom: 0;
+    }
+  }
+}

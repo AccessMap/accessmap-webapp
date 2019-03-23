@@ -1,0 +1,28 @@
+.opening-hours-table {
+  .oh-time-column--open {
+    color: #00aa00;
+  }
+
+  .oh-time-column--closed {
+    color: #aa0000;
+  }
+
+  .oh-day-column {
+    text-align: right;
+    padding-left: 8px;
+    padding-right: 16px;
+  }
+
+  tbody .md-table-row:not(:last-child) {
+    border-bottom: 0;
+  }
+
+  tbody .md-table-row--hover {
+    background: unset;
+  }
+
+  td {
+    height: auto;
+    font-size: 12px;
+  }
+}
