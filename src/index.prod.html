@@ -6,12 +6,22 @@
     <link rel="icon" href="favicon.ico?v=2" />
     <link rel="stylesheet" href="main.css" type="text/css" />
     <title>AccessMap</title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-136835210-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "UA-136835210-1");
+    </script>
   </head>
   <body>
     <div id="root" style="height: 100%;"></div>
-    <!--
-    <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-    -->
     <script src="/index.bundle.js"></script>
   </body>
 </html>
