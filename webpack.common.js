@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const SpriteLoaderPlugin = require("svg-sprite-loader/plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: "./src/index.js",
@@ -9,19 +10,17 @@ module.exports = {
     path: path.resolve(__dirname, "public"),
     filename: "index.bundle.js"
   },
-  plugins: [new MiniCssExtractPlugin(), new SpriteLoaderPlugin()],
+  plugins: [
+    new MiniCssExtractPlugin(),
+    new SpriteLoaderPlugin(),
+    new HtmlWebpackPlugin({
+      title: "AccessMap",
+      filename: "index.html",
+      template: "src/index.dev.html"
+    })
+  ],
   module: {
     rules: [
-      {
-        test: /\.html$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "file-loader",
-          query: {
-            name: "[name].[ext]"
-          }
-        }
-      },
       {
         test: /\.css$/,
         // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
