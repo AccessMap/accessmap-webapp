@@ -56,8 +56,9 @@ const createAuthMiddleware = () => {
           } else {
             // User was loaded - our accessToken is good
             loadProfile(accessToken, (err, profile) => {
-              if (err) return next(fetchProfileFailure(err));
-              if (profile) {
+              if (err) {
+                next(fetchProfileFailure(err));
+              } else if (profile) {
                 const profileParams = {
                   uphillMax: profile.uphill_max,
                   downhillMax: profile.downhill_max,
@@ -88,7 +89,34 @@ const createAuthMiddleware = () => {
           // TODO: Save "last location" in localStorage and redirect there.
           // TODO: Just send a new action and let reducers / thunk handle this
           next(logIn(access_token, refresh_token));
+          // FIXME: this is a race condition - fetch profile in logIn action
           next(fetchProfileRequest());
+        } else if (action.payload.route.name === "signin") {
+          // Check for user credentials and redirect to appropriate location
+          const { accessToken, refreshToken } = store.getState().auth;
+          loadUser(accessToken, err => {
+            if (err) {
+              // Failed to load user. Attempt to get new JWT using refresh token.
+              if (!refreshToken) {
+                // TODO: use a less awkward redirect.
+                // No refresh token - user must log in
+                window.location = "/api/v1/auth/login";
+              }
+              next(refreshTokenRequest());
+              refresh(refreshToken, (err, newAccessToken) => {
+                if (err) {
+                  // Refresh token is bad / otherwise failed. Need a fresh login.
+                  window.location = "/api/v1/auth/login";
+                } else {
+                  // Refresh token worked - fire login
+                  next(logIn(newAccessToken, refresh_token));
+                }
+              });
+            } else {
+              // User was successfully loaded. All is well - redirect to main site.
+              window.location = "/";
+            }
+          });
         }
         break;
       }
