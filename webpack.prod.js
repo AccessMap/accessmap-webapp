@@ -38,7 +38,8 @@ module.exports = merge(common, {
     new HtmlWebpackPlugin({
       title: "AccessMap",
       filename: "index.html",
-      template: "src/index.prod.html"
+      template: "src/index.prod.html",
+      inject: false
     })
   ]
 });

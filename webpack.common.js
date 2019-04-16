@@ -16,7 +16,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: "AccessMap",
       filename: "index.html",
-      template: "src/index.dev.html"
+      template: "src/index.dev.html",
+      inject: false
     })
   ],
   module: {
