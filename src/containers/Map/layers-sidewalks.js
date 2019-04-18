@@ -178,6 +178,7 @@ const Sidewalks = props => {
               ...inclineStops
             ]
           ],
+          "line-color-transition": { duration: 0 },
           "line-width": widthExpression
         }}
         before="bridge-street"
