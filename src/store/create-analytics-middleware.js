@@ -1,7 +1,6 @@
 import analytics from "redux-analytics";
 import jwtDecode from "jwt-decode";
 import rakam from "rakam-js";
-import uuid from "uuid";
 
 const createAnalyticsMiddleware = () => {
   // Rakam Analytics
@@ -13,7 +12,8 @@ const createAnalyticsMiddleware = () => {
         case "load-app":
           // Initialize rakam
           /* eslint-disable no-undef */
-          rakam.init(ANALYTICS_KEY, state.auth ? state.auth.sub : uuid.v4(), {
+          // NOTE: auth.sub is null when not logged in - Rakam generates its own ID
+          rakam.init(ANALYTICS_KEY, state.auth.sub, {
             /* eslint-enable no-undef */
             apiEndpoint: analyticsURL,
             includeUtm: true,
@@ -32,7 +32,7 @@ const createAnalyticsMiddleware = () => {
           );
           break;
         case "log-out":
-          rakam.setUserId(uuid.v4());
+          rakam.setUserId(null);
           break;
         default:
           break;

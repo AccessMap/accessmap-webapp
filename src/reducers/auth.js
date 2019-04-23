@@ -5,7 +5,7 @@ import { LOG_IN, LOG_OUT, REFRESH_TOKEN_SUCCESS } from "actions";
 
 import { defaultAuth as defaults } from "reducers/defaults";
 
-const handleSub = (state = defaults, action) => {
+const handleSub = (state = defaults.sub, action) => {
   switch (action.type) {
     case LOG_IN:
       return jwtDecode(action.payload.accessToken).sub;
