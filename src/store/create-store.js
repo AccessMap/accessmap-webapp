@@ -27,11 +27,27 @@ const configureStore = router => {
     migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
   };
 
+  const authMigrations = {
+    0: state => {
+      return {
+        ...state
+      };
+    },
+    1: state => {
+      if (state.sub.sub !== undefined) {
+        // Fix bug where auth.sub was being set to a nested state of `auth` - reset to
+        // null.
+        return { ...state, sub: null };
+      }
+      return { ...state };
+    }
+  };
+
   const authPersistConfig = {
     key: "auth",
     storage,
-    version: 0,
-    migrate: createMigrate({ 0: state => ({ ...state }) }, { debug: false })
+    version: 1,
+    migrate: createMigrate(authMigrations, { debug: false })
   };
 
   const persistedReducer = combineReducers({
