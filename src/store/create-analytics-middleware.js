@@ -21,6 +21,15 @@ const createAnalyticsMiddleware = () => {
             trackForms: true,
             includeReferrer: true
           });
+          rakam.setSuperProperties(
+            {
+              _ip: true,
+              _user_agent: true,
+              _referrer: document.referrer,
+              resolution: window.screen.width + " × " + window.screen.height
+            },
+            true
+          );
           break;
         case "log-in":
           rakam.setUserId(jwtDecode(payload.accessToken).sub);
