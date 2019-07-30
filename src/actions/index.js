@@ -121,9 +121,30 @@ export const ENABLE_TOUR = "ENABLE_TOUR";
 export const DISABLE_TOUR = "DISABLE_TOUR";
 
 // Action creators
-export const completedTour = () => ({ type: COMPLETED_TOUR });
-export const disableTour = () => ({ type: DISABLE_TOUR });
-export const enableTour = () => ({ type: ENABLE_TOUR });
+export const completedTour = () => ({
+  type: COMPLETED_TOUR,
+  meta: {
+    analytics: {
+      type: "completed-tour"
+    }
+  }
+});
+export const disableTour = () => ({
+  type: DISABLE_TOUR,
+  meta: {
+    analytics: {
+      type: "disable-tour"
+    }
+  }
+});
+export const enableTour = () => ({
+  type: ENABLE_TOUR,
+  meta: {
+    analytics: {
+      type: "enable-tour"
+    }
+  }
+});
 
 export const authenticationRequest = () => ({ type: AUTHENTICATION_REQUEST });
 export const receivedCredentials = (token, token_secret) => ({
@@ -160,7 +181,14 @@ export const logIn = (accessToken, refreshToken) => ({
     }
   }
 });
-export const logOut = () => ({ type: LOG_OUT });
+export const logOut = () => ({
+  type: LOG_OUT,
+  meta: {
+    analytics: {
+      type: "log-out"
+    }
+  }
+});
 
 export const enableAnalytics = () => ({
   type: ENABLE_ANALYTICS,
@@ -822,6 +850,7 @@ export const viewRouteInfo = routeResult => ({
   }
 });
 
+// FIXME: Are there two?
 export const resizeWindow = () => ({
   type: RESIZE_WINDOW,
   meta: {
@@ -858,7 +887,14 @@ export const clearSelectedFeatures = () => ({
 export const toggleGeolocation = () => (dispatch, getState) => {
   const { geolocation } = getState();
   if (geolocation && geolocation.status === "Ok") {
-    dispatch({ type: CLEAR_GEOLOCATION });
+    dispatch({
+      type: CLEAR_GEOLOCATION,
+      meta: {
+        analytics: {
+          type: "clear-geolocation"
+        }
+      }
+    });
     return;
   }
 
@@ -867,7 +903,14 @@ export const toggleGeolocation = () => (dispatch, getState) => {
     switch (p.state) {
       case "granted":
       case "prompt": {
-        dispatch({ type: REQUEST_GEOLOCATION });
+        dispatch({
+          type: REQUEST_GEOLOCATION,
+          meta: {
+            analytics: {
+              type: "request-geolocation"
+            }
+          }
+        });
 
         const success = position => {
           const coordinates = [
@@ -879,13 +922,25 @@ export const toggleGeolocation = () => (dispatch, getState) => {
             payload: {
               coordinates,
               accuracy: position.coords.accuracy
+            },
+            meta: {
+              analytics: {
+                type: "receive-geolocation"
+              }
             }
           });
         };
 
         const error = () => {
           // Failed - browser failed to get location
-          dispatch({ type: NO_GEOLOCATION });
+          dispatch({
+            type: NO_GEOLOCATION,
+            meta: {
+              analytics: {
+                type: "no-geolocation"
+              }
+            }
+          });
         };
 
         navigator.geolocation.getCurrentPosition(success, error);
@@ -893,7 +948,14 @@ export const toggleGeolocation = () => (dispatch, getState) => {
       }
       case "denied":
       default:
-        dispatch({ type: NO_GEOLOCATION });
+        dispatch({
+          type: NO_GEOLOCATION,
+          meta: {
+            analytics: {
+              type: "no-geolocation"
+            }
+          }
+        });
     }
   });
 };
@@ -901,7 +963,12 @@ export const toggleGeolocation = () => (dispatch, getState) => {
 export const setDate = (year, month, date) => (dispatch, getState) => {
   dispatch({
     type: SET_DATE,
-    payload: { year, month, date }
+    payload: { year, month, date },
+    meta: {
+      analytics: {
+        type: "set-date"
+      }
+    }
   });
 
   routeIfValid(dispatch, getState);
@@ -910,7 +977,12 @@ export const setDate = (year, month, date) => (dispatch, getState) => {
 export const setTime = (hours, minutes) => (dispatch, getState) => {
   dispatch({
     type: SET_TIME,
-    payload: { hours, minutes }
+    payload: { hours, minutes },
+    meta: {
+      analytics: {
+        type: "set-time"
+      }
+    }
   });
 
   routeIfValid(dispatch, getState);
@@ -980,9 +1052,19 @@ export const openBarriersPreferences = () => ({
 });
 
 export const showDrawer = () => ({
-  type: SHOW_DRAWER
+  type: SHOW_DRAWER,
+  meta: {
+    analytics: {
+      type: "show-drawer"
+    }
+  }
 });
 
 export const hideDrawer = () => ({
-  type: HIDE_DRAWER
+  type: HIDE_DRAWER,
+  meta: {
+    analytics: {
+      type: "hide-drawer"
+    }
+  }
 });
