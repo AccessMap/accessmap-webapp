@@ -9,25 +9,23 @@ import { getCurrentProfile } from "selectors";
 
 import SpeedLegend from "components/SpeedLegend";
 
-const Legend = props => {
+const BottomBar = props => {
   const { isDownhill, uphillMax, downhillMax, maxSpeed } = props;
 
   return (
-    <div className="legend">
-      <Card>
-        <SpeedLegend
-          n={15}
-          isDownhill={isDownhill}
-          uphillMax={uphillMax}
-          downhillMax={downhillMax}
-          maxSpeed={maxSpeed}
-        />
-      </Card>
-    </div>
+    <Card className="bottom-bar">
+      <SpeedLegend
+        n={15}
+        isDownhill={isDownhill}
+        uphillMax={uphillMax}
+        downhillMax={downhillMax}
+        maxSpeed={maxSpeed}
+      />
+    </Card>
   );
 };
 
-Legend.propTypes = {
+BottomBar.propTypes = {
   isDownhill: PropTypes.bool.isRequired,
   uphillMax: PropTypes.number.isRequired,
   downhillMax: PropTypes.number.isRequired,
@@ -44,4 +42,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Legend);
+export default connect(mapStateToProps)(BottomBar);

@@ -20,12 +20,12 @@
 
 // 6. Containers
 @import "containers/analyticsbar", "containers/appdrawer",
-  "containers/featurecard", "containers/floatingbuttons", "containers/legend",
+  "containers/featurecard", "containers/floatingbuttons", "containers/bottombar",
   "containers/linkoverlay", "containers/login", "containers/map",
-  "containers/mapoverlay", "containers/omnicard", "containers/profilelist",
-  "containers/root", "containers/routebottomcard", "containers/routebottomsheet",
-  "containers/settingscard", "containers/settings-uphill-downhill-sliders",
-  "containers/toprightbuttons";
+  "containers/mapoverlay", "containers/mapview", "containers/omnicard",
+  "containers/profilelist", "containers/root", "containers/routebottomcard",
+  "containers/routebottomsheet", "containers/settingscard",
+  "containers/settings-uphill-downhill-sliders", "containers/toprightbuttons";
 
 // 7. Page-specific styles
 @import "pages/home";

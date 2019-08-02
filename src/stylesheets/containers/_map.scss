@@ -1,7 +1,7 @@
 .map.mapboxgl-map {
   top: 0;
   bottom: 0;
-  height: 100%;
+  height: calc(100% - 40px);
   width: 100%;
   touch-action: none;
   position: absolute;

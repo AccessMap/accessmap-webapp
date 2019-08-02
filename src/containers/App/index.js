@@ -6,11 +6,12 @@ import { connect } from "react-redux";
 import * as AppActions from "actions";
 
 import Map from "containers/Map";
+
 import AnalyticsBar from "containers/AnalyticsBar";
+import BottomBar from "containers/BottomBar";
 import AppDrawer from "containers/AppDrawer";
 import FeatureCard from "containers/FeatureCard";
 import FloatingButtons from "containers/FloatingButtons";
-import Legend from "containers/Legend";
 import LinkOverlay from "containers/LinkOverlay";
 import MapOverlay from "containers/MapOverlay";
 import OmniCard from "containers/OmniCard";
@@ -35,21 +36,23 @@ class App extends PureComponent {
 
   render = () => (
     <React.Fragment>
-      <Toast />
       <AnalyticsBar />
       <AppDrawer />
-      <MapOverlay>
-        <Legend />
-        <OmniCard />
-        <SettingsCard />
-        <TopRightButtons />
-        <FloatingButtons />
-        <LinkOverlay />
-        <RouteBottomCard />
-        <FeatureCard />
-      </MapOverlay>
-      <Map />
-      <RouteBottomSheet />
+      <div className="map-view">
+        <MapOverlay>
+          <OmniCard />
+          <SettingsCard />
+          <TopRightButtons />
+          <FloatingButtons />
+          <LinkOverlay />
+          <RouteBottomCard />
+          <FeatureCard />
+        </MapOverlay>
+        <Map />
+        <RouteBottomSheet />
+        <Toast />
+      </div>
+      <BottomBar />
       <Tour />
       <SignupPrompt />
       <RegionSelector />

@@ -12,7 +12,8 @@
     position: absolute;
     @media #{$mobile-portrait-media} {
       // The height of the two toolbars
-      height: calc(100% - 2 * #{$md-toolbar-mobile-portrait-height} - 8px);
+      height: calc(100% - #{$md-toolbar-mobile-portrait-height});
+      // height: calc(100% - 2 * #{$md-toolbar-mobile-portrait-height} - 8px);
       width: 100%;
     }
 

@@ -38,7 +38,7 @@ const SpeedLegend = props => {
           style={{
             position: "absolute",
             left: 0,
-            top: "-1px",
+            top: "-5px",
             height: 0,
             width: "100%",
             backgroundColor: "transparent",
@@ -54,7 +54,7 @@ const SpeedLegend = props => {
             style={{
               position: "absolute",
               left: `calc((100% / ${n}) * ${i} + (100% / ${n} / 2))`,
-              top: "10px",
+              top: "6px",
               fontSize: "10pt",
               textAlign: "center"
             }}
@@ -72,9 +72,17 @@ const SpeedLegend = props => {
               backgroundColor: c,
               position: "absolute",
               left: `calc((100% / ${n}) * ${i})`,
-              top: "4px",
+              top: 0,
               width: `calc(100% / ${n})`,
-              height: "8px"
+              height: "8px",
+              border: "0 none",
+              borderTopStyle: "solid",
+              borderBottomStyle: "solid",
+              borderLeftStyle: i === 0 ? "solid" : "none",
+              borderRightStyle:
+                i === coloredCells.length - 1 ? "solid" : "none",
+              borderColor: "#a9a9a9",
+              borderWidth: "1px"
             }}
           />
         ))}
@@ -96,7 +104,7 @@ const SpeedLegend = props => {
               fontSize: "10pt"
             }}
           >
-            {"Steepness (incline %)"}
+            {"Speed at incline %"}
           </div>
         </div>
       </div>

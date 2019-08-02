@@ -1,6 +1,6 @@
 .route-bottom-card {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: 32px;
   left: 0;
   right: 0;
   margin-left: auto;
@@ -17,7 +17,6 @@
   @media #{$mobile-landscape-media} {
     width: calc(50% - 8px);
     left: 0;
-    bottom: 8px;
     margin-left: 8px;
   }
 
