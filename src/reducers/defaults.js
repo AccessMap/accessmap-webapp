@@ -41,8 +41,9 @@ export const defaultLog = {
 };
 
 export const defaultMap = {
-  region: regions.features[0],
   inclineUphill: true,
+  loaded: false,
+  region: regions.features[0],
   selectedFeature: null
 };
 

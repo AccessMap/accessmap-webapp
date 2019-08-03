@@ -13,6 +13,7 @@ import AppDrawer from "containers/AppDrawer";
 import FeatureCard from "containers/FeatureCard";
 import FloatingButtons from "containers/FloatingButtons";
 import LinkOverlay from "containers/LinkOverlay";
+import MapLoadingStatus from "containers/MapLoadingStatus";
 import MapOverlay from "containers/MapOverlay";
 import OmniCard from "containers/OmniCard";
 import RegionSelector from "containers/RegionSelector";
@@ -48,6 +49,7 @@ class App extends PureComponent {
             <TopRightButtons />
             <FloatingButtons />
             <LinkOverlay />
+            <MapLoadingStatus />
           </div>
         </MapOverlay>
         <RouteBottomCard />

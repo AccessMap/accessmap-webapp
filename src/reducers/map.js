@@ -8,6 +8,7 @@ import {
   SET_DESTINATION,
   SET_ORIGIN,
   SET_ORIGIN_DESTINATION,
+  LOAD_MAP,
   MAP_CLICK,
   MOUSE_OVER_DOWNHILL,
   MOUSE_OUT_DOWNHILL,
@@ -68,6 +69,15 @@ const handleInclineUphill = (state = defaultMap.inclineUphill, action) => {
   }
 };
 
+const handleLoaded = (state = defaultMap.loaded, action) => {
+  switch (action.type) {
+    case LOAD_MAP:
+      return true;
+    default:
+      return state;
+  }
+};
+
 const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
   switch (action.type) {
     case MAP_CLICK: {
@@ -107,7 +117,8 @@ const handleSelectedFeature = (state = defaultMap.selectedFeature, action) => {
 };
 
 export default combineReducers({
-  region: handleRegion,
   inclineUphill: handleInclineUphill,
+  loaded: handleLoaded,
+  region: handleRegion,
   selectedFeature: handleSelectedFeature
 });
