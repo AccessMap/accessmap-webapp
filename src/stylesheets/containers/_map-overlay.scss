@@ -1,0 +1,29 @@
+.map-overlay {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  position: relative;
+  padding-top: 8px;
+  padding-right: 8px;
+  padding-bottom: 32px;
+  padding-left: 8px;
+
+  @media #{$mobile-landscape-media} {
+    flex-flow: row;
+    padding-bottom: 24px;
+  }
+
+  &.routeview {
+    @media #{$mobile-portrait-media} {
+      padding-bottom: 136px;
+    }
+  }
+
+  &.directions {
+    @media #{$mobile-portrait-media} {
+      height: calc(50% + 20px);
+      padding-bottom: 8px;
+    }
+  }
+}

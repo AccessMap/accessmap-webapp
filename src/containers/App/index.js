@@ -40,14 +40,18 @@ class App extends PureComponent {
       <AppDrawer />
       <div className="map-view">
         <MapOverlay>
-          <OmniCard />
-          <SettingsCard />
-          <TopRightButtons />
-          <FloatingButtons />
-          <LinkOverlay />
-          <RouteBottomCard />
-          <FeatureCard />
+          <div className="omnicard-section">
+            <OmniCard />
+            <SettingsCard />
+          </div>
+          <div className="map-section">
+            <TopRightButtons />
+            <FloatingButtons />
+            <LinkOverlay />
+          </div>
         </MapOverlay>
+        <RouteBottomCard />
+        <FeatureCard />
         <Map />
         <RouteBottomSheet />
         <Toast />

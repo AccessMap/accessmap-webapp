@@ -1,18 +1,16 @@
-// Overall layout
 .floating-buttons {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: inherit;
+  z-index: 4;
 
-  > * {
-    margin-top: 8px;
-  }
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-top: auto;
 
   .md-btn {
-    display: block;
     background-color: $md-white-base;
-    float: right;
-    clear: right;
+  }
+
+  .md-btn:not(:first-child) {
+    margin-top: 8px;
   }
 }

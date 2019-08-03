@@ -1,0 +1,23 @@
+.map-section {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 0;
+
+  // @media #{$mobile-portrait-media} {
+  //   padding-top: 8px;
+  // }
+
+  // @media #{$mobile-landscape-media} {
+  //   padding-top: 0;
+  // }
+
+  // @media #{$tablet-media} {
+  //   padding-top: 0;
+  // }
+
+  // @media #{$desktop-media} {
+  //   padding-top: 0;
+  // }
+}

@@ -1,35 +1,15 @@
-// Overall layout
 .top-right-buttons {
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: inherit;
+  z-index: 4;
 
-  @media #{$mobile-portrait-media} {
-    position: relative;
-    margin: 0;
-    padding-right: 0;
-    float: right;
-  }
-
-  @media #{$mobile-landscape-media} {
-    position: absolute;
-    padding-right: inherit;
-  }
-
-  @media #{$tablet-media} {
-    position: absolute;
-    padding-right: inherit;
-  }
-
-  > * {
-    margin-top: 8px;
-  }
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
 
   .md-btn {
-    display: block;
     background-color: $md-white-base;
-    float: right;
-    clear: right;
+  }
+
+  .md-btn:not(:first-child) {
+    margin-top: 8px;
   }
 }

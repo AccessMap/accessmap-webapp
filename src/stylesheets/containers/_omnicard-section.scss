@@ -1,0 +1,19 @@
+.omnicard-section {
+  flex: 0 1 auto;
+
+  @media #{$mobile-portrait-media} {
+    width: 100%;
+  }
+
+  @media #{$mobile-landscape-media} {
+    height: 100%;
+  }
+
+  @media #{$tablet-media} {
+    height: 100%;
+  }
+
+  @media #{$desktop-media} {
+    height: 100%;
+  }
+}
