@@ -47,9 +47,9 @@ export const defaultMap = {
 };
 
 export const defaultProfile = {
-  filter: ["Wheelchair", "Powered", "Cane", "Custom"],
+  filter: ["Custom", "Wheelchair", "Powered", "Cane"],
   custom: cloneObject(customProfileDefault),
-  selected: "Wheelchair",
+  selected: "Custom",
   editorMode: "UPHILL"
 };
 

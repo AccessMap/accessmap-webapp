@@ -163,8 +163,8 @@ const mapStateToProps = state => {
   const { profile } = state;
 
   const profiles = {
-    ...defaultProfiles,
-    Custom: profile.custom
+    Custom: profile.custom,
+    ...defaultProfiles
   };
 
   return {
