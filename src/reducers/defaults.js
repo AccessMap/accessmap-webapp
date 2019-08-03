@@ -66,7 +66,8 @@ export const defaultRouteSettings = {
 };
 
 export const defaultTour = {
-  enabled: false
+  enabled: false,
+  tips: true
 };
 
 export const defaultView = {

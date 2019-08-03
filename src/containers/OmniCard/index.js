@@ -67,6 +67,7 @@ class OmniCard extends React.PureComponent {
       routeResult,
       selectedProfile,
       settingProfile,
+      showTip,
       viewingDirections,
       viewingMapInfo,
       viewingRouteInfo
@@ -232,7 +233,17 @@ class OmniCard extends React.PureComponent {
             tooltipPosition="left"
             onClick={() => actions.toggleSettingProfile(settingProfile)}
           >
-            <SVGIcon use={pencil.url} />
+            <div>
+              <SVGIcon use={pencil.url} />
+              {showTip ? (
+                <div className="attention-tip">
+                  <span className="strobe" />
+                  <p className="tip-text-container">
+                    {"Personalize your trip"}
+                  </p>
+                </div>
+              ) : null}
+            </div>
           </Button>
         );
       }
@@ -327,6 +338,7 @@ OmniCard.propTypes = {
   regionName: PropTypes.string,
   routeResult: routeResultProps,
   settingProfile: PropTypes.bool,
+  showTip: PropTypes.bool,
   viewingDirections: PropTypes.bool,
   viewingMapInfo: PropTypes.bool,
   viewingRouteInfo: PropTypes.bool
@@ -340,6 +352,7 @@ OmniCard.defaultProps = {
   planningTrip: false,
   routeResult: null,
   settingProfile: false,
+  showTip: false,
   viewingDirections: false,
   viewingMapInfo: false,
   viewingRouteInfo: false
@@ -354,6 +367,7 @@ const mapStateToProps = state => {
     profile,
     route,
     router,
+    tour,
     waypoints
   } = state;
 
@@ -385,6 +399,7 @@ const mapStateToProps = state => {
     routeResult: route.routeResult,
     selectedProfile: profile.selected,
     settingProfile: activities.settingProfile,
+    showTip: tour.tips,
     viewingDirections: activities.viewingDirections,
     viewingMapInfo: activities.viewingMapInfo,
     viewingRouteInfo: activities.viewingRouteInfo
