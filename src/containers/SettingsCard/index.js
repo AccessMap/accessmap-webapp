@@ -51,6 +51,7 @@ const SettingsCard = props => {
   if (selectedProfile === "Custom") {
     saveButton = (
       <ProfileSaveButton
+        mini
         onClick={() => {
           if (isLoggedIn) {
             actions.saveProfileRequest();
@@ -78,30 +79,31 @@ const SettingsCard = props => {
             <SVGIcon use={close.url} />
           </Button>
         ]}
-      />
-      <Tabs
-        tabId="custom-settings"
-        inactiveTabClassName="md-text--secondary"
-        onTabChange={activeTabIndex => {
-          switch (activeTabIndex) {
-            case 0:
-              actions.openUphillPreferences();
-              break;
-            case 1:
-              actions.openDownhillPreferences();
-              break;
-            case 2:
-              actions.openBarriersPreferences();
-              break;
-            default:
-              actions.openUphillPreferences();
-          }
-        }}
       >
-        <Tab id="tab-uphill" label="Uphill" />
-        <Tab id="tab-downhill" label="Downhill" />
-        <Tab id="tab-barriers" label="Barriers" />
-      </Tabs>
+        <Tabs
+          tabId="custom-settings"
+          inactiveTabClassName="md-text--secondary"
+          onTabChange={activeTabIndex => {
+            switch (activeTabIndex) {
+              case 0:
+                actions.openUphillPreferences();
+                break;
+              case 1:
+                actions.openDownhillPreferences();
+                break;
+              case 2:
+                actions.openBarriersPreferences();
+                break;
+              default:
+                actions.openUphillPreferences();
+            }
+          }}
+        >
+          <Tab id="tab-uphill" label="Uphill" />
+          <Tab id="tab-downhill" label="Downhill" />
+          <Tab id="tab-barriers" label="Barriers" />
+        </Tabs>
+      </Toolbar>
       <CardText>{settingsComponent}</CardText>
       <CardActions>{saveButton}</CardActions>
     </Card>

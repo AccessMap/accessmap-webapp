@@ -11,6 +11,17 @@
     width: 320px;
   }
 
+  // Shrink margins
+  .md-card-text {
+    padding-top: 8px;
+    padding-bottom: 0;
+  }
+
+  .md-dialog-footer--card {
+    padding-top: 0px;
+    padding-bottom: 6px;
+  }
+
   // Profile editing section
   .md-slider-track-fill,
   .md-slider-thumb--on {

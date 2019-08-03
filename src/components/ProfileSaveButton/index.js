@@ -6,21 +6,17 @@ import SVGIcon from "react-md/src/js/SVGIcons";
 
 import sync from "icons/sync.svg";
 
-const ProfileSaveButton = props => {
-  const { onClick } = props;
-
-  return (
-    <Button
-      className="save-profile-button"
-      raised
-      primary
-      iconEl={<SVGIcon use={sync.url} />}
-      onClick={onClick}
-    >
-      Save
-    </Button>
-  );
-};
+const ProfileSaveButton = ({ onClick, mini }) => (
+  <Button
+    className="save-profile-button"
+    raised
+    primary
+    iconEl={mini ? null : <SVGIcon use={sync.url} />}
+    onClick={onClick}
+  >
+    Save
+  </Button>
+);
 
 ProfileSaveButton.propTypes = {
   onClick: PropTypes.func.isRequired
