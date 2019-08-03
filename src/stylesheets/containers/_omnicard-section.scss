@@ -13,6 +13,10 @@
     height: 100%;
   }
 
+  @media #{$tablet-portrait-media} {
+    width: auto;
+  }
+
   @media #{$desktop-media} {
     height: 100%;
   }

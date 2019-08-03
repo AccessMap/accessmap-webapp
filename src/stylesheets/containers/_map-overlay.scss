@@ -14,6 +14,11 @@
     padding-bottom: 24px;
   }
 
+  @media #{$tablet-portrait-media} {
+    flex-flow: row;
+    padding-bottom: 24px;
+  }
+
   &.routeview {
     @media #{$mobile-portrait-media} {
       padding-bottom: 136px;
