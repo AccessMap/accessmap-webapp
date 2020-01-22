@@ -16,7 +16,8 @@
 @import "layout/header", "layout/footer";
 
 // 5. Components
-@import "components/mapmarker", "components/opening_hours_table";
+@import "components/accessmap_logo", "components/mapmarker",
+  "components/opening_hours_table";
 
 // 6. Containers
 @import "containers/analyticsbar", "containers/appdrawer",

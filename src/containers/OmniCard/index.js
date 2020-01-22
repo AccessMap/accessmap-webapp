@@ -30,10 +30,11 @@ import UphillSlider from "containers/Settings/UphillSlider";
 
 import TimePicker from "containers/TimePicker";
 
-import AccessMapLogo from "components/Icons/AccessMapLogo";
 import Directions from "components/Directions";
 import ProfileSaveButton from "components/ProfileSaveButton";
 import RouteInfo from "components/RouteInfo";
+
+import AccessMapLogo from "!babel-loader!@svgr/webpack?icon=true!icons/accessmap-logo.svg";
 
 import chevronDown from "icons/chevron-down.svg";
 import close from "icons/close.svg";
@@ -139,7 +140,7 @@ class OmniCard extends React.PureComponent {
           ]}
         >
           <div className="accessmap-title" key="accessmap-brand" aria-hidden>
-            <AccessMapLogo />
+            <AccessMapLogo className="accessmap-logo" role="img" />
           </div>
         </Toolbar>
       );

@@ -13,7 +13,7 @@ import { Switch } from "react-md/src/js/SelectionControls";
 import SVGIcon from "react-md/src/js/SVGIcons";
 import Toolbar from "react-md/src/js/Toolbars";
 
-import AccessMapLogo from "components/Icons/AccessMapLogo";
+import AccessMapLogo from "!babel-loader!@svgr/webpack?icon=true!icons/accessmap-logo.svg";
 
 import close from "icons/close.svg";
 
@@ -69,7 +69,7 @@ const AppDrawer = props => {
         <Toolbar
           title={
             <div className="accessmap-title" key="accessmap-brand">
-              <AccessMapLogo />
+              <AccessMapLogo className="accessmap-logo" />
             </div>
           }
           actions={[

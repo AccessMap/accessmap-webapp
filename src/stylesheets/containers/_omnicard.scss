@@ -119,7 +119,7 @@ $tablet-toolbar-text-button-height: 32px;
 
     // Title / Logo
     .accessmap-title {
-      .accessmaplogo {
+      .accessmap-logo {
         margin-left: 8px;
         @media #{$mobile-portrait-media} {
           width: 96px;
@@ -136,14 +136,6 @@ $tablet-toolbar-text-button-height: 32px;
           height: 28px;
           margin-top: ($tablet-toolbar-height - 28px) / 2;
           margin-left: 8px;
-        }
-
-        .accessmaplogo-primary {
-          fill: $md-primary-color;
-        }
-
-        .accessmaplogo-secondary {
-          fill: $md-secondary-color;
         }
       }
     }
