@@ -23,7 +23,8 @@ const SURFACE_MAP = {
   asphalt: "Asphalt",
   concrete: "Concrete",
   gravel: "Gravel",
-  paving_stone: "Paving stones"
+  paving_stone: "Paving stones",
+  paving_stones: "Paving stones"
 };
 
 const ContentRow = props => (
@@ -39,10 +40,29 @@ ContentRow.propTypes = {
 };
 
 const getFeatureType = properties => {
-  // Check if it's a footway
-  if (properties.hasOwnProperty("footway")) {
+  switch (properties.subclass) {
+    case "footway":
+      switch (properties.footway) {
+        case "sidewalk":
+          return "Sidewalk";
+        case "crossing":
+          return "Crossing";
+        default:
+          return "Footway";
+      }
+    case "service":
+      return "Service";
+    case "pedestrian":
+      return "Pedestrian";
+    case "path":
+      return "Path";
+  }
+  return null;
+};
+  /* if (properties.hasOwnProperty("footway")) {
     switch (properties.footway) {
       case "sidewalk":
+        console.log("sidewalk")
         return "Sidewalk";
       case "crossing":
         return "Crossing";
@@ -50,8 +70,15 @@ const getFeatureType = properties => {
         return "Footway";
     }
   }
-  return null;
-};
+  if (properties.hasOwnProperty("pedestrian")) {
+    console.log("pedestrian")
+    return "Pedestrian Street";
+  }
+  if (properties.hasOwnProperty("service")) {
+    console.log("service")
+    return "Service Road";
+  }
+  return null; */
 
 const FeatureCard = props => {
   const { actions, selectedFeature } = props;
@@ -63,6 +90,7 @@ const FeatureCard = props => {
 
   const {
     curbramps,
+    tactile_paving,
     crossing,
     description,
     incline,
@@ -124,6 +152,9 @@ const FeatureCard = props => {
           ) : null}
           {curbramps !== undefined ? (
             <ContentRow label="Curbramps" content={curbramps ? "Yes" : "No"} />
+          ) : null}
+          {tactile_paving !== undefined ? (
+            <ContentRow label="Tactile Paving" content={tactile_paving ? "Yes" : "No"} />
           ) : null}
           {markedCrossing ? (
             <ContentRow label="Marked crosswalk" content={markedCrossing} />

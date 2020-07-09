@@ -5,5 +5,6 @@ export default {
   speed: 0.8,
   uphillMax: 0.08,
   downhillMax: -0.1,
-  avoidCurbs: true
+  avoidCurbs: true,
+  tactilePaving: true
 };

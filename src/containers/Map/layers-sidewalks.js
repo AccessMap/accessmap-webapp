@@ -73,36 +73,52 @@ const Sidewalks = props => {
     24
   ];
 
-  const isSidewalkExpression = ["==", ["get", "footway"], "sidewalk"];
+  const isPedestrianExpression = ["==", ["get", "subclass"], "pedestrian"];
+  const isServiceExpression = ["==", ["get", "subclass"], "service"];
+  const isFootwayExpression = ["==", ["get", "subclass"], "footway"];
+  const isPathExpression = ["==", ["get", "subclass"], "path"];
+  const isCrossingExpression = ["==", ["get", "footway"], "crossing"]
 
-  const accessibleExpression = [
+  /* const accessibleExpression = [
     "case",
     [">", ["to-number", ["get", "incline"]], boundMax],
     false,
     ["<", ["to-number", ["get", "incline"]], boundMin],
     false,
     true
+  ]; */
+
+  const allPedExpr = [
+    "any",
+    isPedestrianExpression,
+    isServiceExpression,
+    isFootwayExpression,
+    isPathExpression
+  ]
+  
+  const accessibleFootwayExpression = [
+    "all",
+    allPedExpr,
+    ["!", isCrossingExpression]
   ];
 
-  const accessibleSidewalkExpression = [
+  /* const inaccessibleFootwayExpression = [
     "all",
-    isSidewalkExpression,
-    accessibleExpression
-  ];
-  const inaccessibleSidewalkExpression = [
-    "all",
-    isSidewalkExpression,
-    ["!", accessibleExpression]
-  ];
+    // isSidewalkExpression,
+    // isPedestrianExpression,
+    isServiceExpression,
+    isFootwayExpression,
+    // ["!", accessibleExpression]
+  ]; */
 
   return (
     <React.Fragment>
       <Layer
-        id="sidewalk-click"
+        id="footway-click"
         type="line"
         sourceId="pedestrian"
         sourceLayer="transportation"
-        filter={accessibleSidewalkExpression}
+        filter={accessibleFootwayExpression}
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
@@ -115,7 +131,68 @@ const Sidewalks = props => {
         sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={accessibleSidewalkExpression}
+        filter={accessibleFootwayExpression}
+        paint={{
+          "line-color": "#000",
+          "line-width": {
+            stops: [[14, 0.0], [20, 1]]
+          },
+          "line-opacity": {
+            stops: [[13.5, 0.0], [16, 1]]
+          },
+          "line-gap-width": widthExpression
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="sidewalk"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={accessibleFootwayExpression}
+        paint={{
+          "line-color": [
+            "case",
+            [">", ["to-number", ["get", "incline"]], boundMax],
+            "#ff0000",
+            ["<", ["to-number", ["get", "incline"]], boundMin],
+            "#ff0000",
+            [
+              "interpolate",
+              ["linear"],
+              ["to-number", ["get", "incline"]],
+              ...inclineStops
+            ]
+          ],
+          "line-color-transition": { duration: 0 },
+          "line-width": widthExpression
+        }}
+        before="bridge-street"
+      />
+    </React.Fragment>
+  )
+  /* return (
+    <React.Fragment>
+      <Layer
+        id="sidewalk-click"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        filter={accessibleFootwayExpression}
+        paint={{
+          "line-width": widthExpression,
+          "line-opacity": 0
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="sidewalk-outline"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={accessibleFootwayExpression}
         paint={{
           "line-color": "#000",
           "line-width": {
@@ -133,7 +210,7 @@ const Sidewalks = props => {
         type="line"
         sourceId="pedestrian"
         sourceLayer="transportation"
-        filter={inaccessibleSidewalkExpression}
+        filter={inaccessibleFootwayExpression}
         paint={{
           "line-color": "#ff0000",
           "line-dasharray": {
@@ -163,7 +240,7 @@ const Sidewalks = props => {
         sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={accessibleSidewalkExpression}
+        filter={accessibleFootwayExpression}
         paint={{
           "line-color": [
             "case",
@@ -193,7 +270,7 @@ const Sidewalks = props => {
           ["direction-arrow", directionArrow],
           ["direction-arrow-white", directionArrowWhite]
         ]}
-        filter={accessibleSidewalkExpression}
+        filter={accessibleFootwayExpression}
         layout={{
           "icon-allow-overlap": true,
           "icon-ignore-placement": true,
@@ -255,8 +332,8 @@ const Sidewalks = props => {
         before="bridge-street"
       />
     </React.Fragment>
-  );
-};
+  ); */
+}; 
 
 Sidewalks.propTypes = {
   uphillMax: PropTypes.number.isRequired,

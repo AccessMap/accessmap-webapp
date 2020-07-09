@@ -25,7 +25,7 @@ import Regions from "./layers-regions";
 const CLICKABLE_LAYERS = [
   "crossing-click",
   "elevator-paths-click",
-  "sidewalk-click"
+  "footway-click"
 ];
 
 const MapboxGL = ReactMapboxGl({

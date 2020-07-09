@@ -44,7 +44,8 @@ const createAuthMiddleware = () => {
                     const profileParams = {
                       uphillMax: profile.uphill_max,
                       downhillMax: profile.downhill_max,
-                      avoidCurbs: profile.avoid_curbs
+                      avoidCurbs: profile.avoid_curbs,
+                      tactilePaving: profile.tactile_paving
                     };
                     next(fetchProfileSuccess(profileParams));
                   } else {
@@ -62,7 +63,8 @@ const createAuthMiddleware = () => {
                 const profileParams = {
                   uphillMax: profile.uphill_max,
                   downhillMax: profile.downhill_max,
-                  avoidCurbs: profile.avoid_curbs
+                  avoidCurbs: profile.avoid_curbs,
+                  tactilePaving: profile.tactile_paving
                 };
                 next(fetchProfileSuccess(profileParams));
               } else {

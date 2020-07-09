@@ -5,7 +5,8 @@ export default {
     speed: 0.8,
     uphillMax: 0.08,
     downhillMax: -0.1,
-    avoidCurbs: true
+    avoidCurbs: true,
+    tactilePaving: false
   },
   Powered: {
     label: "Powered wheelchair",
@@ -13,7 +14,8 @@ export default {
     speed: 2,
     uphillMax: 0.12,
     downhillMax: -0.12,
-    avoidCurbs: true
+    avoidCurbs: true,
+    tactilePaving: false
   },
   Cane: {
     label: "Walk / Cane User",
@@ -21,6 +23,7 @@ export default {
     icon: "cane-user",
     uphillMax: 0.14,
     downhillMax: -0.14,
-    avoidCurbs: false
+    avoidCurbs: false,
+    tactilePaving: false
   }
 };

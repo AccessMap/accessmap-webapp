@@ -13,6 +13,7 @@ import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
 import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
+import TactilePavingToggle from "containers/Settings/TactilePavingToggle"
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 
@@ -43,6 +44,8 @@ const SettingsCard = props => {
     case "BARRIERS":
       settingsComponent = <AvoidCurbsToggle />;
       break;
+    case "TACTILEPAVING":
+      settingsComponent = <TactilePavingToggle />;
     default:
       settingsComponent = <UphillSlider />;
   }

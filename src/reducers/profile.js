@@ -14,7 +14,8 @@ import {
   SET_UPHILL_MAX,
   SET_DOWNHILL_MAX,
   SELECT_PROFILE,
-  TOGGLE_CURBRAMPS
+  TOGGLE_CURBRAMPS,
+  TOGGLE_TACTILEPAVING
 } from "actions";
 
 import { defaultProfile as defaults } from "reducers/defaults";
@@ -66,6 +67,11 @@ const handleCustom = (state = defaults.custom, action) => {
         ...state,
         avoidCurbs: !state.avoidCurbs
       };
+    case TOGGLE_TACTILEPAVING:
+      return {
+        ...state,
+        tactilePaving: !state.tactilePaving
+      }
     // case SET_SPEED:
     //   profiles[state.selectedProfile].speed = action.payload;
     //   return {

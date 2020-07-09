@@ -29,6 +29,7 @@ export const SET_SPEED = "SET_SPEED";
 export const SET_UPHILL_MAX = "SET_UPHILL_MAX";
 export const SET_DOWNHILL_MAX = "SET_DOWNHILL_MAX";
 export const TOGGLE_CURBRAMPS = "TOGGLE_CURBRAMPS";
+export const TOGGLE_TACTILEPAVING = "TOGGLE_TACTILEPAVING";
 export const SELECT_PROFILE = "SELECT_PROFILE";
 export const FETCH_PROFILE_REQUEST = "FETCH_PROFILE_REQUEST";
 export const FETCH_PROFILE_FAILURE = "FETCH_PROFILE_FAILURE";
@@ -382,6 +383,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     uphillMax,
     downhillMax,
     avoidCurbs,
+    tactilePaving,
     // speed,
     timeStamp
   } = params;
@@ -394,6 +396,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     uphill: uphillMax,
     downhill: Math.abs(downhillMax),
     avoidCurbs: avoidCurbs ? 1 : 0,
+    tactilePaving: tactilePaving ? 1 : 0,
     timestamp: timeStamp
   };
 
@@ -428,7 +431,7 @@ const routeIfValid = (dispatch, getState) => {
     profile = defaultProfiles[state.profile.selected];
   }
 
-  const { uphillMax, downhillMax, avoidCurbs, speed } = profile;
+  const { uphillMax, downhillMax, avoidCurbs, tactilePaving, speed } = profile;
 
   const timeStamp = state.routesettings.dateTime;
 
@@ -438,6 +441,7 @@ const routeIfValid = (dispatch, getState) => {
         uphillMax,
         downhillMax,
         avoidCurbs,
+        tactilePaving,
         speed,
         timeStamp
       })
@@ -456,6 +460,18 @@ export const toggleCurbRamps = () => (dispatch, getState) => {
   });
   routeIfValid(dispatch, getState);
 };
+
+export const toggleTactilePaving = () => (dispatch, getState) => {
+  dispatch({
+    type: TOGGLE_TACTILEPAVING,
+    meta: {
+      analytics: {
+        type: "toggle-tactilepaving"
+      }
+    }
+  });
+  routeIfValid(dispatch, getState);
+}
 
 export const setUphillMax = value => (dispatch, getState) => {
   dispatch({
@@ -553,7 +569,8 @@ export const saveProfileRequest = () => (dispatch, getState) => {
     payload: {
       uphillMax: customProfile.uphillMax,
       downhillMax: customProfile.downhillMax,
-      avoidCurbs: customProfile.avoidCurbs
+      avoidCurbs: customProfile.avoidCurbs,
+      tactilePaving: customProfile.tactilePaving
     },
     meta: {
       analytics: {

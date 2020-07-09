@@ -11,7 +11,7 @@ const WIDTH_INACCESSIBLE = 1;
 const DASH_INACCESSIBLE = [WIDTH_INACCESSIBLE * 2, WIDTH_INACCESSIBLE * 1.5];
 
 const Crossings = props => {
-  const { avoidCurbs } = props;
+  const { avoidCurbs, tactilePaving } = props;
 
   const widthExpression = {
     stops: [[12, 0.5], [16, 3], [22, 30]]
@@ -19,12 +19,25 @@ const Crossings = props => {
 
   const isCrossingExpression = ["==", ["get", "footway"], "crossing"];
 
-  const inaccessibleExpression = [
+  const inaccessibleCurbExpression = [
     "all",
     isCrossingExpression,
     avoidCurbs,
     ["!", ["to-boolean", ["get", "curbramps"]]]
   ];
+
+  const inaccessibleTactilePavingExpression = [
+    "all",
+    isCrossingExpression,
+    tactilePaving,
+    ["!", ["to-boolean", ["get", "tactile_paving"]]]
+  ]
+
+  const inaccessibleExpression = [
+    "any",
+    inaccessibleCurbExpression,
+    inaccessibleTactilePavingExpression
+  ]
 
   const markedExpression = [
     "all",
@@ -160,7 +173,8 @@ const Crossings = props => {
 };
 
 Crossings.propTypes = {
-  avoidCurbs: PropTypes.bool.isRequired
+  avoidCurbs: PropTypes.bool.isRequired,
+  tactilePaving: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
@@ -172,7 +186,8 @@ const mapStateToProps = state => {
       : defaultProfiles[profile.selected];
 
   return {
-    avoidCurbs: currentProfile.avoidCurbs
+    avoidCurbs: currentProfile.avoidCurbs,
+    tactilePaving: currentProfile.tactilePaving
   };
 };
 

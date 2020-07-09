@@ -50,7 +50,8 @@ export const saveProfile = (profile, accessToken, callback) => {
     body: JSON.stringify({
       uphill_max: profile.uphillMax,
       downhill_max: profile.downhillMax,
-      avoid_curbs: profile.avoidCurbs
+      avoid_curbs: profile.avoidCurbs,
+      tactile_paving: profile.tactilePaving
     })
   })
     .then(response => {

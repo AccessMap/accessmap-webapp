@@ -25,6 +25,7 @@ import ProfileList from "containers/ProfileList";
 import Login from "containers/Login";
 
 import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
+import TactilePavingToggle from "containers/Settings/TactilePavingToggle"
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 
@@ -300,6 +301,7 @@ class OmniCard extends React.PureComponent {
               <DownhillSlider />
               Avoid barriers:
               <AvoidCurbsToggle label="Raised curbs" />
+              <TactilePavingToggle label="Tactile paving" />
               {selectedProfile === "Custom" && (
                 <ProfileSaveButton
                   onClick={() => {
