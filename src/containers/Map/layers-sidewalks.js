@@ -79,14 +79,14 @@ const Sidewalks = props => {
   const isPathExpression = ["==", ["get", "subclass"], "path"];
   const isCrossingExpression = ["==", ["get", "footway"], "crossing"]
 
-  /* const accessibleExpression = [
+  const accessibleExpression = [
     "case",
     [">", ["to-number", ["get", "incline"]], boundMax],
     false,
     ["<", ["to-number", ["get", "incline"]], boundMin],
     false,
     true
-  ]; */
+  ];
 
   const allPedExpr = [
     "any",
@@ -96,20 +96,22 @@ const Sidewalks = props => {
     isPathExpression
   ]
   
-  const accessibleFootwayExpression = [
+  const allPedExprNoCrossing = [
     "all",
     allPedExpr,
     ["!", isCrossingExpression]
+  ]
+  const accessibleFootwayExpression = [
+    "all",
+    allPedExprNoCrossing,
+    accessibleExpression
   ];
 
-  /* const inaccessibleFootwayExpression = [
+  const inaccessibleFootwayExpression = [
     "all",
-    // isSidewalkExpression,
-    // isPedestrianExpression,
-    isServiceExpression,
-    isFootwayExpression,
-    // ["!", accessibleExpression]
-  ]; */
+    allPedExprNoCrossing,
+    ["!", accessibleExpression]
+  ];
 
   return (
     <React.Fragment>
@@ -332,7 +334,7 @@ const Sidewalks = props => {
         before="bridge-street"
       />
     </React.Fragment>
-  ); */
+  );*/
 }; 
 
 Sidewalks.propTypes = {

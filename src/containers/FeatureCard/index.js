@@ -57,6 +57,38 @@ const getFeatureType = properties => {
     case "path":
       return "Path";
   }
+  switch (properties.amenity) {
+    case "bench":
+      return "Bench";
+    case "waste_basket":
+      return "Trash Can";
+  }
+  switch (properties.traffic_signals) {
+    case "request_button":
+      return "Request Button";
+    case "pedestrian_crossing":
+      return "Pedestrian Crossing";
+  }
+  switch (properties.traffic_sign) {
+    case "yes":
+      return "Traffic Sign";
+    // default:
+      // return "Traffic Sign";
+  }
+  switch (properties.barrier) {
+    case "bollard":
+      return "Bollard";
+  }
+  switch (properties.highway) {
+    case "street_lamp":
+      return "Street Lamp";
+    case "stop":
+      return "Stop Sign";
+  }
+  switch (properties.man_made) {
+    case "manhole":
+      return "Manhole";
+  }
   return null;
 };
   /* if (properties.hasOwnProperty("footway")) {

@@ -21,11 +21,13 @@ import Route from "./layers-route";
 import Sidewalks from "./layers-sidewalks";
 import Waypoints from "./layers-waypoints";
 import Regions from "./layers-regions";
+import Landmarks from "./layers-landmarks";
 
 const CLICKABLE_LAYERS = [
   "crossing-click",
   "elevator-paths-click",
-  "footway-click"
+  "footway-click",
+  "landmark-click"
 ];
 
 const MapboxGL = ReactMapboxGl({
@@ -158,6 +160,7 @@ class Map extends Component {
         <Crossings />
         <ElevatorPaths />
         <Sidewalks />
+        <Landmarks />
         <Waypoints />
         <Geolocation />
       </MapboxGL>

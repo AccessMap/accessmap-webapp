@@ -4,9 +4,11 @@ const merge = require("webpack-merge");
 const path = require("path");
 const url = require("url");
 const webpack = require("webpack");
+const { debug } = require("console");
 
 // Insert definitions from .env into process.env
 dotenv.config();
+console.log(process.env.ROUTING_SERVER)
 
 module.exports = merge(common, {
   devtool: "inline-source-map",
@@ -24,6 +26,7 @@ module.exports = merge(common, {
     })
   ],
   devServer: {
+    clientLogLevel: "trace",
     contentBase: "./src",
     historyApiFallback: {
       disableDotRule: true
@@ -56,10 +59,11 @@ module.exports = merge(common, {
         pathRewrite: { "^/api/v1": "" }
       },
       "/api/v1/routing": {
-        target: process.env.ROUTING_SERVER && process.env.ROUTING_SERVER,
+        target: process.env.ROUTING_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api/v1/routing": "" }
+        pathRewrite: { "^/api/v1/routing": "" },
+        logLevel: 'debug'
       },
       "/tiles": {
         target: process.env.TILE_SERVER,
