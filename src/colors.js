@@ -6,7 +6,7 @@ import { DIVISOR } from "constants/routing";
 // Maps travel speed to color
 const inclineColorScale = chroma
   .scale(
-    [chroma("red"), chroma("yellow"), chroma("lime")].map(c => c.brighten(1.5))
+    [chroma("lime"), chroma("yellow"), chroma("red")].map(c => c.brighten(1.5))
   )
   .mode("lab");
 

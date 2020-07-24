@@ -14,7 +14,11 @@ const Crossings = props => {
   const { avoidCurbs, tactilePaving } = props;
 
   const widthExpression = {
-    stops: [[12, 0.5], [16, 3], [22, 30]]
+    stops: [
+      [12, 0.5],
+      [16, 3],
+      [22, 30]
+    ]
   };
 
   const isCrossingExpression = ["==", ["get", "footway"], "crossing"];
@@ -31,13 +35,13 @@ const Crossings = props => {
     isCrossingExpression,
     tactilePaving,
     ["!", ["to-boolean", ["get", "tactile_paving"]]]
-  ]
+  ];
 
   const inaccessibleExpression = [
     "any",
     inaccessibleCurbExpression,
     inaccessibleTactilePavingExpression
-  ]
+  ];
 
   const markedExpression = [
     "all",
@@ -105,6 +109,7 @@ const Crossings = props => {
         type="line"
         sourceId="pedestrian"
         sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
         filter={notnecessarilymarkedExpression}
         paint={{
           "line-color": "#555",
@@ -153,9 +158,19 @@ const Crossings = props => {
         paint={{
           "line-color": "#fff",
           "line-gap-width": {
-            stops: [[12, 0.4], [16, 1.5], [22, 15]]
+            stops: [
+              [12, 0.4],
+              [16, 1.5],
+              [22, 15]
+            ]
           },
-          "line-width": { stops: [[12, 0.1], [16, 0.5], [22, 4]] },
+          "line-width": {
+            stops: [
+              [12, 0.1],
+              [16, 0.5],
+              [22, 4]
+            ]
+          },
           "line-opacity": [
             "interpolate",
             ["linear"],

@@ -9,6 +9,18 @@ import { routeResult as routeResultProp } from "prop-schema";
 const Route = props => {
   const { before, routeResult } = props;
 
+  const widthExpression = [
+    "interpolate",
+    ["linear"],
+    ["zoom"],
+    10,
+    0.4,
+    16,
+    8,
+    20,
+    28
+  ];
+
   let output = null;
   if (routeResult && routeResult.code === "Ok") {
     const route = routeResult.routes[0];
@@ -64,11 +76,13 @@ const Route = props => {
           linePaint={{
             "line-color": "black",
             "line-opacity": 0.6,
-            "line-width": {
-              stops: [[12, 0.2], [16, 3], [22, 30]]
-            },
+            "line-width": widthExpression,
             "line-dasharray": {
-              stops: [[12, [0, 1]], [15, [0, 1.5]], [20, [0, 4]]]
+              stops: [
+                [12, [0, 1]],
+                [15, [0, 1.5]],
+                [20, [0, 4]]
+              ]
             }
           }}
           before={before}
@@ -80,10 +94,9 @@ const Route = props => {
             "line-join": "round"
           }}
           linePaint={{
-            "line-color": "#4bf",
-            "line-width": {
-              stops: [[12, 5], [16, 12], [22, 92]]
-            }
+            "line-color": "#FFBA08",
+            "line-opacity": 0.5,
+            "line-width": widthExpression
           }}
           before={before}
         />
@@ -95,11 +108,13 @@ const Route = props => {
           }}
           linePaint={{
             "line-color": "black",
-            "line-gap-width": {
-              stops: [[12, 4.7], [16, 9.7], [22, 92]]
-            },
+            "line-gap-width": widthExpression,
             "line-width": {
-              stops: [[12, 0.5], [16, 1], [22, 1]]
+              stops: [
+                [12, 0.5],
+                [16, 1],
+                [22, 1]
+              ]
             }
           }}
           before={before}

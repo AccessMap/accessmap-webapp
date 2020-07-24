@@ -154,13 +154,12 @@ class Map extends Component {
         {...props}
       >
         <Sources />
-
         <Regions />
-        <Route before="crossing-click" />
-        <Crossings />
         <ElevatorPaths />
         <Sidewalks />
         <Landmarks />
+        <Crossings />
+        <Route />
         <Waypoints />
         <Geolocation />
       </MapboxGL>
@@ -207,7 +206,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(Map);

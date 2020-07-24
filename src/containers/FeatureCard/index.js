@@ -73,7 +73,7 @@ const getFeatureType = properties => {
     case "yes":
       return "Traffic Sign";
     // default:
-      // return "Traffic Sign";
+    // return "Traffic Sign";
   }
   switch (properties.barrier) {
     case "bollard":
@@ -89,9 +89,19 @@ const getFeatureType = properties => {
     case "manhole":
       return "Manhole";
   }
+  switch (properties.kerb) {
+    case "flush":
+      return "Flush Kerb";
+    case "lowered":
+      return "Lowered Kerb";
+    case "raised":
+      return "Raised Kerb";
+    case "rolled":
+      return "Rolled Kerb";
+  }
   return null;
 };
-  /* if (properties.hasOwnProperty("footway")) {
+/* if (properties.hasOwnProperty("footway")) {
     switch (properties.footway) {
       case "sidewalk":
         console.log("sidewalk")
@@ -186,7 +196,10 @@ const FeatureCard = props => {
             <ContentRow label="Curbramps" content={curbramps ? "Yes" : "No"} />
           ) : null}
           {tactile_paving !== undefined ? (
-            <ContentRow label="Tactile Paving" content={tactile_paving ? "Yes" : "No"} />
+            <ContentRow
+              label="Tactile Paving"
+              content={tactile_paving ? "Yes" : "No"}
+            />
           ) : null}
           {markedCrossing ? (
             <ContentRow label="Marked crosswalk" content={markedCrossing} />
@@ -263,7 +276,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(FeatureCard);
+export default connect(mapStateToProps, mapDispatchToProps)(FeatureCard);

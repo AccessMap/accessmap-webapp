@@ -6,7 +6,7 @@ import { Layer } from "react-mapbox-gl";
 
 import { getCurrentProfile } from "selectors";
 
-import { uphillColorMap, downhillColorMap } from "colors";
+import { uphillColorMap, downhillColorMap, inclineColorScale } from "colors";
 
 // TODO: put the code for this icon in its own module
 /* eslint-disable import/no-webpack-loader-syntax */
@@ -56,6 +56,8 @@ const Sidewalks = props => {
     inclineStops.push(color.hex());
   });
 
+  const colorStops = ["BCE784", "5DD39E", "348AA7", "525174", "513B56"];
+
   // Set bounds for when elevations become 'too steep' on display.
   const boundMax = inclineUphill ? uphillMax : -downhillMax;
   const boundMin = inclineUphill ? -uphillMax : downhillMax;
@@ -77,7 +79,7 @@ const Sidewalks = props => {
   const isServiceExpression = ["==", ["get", "subclass"], "service"];
   const isFootwayExpression = ["==", ["get", "subclass"], "footway"];
   const isPathExpression = ["==", ["get", "subclass"], "path"];
-  const isCrossingExpression = ["==", ["get", "footway"], "crossing"]
+  const isCrossingExpression = ["==", ["get", "footway"], "crossing"];
 
   const accessibleExpression = [
     "case",
@@ -94,13 +96,9 @@ const Sidewalks = props => {
     isServiceExpression,
     isFootwayExpression,
     isPathExpression
-  ]
-  
-  const allPedExprNoCrossing = [
-    "all",
-    allPedExpr,
-    ["!", isCrossingExpression]
-  ]
+  ];
+
+  const allPedExprNoCrossing = ["all", allPedExpr, ["!", isCrossingExpression]];
   const accessibleFootwayExpression = [
     "all",
     allPedExprNoCrossing,
@@ -137,10 +135,16 @@ const Sidewalks = props => {
         paint={{
           "line-color": "#000",
           "line-width": {
-            stops: [[14, 0.0], [20, 1]]
+            stops: [
+              [14, 0.0],
+              [20, 1]
+            ]
           },
           "line-opacity": {
-            stops: [[13.5, 0.0], [16, 1]]
+            stops: [
+              [13.5, 0.0],
+              [16, 1]
+            ]
           },
           "line-gap-width": widthExpression
         }}
@@ -155,25 +159,24 @@ const Sidewalks = props => {
         filter={accessibleFootwayExpression}
         paint={{
           "line-color": [
-            "case",
-            [">", ["to-number", ["get", "incline"]], boundMax],
-            "#ff0000",
-            ["<", ["to-number", ["get", "incline"]], boundMin],
-            "#ff0000",
-            [
-              "interpolate",
-              ["linear"],
-              ["to-number", ["get", "incline"]],
-              ...inclineStops
-            ]
+            "interpolate",
+            ["linear"],
+            ["get", "count_sum"],
+            0,
+            "#E7F0FF",
+            5,
+            "#275DAD"
           ],
           "line-color-transition": { duration: 0 },
           "line-width": widthExpression
+          // const colorStops = ["BCE784", "5DD39E", "348AA7", "525174", "513B56"];
+          // "line-color": "#84A9C0",
+          // "line-opacity": 0.3,
         }}
         before="bridge-street"
       />
     </React.Fragment>
-  )
+  );
   /* return (
     <React.Fragment>
       <Layer
@@ -335,7 +338,7 @@ const Sidewalks = props => {
       />
     </React.Fragment>
   );*/
-}; 
+};
 
 Sidewalks.propTypes = {
   uphillMax: PropTypes.number.isRequired,

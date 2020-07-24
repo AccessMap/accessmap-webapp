@@ -8,7 +8,7 @@ const { debug } = require("console");
 
 // Insert definitions from .env into process.env
 dotenv.config();
-console.log(process.env.ROUTING_SERVER)
+console.log(process.env.ROUTING_SERVER);
 
 module.exports = merge(common, {
   devtool: "inline-source-map",
@@ -52,24 +52,25 @@ module.exports = merge(common, {
     },
     proxy: {
       // Replace with /api/v1 for dev of api and just /api/ for docker testing
+      "/api/v1/routing": {
+        target: process.env.ROUTING_SERVER,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: { "^/api/v1/routing": "" },
+        logLevel: "debug"
+      },
       "/api/v1": {
         target: process.env.API_SERVER,
         secure: false,
         changeOrigin: true,
         pathRewrite: { "^/api/v1": "" }
       },
-      "/api/v1/routing": {
-        target: process.env.ROUTING_SERVER,
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/api/v1/routing": "" },
-        logLevel: 'debug'
-      },
       "/tiles": {
         target: process.env.TILE_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/tiles": "" }
+        pathRewrite: { "^/tiles": "" },
+        logLevel: "debug"
       },
       "/analytics":
         process.env.ANALYTICS === "yes"
