@@ -22,6 +22,7 @@ import Sidewalks from "./layers-sidewalks";
 import Waypoints from "./layers-waypoints";
 import Regions from "./layers-regions";
 import Landmarks from "./layers-landmarks";
+import Steps from "./layers-steps";
 
 const CLICKABLE_LAYERS = [
   "crossing-click",
@@ -157,8 +158,9 @@ class Map extends Component {
         <Regions />
         <ElevatorPaths />
         <Sidewalks />
-        <Landmarks />
+        <Steps />
         <Crossings />
+        <Landmarks />
         <Route />
         <Waypoints />
         <Geolocation />

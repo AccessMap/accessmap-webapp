@@ -93,7 +93,7 @@ const Sidewalks = props => {
   const allPedExpr = [
     "any",
     isPedestrianExpression,
-    isServiceExpression,
+    // isServiceExpression,
     isFootwayExpression,
     isPathExpression
   ];

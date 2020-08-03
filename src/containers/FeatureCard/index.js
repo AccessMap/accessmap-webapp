@@ -56,6 +56,8 @@ const getFeatureType = properties => {
       return "Pedestrian";
     case "path":
       return "Path";
+    case "steps":
+      return "Steps";
   }
   switch (properties.amenity) {
     case "bench":
@@ -134,6 +136,11 @@ const FeatureCard = props => {
     curbramps,
     tactile_paving,
     crossing,
+    traffic_signals,
+    traffic_signals_sound,
+    button_operated,
+    handrail,
+    step_count,
     description,
     incline,
     indoor,
@@ -162,6 +169,27 @@ const FeatureCard = props => {
         break;
       default:
         markedCrossing = "Unknown";
+        break;
+    }
+  }
+
+  let crossingControl;
+  if (featureType === "Crossing") {
+    switch(traffic_signals) {
+      case "traffic_lights":
+        crossingControl = "Traffic Lights";
+        break;
+      case "stop_sign":
+        crossingControl = "Stop Sign";
+        break;
+      case "pedestrian_sign":
+        crossingControl = "Pedestrian Sign";
+        break;
+      case "no":
+        crossingControl = "None";
+        break;
+      default:
+        crossingControl = "Unknown";
         break;
     }
   }
@@ -202,7 +230,22 @@ const FeatureCard = props => {
             />
           ) : null}
           {markedCrossing ? (
-            <ContentRow label="Marked crosswalk" content={markedCrossing} />
+            <ContentRow label="Marked Crosswalk" content={markedCrossing} />
+          ) : null}
+          {crossingControl ? (
+            <ContentRow label="Traffic Control" content={crossingControl} />
+          ) : null}
+          {traffic_signals_sound !== undefined ? (
+            <ContentRow label="Audible Pedestrian Signal" content={traffic_signals_sound ? "Yes" : "Unknown"} />
+          ) : null}
+          {button_operated !== undefined ? (
+            <ContentRow label="Button Operated Pedestrian Signal" content={button_operated ? "Yes" : "Unknown"} />
+          ) : null}
+          {step_count !== undefined ? (
+            <ContentRow label="Step Count" content={step_count} />
+          ) : null}
+          {handrail !== undefined ? (
+            <ContentRow label="Handrail" content={handrail} />
           ) : null}
           {incline !== undefined ? (
             <ContentRow
