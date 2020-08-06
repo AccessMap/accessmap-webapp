@@ -57,6 +57,41 @@ const Crossings = props => {
     ["any", ["==", ["get", "crossing"], "unmarked"], ["!", ["has", "crossing"]]]
   ];
 
+  const trafficLightTrafficControl = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["==", ["get", "traffic_signals"], 1]
+  ];
+
+  const stopSignTrafficControl = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["==", ["get", "traffic_signals"], 2]
+  ];
+
+  const pedSignTrafficControl = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["==", ["get", "traffic_signals"], 3]
+  ];
+
+  const noTrafficControl = [
+    "all",
+    isCrossingExpression,
+    ["!", inaccessibleExpression],
+    ["==", ["get", "traffic_signals"], 4]
+  ];
+
+  const unknownTrafficControl = [
+    "all",
+    isCrossingExpression,
+    markedExpression,
+    ["==", ["get", "traffic_signals"], 0]
+  ];
+
   return (
     <React.Fragment>
       <Layer
@@ -127,14 +162,102 @@ const Crossings = props => {
         before="bridge-street"
       />
       <Layer
-        id="crossing-marked-background"
+        id="crossing-marked-traffic-lights"
         type="line"
         sourceId="pedestrian"
         sourceLayer="transportation"
         layout={{ "line-cap": "round" }}
-        filter={markedExpression}
+        filter={trafficLightTrafficControl}
+        paint={{
+          "line-color": "#8CB369",
+          "line-width": widthExpression,
+          "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            CROSSINGS_VISIBLE - 0.5,
+            0.0,
+            CROSSINGS_VISIBLE,
+            1
+          ]
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="crossing-marked-stop-sign"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={stopSignTrafficControl}
+        paint={{
+          "line-color": "#F4E285",
+          "line-width": widthExpression,
+          "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            CROSSINGS_VISIBLE - 0.5,
+            0.0,
+            CROSSINGS_VISIBLE,
+            1
+          ]
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="crossing-marked-unknown"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={unknownTrafficControl}
         paint={{
           "line-color": "#555",
+          "line-width": widthExpression,
+          "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            CROSSINGS_VISIBLE - 0.5,
+            0.0,
+            CROSSINGS_VISIBLE,
+            1
+          ]
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="crossing-marked-ped-sign"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={pedSignTrafficControl}
+        paint={{
+          "line-color": "#F4A259",
+          "line-width": widthExpression,
+          "line-opacity": [
+            "interpolate",
+            ["linear"],
+            ["zoom"],
+            CROSSINGS_VISIBLE - 0.5,
+            0.0,
+            CROSSINGS_VISIBLE,
+            1
+          ]
+        }}
+        before="bridge-street"
+      />
+      <Layer
+        id="crossing-marked-no-control"
+        type="line"
+        sourceId="pedestrian"
+        sourceLayer="transportation"
+        layout={{ "line-cap": "round" }}
+        filter={noTrafficControl}
+        paint={{
+          "line-color": "#BC4B51",
           "line-width": widthExpression,
           "line-opacity": [
             "interpolate",
