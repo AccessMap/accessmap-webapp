@@ -28,6 +28,7 @@ export const CLOSE_REGION_SELECTIONS = "CLOSE_REGION_SELECTIONS";
 export const SET_SPEED = "SET_SPEED";
 export const SET_UPHILL_MAX = "SET_UPHILL_MAX";
 export const SET_DOWNHILL_MAX = "SET_DOWNHILL_MAX";
+export const SET_LANDMARK_PRIORITY = "SET_LANDMARK_PRIORITY";
 export const TOGGLE_CURBRAMPS = "TOGGLE_CURBRAMPS";
 export const TOGGLE_TACTILEPAVING = "TOGGLE_TACTILEPAVING";
 export const SELECT_PROFILE = "SELECT_PROFILE";
@@ -382,6 +383,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
   const {
     uphillMax,
     downhillMax,
+    landmarkPriority,
     avoidCurbs,
     tactilePaving,
     // speed,
@@ -395,6 +397,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     lat2: destination.lat,
     uphill: uphillMax,
     downhill: Math.abs(downhillMax),
+    landmark: landmarkPriority,
     avoidCurbs: avoidCurbs ? 1 : 0,
     tactilePaving: tactilePaving ? 1 : 0,
     timestamp: timeStamp
@@ -405,9 +408,7 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     .map(k => `${esc(k)}=${esc(routeParams[k])}`)
     .join("&");
 
-  const query = `${
-    window.location.origin
-  }/api/v1/routing/directions/${type}.json?${urlQuery}`;
+  const query = `${window.location.origin}/api/v1/routing/directions/${type}.json?${urlQuery}`;
 
   fetch(query)
     .then(response => {
@@ -431,7 +432,14 @@ const routeIfValid = (dispatch, getState) => {
     profile = defaultProfiles[state.profile.selected];
   }
 
-  const { uphillMax, downhillMax, avoidCurbs, tactilePaving, speed } = profile;
+  const {
+    uphillMax,
+    downhillMax,
+    landmarkPriority,
+    avoidCurbs,
+    tactilePaving,
+    speed
+  } = profile;
 
   const timeStamp = state.routesettings.dateTime;
 
@@ -440,6 +448,7 @@ const routeIfValid = (dispatch, getState) => {
       fetchRoute(origin, destination, "wheelchair", {
         uphillMax,
         downhillMax,
+        landmarkPriority,
         avoidCurbs,
         tactilePaving,
         speed,
@@ -471,7 +480,7 @@ export const toggleTactilePaving = () => (dispatch, getState) => {
     }
   });
   routeIfValid(dispatch, getState);
-}
+};
 
 export const setUphillMax = value => (dispatch, getState) => {
   dispatch({
@@ -496,6 +505,22 @@ export const setDownhillMax = value => (dispatch, getState) => {
     meta: {
       analytics: {
         type: "set-downhill-max",
+        payload: {
+          value
+        }
+      }
+    }
+  });
+  routeIfValid(dispatch, getState);
+};
+
+export const setLandmarkPriority = value => (dispatch, getState) => {
+  dispatch({
+    type: SET_LANDMARK_PRIORITY,
+    payload: value,
+    meta: {
+      analytics: {
+        type: "set-landmark-priority",
         payload: {
           value
         }
@@ -569,6 +594,7 @@ export const saveProfileRequest = () => (dispatch, getState) => {
     payload: {
       uphillMax: customProfile.uphillMax,
       downhillMax: customProfile.downhillMax,
+      landmarkPriority: customProfile.landmarkPriority,
       avoidCurbs: customProfile.avoidCurbs,
       tactilePaving: customProfile.tactilePaving
     },

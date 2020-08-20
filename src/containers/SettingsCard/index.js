@@ -13,9 +13,10 @@ import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
 import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
-import TactilePavingToggle from "containers/Settings/TactilePavingToggle"
+import TactilePavingToggle from "containers/Settings/TactilePavingToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
+import LandmarkSlider from "containers/Settings/LandmarkSlider";
 
 import ProfileSaveButton from "components/ProfileSaveButton";
 
@@ -40,6 +41,9 @@ const SettingsCard = props => {
       break;
     case "DOWNHILL":
       settingsComponent = <DownhillSlider />;
+      break;
+    case "LANDMARK":
+      settingsComponent = <LandmarkSlider />;
       break;
     case "BARRIERS":
       settingsComponent = <AvoidCurbsToggle />;
@@ -144,7 +148,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SettingsCard);
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsCard);

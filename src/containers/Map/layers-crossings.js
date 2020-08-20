@@ -61,35 +61,35 @@ const Crossings = props => {
     "all",
     isCrossingExpression,
     ["!", inaccessibleExpression],
-    ["==", ["get", "traffic_signals"], 1]
+    ["==", ["get", "traffic_signals"], "traffic_lights"]
   ];
 
   const stopSignTrafficControl = [
     "all",
     isCrossingExpression,
     ["!", inaccessibleExpression],
-    ["==", ["get", "traffic_signals"], 2]
+    ["==", ["get", "traffic_signals"], "stop_sign"]
   ];
 
   const pedSignTrafficControl = [
     "all",
     isCrossingExpression,
     ["!", inaccessibleExpression],
-    ["==", ["get", "traffic_signals"], 3]
+    ["==", ["get", "traffic_signals"], "pedestrian_sign"]
   ];
 
   const noTrafficControl = [
     "all",
     isCrossingExpression,
     ["!", inaccessibleExpression],
-    ["==", ["get", "traffic_signals"], 4]
+    ["==", ["get", "traffic_signals"], "no"]
   ];
 
   const unknownTrafficControl = [
     "all",
     isCrossingExpression,
     markedExpression,
-    ["==", ["get", "traffic_signals"], 0]
+    ["!", ["has", "traffic_signals"]]
   ];
 
   return (

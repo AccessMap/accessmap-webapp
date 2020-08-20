@@ -101,6 +101,10 @@ const getFeatureType = properties => {
     case "rolled":
       return "Rolled Kerb";
   }
+  switch (properties.tactile_paving) {
+    case 1:
+      return "Tactile Paving";
+  }
   return null;
 };
 /* if (properties.hasOwnProperty("footway")) {
@@ -175,7 +179,7 @@ const FeatureCard = props => {
 
   let crossingControl;
   if (featureType === "Crossing") {
-    switch(traffic_signals) {
+    switch (traffic_signals) {
       case "traffic_lights":
         crossingControl = "Traffic Lights";
         break;
@@ -236,10 +240,16 @@ const FeatureCard = props => {
             <ContentRow label="Traffic Control" content={crossingControl} />
           ) : null}
           {traffic_signals_sound !== undefined ? (
-            <ContentRow label="Audible Pedestrian Signal" content={traffic_signals_sound ? "Yes" : "Unknown"} />
+            <ContentRow
+              label="Audible Pedestrian Signal"
+              content={traffic_signals_sound ? "Yes" : "Unknown"}
+            />
           ) : null}
           {button_operated !== undefined ? (
-            <ContentRow label="Button Operated Pedestrian Signal" content={button_operated ? "Yes" : "Unknown"} />
+            <ContentRow
+              label="Button Operated Pedestrian Signal"
+              content={button_operated ? "Yes" : "Unknown"}
+            />
           ) : null}
           {step_count !== undefined ? (
             <ContentRow label="Step Count" content={step_count} />

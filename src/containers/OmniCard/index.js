@@ -25,9 +25,10 @@ import ProfileList from "containers/ProfileList";
 import Login from "containers/Login";
 
 import AvoidCurbsToggle from "containers/Settings/AvoidCurbsToggle";
-import TactilePavingToggle from "containers/Settings/TactilePavingToggle"
+import TactilePavingToggle from "containers/Settings/TactilePavingToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
+import LandmarkSlider from "containers/Settings/LandmarkSlider";
 
 import TimePicker from "containers/TimePicker";
 
@@ -301,7 +302,9 @@ class OmniCard extends React.PureComponent {
               <DownhillSlider />
               Avoid barriers:
               <AvoidCurbsToggle label="Raised curbs" />
-              <TactilePavingToggle label="Tactile paving" />
+              Navigation Aids:
+              <TactilePavingToggle label="Require Tactile Paving" />
+              <LandmarkSlider />
               {selectedProfile === "Custom" && (
                 <ProfileSaveButton
                   onClick={() => {
@@ -412,7 +415,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OmniCard);
+export default connect(mapStateToProps, mapDispatchToProps)(OmniCard);

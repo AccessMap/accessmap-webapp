@@ -13,6 +13,7 @@ import {
   NO_SAVED_PROFILES,
   SET_UPHILL_MAX,
   SET_DOWNHILL_MAX,
+  SET_LANDMARK_PRIORITY,
   SELECT_PROFILE,
   TOGGLE_CURBRAMPS,
   TOGGLE_TACTILEPAVING
@@ -62,6 +63,11 @@ const handleCustom = (state = defaults.custom, action) => {
         ...state,
         downhillMax: action.payload
       };
+    case SET_LANDMARK_PRIORITY:
+      return {
+        ...state,
+        landmarkPriority: action.payload
+      };
     case TOGGLE_CURBRAMPS:
       return {
         ...state,
@@ -71,7 +77,7 @@ const handleCustom = (state = defaults.custom, action) => {
       return {
         ...state,
         tactilePaving: !state.tactilePaving
-      }
+      };
     // case SET_SPEED:
     //   profiles[state.selectedProfile].speed = action.payload;
     //   return {

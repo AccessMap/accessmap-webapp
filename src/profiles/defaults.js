@@ -5,6 +5,7 @@ export default {
     speed: 0.8,
     uphillMax: 0.08,
     downhillMax: -0.1,
+    landmarkPriority: 0.2,
     avoidCurbs: true,
     tactilePaving: false
   },
@@ -14,6 +15,7 @@ export default {
     speed: 2,
     uphillMax: 0.12,
     downhillMax: -0.12,
+    landmarkPriority: 0.2,
     avoidCurbs: true,
     tactilePaving: false
   },
@@ -23,6 +25,7 @@ export default {
     icon: "cane-user",
     uphillMax: 0.14,
     downhillMax: -0.14,
+    landmarkPriority: 0.2,
     avoidCurbs: false,
     tactilePaving: false
   }
