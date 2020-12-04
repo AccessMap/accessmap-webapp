@@ -9,6 +9,27 @@ import DirectionsCard from "components/DirectionsCard";
 
 import { routeResult as routeResultProps } from "prop-schema";
 
+const getLandmarkArray = linRefList => {
+  linRefList = linRefList.replace(/[\[\]']+/g, "");
+  linRefList = linRefList.replace(/[\(\)']+/g, "");
+  linRefList = linRefList.replace(/[\'']+/g, "");
+  linRefList = linRefList.split(",");
+  return linRefList;
+};
+
+const formatLandmarkText = (lmarkArray, dist) => {
+  var lmarkString = "";
+  var i;
+  var name;
+  var lmarkDist;
+  for (i = 0; i < lmarkArray.length / 2; i++) {
+    name = lmarkArray[i * 2];
+    lmarkDist = dist * parseFloat(lmarkArray[i * 2 + 1]);
+    lmarkString = lmarkString + name + " " + lmarkDist + " ";
+  }
+  return lmarkString;
+};
+
 const Directions = props => {
   const { onClose, routeResult } = props;
 
@@ -22,6 +43,8 @@ const Directions = props => {
     const origin = routeResult.origin.geometry.coordinates;
     const destination = routeResult.destination.geometry.coordinates;
     const key = `step-${origin}-${destination}-${i}`;
+    const landmarkArray = getLandmarkArray(p.lin_ref_list);
+    const landmarkString = formatLandmarkText(landmarkArray, p.length);
 
     switch (p.subclass) {
       case "footway":
@@ -32,7 +55,7 @@ const Directions = props => {
                 key={key}
                 distance={p.length}
                 title="Use the sidewalk"
-                subtitle={p.description}
+                subtitle={landmarkString}
               />
             );
           case "crossing":
@@ -52,6 +75,15 @@ const Directions = props => {
                   distance={p.length}
                   title={`Use ${p.indoor ? "indoor" : "outdoor"} elevator`}
                   subtitle={p.description}
+                />
+              );
+            } else {
+              return (
+                <DirectionsCard
+                  key={key}
+                  distance={p.length}
+                  title="Walk on the path"
+                  subtitle={landmarkString}
                 />
               );
             }

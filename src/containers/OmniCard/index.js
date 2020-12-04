@@ -29,6 +29,8 @@ import TactilePavingToggle from "containers/Settings/TactilePavingToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 import LandmarkSlider from "containers/Settings/LandmarkSlider";
+import StepsSlider from "containers/Settings/StepsSlider";
+import CrossingSlider from "containers/Settings/CrossingSlider";
 
 import TimePicker from "containers/TimePicker";
 
@@ -298,13 +300,13 @@ class OmniCard extends React.PureComponent {
         {!isMobile ? (
           <React.Fragment>
             <CardText className="profile-editor-desktop">
-              <UphillSlider />
-              <DownhillSlider />
               Avoid barriers:
               <AvoidCurbsToggle label="Raised curbs" />
               Navigation Aids:
               <TactilePavingToggle label="Require Tactile Paving" />
               <LandmarkSlider />
+              <StepsSlider />
+              <CrossingSlider />
               {selectedProfile === "Custom" && (
                 <ProfileSaveButton
                   onClick={() => {

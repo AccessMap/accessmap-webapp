@@ -10,40 +10,40 @@ import { getCurrentProfile } from "selectors";
 
 import Slider from "react-md/src/js/Sliders";
 
-const LandmarkSlider = props => {
-  const { actions, disabled, landmarkPriority } = props;
+const StepsSlider = props => {
+  const { actions, disabled, stepsPriority } = props;
 
   return (
     <Slider
-      className={cn("landmark-slider", { editable: !disabled })}
+      className={cn("steps-slider", { editable: !disabled })}
       disabled={disabled}
       discrete
-      id="landmark-slider"
-      label={`Landmark preference: ${landmarkPriority * 100}%`}
+      id="steps-slider"
+      label={`Stair avoidance preference: ${stepsPriority * 100}%`}
       // defaultValue={0.2}
       min={0}
       max={1}
       step={0.05}
       valuePrecision={1}
-      onChange={d => actions.setLandmarkPriority(d)}
-      value={landmarkPriority}
+      onChange={d => actions.setStepsPriority(d)}
+      value={stepsPriority}
     />
   );
 };
 
-LandmarkSlider.propTypes = {
+StepsSlider.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   disabled: PropTypes.bool,
-  landmarkPriority: PropTypes.number.isRequired
+  stepsPriority: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => ({
   disabled: state.profile.selected !== "Custom",
-  landmarkPriority: getCurrentProfile(state).landmarkPriority
+  stepsPriority: getCurrentProfile(state).stepsPriority
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandmarkSlider);
+export default connect(mapStateToProps, mapDispatchToProps)(StepsSlider);

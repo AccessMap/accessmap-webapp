@@ -17,6 +17,8 @@ import TactilePavingToggle from "containers/Settings/TactilePavingToggle";
 import DownhillSlider from "containers/Settings/DownhillSlider";
 import UphillSlider from "containers/Settings/UphillSlider";
 import LandmarkSlider from "containers/Settings/LandmarkSlider";
+import StepsSlider from "containers/Settings/StepsSlider";
+import CrossingSlider from "containers/Settings/CrossingSlider";
 
 import ProfileSaveButton from "components/ProfileSaveButton";
 
@@ -36,14 +38,14 @@ const SettingsCard = props => {
 
   let settingsComponent;
   switch (editorMode) {
-    case "UPHILL":
-      settingsComponent = <UphillSlider />;
-      break;
-    case "DOWNHILL":
-      settingsComponent = <DownhillSlider />;
-      break;
     case "LANDMARK":
       settingsComponent = <LandmarkSlider />;
+      break;
+    case "STEPS":
+      settingsComponent = <StepsSlider />;
+      break;
+    case "CROSSING":
+      settingsComponent = <CrossingSlider />;
       break;
     case "BARRIERS":
       settingsComponent = <AvoidCurbsToggle />;
@@ -51,7 +53,7 @@ const SettingsCard = props => {
     case "TACTILEPAVING":
       settingsComponent = <TactilePavingToggle />;
     default:
-      settingsComponent = <UphillSlider />;
+      settingsComponent = <LandmarkSlider />;
   }
 
   let saveButton = null;

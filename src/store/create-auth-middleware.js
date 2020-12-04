@@ -45,6 +45,8 @@ const createAuthMiddleware = () => {
                       uphillMax: profile.uphill_max,
                       downhillMax: profile.downhill_max,
                       landmarkPriority: profile.landmark_priority,
+                      stepsPriority: profile.steps_priority,
+                      crossingPriority: profile.crossing_priority,
                       avoidCurbs: profile.avoid_curbs,
                       tactilePaving: profile.tactile_paving
                     };
@@ -65,6 +67,8 @@ const createAuthMiddleware = () => {
                   uphillMax: profile.uphill_max,
                   downhillMax: profile.downhill_max,
                   landmarkPriority: profile.landmark_priority,
+                  stepsPriority: profile.steps_priority,
+                  crossingPriority: profile.crossing_priority,
                   avoidCurbs: profile.avoid_curbs,
                   tactilePaving: profile.tactile_paving
                 };

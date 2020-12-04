@@ -10,40 +10,40 @@ import { getCurrentProfile } from "selectors";
 
 import Slider from "react-md/src/js/Sliders";
 
-const LandmarkSlider = props => {
-  const { actions, disabled, landmarkPriority } = props;
+const CrossingSlider = props => {
+  const { actions, disabled, crossingPriority } = props;
 
   return (
     <Slider
-      className={cn("landmark-slider", { editable: !disabled })}
+      className={cn("crossing-slider", { editable: !disabled })}
       disabled={disabled}
       discrete
-      id="landmark-slider"
-      label={`Landmark preference: ${landmarkPriority * 100}%`}
+      id="crossing-slider"
+      label={`Controlled crossing preference: ${crossingPriority * 100}%`}
       // defaultValue={0.2}
       min={0}
       max={1}
       step={0.05}
       valuePrecision={1}
-      onChange={d => actions.setLandmarkPriority(d)}
-      value={landmarkPriority}
+      onChange={d => actions.setCrossingPriority(d)}
+      value={crossingPriority}
     />
   );
 };
 
-LandmarkSlider.propTypes = {
+CrossingSlider.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired,
   disabled: PropTypes.bool,
-  landmarkPriority: PropTypes.number.isRequired
+  crossingPriority: PropTypes.number.isRequired
 };
 
 const mapStateToProps = state => ({
   disabled: state.profile.selected !== "Custom",
-  landmarkPriority: getCurrentProfile(state).landmarkPriority
+  crossingPriority: getCurrentProfile(state).crossingPriority
 });
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(LandmarkSlider);
+export default connect(mapStateToProps, mapDispatchToProps)(CrossingSlider);

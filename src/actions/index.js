@@ -29,6 +29,8 @@ export const SET_SPEED = "SET_SPEED";
 export const SET_UPHILL_MAX = "SET_UPHILL_MAX";
 export const SET_DOWNHILL_MAX = "SET_DOWNHILL_MAX";
 export const SET_LANDMARK_PRIORITY = "SET_LANDMARK_PRIORITY";
+export const SET_STEPS_PRIORITY = "SET_STEPS_PRIORITY";
+export const SET_CROSSING_PRIORITY = "SET_CROSSING_PRIORITY";
 export const TOGGLE_CURBRAMPS = "TOGGLE_CURBRAMPS";
 export const TOGGLE_TACTILEPAVING = "TOGGLE_TACTILEPAVING";
 export const SELECT_PROFILE = "SELECT_PROFILE";
@@ -384,6 +386,8 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     uphillMax,
     downhillMax,
     landmarkPriority,
+    stepsPriority,
+    crossingPriority,
     avoidCurbs,
     tactilePaving,
     // speed,
@@ -398,6 +402,8 @@ export const fetchRoute = (origin, destination, type, params) => dispatch => {
     uphill: uphillMax,
     downhill: Math.abs(downhillMax),
     landmark: landmarkPriority,
+    steps: stepsPriority,
+    crossing: crossingPriority,
     avoidCurbs: avoidCurbs ? 1 : 0,
     tactilePaving: tactilePaving ? 1 : 0,
     timestamp: timeStamp
@@ -436,6 +442,8 @@ const routeIfValid = (dispatch, getState) => {
     uphillMax,
     downhillMax,
     landmarkPriority,
+    stepsPriority,
+    crossingPriority,
     avoidCurbs,
     tactilePaving,
     speed
@@ -449,6 +457,8 @@ const routeIfValid = (dispatch, getState) => {
         uphillMax,
         downhillMax,
         landmarkPriority,
+        stepsPriority,
+        crossingPriority,
         avoidCurbs,
         tactilePaving,
         speed,
@@ -530,6 +540,38 @@ export const setLandmarkPriority = value => (dispatch, getState) => {
   routeIfValid(dispatch, getState);
 };
 
+export const setStepsPriority = value => (dispatch, getState) => {
+  dispatch({
+    type: SET_STEPS_PRIORITY,
+    payload: value,
+    meta: {
+      analytics: {
+        type: "set-steps-priority",
+        payload: {
+          value
+        }
+      }
+    }
+  });
+  routeIfValid(dispatch, getState);
+};
+
+export const setCrossingPriority = value => (dispatch, getState) => {
+  dispatch({
+    type: SET_CROSSING_PRIORITY,
+    payload: value,
+    meta: {
+      analytics: {
+        type: "set-crossing-priority",
+        payload: {
+          value
+        }
+      }
+    }
+  });
+  routeIfValid(dispatch, getState);
+};
+
 export const selectProfile = profile => (dispatch, getState) => {
   dispatch({
     type: SELECT_PROFILE,
@@ -595,6 +637,8 @@ export const saveProfileRequest = () => (dispatch, getState) => {
       uphillMax: customProfile.uphillMax,
       downhillMax: customProfile.downhillMax,
       landmarkPriority: customProfile.landmarkPriority,
+      stepsPriority: customProfile.stepsPriority,
+      crossingPriority: customProfile.crossingPriority,
       avoidCurbs: customProfile.avoidCurbs,
       tactilePaving: customProfile.tactilePaving
     },

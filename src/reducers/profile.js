@@ -14,6 +14,8 @@ import {
   SET_UPHILL_MAX,
   SET_DOWNHILL_MAX,
   SET_LANDMARK_PRIORITY,
+  SET_STEPS_PRIORITY,
+  SET_CROSSING_PRIORITY,
   SELECT_PROFILE,
   TOGGLE_CURBRAMPS,
   TOGGLE_TACTILEPAVING
@@ -67,6 +69,16 @@ const handleCustom = (state = defaults.custom, action) => {
       return {
         ...state,
         landmarkPriority: action.payload
+      };
+    case SET_STEPS_PRIORITY:
+      return {
+        ...state,
+        stepsPriority: action.payload
+      };
+    case SET_CROSSING_PRIORITY:
+      return {
+        ...state,
+        crossingPriority: action.payload
       };
     case TOGGLE_CURBRAMPS:
       return {

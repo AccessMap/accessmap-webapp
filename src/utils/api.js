@@ -51,6 +51,8 @@ export const saveProfile = (profile, accessToken, callback) => {
       uphill_max: profile.uphillMax,
       downhill_max: profile.downhillMax,
       landmark_priority: profile.landmarkPriority,
+      steps_priority: profile.stepsPriority,
+      crossing_priority: profile.crossingPriority,
       avoid_curbs: profile.avoidCurbs,
       tactile_paving: profile.tactilePaving
     })

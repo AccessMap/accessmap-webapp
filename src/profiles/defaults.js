@@ -6,7 +6,9 @@ export default {
     uphillMax: 0.08,
     downhillMax: -0.1,
     landmarkPriority: 0.2,
-    avoidCurbs: true,
+    stepsPriority: 0.5,
+    crossingPriority: 0.8,
+    avoidCurbs: false,
     tactilePaving: false
   },
   Powered: {
@@ -16,7 +18,9 @@ export default {
     uphillMax: 0.12,
     downhillMax: -0.12,
     landmarkPriority: 0.2,
-    avoidCurbs: true,
+    stepsPriority: 0.5,
+    crossingPriority: 0.8,
+    avoidCurbs: false,
     tactilePaving: false
   },
   Cane: {
@@ -26,7 +30,9 @@ export default {
     uphillMax: 0.14,
     downhillMax: -0.14,
     landmarkPriority: 0.2,
+    stepsPriority: 0.5,
+    crossingPriority: 0.8,
     avoidCurbs: false,
-    tactilePaving: false
+    tactilePaving: true
   }
 };
