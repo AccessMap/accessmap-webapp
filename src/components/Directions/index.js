@@ -9,7 +9,7 @@ import DirectionsCard from "components/DirectionsCard";
 
 import { routeResult as routeResultProps } from "prop-schema";
 
-const getLandmarkArray = linRefList => {
+/* const getLandmarkArray = linRefList => {
   linRefList = linRefList.replace(/[\[\]']+/g, "");
   linRefList = linRefList.replace(/[\(\)']+/g, "");
   linRefList = linRefList.replace(/[\'']+/g, "");
@@ -28,7 +28,7 @@ const formatLandmarkText = (lmarkArray, dist) => {
     lmarkString = lmarkString + name + " " + lmarkDist + " ";
   }
   return lmarkString;
-};
+}; */
 
 const Directions = props => {
   const { onClose, routeResult } = props;
@@ -43,8 +43,8 @@ const Directions = props => {
     const origin = routeResult.origin.geometry.coordinates;
     const destination = routeResult.destination.geometry.coordinates;
     const key = `step-${origin}-${destination}-${i}`;
-    const landmarkArray = getLandmarkArray(p.lin_ref_list);
-    const landmarkString = formatLandmarkText(landmarkArray, p.length);
+    // const landmarkArray = getLandmarkArray(p.lin_ref_list);
+    // const landmarkString = formatLandmarkText(landmarkArray, p.length);
 
     switch (p.subclass) {
       case "footway":
@@ -122,7 +122,7 @@ const Directions = props => {
                   key={key}
                   distance={p.length}
                   title="Walk on the path"
-                  subtitle={landmarkString}
+                  subtitle={p.description}
                 />
               );
             }
