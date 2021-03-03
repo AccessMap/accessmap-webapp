@@ -20,7 +20,7 @@ const CrossingSlider = props => {
       discrete
       id="crossing-slider"
       label={`Controlled crossing preference: ${crossingPriority * 100}%`}
-      // defaultValue={0.2}
+      defaultValue={0.2}
       min={0}
       max={1}
       step={0.05}

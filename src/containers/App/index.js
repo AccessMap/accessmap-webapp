@@ -8,7 +8,7 @@ import * as AppActions from "actions";
 import Map from "containers/Map";
 
 import AnalyticsBar from "containers/AnalyticsBar";
-import BottomBar from "containers/BottomBar";
+// import BottomBar from "containers/BottomBar";
 import AppDrawer from "containers/AppDrawer";
 import FeatureCard from "containers/FeatureCard";
 import FloatingButtons from "containers/FloatingButtons";
@@ -58,13 +58,14 @@ class App extends PureComponent {
         <RouteBottomSheet />
         <Toast />
       </div>
-      <BottomBar />
       <Tour />
       <SignupPrompt />
       <RegionSelector />
     </React.Fragment>
   );
 }
+
+// <BottomBar />
 
 App.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func).isRequired
@@ -76,7 +77,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -59,14 +59,53 @@ const Directions = props => {
               />
             );
           case "crossing":
-            return (
-              <DirectionsCard
-                key={key}
-                distance={p.length}
-                title="Cross the street"
-                subtitle={p.description}
-              />
-            );
+            switch (p.traffic_signals) {
+              case "traffic_lights":
+                return (
+                  <DirectionsCard
+                    key={key}
+                    distance={p.length}
+                    title="Cross the street at the light"
+                    subtitle={p.description}
+                  />
+                );
+              case "stop_sign":
+                return (
+                  <DirectionsCard
+                    key={key}
+                    distance={p.length}
+                    title="Cross the street at the stop sign"
+                    subtitle={p.description}
+                  />
+                );
+              case "pedestrian_sign":
+                return (
+                  <DirectionsCard
+                    key={key}
+                    distance={p.length}
+                    title="Cross the street at the yield sign"
+                    subtitle={p.description}
+                  />
+                );
+              case "no":
+                return (
+                  <DirectionsCard
+                    key={key}
+                    distance={p.length}
+                    title="Cross the street. Be careful!"
+                    subtitle={p.description}
+                  />
+                );
+              default:
+                return (
+                  <DirectionsCard
+                    key={key}
+                    distance={p.length}
+                    title="Cross the street"
+                    subtitle={p.description}
+                  />
+                );
+            }
           default:
             if (p.elevator) {
               return (

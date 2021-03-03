@@ -1,10 +1,11 @@
 .map.mapboxgl-map {
   top: 0;
   bottom: 0;
-  height: calc(100% - 40px);
+  height: 100%;
   width: 100%;
   touch-action: none;
   position: absolute;
+  // calc(100% - 40px)
 
   // Disable accidental selection of this container - no magnifying glass on
   // the map for iOS, etc.

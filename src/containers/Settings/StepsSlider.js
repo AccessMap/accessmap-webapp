@@ -20,7 +20,7 @@ const StepsSlider = props => {
       discrete
       id="steps-slider"
       label={`Stair avoidance preference: ${stepsPriority * 100}%`}
-      // defaultValue={0.2}
+      defaultValue={0.2}
       min={0}
       max={1}
       step={0.05}
