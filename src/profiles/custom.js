@@ -8,6 +8,6 @@ export default {
   landmarkPriority: 0.2,
   stepsPriority: 0.5,
   crossingPriority: 0.8,
-  avoidCurbs: true,
+  avoidCurbs: false,
   tactilePaving: true
 };

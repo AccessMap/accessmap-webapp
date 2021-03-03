@@ -80,6 +80,14 @@ const Sidewalks = props => {
   const isFootwayExpression = ["==", ["get", "subclass"], "footway"];
   const isPathExpression = ["==", ["get", "subclass"], "path"];
   const isCrossingExpression = ["==", ["get", "footway"], "crossing"];
+  const isCyclewayExpression = ["==", ["get", "subclass"], "cycleway"];
+  // const isFootCycleway = ["==", ["get", "foot"], "1"]
+
+  /* const pedAccessibleCycleway = [
+    "all",
+    isCyclewayExpression,
+    isFootCycleway
+  ] */
 
   const accessibleExpression = [
     "case",
@@ -95,7 +103,8 @@ const Sidewalks = props => {
     isPedestrianExpression,
     // isServiceExpression,
     isFootwayExpression,
-    isPathExpression
+    isPathExpression,
+    isCyclewayExpression
   ];
 
   const allPedExprNoCrossing = ["all", allPedExpr, ["!", isCrossingExpression]];
