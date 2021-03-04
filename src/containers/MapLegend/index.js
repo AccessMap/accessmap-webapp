@@ -63,19 +63,28 @@ const MapLegend = props => {
         ]}
       />
       <ExpansionList>
-        <ExpansionPanel label="Movement speed due to incline" footer={null}>
+        <ExpansionPanel label="Footways" footer={null}>
           <List>
             <ListItem
-              leftAvatar={<SidewalkIcon fill={SIDEWALK_FLAT} size={48} />}
-              primaryText="High speed (flat)"
+              leftAvatar={<SidewalkIcon fill={"#E7F0FF"} size={48} />}
+              primaryText="No landmarks"
             />
             <ListItem
-              leftAvatar={<SidewalkIcon fill={SIDEWALK_MID} size={48} />}
-              primaryText="Medium speed (moderate incline)"
+              leftAvatar={<SidewalkIcon fill={"#275DAD"} size={48} />}
+              primaryText="Many landmarks"
             />
             <ListItem
-              leftAvatar={<SidewalkIcon fill={SIDEWALK_STEEP} size={48} />}
-              primaryText="Low speed (steep)"
+              leftAvatar={
+                <SVGIcon className="stair-icon" viewBox={"0 0 48 12"} size={48}>
+                  <path
+                    d="m2,6 46,0"
+                    stroke="#FFCB47"
+                    strokeWidth="3"
+                    strokeDasharray="4,1"
+                  />
+                </SVGIcon>
+              }
+              primaryText="Stairs"
             />
             <ListItem
               leftAvatar={
@@ -136,6 +145,26 @@ const MapLegend = props => {
               primaryText="Marked crossing"
             />
             <ListItem
+              leftAvatar={<SidewalkIcon fill={"#8CB369"} size={48} />}
+              primaryText="Traffic Light"
+            />
+            <ListItem
+              leftAvatar={<SidewalkIcon fill={"#F4E285"} size={48} />}
+              primaryText="Stop Sign"
+            />
+            <ListItem
+              leftAvatar={<SidewalkIcon fill={"#F4A259"} size={48} />}
+              primaryText="Yield Sign"
+            />
+            <ListItem
+              leftAvatar={<SidewalkIcon fill={"#BC4B51"} size={48} />}
+              primaryText="No traffic control"
+            />
+            <ListItem
+              leftAvatar={<SidewalkIcon fill={"#555"} size={48} />}
+              primaryText="Unknown traffic control"
+            />
+            <ListItem
               leftAvatar={
                 <SVGIcon
                   className="inaccessible-icon"
@@ -191,7 +220,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(AppActions, dispatch)
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MapLegend);
+export default connect(mapStateToProps, mapDispatchToProps)(MapLegend);
