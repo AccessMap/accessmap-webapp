@@ -58,6 +58,10 @@ const getFeatureType = properties => {
       return "Path";
     case "steps":
       return "Steps";
+    case "ped_cycleway":
+      return "Pedestrian Accessible Cycleway";
+    case "cycleway":
+      return "Cycleway";
   }
   switch (properties.amenity) {
     case "bench":

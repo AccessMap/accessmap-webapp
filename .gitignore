@@ -9,3 +9,4 @@ public
 
 .env
 set_envs.sh
+backup_package_files/

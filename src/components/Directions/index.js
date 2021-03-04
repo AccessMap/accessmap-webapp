@@ -30,6 +30,10 @@ const formatLandmarkText = (lmarkArray, dist) => {
   return lmarkString;
 }; */
 
+const stepSubtitle = stepCount => {
+  return "There are " + stepCount + " steps.";
+};
+
 const Directions = props => {
   const { onClose, routeResult } = props;
 
@@ -47,6 +51,28 @@ const Directions = props => {
     // const landmarkString = formatLandmarkText(landmarkArray, p.length);
 
     switch (p.subclass) {
+      case "steps":
+        var sub = "Unknown number of steps.";
+        if (p.step_count) {
+          sub = stepSubtitle(p.step_count);
+        }
+        return (
+          <DirectionsCard
+            key={key}
+            distance={p.length}
+            title="Take the stairs"
+            subtitle={sub}
+          />
+        );
+      case "ped_cycleway":
+        return (
+          <DirectionsCard
+            key={key}
+            distance={p.length}
+            title="Walk on the cycleway. Be careful!"
+            subtitle={p.description}
+          />
+        );
       case "footway":
         switch (p.footway) {
           case "sidewalk":
@@ -55,7 +81,7 @@ const Directions = props => {
                 key={key}
                 distance={p.length}
                 title="Use the sidewalk"
-                subtitle={landmarkString}
+                subtitle={p.description}
               />
             );
           case "crossing":

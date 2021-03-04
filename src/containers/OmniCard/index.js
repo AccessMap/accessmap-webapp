@@ -321,12 +321,6 @@ class OmniCard extends React.PureComponent {
             </CardText>
           </React.Fragment>
         ) : null}
-        {planningTrip && !isMobile ? (
-          <CardText>
-            <h5>Trip options:</h5>
-          </CardText>
-        ) : null}
-        {planningTrip ? <TimePicker showTripOptions={showTripOptions} /> : null}
       </Card>
     );
   }

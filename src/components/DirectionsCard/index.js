@@ -10,7 +10,7 @@ const DirectionsCard = props => {
   let distanceText = null;
   if (distance) {
     if (feet) {
-      distanceText = `${(distance * units.feetPerMeter).toFixed(1)} meters`;
+      distanceText = `${(distance * units.feetPerMeter).toFixed(1)} feet`;
     } else {
       distanceText = `${distance.toFixed(1)} meters`;
     }
