@@ -6,7 +6,7 @@
   "main": "index.js",
   "repository": "github.com/accessmap/accessmap-webapp",
   "engines": {
-    "node": ">=8.9.0"
+    "node": "==11.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -71,7 +71,7 @@
     "webpack": "^4.29.6",
     "webpack-bundle-analyzer": "^3.4.1",
     "webpack-cli": "^3.2.3",
-    "webpack-dev-server": "^3.2.1",
+    "webpack-dev-server": "^3.11.0",
     "webpack-merge": "^4.2.1"
   },
   "dependencies": {
