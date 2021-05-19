@@ -88,7 +88,8 @@ module.exports = {
       path.resolve(__dirname, "node_modules")
     ],
     alias: {
-      "rakam-js$": "rakam-js/rakam.js"
+      "rakam-js$": "rakam-js/rakam.js",
+      "mapbox-gl": "maplibre-gl"
     }
   }
 };
