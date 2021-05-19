@@ -26,7 +26,7 @@ module.exports = {
         test: /\.css$/,
         // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
         // a css module
-        // exclude: /node_modules/,
+        exclude: /node_modules/,
         use: [
           // "style-loader",
           MiniCssExtractPlugin.loader,
@@ -82,11 +82,7 @@ module.exports = {
       ".js",
       ".jsx"
     ],
-    modules: [
-      path.resolve("./src"),
-      "node_modules",
-      path.resolve(__dirname, "node_modules")
-    ],
+    modules: [path.resolve("./src"), "node_modules"],
     alias: {
       "rakam-js$": "rakam-js/rakam.js",
       "mapbox-gl": "maplibre-gl"
