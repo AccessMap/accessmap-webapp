@@ -3,165 +3,116 @@ import PropTypes from "prop-types";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import cn from "classnames";
+import ReactMapGL from "react-map-gl";
 
-import ReactMapboxGl from "react-mapbox-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 import * as AppActions from "actions";
-
-import mapConstants from "constants/map";
 import regions from "constants/regions";
 
-import Sources from "./sources";
+import PedestrianSource from "containers/Map/source-pedestrian";
+import RegionsSource from "containers/Map/source-regions";
 
-import Crossings from "./layers-crossings";
-import Geolocation from "./layers-geolocation";
-import ElevatorPaths from "./layers-elevator-paths";
-import Route from "./layers-route";
-import Sidewalks from "./layers-sidewalks";
-import Waypoints from "./layers-waypoints";
-import Regions from "./layers-regions";
+import CrossingsLayers from "containers/Map/layers-crossings";
+import SidewalkLayers from "containers/Map/layers-sidewalks";
+import ElevatorPathsLayers from "containers/Map/layers-elevator-paths";
+import RegionsLayer from "containers/Map/layer-regions";
+import RouteLayers from "containers/Map/layers-route";
+import WaypointsLayers from "containers/Map/layers-waypoints";
+import GeolocationLayers from "containers/Map/layers-geolocation";
 
 const CLICKABLE_LAYERS = [
-  "crossing-click",
   "elevator-paths-click",
+  "crossing-click",
   "sidewalk-click"
 ];
-
-const MapboxGL = ReactMapboxGl({
-  /* eslint-disable no-undef */
-  accessToken: MAPBOX_TOKEN,
-  /* eslint-enable no-undef */
-  minZoom: 6,
-  maxZoom: 20,
-  bearing: [0],
-  pitch: [0]
-});
 
 class Map extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      zoom: [15],
-      width: 0,
-      height: 0
-    };
-    this.updateDimensions = this.updateDimensions.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount() {
-    this.updateDimensions();
-    window.addEventListener("resize", this.updateDimensions);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("resize", this.updateDimensions);
-  }
-
-  updateDimensions() {
-    const width = this.mapEl.container.clientWidth;
-    const height = this.mapEl.container.clientHeight;
-    if (this.state.width !== width || this.state.height !== height) {
-      this.setState({
-        width,
-        height
-      });
-      this.props.actions.resizeMap(width, height);
-    }
-  }
-
-  handleClick(m, e) {
+  handleClick(pointerEvent) {
     if (this.props.viewingDirections) return;
 
-    const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
-    const features = m.queryRenderedFeatures(e.point, {
-      layers
+    const features = this.mapRef.queryRenderedFeatures(pointerEvent.point, {
+      layers: CLICKABLE_LAYERS
     });
-    const point = [e.lngLat.lng, e.lngLat.lat];
 
-    this.props.actions.mapClick(features, point);
+    this.props.actions.mapClick(features, pointerEvent.lngLat);
   }
 
   render() {
-    const {
-      actions,
-      lon,
-      lat,
-      mediaType,
-      viewingDirections,
-      zoom,
-      ...props
-    } = this.props;
+    const { actions, lon, lat, zoom } = this.props;
 
-    // NOTE: Do not create actions that modify the `view` substate via
-    // onMoveEnd or onZoomEnd. If you do, it creates an infinite loop.
     return (
-      <MapboxGL
-        className={cn("map mapboxgl-map", {
-          directions: mediaType === "mobile" && viewingDirections
-        })}
-        ref={el => {
-          this.mapEl = el;
-        }}
-        center={[lon, lat]}
-        maxBounds={mapConstants.bounds}
-        zoom={[zoom]}
-        bearing={[0]}
-        pitch={[0]}
-        /* eslint-disable react/style-prop-object */
-        style="mapbox://styles/accessmap/cjglbmftk00202tqmpidtfxk3"
-        /* eslint-enable react/style-prop-object */
-        onMoveEnd={(m, e) => {
-          const newBounds = m.getBounds().toArray();
-          const bbox = [
-            newBounds[0][0],
-            newBounds[0][1],
-            newBounds[1][0],
-            newBounds[1][1]
-          ];
+      <div className="map mapboxgl-map">
+        <ReactMapGL
+          ref={ref => {
+            this.mapRef = ref;
+          }}
+          width="100%"
+          height="100%"
+          longitude={lon}
+          latitude={lat}
+          zoom={zoom}
+          /* eslint-disable no-undef */
+          mapboxApiAccessToken={MAPBOX_TOKEN}
+          /* eslint-enable no-undef */
+          mapStyle="mapbox://styles/accessmap/cjglbmftk00202tqmpidtfxk3"
+          interactiveLayerIds={CLICKABLE_LAYERS}
+          onViewportChange={nextViewport => {
+            const { longitude, latitude, zoom } = nextViewport;
 
-          if (e.originalEvent) {
+            const m = this.mapRef.getMap();
+            // TODO: run this earlier - right after mapbox style load
+            const newBounds = m.getBounds().toArray();
+            const bbox = [
+              newBounds[0][0],
+              newBounds[0][1],
+              newBounds[1][0],
+              newBounds[1][1]
+            ];
+
+            actions.mapMove(longitude, latitude, zoom, bbox);
+          }}
+          onLoad={() => {
+            const m = this.mapRef.getMap();
+            // TODO: run this earlier - right after mapbox style load
+            const newBounds = m.getBounds().toArray();
+            const bbox = [
+              newBounds[0][0],
+              newBounds[0][1],
+              newBounds[1][0],
+              newBounds[1][1]
+            ];
             const center = m.getCenter();
-            actions.mapMove(center.lng, center.lat, m.getZoom(), bbox);
-          }
-        }}
-        onMouseMove={(m, e) => {
-          const layers = CLICKABLE_LAYERS.filter(l => m.getLayer(l));
-          const features = m.queryRenderedFeatures(e.point, {
-            layers
-          });
-          m.getCanvas().style.cursor = features.length ? "pointer" : "default";
-        }}
-        onDrag={m => {
-          m.getCanvas().style.cursor = "grabbing";
-        }}
-        onClick={this.handleClick}
-        onStyleLoad={m => {
-          // TODO: run this earlier - right after mapbox style load
-          const newBounds = m.getBounds().toArray();
-          const bbox = [
-            newBounds[0][0],
-            newBounds[0][1],
-            newBounds[1][0],
-            newBounds[1][1]
-          ];
-          const center = m.getCenter();
-          actions.loadMap(center.lng, center.lat, m.getZoom(), bbox);
-        }}
-        {...props}
-      >
-        <Sources />
+            actions.loadMap(center.lng, center.lat, m.getZoom(), bbox);
+          }}
+          onClick={this.handleClick}
+          getCursor={state => {
+            if (state.isDragging) {
+              return "grabbing";
+            }
+            if (state.isHovering) {
+              return "pointer";
+            }
+            return "default";
+          }}
+        >
+          <PedestrianSource />
+          <RegionsSource />
 
-        <Regions />
-        <Route before="crossing-click" />
-        <Crossings />
-        <ElevatorPaths />
-        <Sidewalks />
-        <Waypoints />
-        <Geolocation />
-      </MapboxGL>
+          <RouteLayers before="crossing-click" />
+          <ElevatorPathsLayers />
+          <CrossingsLayers />
+          <SidewalkLayers />
+          <RegionsLayer />
+          <GeolocationLayers />
+          <WaypointsLayers />
+        </ReactMapGL>
+      </div>
     );
   }
 }

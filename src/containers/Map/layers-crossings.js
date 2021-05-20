@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Layer } from "react-mapbox-gl";
+import { Layer } from "react-map-gl";
 
 import { defaultProfiles } from "profiles";
 
@@ -41,23 +41,23 @@ const Crossings = props => {
   ];
 
   return (
-    <React.Fragment>
+    <>
       <Layer
         id="crossing-click"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="crossing-inaccessible"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={inaccessibleExpression}
         paint={{
           "line-color": "#ff0000",
@@ -85,13 +85,13 @@ const Crossings = props => {
             1
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="crossing-unmarked"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={notnecessarilymarkedExpression}
         paint={{
           "line-color": "#555",
@@ -106,13 +106,13 @@ const Crossings = props => {
             1
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="crossing-marked-background"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         layout={{ "line-cap": "round" }}
         filter={markedExpression}
         paint={{
@@ -128,13 +128,13 @@ const Crossings = props => {
             1
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="crossing-marked-outline"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         layout={{ "line-cap": "round" }}
         filter={markedExpression}
         paint={{
@@ -153,9 +153,9 @@ const Crossings = props => {
             1
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
-    </React.Fragment>
+    </>
   );
 };
 

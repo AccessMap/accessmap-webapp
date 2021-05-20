@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Layer } from "react-mapbox-gl";
+import { Layer } from "react-map-gl";
 
 const VISIBLE = 15;
 
@@ -16,24 +16,24 @@ const ElevatorPaths = () => {
   ];
 
   return (
-    <React.Fragment>
+    <>
       <Layer
         id="elevator-paths-click"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={elevatorPathFilter}
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="elevator-paths"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={elevatorPathFilter}
         paint={{
           "line-color": "#000",
@@ -53,7 +53,7 @@ const ElevatorPaths = () => {
         }}
         before="bridge-street"
       />
-    </React.Fragment>
+    </>
   );
 };
 

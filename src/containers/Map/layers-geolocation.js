@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { GeoJSONLayer } from "react-mapbox-gl";
+import { Layer, Source } from "react-map-gl";
 
 const Geolocation = props => {
   const { geolocation } = props;
@@ -29,12 +29,12 @@ const Geolocation = props => {
   }
 
   return (
-    <React.Fragment>
-      <GeoJSONLayer
-        data={geolocationFc}
+    <Source id="geolocation" type="geojson" data={geolocationFc}>
+      <Layer
+        type="circle"
         id="geolocation-outline"
         key="geolocation-outline"
-        circlePaint={{
+        paint={{
           "circle-radius": {
             stops: [[0, 0], [20, geolocationRadius]],
             base: 2
@@ -43,11 +43,11 @@ const Geolocation = props => {
           "circle-opacity": 0.2
         }}
       />
-      <GeoJSONLayer
-        data={geolocationFc}
+      <Layer
+        type="circle"
         id="geolocation"
         key="geolocation"
-        circlePaint={{
+        paint={{
           "circle-radius": 8,
           "circle-color": "#007cbf",
           "circle-opacity": 0.8,
@@ -55,7 +55,7 @@ const Geolocation = props => {
           "circle-stroke-color": "#ffffff"
         }}
       />
-    </React.Fragment>
+    </Source>
   );
 };
 

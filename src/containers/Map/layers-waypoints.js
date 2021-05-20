@@ -12,30 +12,48 @@ const Waypoints = props => {
   let originComponent = null;
   if (origin) {
     originComponent = (
-      <MapMarker coordinates={origin.geometry.coordinates} label="A" />
+      <MapMarker
+        lon={origin.geometry.coordinates[0]}
+        lat={origin.geometry.coordinates[1]}
+        label="A"
+      />
     );
   }
 
   let destinationComponent = null;
   if (destination) {
     destinationComponent = (
-      <MapMarker coordinates={destination.geometry.coordinates} label="B" />
+      <MapMarker
+        lon={destination.geometry.coordinates[0]}
+        lat={destination.geometry.coordinates[1]}
+        label="B"
+      />
     );
   }
 
   let poiComponent = null;
   if (selectedFeature) {
-    poiComponent = <MapMarker coordinates={selectedFeature.location} />;
+    poiComponent = (
+      <MapMarker
+        lon={selectedFeature.location[0]}
+        lat={selectedFeature.location[1]}
+      />
+    );
   } else if (poi) {
-    poiComponent = <MapMarker coordinates={poi.geometry.coordinates} />;
+    poiComponent = (
+      <MapMarker
+        lon={poi.geometry.coordinates[0]}
+        lat={poi.geometry.coordinates[1]}
+      />
+    );
   }
 
   return (
-    <React.Fragment>
+    <>
       {originComponent}
       {destinationComponent}
       {poiComponent}
-    </React.Fragment>
+    </>
   );
 };
 

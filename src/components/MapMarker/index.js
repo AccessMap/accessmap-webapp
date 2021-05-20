@@ -3,18 +3,20 @@ import PropTypes from "prop-types";
 
 import SVGIcon from "react-md/src/js/SVGIcons";
 
-import { Marker } from "react-mapbox-gl";
+import { Marker } from "react-map-gl";
 
 import mapPin from "icons/map-pin.svg";
 
 const MapMarker = props => {
-  const { coordinates, label, ...moreProps } = props;
+  const { lon, lat, label, ...moreProps } = props;
 
   return (
     <Marker
       className="map-marker"
-      coordinates={coordinates}
-      anchor="bottom"
+      longitude={lon}
+      latitude={lat}
+      offsetLeft={-24}
+      offsetTop={-48}
       style={{ zIndex: 1 }}
       {...moreProps}
     >
@@ -27,7 +29,8 @@ const MapMarker = props => {
 };
 
 MapMarker.propTypes = {
-  coordinates: PropTypes.arrayOf(PropTypes.number).isRequired,
+  lon: PropTypes.number.isRequired,
+  lat: PropTypes.number.isRequired,
   label: PropTypes.string
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { Layer } from "react-mapbox-gl";
+import { Layer } from "react-map-gl";
 
 import { getCurrentProfile } from "selectors";
 
@@ -100,20 +100,20 @@ const Sidewalks = props => {
       <Layer
         id="sidewalk-click"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={accessibleSidewalkExpression}
         paint={{
           "line-width": widthExpression,
           "line-opacity": 0
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="sidewalk-outline"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         layout={{ "line-cap": "round" }}
         filter={accessibleSidewalkExpression}
         paint={{
@@ -126,13 +126,13 @@ const Sidewalks = props => {
           },
           "line-gap-width": widthExpression
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="sidewalk-inaccessible"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         filter={inaccessibleSidewalkExpression}
         paint={{
           "line-color": "#ff0000",
@@ -155,13 +155,13 @@ const Sidewalks = props => {
             WIDTH_INACCESSIBLE * 4
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="sidewalk"
         type="line"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         layout={{ "line-cap": "round" }}
         filter={accessibleSidewalkExpression}
         paint={{
@@ -181,13 +181,13 @@ const Sidewalks = props => {
           "line-color-transition": { duration: 0 },
           "line-width": widthExpression
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
       <Layer
         id="sidewalk-downhill-arrow"
         type="symbol"
-        sourceId="pedestrian"
-        sourceLayer="transportation"
+        source="pedestrian"
+        source-layer="transportation"
         minZoom={16}
         images={[
           ["direction-arrow", directionArrow],
@@ -252,7 +252,7 @@ const Sidewalks = props => {
             0.9
           ]
         }}
-        before="bridge-street"
+        beforeId="bridge-street"
       />
     </React.Fragment>
   );

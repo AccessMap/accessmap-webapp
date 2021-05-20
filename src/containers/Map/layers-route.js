@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
-import { GeoJSONLayer } from "react-mapbox-gl";
+import { Layer, Source } from "react-map-gl";
 
 import { routeResult as routeResultProp } from "prop-schema";
 
@@ -57,54 +57,63 @@ const Route = props => {
     };
 
     output = (
-      <React.Fragment>
-        <GeoJSONLayer
-          data={routeJogs}
-          lineLayout={{ "line-cap": "round" }}
-          linePaint={{
-            "line-color": "black",
-            "line-opacity": 0.6,
-            "line-width": {
-              stops: [[12, 0.2], [16, 3], [22, 30]]
-            },
-            "line-dasharray": {
-              stops: [[12, [0, 1]], [15, [0, 1.5]], [20, [0, 4]]]
-            }
-          }}
-          before={before}
-        />
-        <GeoJSONLayer
-          data={routePath}
-          lineLayout={{
-            "line-cap": "round",
-            "line-join": "round"
-          }}
-          linePaint={{
-            "line-color": "#4bf",
-            "line-width": {
-              stops: [[12, 5], [16, 12], [22, 92]]
-            }
-          }}
-          before={before}
-        />
-        <GeoJSONLayer
-          data={routePath}
-          lineLayout={{
-            "line-cap": "round",
-            "line-join": "round"
-          }}
-          linePaint={{
-            "line-color": "black",
-            "line-gap-width": {
-              stops: [[12, 4.7], [16, 9.7], [22, 92]]
-            },
-            "line-width": {
-              stops: [[12, 0.5], [16, 1], [22, 1]]
-            }
-          }}
-          before={before}
-        />
-      </React.Fragment>
+      <>
+        <Source id="route-jogs" type="geojson" data={routeJogs}>
+          <Layer
+            id="route-jogs"
+            type="line"
+            layout={{ "line-cap": "round" }}
+            paint={{
+              "line-color": "black",
+              "line-opacity": 0.6,
+              "line-width": {
+                stops: [[12, 0.2], [16, 3], [22, 30]]
+              },
+              "line-dasharray": {
+                stops: [[12, [0, 1]], [15, [0, 1.5]], [20, [0, 4]]]
+              }
+            }}
+            beforeId={before}
+          />
+        </Source>
+        <Source id="route-path" type="geojson" data={routePath}>
+          <Layer
+            id="route-path"
+            type="line"
+            data={routePath}
+            layout={{
+              "line-cap": "round",
+              "line-join": "round"
+            }}
+            paint={{
+              "line-color": "#4bf",
+              "line-width": {
+                stops: [[12, 5], [16, 12], [22, 92]]
+              }
+            }}
+            beforeId={before}
+          />
+          <Layer
+            id="route-path-outline"
+            type="line"
+            data={routePath}
+            layout={{
+              "line-cap": "round",
+              "line-join": "round"
+            }}
+            paint={{
+              "line-color": "black",
+              "line-gap-width": {
+                stops: [[12, 4.7], [16, 9.7], [22, 92]]
+              },
+              "line-width": {
+                stops: [[12, 0.5], [16, 1], [22, 1]]
+              }
+            }}
+            beforeId={before}
+          />
+        </Source>
+      </>
     );
   }
   return output;
