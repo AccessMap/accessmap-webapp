@@ -26,7 +26,7 @@ module.exports = {
         test: /\.css$/,
         // Re-enable node_modules exclusion once react-mapbox-gl stops 'require'ing
         // a css module
-        exclude: /node_modules/,
+        // exclude: /node_modules/,
         use: [
           // "style-loader",
           MiniCssExtractPlugin.loader,

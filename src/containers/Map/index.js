@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import cn from "classnames";
 
 import ReactMapboxGl from "react-mapbox-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
 import * as AppActions from "actions";
 
