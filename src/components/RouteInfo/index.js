@@ -28,7 +28,7 @@ const RouteInfo = props => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <Toolbar
         title="Trip Information"
         actions={[
@@ -61,7 +61,7 @@ const RouteInfo = props => {
           />
         </List>
       </CardText>
-    </React.Fragment>
+    </>
   );
 };
 

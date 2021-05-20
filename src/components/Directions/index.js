@@ -63,7 +63,7 @@ const Directions = props => {
   });
 
   return (
-    <React.Fragment>
+    <>
       <Toolbar
         title="Directions"
         actions={[
@@ -73,7 +73,7 @@ const Directions = props => {
         ]}
       />
       <CardText className="directions--steps">{steps}</CardText>
-    </React.Fragment>
+    </>
   );
 };
 

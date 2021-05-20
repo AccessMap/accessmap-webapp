@@ -148,7 +148,7 @@ class OmniCard extends React.PureComponent {
     let topBar;
     if (planningTrip) {
       topBar = (
-        <React.Fragment>
+        <>
           <Toolbar
             className="geocoder-toolbar"
             nav={<div className="geocoder-waypoint-label">A</div>}
@@ -188,7 +188,7 @@ class OmniCard extends React.PureComponent {
               </Button>
             ]}
           />
-        </React.Fragment>
+        </>
       );
     } else {
       topBar = (
@@ -295,7 +295,7 @@ class OmniCard extends React.PureComponent {
           actions={profileActions}
         />
         {!isMobile ? (
-          <React.Fragment>
+          <>
             <CardText className="profile-editor-desktop">
               <UphillSlider />
               <DownhillSlider />
@@ -313,7 +313,7 @@ class OmniCard extends React.PureComponent {
                 />
               )}
             </CardText>
-          </React.Fragment>
+          </>
         ) : null}
         {planningTrip && !isMobile ? (
           <CardText>

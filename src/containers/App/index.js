@@ -36,7 +36,7 @@ class App extends PureComponent {
   };
 
   render = () => (
-    <React.Fragment>
+    <>
       <AnalyticsBar />
       <AppDrawer />
       <div className="map-view">
@@ -62,7 +62,7 @@ class App extends PureComponent {
       <Tour />
       <SignupPrompt />
       <RegionSelector />
-    </React.Fragment>
+    </>
   );
 }
 

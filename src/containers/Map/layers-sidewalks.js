@@ -96,7 +96,7 @@ const Sidewalks = props => {
   ];
 
   return (
-    <React.Fragment>
+    <>
       <Layer
         id="sidewalk-click"
         type="line"
@@ -254,7 +254,7 @@ const Sidewalks = props => {
         }}
         beforeId="bridge-street"
       />
-    </React.Fragment>
+    </>
   );
 };
 
