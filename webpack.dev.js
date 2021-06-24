@@ -49,17 +49,17 @@ module.exports = merge(common, {
     },
     proxy: {
       // Replace with /api/v1 for dev of api and just /api/ for docker testing
+      "/api/v1/routing": {
+        target: process.env.ROUTING_SERVER,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: { "^/api/v1/routing": "" }
+      },
       "/api/v1": {
         target: process.env.API_SERVER,
         secure: false,
         changeOrigin: true,
         pathRewrite: { "^/api/v1": "" }
-      },
-      "/api/v1/routing": {
-        target: process.env.ROUTING_SERVER && process.env.ROUTING_SERVER,
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/api/v1/routing": "" }
       },
       "/tiles": {
         target: process.env.TILE_SERVER,
