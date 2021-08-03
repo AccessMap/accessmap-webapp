@@ -25,6 +25,12 @@ module.exports = merge(common, {
       ANALYTICS_SERVER: JSON.stringify(process.env.ANALYTICS_SERVER),
       ANALYTICS_KEY: JSON.stringify(process.env.ANALYTICS_KEY),
     }),
+    new HtmlWebpackPlugin({
+      title: "AccessMap",
+      filename: "index.html",
+      template: "src/index.dev.html",
+      inject: false,
+    }),
   ],
   devServer: {
     contentBase: "./src",

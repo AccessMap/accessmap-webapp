@@ -11,16 +11,7 @@ module.exports = {
     filename: "index.bundle.js",
     assetModuleFilename: "assets/[hash][ext][query]",
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new SpriteLoaderPlugin(),
-    new HtmlWebpackPlugin({
-      title: "AccessMap",
-      filename: "index.html",
-      template: "src/index.dev.html",
-      inject: false,
-    }),
-  ],
+  plugins: [new MiniCssExtractPlugin(), new SpriteLoaderPlugin()],
   module: {
     rules: [
       {

@@ -8,6 +8,7 @@ _nogit
 public
 
 .env
-set_envs.sh
+
+dist/
 
 regions.json
