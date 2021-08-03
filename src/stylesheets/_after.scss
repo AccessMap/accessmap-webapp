@@ -1,0 +1,11 @@
+@charset 'UTF-8';
+
+// 7. Page-specific styles
+@import "pages/home";
+
+// 8. Themes
+@import "themes/default";
+
+// 9. Hacks
+@import "hacks/mapbox-logo-shrink", "hacks/reactmdfloatingbuttons",
+  "hacks/reactmdtoolbarbuttons";

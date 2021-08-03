@@ -1,0 +1,13 @@
+.speed-legend {
+  flex: 0 1 40px;
+
+  position: absolute;
+  bottom: 0;
+  height: 40px;
+  width: 100%;
+  padding: 4px;
+
+  .speed-legend-cell-container {
+    height: 12px;
+  }
+}

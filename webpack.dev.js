@@ -17,16 +17,19 @@ module.exports = merge(common, {
       MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
       API_SERVER: JSON.stringify(process.env.API_SERVER),
       ROUTING_SERVER: JSON.stringify(process.env.ROUTING_SERVER),
-      TILE_SERVER: JSON.stringify(process.env.TILE_SERVER),
-      ANALYTICS_SERVER: JSON.stringify(process.env.ANALYTICS_SERVER),
+      PEDESTRIAN_TILE_SERVER: JSON.stringify(
+        process.env.PEDESTRIAN_TILE_SERVER
+      ),
+      REGIONS_TILE_SERVER: JSON.stringify(process.env.REGIONS_TILE_SERVER),
       ANALYTICS: JSON.stringify(process.env.ANALYTICS),
-      ANALYTICS_KEY: JSON.stringify(process.env.ANALYTICS_KEY)
-    })
+      ANALYTICS_SERVER: JSON.stringify(process.env.ANALYTICS_SERVER),
+      ANALYTICS_KEY: JSON.stringify(process.env.ANALYTICS_KEY),
+    }),
   ],
   devServer: {
     contentBase: "./src",
     historyApiFallback: {
-      disableDotRule: true
+      disableDotRule: true,
     },
     port: 3000,
     open: false,
@@ -35,7 +38,7 @@ module.exports = merge(common, {
     hot: true,
     stats: {
       assets: true,
-      children: false,
+      children: true,
       chunks: false,
       hash: false,
       modules: false,
@@ -44,38 +47,45 @@ module.exports = merge(common, {
       version: false,
       warnings: true,
       colors: {
-        green: "\u001b[32m"
-      }
+        green: "\u001b[32m",
+      },
     },
     proxy: {
       // Replace with /api/v1 for dev of api and just /api/ for docker testing
       "/api/v1/routing": {
-        target: process.env.ROUTING_SERVER,
+        target: process.env.ROUTING_SERVER && process.env.ROUTING_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api/v1/routing": "" }
+        pathRewrite: { "^/api/v1/routing": "" },
       },
       "/api/v1": {
         target: process.env.API_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/api/v1": "" }
+        pathRewrite: { "^/api/v1": "" },
       },
-      "/tiles": {
-        target: process.env.TILE_SERVER,
+      "/tiles/pedestrian": {
+        target: process.env.PEDESTRIAN_TILE_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/tiles": "" }
+        pathRewrite: { "^/tiles/pedestrian": "" },
       },
+      "/tiles/regions": {
+        target: process.env.REGIONS_TILE_SERVER,
+        secure: false,
+        changeOrigin: true,
+        pathRewrite: { "^/tiles/regions": "" },
+      },
+
       "/analytics":
         process.env.ANALYTICS === "yes"
           ? {
               target: process.env.ANALYTICS_SERVER,
               secure: false,
               changeOrigin: true,
-              pathRewrite: { "^/analytics": "" }
+              pathRewrite: { "^/analytics": "" },
             }
-          : null
-    }
-  }
+          : null,
+    },
+  },
 });

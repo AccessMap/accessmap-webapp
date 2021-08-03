@@ -1,0 +1,50 @@
+.map.mapboxgl-map {
+  top: 0;
+  bottom: 0;
+  height: calc(100% - 40px);
+  width: 100%;
+  touch-action: none;
+  position: absolute;
+
+  // Disable accidental selection of this container - no magnifying glass on
+  // the map for iOS, etc.
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  // Override logo(!).
+  a.mapboxgl-ctrl-logo {
+    // Make unclickable since we can't change the href away from mapbox.com
+    pointer-events: none;
+    width: 104px;
+    height: 20px;
+    margin: 0 0 -2px -4px;
+    display: block;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    overflow: hidden;
+    background-image: url("icons/accessmap-logo-outline.svg");
+    background-size: 104px 20px;
+    // TODO: just use a different logo that's meant for overlaying the map;
+    // The logo should be visible on all kinds of backgrounds by using outline
+    // paths whose width can be tweaked depending on resolution (e.g. a white
+    // outline around every element when over the map).
+    // filter: drop-shadow(0px 0px 3px rgba(255, 255, 255, 1));
+  }
+
+  /*
+  &.directions {
+    @media #{$mobile-portrait-media} {
+      height: 50%;
+      width: 100%;
+    }
+
+    @media #{$mobile-landscape-media} {
+      height: 100%;
+      width: 50%;
+      right: 0;
+    }
+  }
+*/
+}

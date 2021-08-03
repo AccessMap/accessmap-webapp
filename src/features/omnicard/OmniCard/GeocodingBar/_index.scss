@@ -1,0 +1,175 @@
+// Overall layout
+$mobile-toolbar-margin: 4px;
+$tablet-toolbar-margin: 12px;
+
+$mobile-portrait-toolbar-text-button-height: 32px;
+$mobile-landscape-toolbar-text-button-height: 24px;
+$tablet-toolbar-text-button-height: 32px;
+
+.geocoder-toolbar {
+  // Toolbar's own attributes
+  @media #{$mobile-portrait-media} {
+    height: $mobile-portrait-toolbar-height;
+  }
+  @media #{$mobile-landscape-media} {
+    height: $mobile-landscape-toolbar-height;
+  }
+  @media #{$tablet-media} {
+    height: $tablet-toolbar-height;
+  }
+
+  // Left actions (menu / nav)
+  .md-toolbar--action-left.md-btn--toolbar {
+    @media #{$mobile-portrait-media} {
+      width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+      height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+      padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+        $mobile-toolbar-margin;
+    }
+    @media #{$mobile-landscape-media} {
+      width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+      height: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+      padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2 -
+        $mobile-toolbar-margin;
+      margin-top: 4px;
+    }
+    @media #{$tablet-media} {
+      width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+      height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+      padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+        $tablet-toolbar-margin;
+      margin-top: 12px;
+    }
+
+    &.toolbar-left-icon {
+      @media #{$mobile-portrait-media} {
+        min-width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+        width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+        height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+        padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+          $mobile-toolbar-margin;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      @media #{$mobile-landscape-media} {
+        min-width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+        width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+        height: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+        padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2 -
+          $mobile-toolbar-margin;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      @media #{$tablet-media} {
+        min-width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+        width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+        height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+        padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+          $tablet-toolbar-margin;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  // Geocoders
+  .md-autocomplete-container {
+    height: 32px;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+    .md-autocomplete {
+      border: 1px solid #e6e6e6;
+      border-radius: 2px;
+      background-color: #f6f6f6;
+      input {
+        padding-left: 8px;
+      }
+    }
+  }
+
+  // Right actions
+  .md-toolbar--action-right {
+    // This button needs to be obvious - give it an outline
+    .md-btn {
+      &.md-btn--text {
+        @media #{$mobile-portrait-media} {
+          min-width: 0;
+          height: $mobile-portrait-toolbar-text-button-height;
+          margin-top: (
+              $mobile-portrait-toolbar-height -
+                $mobile-portrait-toolbar-text-button-height
+            ) / 2;
+          margin-bottom: (
+              $mobile-portrait-toolbar-height -
+                $mobile-portrait-toolbar-text-button-height
+            ) / 2;
+          margin-left: 4px;
+          margin-right: 4px;
+          padding-left: 8px;
+          padding-right: 8px;
+        }
+        @media #{$mobile-landscape-media} {
+          min-width: 0;
+          height: $mobile-landscape-toolbar-text-button-height;
+          margin-top: (
+              $mobile-landscape-toolbar-height -
+                $mobile-landscape-toolbar-text-button-height
+            ) / 2;
+          margin-bottom: (
+              $mobile-landscape-toolbar-height -
+                $mobile-landscape-toolbar-text-button-height
+            ) / 2;
+          margin-left: 4px;
+          margin-right: 4px;
+          padding-left: 8px;
+          padding-right: 8px;
+          padding-top: 4px;
+          padding-bottom: 4px;
+        }
+        @media #{$tablet-media} {
+          margin-top: (
+              $tablet-toolbar-height - $tablet-toolbar-text-button-height
+            ) / 2;
+          margin-bottom: (
+              $tablet-toolbar-height - $tablet-toolbar-text-button-height
+            ) / 2;
+          margin-left: 4px;
+          margin-right: 4px;
+          padding-left: 8px;
+          padding-right: 8px;
+          height: $tablet-toolbar-text-button-height;
+        }
+      }
+      &.md-btn--icon {
+        @media #{$mobile-portrait-media} {
+          width: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+          height: $mobile-portrait-toolbar-height - 2 * $mobile-toolbar-margin;
+          padding: ($mobile-portrait-toolbar-height - $mobile-icon-height) / 2 -
+            $mobile-toolbar-margin;
+          margin-left: 4px;
+          margin-right: 4px;
+        }
+        @media #{$mobile-landscape-media} {
+          width: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+          height: $mobile-landscape-toolbar-height - 2 * $mobile-toolbar-margin;
+          padding: ($mobile-landscape-toolbar-height - $mobile-icon-height) / 2 -
+            $mobile-toolbar-margin;
+          margin-top: 4px;
+          margin-left: 4px;
+          margin-right: 4px;
+        }
+        @media #{$tablet-media} {
+          width: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+          height: $tablet-toolbar-height - 2 * $tablet-toolbar-margin;
+          padding: ($tablet-toolbar-height - $tablet-icon-height) / 2 -
+            $tablet-toolbar-margin;
+          margin-top: 12px;
+        }
+      }
+      &.region-selection-open-button {
+        border: 1px solid $md-primary-color;
+      }
+    }
+  }
+}

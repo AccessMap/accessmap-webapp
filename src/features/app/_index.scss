@@ -1,0 +1,48 @@
+// Overall layout
+$mobile-toolbar-margin: 4px;
+$tablet-toolbar-margin: 12px;
+
+$mobile-icon-height: 24px;
+$tablet-icon-height: 20px;
+
+$mobile-portrait-toolbar-text-button-height: 32px;
+$mobile-landscape-toolbar-text-button-height: 24px;
+$tablet-toolbar-text-button-height: 32px;
+
+#root {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  // Some react-md widgets are annoying and produce overflow. This hides them
+  // if they extend off-screen
+  overflow: hidden;
+}
+
+.omnicard-section {
+  flex: 0 1 auto;
+
+  @media #{$mobile-portrait-media} {
+    width: 100%;
+  }
+
+  @media #{$mobile-landscape-media} {
+    height: 100%;
+  }
+
+  @media #{$tablet-media} {
+    height: 100%;
+  }
+
+  @media #{$tablet-portrait-media} {
+    width: auto;
+  }
+
+  @media #{$desktop-media} {
+    height: 100%;
+  }
+}
+
+.map-view {
+  width: 100%;
+  height: calc(100% - 40px);
+}

@@ -1,0 +1,46 @@
+.maplegend-btn {
+  top: 0;
+  right: 0;
+
+  @media #{$mobile-portrait-media} {
+    position: relative;
+    margin: 0;
+    float: right;
+  }
+
+  @media #{$mobile-landscape-media} {
+    position: relative;
+    margin-top: 8px;
+    margin-right: 0;
+  }
+
+  @media #{$tablet-media} {
+    position: relative;
+    margin-top: 8px;
+    margin-right: 0;
+  }
+
+  .md-btn {
+    background-color: $md-white-base;
+  }
+}
+
+.maplegend-card {
+  top: 0;
+  right: 0;
+
+  @media #{$mobile-portrait-media} {
+    padding: 0;
+    position: relative;
+  }
+
+  @media #{$mobile-landscape-media} {
+    padding: inherit;
+    position: absolute;
+  }
+
+  @media #{$tablet-media} {
+    padding: inherit;
+    position: absolute;
+  }
+}

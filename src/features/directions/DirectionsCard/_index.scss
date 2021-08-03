@@ -1,0 +1,34 @@
+.directions-card {
+  z-index: 4;
+
+  position: absolute;
+  bottom: 32px;
+  right: 0;
+  margin-bottom: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  @media #{$mobile-portrait-media} {
+    margin: 8px 8px 16px 8px;
+    width: calc(100% - 16px);
+  }
+
+  @media #{$mobile-landscape-media} {
+    margin: 8px 8px 16px 8px;
+  }
+
+  @media #{$tablet-media} {
+    width: calc(33% - 8px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .directions-card--button {
+    width: 50%;
+  }
+
+  .directions-card--button + .directions-card--button {
+    margin-left: 8px;
+  }
+}

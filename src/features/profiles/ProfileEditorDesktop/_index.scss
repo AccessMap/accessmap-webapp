@@ -1,0 +1,14 @@
+.profile-editor-desktop {
+  > * {
+    margin-bottom: 8px;
+  }
+
+  .md-slider-track-fill,
+  .md-slider-thumb--on {
+    background: $md-secondary-color;
+  }
+
+  .md-slider-thumb--discrete-on::after {
+    border-top-color: $md-secondary-color;
+  }
+}

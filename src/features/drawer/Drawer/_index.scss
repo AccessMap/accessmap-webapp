@@ -1,0 +1,40 @@
+.appdrawer {
+  .accessmap-title > * {
+    @media #{$mobile-portrait-media} {
+      margin-top: 4px;
+    }
+    @media #{$mobile-landscape-media} {
+      margin-top: 4px;
+    }
+    @media #{$tablet-media} {
+      margin-top: 12px;
+    }
+  }
+
+  .accessmap-logo {
+    width: 160px;
+    height: 40px;
+
+    .accessmap-logo_svg__logo-access-group {
+      fill: $md-primary-color;
+    }
+
+    .accessmap-logo_svg__logo-map-group {
+      fill: $md-secondary-color;
+    }
+  }
+
+  .accessmaplogo-region {
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 8px;
+  }
+
+  .accessmaplogo-primary {
+    fill: $md-primary-color;
+  }
+
+  .accessmaplogo-secondary {
+    fill: $md-secondary-color;
+  }
+}
