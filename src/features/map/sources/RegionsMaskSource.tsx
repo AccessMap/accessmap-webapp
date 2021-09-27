@@ -14,7 +14,7 @@ const RegionsMaskSource = () => {
     [-180, -90],
   ];
   const inner_rings = regions.features.map((feature) => {
-    const coords: Position[] = feature.geometry.coordinates[0];
+    const coords: Position[] = feature.geometry.coordinates[0][0];
     return coords;
   });
 

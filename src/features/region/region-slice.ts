@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import bbox from "@turf/bbox";
+
 import regions, { defaultRegion } from "constants/regions";
 
 export interface RegionState {
@@ -10,9 +12,9 @@ export interface RegionState {
 }
 
 const initialState = {
-  key: defaultRegion.properties.key,
+  key: defaultRegion.properties.id,
   name: defaultRegion.properties.name,
-  bounds: defaultRegion.properties.bounds,
+  bounds: bbox(defaultRegion.geometry),
   selecting: false,
 } as RegionState;
 
@@ -23,15 +25,14 @@ const regionSlice = createSlice({
     set(state, action) {
       const key = action.payload;
       const region = regions.features.find(
-        (feature) => feature.properties.key === key
+        (feature) => feature.properties.id === key
       );
       state.name = region.properties.name;
-      state.bounds = [
-        region.properties.bounds[0],
-        region.properties.bounds[1],
-        region.properties.bounds[2],
-        region.properties.bounds[3],
-      ];
+      const box = bbox(region.geometry);
+      state.bounds[0] = box[0];
+      state.bounds[1] = box[1];
+      state.bounds[2] = box[2];
+      state.bounds[3] = box[3];
     },
     startSelecting(state) {
       state.selecting = true;

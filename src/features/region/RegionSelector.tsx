@@ -37,7 +37,7 @@ const RegionSelector = () => {
           <ListItem
             key={`region-select-button-${f.properties.name}`}
             primaryText={f.properties.name}
-            onClick={() => dispatch(setRegion(f.properties.key))}
+            onClick={() => dispatch(setRegion(f.properties.id))}
           />
         ))}
       </List>
