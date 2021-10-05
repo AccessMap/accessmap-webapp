@@ -39,6 +39,12 @@ module.exports = merge(common, {
       disableDotRule: true,
     },
     port: 3000,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      "Access-Control-Allow-Headers":
+        "X-Requested-With, content-type, Authorization",
+    },
     open: false,
     compress: false,
     inline: true,
@@ -71,19 +77,12 @@ module.exports = merge(common, {
         changeOrigin: true,
         pathRewrite: { "^/api/v1": "" },
       },
-      "/tiles/pedestrian": {
-        target: process.env.PEDESTRIAN_TILE_SERVER,
+      "/tiles": {
+        target: process.env.TILE_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/tiles/pedestrian": "" },
+        pathRewrite: { "^/tiles": "" },
       },
-      "/tiles/regions": {
-        target: process.env.REGIONS_TILE_SERVER,
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/tiles/regions": "" },
-      },
-
       "/analytics":
         process.env.ANALYTICS === "yes"
           ? {
