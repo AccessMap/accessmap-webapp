@@ -4,6 +4,7 @@ const merge = require("webpack-merge");
 const path = require("path");
 const url = require("url");
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 // Insert definitions from .env into process.env
 dotenv.config();
