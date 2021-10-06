@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { Media, Orientation } from "types";
-import { defaultRegion } from "constants/regions";
+import regions, { defaultRegion } from "constants/regions";
 
 import { requestDirections } from "features/directions/directions-slice";
 import { editProfile } from "features/profiles/profiles-slice";
@@ -10,6 +10,7 @@ import {
   updateMediaType,
   setOrientation,
 } from "features/browser/browser-slice";
+import { set as setRegion } from "features/region/region-slice";
 
 import routeBounds from "utils/route-bounds";
 import getMediaType from "utils/media-type";
@@ -99,6 +100,17 @@ const mapSlice = createSlice({
       } else {
         state.uphillMode = true;
       }
+    });
+    builder.addCase(setRegion, (state, action) => {
+      const key = action.payload;
+      const region = regions.features.find(
+        (feature) => feature.properties.id === key
+      );
+
+      state.lon = region.properties.lon;
+      state.lat = region.properties.lat;
+      state.zoom = region.properties.zoom;
+      state.transitionDuration = 1000;
     });
     builder.addCase(requestDirections.fulfilled, (state, action) => {
       const bounds = routeBounds(action.payload);

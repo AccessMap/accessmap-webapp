@@ -49,7 +49,7 @@ export const requestDirections = createAsyncThunk(
 
     if (response.code === "Error") {
       return rejectWithValue(response.message);
-    } else if (response.code === "NoRoute") {
+    } else if (response.code === "NoRoute" || response.code === "NoPath") {
       return rejectWithValue("No Route");
     } else if (response.code === "NoGraph") {
       return rejectWithValue("No Graph (site error)");
