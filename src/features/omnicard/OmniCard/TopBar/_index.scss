@@ -169,6 +169,22 @@ $tablet-toolbar-text-button-height: 32px;
       }
       &.region-selection-open-button {
         border: 1px solid $md-primary-color;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        @media #{$mobile-portrait-media} {
+          max-width: 144px;
+        }
+        @media #{$mobile-landscape-media} {
+          max-width: 144px;
+        }
+        @media #{$tablet-media} {
+          max-width: 104px;
+        }
+      }
+      @media #{$desktop-media} {
+        max-width: 104px;
       }
     }
   }
