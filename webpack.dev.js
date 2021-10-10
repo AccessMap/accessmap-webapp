@@ -18,10 +18,7 @@ module.exports = merge(common, {
       MAPBOX_TOKEN: JSON.stringify(process.env.MAPBOX_TOKEN),
       API_SERVER: JSON.stringify(process.env.API_SERVER),
       ROUTING_SERVER: JSON.stringify(process.env.ROUTING_SERVER),
-      PEDESTRIAN_TILE_SERVER: JSON.stringify(
-        process.env.PEDESTRIAN_TILE_SERVER
-      ),
-      REGIONS_TILE_SERVER: JSON.stringify(process.env.REGIONS_TILE_SERVER),
+      TILE_SERVER: JSON.stringify(process.env.TILE_SERVER),
       ANALYTICS: JSON.stringify(process.env.ANALYTICS),
       ANALYTICS_SERVER: JSON.stringify(process.env.ANALYTICS_SERVER),
       ANALYTICS_KEY: JSON.stringify(process.env.ANALYTICS_KEY),
@@ -71,19 +68,12 @@ module.exports = merge(common, {
         changeOrigin: true,
         pathRewrite: { "^/api/v1": "" },
       },
-      "/tiles/pedestrian": {
-        target: process.env.PEDESTRIAN_TILE_SERVER,
+      "/tiles": {
+        target: process.env.TILE_SERVER,
         secure: false,
         changeOrigin: true,
-        pathRewrite: { "^/tiles/pedestrian": "" },
+        pathRewrite: { "^/tiles": "" },
       },
-      "/tiles/regions": {
-        target: process.env.REGIONS_TILE_SERVER,
-        secure: false,
-        changeOrigin: true,
-        pathRewrite: { "^/tiles/regions": "" },
-      },
-
       "/analytics":
         process.env.ANALYTICS === "yes"
           ? {

@@ -168,7 +168,6 @@ const Map = () => {
         }}
       >
         <PedestrianSource />
-        {/*<RegionsSource />*/}
         <RegionsMaskSource />
 
         {hasRoute && <RouteLayers />}
