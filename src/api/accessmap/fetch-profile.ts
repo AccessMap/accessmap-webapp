@@ -20,6 +20,7 @@ const fetchProfile = async (accessToken: string): Promise<SyncableProfile> => {
     uphillMax: profile.uphill_max,
     downhillMax: profile.downhill_max,
     avoidCurbs: profile.avoid_curbs,
+    streetAvoidance: profile.streetAvoidance,
   };
 };
 

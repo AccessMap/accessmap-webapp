@@ -7,6 +7,7 @@ import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
 
 import AvoidCurbsToggle from "../ProfileSettings/AvoidCurbsToggle";
+import AvoidStreetsSlider from "../ProfileSettings/AvoidStreetsSlider";
 import DownhillSlider from "../ProfileSettings/DownhillSlider";
 import UphillSlider from "../ProfileSettings/UphillSlider";
 import ProfileSaveButton from "../ProfileSaveButton";
@@ -43,6 +44,9 @@ const ProfileEditorMobile = () => {
       break;
     case "BARRIERS":
       settingsComponent = <AvoidCurbsToggle />;
+      break;
+    case "STREET_AVOIDANCE":
+      settingsComponent = <AvoidStreetsSlider />;
       break;
     default:
       settingsComponent = <UphillSlider />;
@@ -95,6 +99,9 @@ const ProfileEditorMobile = () => {
               case 2:
                 dispatch(editProfile("BARRIERS"));
                 break;
+              case 3:
+                dispatch(editProfile("STREET_AVOIDANCE"));
+                break;
               default:
                 dispatch(editProfile("UPHILL"));
             }
@@ -103,6 +110,7 @@ const ProfileEditorMobile = () => {
           <Tab id="tab-uphill" label="Uphill" />
           <Tab id="tab-downhill" label="Downhill" />
           <Tab id="tab-barriers" label="Barriers" />
+          <Tab id="tab-street-avoidance" label="Streets" />
         </Tabs>
       </Toolbar>
       <CardText>{settingsComponent}</CardText>

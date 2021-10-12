@@ -16,7 +16,12 @@ export interface ProfilesState {
     Cane: Profile;
     Custom: Profile;
   };
-  editingProfile: "UPHILL" | "DOWNHILL" | "BARRIERS" | null;
+  editingProfile:
+    | "UPHILL"
+    | "DOWNHILL"
+    | "BARRIERS"
+    | "STREET_AVOIDANCE"
+    | null;
 }
 
 const initialState = {
@@ -114,12 +119,16 @@ const profilesSlice = createSlice({
     customAvoidCurbs(state, action) {
       state.profiles.Custom.avoidCurbs = action.payload;
     },
+    customStreetAvoidance(state, action) {
+      state.profiles.Custom.streetAvoidance = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchProfile.fulfilled, (state, action) => {
       state.profiles.Custom.uphillMax = action.payload.uphillMax;
       state.profiles.Custom.downhillMax = action.payload.downhillMax;
       state.profiles.Custom.avoidCurbs = action.payload.avoidCurbs;
+      state.profiles.Custom.streetAvoidance = action.payload.streetAvoidance;
     });
   },
 });
@@ -132,5 +141,6 @@ export const {
   customUphillMax,
   customDownhillMax,
   customAvoidCurbs,
+  customStreetAvoidance,
 } = profilesSlice.actions;
 export default profilesSlice.reducer;

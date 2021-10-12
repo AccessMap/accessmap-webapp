@@ -16,7 +16,13 @@ const fetchDirections = async (
 ): Promise<RouteResult> => {
   const { origin, destination, profile, tripOptions } = options;
 
-  const { uphillMax, downhillMax, avoidCurbs, id: profileID } = profile;
+  const {
+    uphillMax,
+    downhillMax,
+    avoidCurbs,
+    streetAvoidance,
+    id: profileID,
+  } = profile;
 
   const { dateTime: timeStamp } = tripOptions;
 
@@ -28,6 +34,7 @@ const fetchDirections = async (
     uphill: uphillMax,
     downhill: Math.abs(downhillMax),
     avoidCurbs: avoidCurbs ? 1 : 0,
+    streetAvoidance: streetAvoidance,
     timestamp: timeStamp,
   };
 

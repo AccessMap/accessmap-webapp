@@ -2,6 +2,7 @@ export interface SyncableProfile {
   uphillMax: number;
   downhillMax: number;
   avoidCurbs: boolean;
+  streetAvoidance: number;
 }
 
 export interface Profile extends SyncableProfile {
@@ -21,6 +22,7 @@ let customProfile: Profile = {
   uphillMax: 0.08,
   downhillMax: -0.1,
   avoidCurbs: true,
+  streetAvoidance: 1,
 };
 
 const wheelchairProfile: Profile = {
@@ -32,6 +34,7 @@ const wheelchairProfile: Profile = {
   uphillMax: 0.08,
   downhillMax: -0.1,
   avoidCurbs: true,
+  streetAvoidance: 1,
 };
 
 const poweredProfile: Profile = {
@@ -43,6 +46,7 @@ const poweredProfile: Profile = {
   uphillMax: 0.12,
   downhillMax: -0.12,
   avoidCurbs: true,
+  streetAvoidance: 1,
 };
 
 const caneProfile: Profile = {
@@ -54,6 +58,7 @@ const caneProfile: Profile = {
   uphillMax: 0.14,
   downhillMax: -0.14,
   avoidCurbs: false,
+  streetAvoidance: 1,
 };
 
 const defaultProfiles = {
