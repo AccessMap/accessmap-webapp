@@ -1,7 +1,7 @@
 import React from "react";
 
 import Button from "react-md/src/js/Buttons";
-import Card, { CardActions, CardText } from "react-md/src/js/Cards";
+import Card, { CardText } from "react-md/src/js/Cards";
 import { Tabs, Tab } from "react-md/src/js/Tabs";
 import Toolbar from "react-md/src/js/Toolbars";
 import SVGIcon from "react-md/src/js/SVGIcons";
@@ -10,25 +10,16 @@ import AvoidCurbsToggle from "../ProfileSettings/AvoidCurbsToggle";
 import AvoidStreetsSlider from "../ProfileSettings/AvoidStreetsSlider";
 import DownhillSlider from "../ProfileSettings/DownhillSlider";
 import UphillSlider from "../ProfileSettings/UphillSlider";
-import ProfileSaveButton from "../ProfileSaveButton";
 
 import close from "icons/close.svg";
 
 import { useAppSelector, useAppDispatch } from "hooks";
-import { openSignupPrompt } from "features/user/user-slice";
-import {
-  saveProfile,
-  editProfile,
-  clickProfileEditCloseButton,
-} from "../profiles-slice";
+import { editProfile, clickProfileEditCloseButton } from "../profiles-slice";
 
 const ProfileEditorMobile = () => {
   const dispatch = useAppDispatch();
   const { mediaType } = useAppSelector((state) => state.browser);
-  const { isLoggedIn } = useAppSelector((state) => state.user);
-  const { selected, editingProfile } = useAppSelector(
-    (state) => state.profiles
-  );
+  const { editingProfile } = useAppSelector((state) => state.profiles);
   const { currentActivity } = useAppSelector((state) => state.activities);
 
   if (mediaType !== "mobile") return null;
@@ -50,22 +41,6 @@ const ProfileEditorMobile = () => {
       break;
     default:
       settingsComponent = <UphillSlider />;
-  }
-
-  let saveButton = null;
-  if (selected === "Custom") {
-    saveButton = (
-      <ProfileSaveButton
-        mini
-        onClick={() => {
-          if (isLoggedIn) {
-            dispatch(saveProfile());
-          } else {
-            dispatch(openSignupPrompt());
-          }
-        }}
-      />
-    );
   }
 
   return (
@@ -114,7 +89,6 @@ const ProfileEditorMobile = () => {
         </Tabs>
       </Toolbar>
       <CardText>{settingsComponent}</CardText>
-      <CardActions>{saveButton}</CardActions>
     </Card>
   );
 };

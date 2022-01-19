@@ -64,6 +64,8 @@ const Map = () => {
 
   const { hasRoute } = useAppSelector((state) => state.directions);
 
+  const { tasksMode } = useAppSelector((state) => state.map);
+
   const dispatch = useAppDispatch();
 
   return (
@@ -186,7 +188,7 @@ const Map = () => {
         <GeolocationLayers />
         <WaypointsLayers />
         <RegionsLayers />
-        <TasksLayers />
+        {tasksMode && <TasksLayers />}
       </ReactMapGL>
       {!loaded && <MapLoadingStatus />}
     </div>

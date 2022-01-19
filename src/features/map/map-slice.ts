@@ -32,6 +32,7 @@ export interface MapState {
   interactiveWidth: number;
   interactiveHeight: number;
   uphillMode: boolean;
+  tasksMode: boolean;
   mediaType: Media;
   orientation: Orientation;
 }
@@ -45,6 +46,7 @@ const initialState = {
   canvasWidth: null,
   canvasHeight: null,
   uphillMode: true,
+  tasksMode: false,
   mediaType: getMediaType(),
   orientation: getOrientation(),
 } as MapState;
@@ -84,6 +86,9 @@ const mapSlice = createSlice({
     },
     clickMapLegendButton(state) {},
     clickMapLegendCloseButton(state) {},
+    clickTasksModeButton(state) {
+      state.tasksMode = !state.tasksMode;
+    },
   },
   extraReducers: (builder) => {
     // TODO: tracking of media type and orientation is duplicated here and in
@@ -178,5 +183,6 @@ export const {
   resize,
   clickMapLegendButton,
   clickMapLegendCloseButton,
+  clickTasksModeButton,
 } = mapSlice.actions;
 export default mapSlice.reducer;

@@ -14,6 +14,7 @@ import menu from "icons/menu.svg";
 import { useAppDispatch } from "hooks";
 
 import { show as showDrawer } from "features/drawer/drawer-slice";
+import { clickTasksModeButton } from "features/map/map-slice";
 
 interface Props {
   miniLogo?: boolean;
@@ -36,7 +37,12 @@ const TopBar = ({ miniLogo = false }: Props) => {
           <SVGIcon use={menu.url} />
         </Button>
       }
-      actions={[<RegionButton />]}
+      actions={[
+        <RegionButton />,
+        <Button flat primary onClick={() => dispatch(clickTasksModeButton())}>
+          Tasks
+        </Button>,
+      ]}
     >
       <div className="accessmap-title" key="accessmap-brand" aria-hidden>
         {miniLogo ? (
