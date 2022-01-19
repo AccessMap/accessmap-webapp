@@ -8,6 +8,7 @@ import MapLoadingStatus from "../MapLoadingStatus";
 
 import PedestrianSource from "../sources/PedestrianSource";
 import RegionsMaskSource from "../sources/RegionsMaskSource";
+import TasksSource from "../sources/TasksSource";
 
 import CrossingsLayers from "../layers/CrossingsLayers";
 import SidewalkLayers from "../layers/SidewalkLayers";
@@ -16,6 +17,7 @@ import RouteLayers from "../layers/RouteLayers";
 import { WaypointsLayers } from "../layers/WaypointsLayers";
 import GeolocationLayers from "features/geolocation/GeolocationLayers";
 import RegionsLayers from "../layers/RegionsLayers";
+import TasksLayers from "../layers/TasksLayers";
 
 import { useAppSelector, useAppDispatch } from "hooks";
 import { CLICKABLE_LAYERS } from "constants/layers";
@@ -169,6 +171,7 @@ const Map = () => {
       >
         <PedestrianSource />
         <RegionsMaskSource />
+        <TasksSource />
 
         {hasRoute && <RouteLayers />}
         <ElevatorPathLayers />
@@ -183,6 +186,7 @@ const Map = () => {
         <GeolocationLayers />
         <WaypointsLayers />
         <RegionsLayers />
+        <TasksLayers />
       </ReactMapGL>
       {!loaded && <MapLoadingStatus />}
     </div>
