@@ -26,7 +26,6 @@ const geocode = (
   const mapboxClient = new MapboxClient(MAPBOX_TOKEN);
   // TODO: set country code from region
   const geocoderOptions = {
-    country: "us",
     proximity: proximity,
     bbox: bbox,
   };
