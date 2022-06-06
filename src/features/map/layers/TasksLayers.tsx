@@ -12,8 +12,11 @@ const TasksLayers = () => (
       paint={{
         "fill-color": "#FF0000",
         "fill-opacity": [
-          "case",
-          ["==", ["get", "taskStatus"], "MAPPED"],
+          "match",
+          ["get", "taskStatus"],
+          "MAPPED",
+          0.1,
+          "VALIDATED",
           0.1,
           0.6,
         ],
@@ -27,8 +30,11 @@ const TasksLayers = () => (
       paint={{
         "fill-color": "#0000FF",
         "fill-opacity": [
-          "case",
-          ["==", ["get", "taskStatus"], "MAPPED"],
+          "match",
+          ["get", "taskStatus"],
+          "MAPPED",
+          0.1,
+          "VALIDATED",
           0.1,
           0.6,
         ],
