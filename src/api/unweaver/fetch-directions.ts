@@ -43,7 +43,7 @@ const fetchDirections = async (
     .map((k) => `${esc(k)}=${esc(routeParams[k])}`)
     .join("&");
 
-  const query = `${window.location.origin}/api/v1/routing/directions/${profileID}.json?${urlQuery}`;
+  const query = `${window.location.origin}/api/v1/routing/shortest_path/${profileID}.json?${urlQuery}`;
 
   let fetchOptions: object;
   if (options.signal !== undefined) {
