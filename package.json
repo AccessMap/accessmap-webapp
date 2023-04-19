@@ -88,7 +88,7 @@
     "jwt-decode": "^2.2.0",
     "lodash.throttle": "^4.1.1",
     "mapbox": "^1.0.0-beta9",
-    "mapbox-gl": "^1.2.0",
+    "mapbox-gl": "^1.13.3",
     "moment": "^2.24.0",
     "normalize.css": "^8.0.1",
     "opening_hours": "^3.5.0",
